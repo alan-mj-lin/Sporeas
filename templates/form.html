@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('refresh', function() {
+                location.reload();
+            });
+            $('form#update').submit(function(event) {
+                socket.emit('my broadcast event', {title: $('#title').val(), hymn: $('#hymn').val(), verse: $('#verse').val()});
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
-  <form target="_self" method="post">
+  <form id="update" target="_self" method="post">
     Title:<br>
-    <input type="text" name="title"><br>
+    <input type="text" name="title" id="title"><br>
     Hymn:<br>
-    <input type="text" name="hymn"><br><br>
+    <input type="text" name="hymn" id="hymn"><br><br>
     Verse:<br>
-    <input type="text" name="verse"><br>
+    <input type="text" name="verse" id="verse"><br>
     <input type="submit" value="Update">
   </form>
 </body>
