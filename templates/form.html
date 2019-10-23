@@ -10,7 +10,7 @@
                 location.reload();
             });
             $('form#update').submit(function(event) {
-                socket.emit('my broadcast event', {title: $('#title').val(), hymn: $('#hymn').val(), verse: $('#verse').val()});
+                socket.emit('my broadcast event', {title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), verse: $('#verse').val()});
                 return false;
             });
         });
@@ -18,8 +18,10 @@
 </head>
 <body>
   <form id="update" target="_self" method="post">
-    Title:<br>
+    English Title:<br>
     <input type="text" name="title" id="title"><br>
+    Chinese Title:<br>
+    <input type="text" name="ch_title" id="ch_title">
     Hymn:<br>
     <input type="text" name="hymn" id="hymn"><br><br>
     Verse:<br>
