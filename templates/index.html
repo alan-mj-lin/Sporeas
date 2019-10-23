@@ -11,26 +11,31 @@
             });
         });
     </script>
-    <style>
+    <style type="text/css" media="screen">
     h1 {
         text-align: center;
+        font-size: 100px;
+        font-weight: bold;
+        height: 150px;
     }
 
     h2 {
         text-align: center;
+        font-size: 100px;
+        font-weight: bold;
+        height: 150px;
     }
-
     h3 {
         text-align: center;
     }
     </style>
 </head>
 <body>
-
-    <h1>{{ titleString }}</h1>
-    <h1>{{ hymnString }}</h1>
-    <h1>{{ verseString }}</h1>
-
+<br>
+<h1> {{ titleString }} </h1>
+<h1> {{ chTitleString }}</h1>
+<h2> 讚美詩 Hymn: {{ hymnString }} </h2>
+<h2> {{ verseString }} </h2>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
 </html>
