@@ -11,6 +11,10 @@
             socket.on('refresh', function() {
                 location.reload();
             });
+            $('#reset').click(function(event) {
+                socket.emit('my broadcast event', {title: ' ', ch_title: ' ', hymn: ' ', book: ' ', verse: ' '});
+                return false;
+            });
             $('form#update').submit(function(event) {
                 socket.emit('my broadcast event', {title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
                 return false;
@@ -27,7 +31,7 @@
     Hymn:<br>
     <input type="text" name="hymn" id="hymn"><br>
     Verse:<br>
-    <select name="ddbible" id="ddbible" class="standard-text" style="font-size:Medium;height:30px;width:400px;">
+    <select name="ddbible" id="ddbible" class="standard-text" >
       <option selected="selected" value=""></option>
       <option value="1">Genesis | 創世記</option>
       <option value="2">Exodus | 出埃及記</option>
@@ -98,6 +102,7 @@
     </select>
     <input type="text" name="verse" id="verse"><br>
     <input type="submit" value="Update">
+    <input type="reset" id="reset" value="Reset">
   </form>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
