@@ -12,7 +12,7 @@
                 location.reload();
             });
             $('#reset').click(function(event) {
-                socket.emit('my broadcast event', {title: ' ', ch_title: ' ', hymn: ' ', book: ' ', verse: ' '});
+                socket.emit('my broadcast event', {title: '', ch_title: '', hymn: '', book: '', verse: ''});
                 return false;
             });
             $('form#update').submit(function(event) {

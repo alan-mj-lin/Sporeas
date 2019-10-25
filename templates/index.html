@@ -5,10 +5,17 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
+            $('.ui.modal').modal();
             var socket = io.connect('http://' + document.domain + ':' + location.port);
             socket.on('refresh', function() {
                 location.reload();
             });
+        });
+        $(document).click(function() {
+            console.log($('#verse').text().length)
+            if ($('#verse').text().length > 6){
+                $(".ui.basic.modal").modal("toggle");
+            }
         });
     </script>
     <style type="text/css" media="screen">
@@ -25,14 +32,37 @@
         font-weight: bold;
         height: 150px;
     }
+    h3 {
+        text-align: center;
+        font-size: 50px;
+        height: 100px;
+    }
     </style>
 </head>
 <body>
+    <!--<br>
+    <div style="display: inline;">
+        <h1 class="ui header" style="font-size: 100px;">{{ titleString }}</h1>
+    </div>
+    <div style="display: inline;">
+        <h1 class="ui header" style="font-size: 100px;">{{ chTitleString }}</h1>
+    </div>-->
+    <div class="ui header" style="text-align: center; font-size:100px;">{{ titleString }}</div>
+    <div class="ui header" style="text-align: center; font-size:100px;">{{ chTitleString }}</div>
     <br>
-    <h1> {{ titleString }} </h1>
-    <h1> {{ chTitleString }}</h1>
-    <h2> 讚美詩 Hymn: {{ hymnString }} </h2>
-    <h2> {{ bookString }} {{ verseString }} </h2>
+    <br>
+    <br>
+    <div style="display: inline;">
+        <h2 class="ui header" style="font-size: 100px;"> 讚美詩 Hymn: {{ hymnString }} </h2>
+    </div>
+    <h2 class="ui header" name="verse" id="verse" style="font-size: 100px;">{{ bookString }} {{ verseString }}</h2>
+    <div class="ui basic modal">
+        <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ titleString }}</div>
+        <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ chTitleString }}</div>
+        <div class="scrolling content">
+            <p class="ui inverted header" style="font-size:30px;"> {{ overlayString }}</p>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
 </html>
