@@ -8,12 +8,13 @@ socketio = SocketIO(app)
 title = "Title"
 ch_title = "Chinese Title"
 hymn = ''
+book = ''
 verse = "Verse"
 
 
 @app.route('/')
 def index():
-    return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, verseString=verse)
+    return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -25,11 +26,13 @@ def test_message(message):
     global title
     global ch_title
     global hymn
+    global book
     global verse
 
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
+    book = message['book']
     verse = message['verse']
     emit('refresh', namespace='/', broadcast=True)
 
