@@ -40,13 +40,8 @@
     </style>
 </head>
 <body>
-    <!--<br>
-    <div style="display: inline;">
-        <h1 class="ui header" style="font-size: 100px;">{{ titleString }}</h1>
-    </div>
-    <div style="display: inline;">
-        <h1 class="ui header" style="font-size: 100px;">{{ chTitleString }}</h1>
-    </div>-->
+    <br>
+    <br>
     <div class="ui header" style="text-align: center; font-size:100px;">{{ titleString }}</div>
     <div class="ui header" style="text-align: center; font-size:100px;">{{ chTitleString }}</div>
     <br>
@@ -59,8 +54,18 @@
     <div class="ui basic modal">
         <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ titleString }}</div>
         <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ chTitleString }}</div>
-        <div class="scrolling content">
-            <p class="ui inverted header" style="font-size:30px;"> {{ overlayString }}</p>
+        <div class="vertical scrolling content" style="overflow-y:scroll;">
+            <div class="ui two column grid">
+                <div class="column">
+                    <p class="ui inverted header" style="font-size:25px;"> {{ overlayString }}</p>
+                </div>
+                <div class="column">
+                    <p class="ui inverted header" style="font-size:30px;">{{ chOverlayString }}</p>
+                </div>
+            </div>
+            <div class="ui inverted vertical divider" style="font-size: 10px;">
+                EN|CH
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
