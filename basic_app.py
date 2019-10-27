@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
-title = "Title"
-ch_title = "Chinese Title"
+title = ''
+ch_title = ''
 hymn = ''
 book = ''
 verse = ''
@@ -43,7 +43,7 @@ def index():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return render_template("form.html")
+    return render_template("form.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay)
 
 @socketio.on('my broadcast event', namespace='/')
 def test_message(message):

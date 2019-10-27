@@ -5,7 +5,8 @@
   <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function(){
+        $(document).ready(function() {
+            autoSelectPreviousBook();
             var iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
             var socket = io.connect('http://' + document.domain + ':' + location.port);
             socket.on('refresh', function() {
@@ -17,12 +18,26 @@
             });
             $('form#update').submit(function(event) {
                 socket.emit('my broadcast event', {title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
+                indicateSent();
                 return false;
             });
         });
+        function autoSelectPreviousBook() {
+            var previousBook = $('#previous-book-selection').val();
+            if (!previousBook) return;
+            $('select#ddbible option:contains("' + previousBook + '")').attr('selected', 'selected');
+        }
+        function indicateSent() {
+            $("input, select").each(function() {
+                $(this).css('background-color', '#c5d7fc');
+            });
+            $('button[type="submit"]').prop('disabled', true);
+            $('button[type="reset"]').prop('disabled', true);
+        }
     </script>
 </head>
 <body>
+  <input id="previous-book-selection" style="position: absolute; visibility: hidden;" value="{{ bookString }}">
   <br>
   <br>
   <br>
@@ -31,19 +46,19 @@
     <form class="ui form" id="update" target="_self" method="post">
       <div class="field">
         <label>English Title:</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="{{ titleString }}">
       </div>
       <div class="field">
         <label>Chinese Title:</label>
-        <input type="text" name="ch_title" id="ch_title">
+        <input type="text" name="ch_title" id="ch_title" value="{{ chTitleString }}">
       </div>
       <div class="field">
         <label>Hymn:</label>
-        <input type="text" name="hymn" id="hymn">
+        <input type="text" name="hymn" id="hymn" value="{{ hymnString }}">
       </div>
       <div class="inline fields">
-        <label>Verse:</label>
-        <select class="ui search dropdown" name="ddbible" id="ddbible">
+        <label>Book:</label>
+        <select class="ui search dropdown four wide field" name="ddbible" id="ddbible">
           <option selected="selected" value=""></option>
           <option value="1">Genesis | 創世記</option>
           <option value="2">Exodus | 出埃及記</option>
@@ -115,9 +130,9 @@
         <div class="three wide field">
           <div class="ui left labeled input">
             <a class="ui right pointing label">
-              Passage
+              Verse:
             </a>
-            <input type="text" name="verse" id="verse">
+            <input type="text" name="verse" id="verse" value="{{ verseString }}">
           </div>
         </div>
       </div>
