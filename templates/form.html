@@ -7,7 +7,7 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             var socket = io.connect('http://' + document.domain + ':' + location.port);
-
+            $('.ui.dropdown').dropdown({ fullTextSearch: true });
             $('#reset').click(function(event) {
                 socket.emit('my broadcast event', {title: '', ch_title: '', hymn: '', book: '', verse: ''});
                 return false;
@@ -120,7 +120,6 @@
       </div>
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
-      <button class="ui button" type="button">Verse Display On/Off</button>
     </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
