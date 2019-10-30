@@ -6,7 +6,8 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             $('.ui.modal').modal();
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            var protocol = window.location.protocol;
+            var socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
             socket.on('refresh', function() {
                 location.reload();
             });

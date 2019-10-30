@@ -11,8 +11,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
-socketio = SocketIO(app, manage_session=True, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
-
+socketio = SocketIO(app, manage_session=True, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
 title = "Title"
 ch_title = "Chinese Title"
 hymn = ''
@@ -81,14 +80,22 @@ def get_esv_text(passage):
 
     return passages[0].strip() if passages else 'Error: Passage not found'
 
-@app.route('/<username>')
-def index():
-    return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
+@app.route('/<user>', methods=['GET', 'POST'])
+def index(user):
+    global username
+    if user == username:
+        return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template("form.html")
+
+@socketio.on('user active')
+def get_user(message):
+    global username
+
+    username = message['user']
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -102,7 +109,6 @@ def test_message(message):
     global ch_overlay
     global username
 
-    username =
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
@@ -115,7 +121,7 @@ def test_message(message):
         ch_overlay = get_chinese_text(passage)
 
     if username != '':
-        emit('refresh', namespace=username, broadcast=True)
+        emit('refresh', namespace='/', broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)
