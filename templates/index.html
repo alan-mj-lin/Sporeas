@@ -1,18 +1,30 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             $('.ui.modal').modal();
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-            socket.on('refresh', function() {
-                location.reload();
+            var protocol = window.location.protocol;
+            var socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
+            socket.on('connect', function() {
+                socket.emit('get sid', {user: window.location.pathname});
+            });
+            socket.on('refresh', function(msg) {
+                $('#title').html(msg.title);
+                $('#ch_title').html(msg.ch_title);
+                $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
+                $('#verse').html(msg.verse);
+                $('#innerTitle').html(msg.title);
+                $('#innerChTitle').html(msg.ch_title);
+                $('#overlay').html(msg.overlay);
+                $('#ch_overlay').html(msg.ch_overlay);
+                //location.reload();
             });
         });
         $(document).click(function() {
-            console.log($('#verse').text().length)
+            console.log($('#verse').text().length);
             if ($('#verse').text().length > 6){
                 $(".ui.basic.modal").modal("toggle");
             }
@@ -42,29 +54,29 @@
 <body>
     <br>
     <br>
-    <div class="ui header" style="text-align: center; font-size:100px;">{{ titleString }}</div>
-    <div class="ui header" style="text-align: center; font-size:100px;">{{ chTitleString }}</div>
+    <div class="ui header" style="text-align: center; font-size:100px;" id="title">Title</div>
+    <div class="ui header" style="text-align: center; font-size:100px;" id="ch_title">Chinese Title</div>
     <br>
     <br>
     <br>
     <div style="display: inline;">
-        <h2 class="ui header" style="font-size: 100px;"> 讚美詩 Hymn: {{ hymnString }} </h2>
+        <h2 class="ui header" style="font-size: 100px;"> 讚美詩 Hymn:</h2>
     </div>
     <h2 class="ui header" name="verse" id="verse" style="font-size: 100px;">{{ bookString }} {{ verseString }}</h2>
-    <div class="ui basic modal">
-        <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ titleString }}</div>
-        <div class="ui inverted header" style="text-align: center; font-size:50px;">{{ chTitleString }}</div>
+    <div class="ui top aligned basic modal">
+        <h1 class="ui inverted header" style="font-size:30px;" id="innerTitle">{{ titleString }}</h1>
+        <h1 class="ui inverted header" style="font-size:30px;" id="innerChTitle">{{ chTitleString }}</h1>
         <div class="vertical scrolling content" style="overflow-y:scroll;">
-            <div class="ui two column grid">
-                <div class="column">
-                    <p class="ui inverted header" style="font-size:25px;"> {{ overlayString }}</p>
-                </div>
-                <div class="column">
-                    <p class="ui inverted header" style="font-size:30px;">{{ chOverlayString }}</p>
-                </div>
-            </div>
-            <div class="ui inverted vertical divider" style="font-size: 10px;">
+            <div class="ui inverted vertical divider" style="font-size: 10px; position: relative">
                 EN|CH
+                <div class="ui two column grid">
+                    <div class="column">
+                        <p class="ui inverted header" style="font-size:25px;" id="overlay"> {{ overlayString }}</p>
+                    </div>
+                    <div class="column">
+                        <p class="ui inverted header" style="font-size:30px;" id="ch_overlay">{{ chOverlayString }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

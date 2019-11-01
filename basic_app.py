@@ -1,6 +1,7 @@
 import requests, json
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, emit
+from flask_session import Session
 import collections
 
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
@@ -8,8 +9,9 @@ API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
-
+# app.config['SESSION_TYPE'] = 'filesystem'
+# Session(app)
+socketio = SocketIO(app, manage_session=False, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
 title = "Title"
 ch_title = "Chinese Title"
 hymn = ''
@@ -17,6 +19,9 @@ book = ''
 verse = ''
 overlay = ''
 ch_overlay = ''
+username = ''
+user_list = {}
+project_list = {}
 
 
 def find(key, dictionary):
@@ -49,14 +54,10 @@ def get_chinese_text(passage):
     verse_nr = list(find('verse_nr', passages))
     j = 0
     for i in text_list:
-        # i.strip('\u3000').strip('\r\n')
         chinese_overlay += str(verse_nr[j])
         chinese_overlay += i
         j += 1
     return chinese_overlay
-
-    
-
 
 
 def get_esv_text(passage):
@@ -79,14 +80,39 @@ def get_esv_text(passage):
 
     return passages[0].strip() if passages else 'Error: Passage not found'
 
-@app.route('/')
-def index():
-    return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
+
+@app.route('/<user>', methods=['GET', 'POST'])
+def index(user):
+
+    # return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
+    return render_template("index.html")
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template("form.html")
+
+
+@socketio.on('connect')
+def connect_test():
+    emit('get sid')
+
+
+@socketio.on('get sid')
+def get_session(message):
+    user = message['user'].strip('/')
+    if user != '':
+        project_list[user] = request.sid
+
+
+@socketio.on('user active')
+def get_user(message):
+    global username
+    global user_list
+
+    username = message['user']
+    print(username)
+    user_list[username] = request.sid
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -98,6 +124,9 @@ def test_message(message):
     global verse
     global overlay
     global ch_overlay
+
+    location = ''
+    session_id = request.sid
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
@@ -108,8 +137,19 @@ def test_message(message):
     if book != '':
         overlay = get_esv_text(passage)
         ch_overlay = get_chinese_text(passage)
-    emit('refresh', namespace='/', broadcast=True)
+
+    for key, value in user_list.items():
+        print("user: " + key)
+        print("sid: " + value)
+        print("active: " + session_id)
+        if session_id == user_list[key]:
+            location = key
+
+    emit_session = project_list[location]
+    print(location)
+    print(emit_session)
+    emit('refresh', {'title': title, 'ch_title': ch_title, 'verse': book + verse, 'overlay': overlay, 'ch_overlay': ch_overlay}, namespace='/', room=emit_session)
 
 if __name__ == '__main__':
-    socketio.run(app, host='localhost', port=9000)
+    socketio.run(app, host='127.0.0.1', port=9000, debug=True)
 

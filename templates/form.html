@@ -2,19 +2,39 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-  <script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
+            $('#update').hide();
+            $("#project").attr("disabled", true);
+            var protocol = window.location.protocol;
             var socket = io.connect('http://' + document.domain + ':' + location.port);
+            var user = '';
+            $('form#connect').submit(function(event) {
+              if ($('#user').val() != ''){
+                user = $('#user').val();
+                $("#project").attr("disabled", false);
+                socket.emit('user active', {user: $('#user').val()});
+                return false;
+              }
+            });
+
+            $('#project').click(function(event) {
+              $('#update').show();
+              $('.ui.dropdown').dropdown({ fullTextSearch: true });
+              $('#connect').hide();
+              event.preventDefault();
+              window.open('http://127.0.0.1:9000/' + user, '_blank');
+            });
 
             $('#reset').click(function(event) {
-                socket.emit('my broadcast event', {title: '', ch_title: '', hymn: '', book: '', verse: ''});
-                return false;
+              socket.emit('my broadcast event', {title: '', ch_title: '', hymn: '', book: '', verse: ''});
+              return false;
             });
             $('form#update').submit(function(event) {
-                socket.emit('my broadcast event', {title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
-                return false;
+              socket.emit('my broadcast event', {title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
+              return false;
             });
         });
     </script>
@@ -25,6 +45,14 @@
   <br>
   <div class="ui container">
     <h1 class="ui huge header">Service Projection UI</h1>
+    <form class="ui form" id="connect" target="_self" method="post">
+      <div class="inline field">
+        <label>Location</label>
+        <input type="text" id="user">
+        <button class="ui secondary button" type="submit">Connect</button>
+        <button class="ui button" id="project" type="button">Project</button>
+      </div>
+    </form>
     <form class="ui form" id="update" target="_self" method="post">
       <div class="field">
         <label>English Title:</label>
@@ -120,7 +148,6 @@
       </div>
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
-      <button class="ui button" type="button">Verse Display On/Off</button>
     </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
