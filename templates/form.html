@@ -9,7 +9,7 @@
             $('#update').hide();
             $("#project").attr("disabled", true);
             var protocol = window.location.protocol;
-            var socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
             var user = '';
             $('form#connect').submit(function(event) {
               if ($('#user').val() != ''){
@@ -25,7 +25,7 @@
               $('.ui.dropdown').dropdown({ fullTextSearch: true });
               $('#connect').hide();
               event.preventDefault();
-              window.open('https://127.0.0.1:9000/' + user, '_blank');
+              window.open('http://127.0.0.1:9000/' + user, '_blank');
             });
 
             $('#reset').click(function(event) {
