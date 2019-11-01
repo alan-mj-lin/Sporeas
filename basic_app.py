@@ -104,15 +104,21 @@ def get_session(message):
     if user != '':
         project_list[user] = request.sid
 
-
 @socketio.on('user active')
 def get_user(message):
     global username
     global user_list
-
+    duplicate = False
     username = message['user']
     print(username)
-    user_list[username] = request.sid
+    for key, value in user_list.items():
+        if username == key:
+            duplicate = True
+
+    if not duplicate:
+        user_list[username] = request.sid
+
+    emit('auth event', {'auth': str(duplicate)})
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -149,6 +155,7 @@ def test_message(message):
     print(location)
     print(emit_session)
     emit('refresh', {'title': title, 'ch_title': ch_title, 'verse': book + verse, 'overlay': overlay, 'ch_overlay': ch_overlay}, namespace='/', room=emit_session)
+
 
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)
