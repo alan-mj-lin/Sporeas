@@ -11,15 +11,27 @@
             var protocol = window.location.protocol;
             var socket = io.connect('http://' + document.domain + ':' + location.port);
             var user = '';
+            
+            function isValid(str) {
+              return !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(str);
+            }
+            
             $('form#connect').submit(function(event) {
-              if ($('#user').val() != ''){
+              if(/^[a-zA-Z0-9- ]*$/.test($("#user").val()) == false) {
+                alert("Nickname can have only alphabets and numbers.");
+              } else if ($.trim($('#user').val()) != ''){
                 user = $('#user').val();
-                $("#project").attr("disabled", false);
                 socket.emit('user active', {user: $('#user').val()});
                 return false;
               }
             });
 
+            socket.on('auth event', function(msg) {
+              if (msg.auth != 'True') {
+                $("#project").attr("disabled", false);
+              }
+            });
+            
             $('#project').click(function(event) {
               $('#update').show();
               $('.ui.dropdown').dropdown({ fullTextSearch: true });
@@ -52,6 +64,7 @@
         <button class="ui secondary button" type="submit">Connect</button>
         <button class="ui button" id="project" type="button">Project</button>
       </div>
+      <div id="live"></div>
     </form>
     <form class="ui form" id="update" target="_self" method="post">
       <div class="field">
