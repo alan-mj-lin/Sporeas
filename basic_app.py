@@ -88,6 +88,7 @@ def index(user):
     return render_template("index.html")
 
 
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template("form.html")
