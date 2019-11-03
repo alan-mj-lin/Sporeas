@@ -2,3 +2,5 @@
 socketio_test.py
 templates/index_2.html
 venv/
+.idea/workspace.xml
+.idea/
