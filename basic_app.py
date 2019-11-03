@@ -100,16 +100,22 @@ def connect_test():
 
 @socketio.on('get sid')
 def get_session(message):
+    global project_list
+    duplicate = False
     user = message['user'].strip('/')
-    if user != '':
+    for key, value in project_list.items():
+        if user == key:
+            duplicate = True
+    if user != '' and not duplicate:
         project_list[user] = request.sid
+
 
 @socketio.on('user active')
 def get_user(message):
     global username
     global user_list
     duplicate = False
-    username = message['user']
+    username = message['user'].replace(' ', '_')
     print(username)
     for key, value in user_list.items():
         if username == key:
@@ -119,6 +125,19 @@ def get_user(message):
         user_list[username] = request.sid
 
     emit('auth event', {'auth': str(duplicate)})
+
+
+@socketio.on('disconnect')
+def disconnect_event():
+    global user_list
+    global project_list
+
+    session_id = request.sid
+
+    for key, value in project_list.items():
+        if session_id == project_list[key]:
+            del project_list[key]
+            del user_list[key]
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -154,7 +173,7 @@ def test_message(message):
     emit_session = project_list[location]
     print(location)
     print(emit_session)
-    emit('refresh', {'title': title, 'ch_title': ch_title, 'verse': book + verse, 'overlay': overlay, 'ch_overlay': ch_overlay}, namespace='/', room=emit_session)
+    emit('refresh', {'title': title, 'ch_title': ch_title, 'hymn': hymn, 'verse': book + verse, 'overlay': overlay, 'ch_overlay': ch_overlay}, namespace='/', room=emit_session)
 
 
 if __name__ == '__main__':
