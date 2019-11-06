@@ -9,8 +9,8 @@ API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-# app.config['SESSION_TYPE'] = 'filesystem'
-# Session(app)
+app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 socketio = SocketIO(app, manage_session=False, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
 title = "Title"
 ch_title = "Chinese Title"
@@ -20,7 +20,7 @@ verse = ''
 overlay = ''
 ch_overlay = ''
 username = ''
-user_list = {}
+user_list = []
 project_list = {}
 
 
@@ -107,7 +107,10 @@ def get_session(message):
     for key, value in project_list.items():
         if user == key:
             duplicate = True
+    print(duplicate)
+    print(user)
     if user != '' and not duplicate:
+        print(project_list)
         project_list[user] = request.sid
 
 
@@ -118,14 +121,13 @@ def get_user(message):
     duplicate = False
     username = message['user'].replace(' ', '_')
     print(username)
-    for key, value in user_list.items():
-        if username == key:
+    for i in user_list:
+        if username == i:
             duplicate = True
 
     if not duplicate:
-        user_list[username] = request.sid
-
-    emit('auth event', {'auth': str(duplicate)})
+        user_list.append(username)
+        emit('auth event', {'auth': str(duplicate)})
 
 
 @socketio.on('disconnect')
@@ -134,11 +136,16 @@ def disconnect_event():
     global project_list
 
     session_id = request.sid
-
+    remove_user = ''
     for key, value in project_list.items():
+        print("current: " +session_id)
+        print("list: " + project_list[key])
         if session_id == project_list[key]:
-            del project_list[key]
-            del user_list[key]
+            remove_user = key
+
+    if remove_user != '':
+        del project_list[remove_user]
+        # del user_list[remove_user]
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -151,7 +158,6 @@ def test_message(message):
     global overlay
     global ch_overlay
 
-    location = ''
     session_id = request.sid
     title = message['title']
     ch_title = message['ch_title']
@@ -159,22 +165,17 @@ def test_message(message):
     book = message['book']
     verse = message['verse']
     passage = message['book'].split('|')[0] + message['verse']
+    active = message['user']
+
     print(passage)
     if book != '':
         overlay = get_esv_text(passage)
         ch_overlay = get_chinese_text(passage)
 
-    for key, value in user_list.items():
-        print("user: " + key)
-        print("sid: " + value)
-        print("active: " + session_id)
-        if session_id == user_list[key]:
-            location = key
-
-    emit_session = project_list[location]
-    print(location)
+    print(project_list)
+    emit_session = project_list[active]
     print(emit_session)
-    emit('refresh', {'title': title, 'ch_title': ch_title, 'hymn': hymn, 'verse': book + verse, 'overlay': overlay, 'ch_overlay': ch_overlay}, namespace='/', room=emit_session)
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=emit_session)
 
 
 if __name__ == '__main__':

@@ -11,6 +11,26 @@
             socket.on('connect', function() {
                 socket.emit('get sid', {user: window.location.pathname});
             });
+            
+            /*sessionStorage.setItem('data', JSON.stringify( {name: 'Simon'} ));
+            var person = JSON.parse(sessionStorage.getItem('data'));
+            console.log(person["name"]);*/
+            
+            if (sessionStorage.length !=0 ) {
+                var msg = JSON.parse(sessionStorage.getItem("state"));
+                console.log(msg);
+                if (msg != null) {
+                    $('#title').html(msg["title"]);
+                    $('#ch_title').html(msg["ch_title"]);
+                    $('#hymn').html('讚美詩 Hymn: '+msg["hymn"]);
+                    $('#verse').html(msg["verse"]);
+                    $('#innerTitle').html(msg["title"]);
+                    $('#innerChTitle').html(msg["ch_title"]);
+                    $('#overlay').html(msg["overlay"]);
+                    $('#ch_overlay').html(msg["ch_overlay"]);
+                }
+            }
+            
             socket.on('refresh', function(msg) {
                 $('#title').html(msg.title);
                 $('#ch_title').html(msg.ch_title);
@@ -20,6 +40,8 @@
                 $('#innerChTitle').html(msg.ch_title);
                 $('#overlay').html(msg.overlay);
                 $('#ch_overlay').html(msg.ch_overlay);
+                console.log(msg);
+                sessionStorage.setItem("state", JSON.stringify(msg));
                 //location.reload();
             });
         });
