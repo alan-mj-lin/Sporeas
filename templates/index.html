@@ -6,28 +6,26 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             $('.ui.modal').modal();
+            $(".ui.basic.modal").modal({ centered: false });
             var protocol = window.location.protocol;
             var socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
             socket.on('connect', function() {
                 socket.emit('get sid', {user: window.location.pathname});
             });
             
-            /*sessionStorage.setItem('data', JSON.stringify( {name: 'Simon'} ));
-            var person = JSON.parse(sessionStorage.getItem('data'));
-            console.log(person["name"]);*/
             
             if (sessionStorage.length !=0 ) {
                 var msg = JSON.parse(sessionStorage.getItem("state"));
                 console.log(msg);
                 if (msg != null) {
-                    $('#title').html(msg["title"]);
-                    $('#ch_title').html(msg["ch_title"]);
-                    $('#hymn').html('讚美詩 Hymn: '+msg["hymn"]);
-                    $('#verse').html(msg["verse"]);
-                    $('#innerTitle').html(msg["title"]);
-                    $('#innerChTitle').html(msg["ch_title"]);
-                    $('#overlay').html(msg["overlay"]);
-                    $('#ch_overlay').html(msg["ch_overlay"]);
+                    $('#title').html(msg.title);
+                    $('#ch_title').html(msg.ch_title);
+                    $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
+                    $('#verse').html(msg.verse);
+                    $('#innerTitle').html(msg.title);
+                    $('#innerChTitle').html(msg.ch_title);
+                    $('#overlay').html(msg.overlay);
+                    $('#ch_overlay').html(msg.ch_overlay);
                 }
             }
             
@@ -48,29 +46,13 @@
         $(document).click(function() {
             console.log($('#verse').text().length);
             if ($('#verse').text().length > 6){
+                // $(".ui.basic.modal>.header").modal({ centered: false });
                 $(".ui.basic.modal").modal("toggle");
             }
         });
     </script>
-    <style type="text/css" media="screen">
-    h1 {
-        text-align: center;
-        font-size: 100px;
-        font-weight: bold;
-        height: 150px;
-    }
-
-    h2 {
-        text-align: center;
-        font-size: 100px;
-        font-weight: bold;
-        height: 150px;
-    }
-    h3 {
-        text-align: center;
-        font-size: 50px;
-        height: 100px;
-    }
+    <style>
+        
     </style>
 </head>
 <body>
@@ -78,25 +60,20 @@
     <br>
     <div class="ui header" style="text-align: center; font-size:100px;" id="title">Title</div>
     <div class="ui header" style="text-align: center; font-size:100px;" id="ch_title">Chinese Title</div>
-    <br>
-    <br>
-    <br>
-    <div style="display: inline;">
-        <h2 class="ui header" style="font-size: 100px;" id="hymn"> 讚美詩 Hymn:</h2>
-    </div>
-    <h2 class="ui header" name="verse" id="verse" style="font-size: 100px;">{{ bookString }} {{ verseString }}</h2>
+    <div class="ui header" style="text-align: center; font-size: 100px;" id="hymn">讚美詩 Hymn:</div>
+    <div class="ui header" name="verse" id="verse" style="text-align: center; font-size: 100px;"></div>
     <div class="ui top aligned basic modal">
-        <h1 class="ui inverted header" style="font-size:30px;" id="innerTitle">{{ titleString }}</h1>
-        <h1 class="ui inverted header" style="font-size:30px;" id="innerChTitle">{{ chTitleString }}</h1>
+        <h1 class="ui small inverted header" style="text-align: center; font-size:20px;" id="innerTitle"></h1>
+        <h1 class="ui small inverted header" style="text-align: center; font-size:20px;" id="innerChTitle"></h1>
         <div class="vertical scrolling content" style="overflow-y:scroll;">
             <div class="ui inverted vertical divider" style="font-size: 10px; position: relative">
                 EN|CH
                 <div class="ui two column grid">
                     <div class="column">
-                        <p class="ui inverted header" style="font-size:25px;" id="overlay"> {{ overlayString }}</p>
+                        <p class="ui inverted header" style="font-size:25px;" id="overlay"></p>
                     </div>
                     <div class="column">
-                        <p class="ui inverted header" style="font-size:30px;" id="ch_overlay">{{ chOverlayString }}</p>
+                        <p class="ui inverted header" style="font-size:30px;" id="ch_overlay"></p>
                     </div>
                 </div>
             </div>
