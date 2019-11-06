@@ -6,15 +6,13 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             $('.ui.modal').modal();
+            $(".ui.basic.modal").modal({ centered: false });
             var protocol = window.location.protocol;
             var socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
             socket.on('connect', function() {
                 socket.emit('get sid', {user: window.location.pathname});
             });
             
-            /*sessionStorage.setItem('data', JSON.stringify( {name: 'Simon'} ));
-            var person = JSON.parse(sessionStorage.getItem('data'));
-            console.log(person["name"]);*/
             
             if (sessionStorage.length !=0 ) {
                 var msg = JSON.parse(sessionStorage.getItem("state"));
@@ -49,7 +47,7 @@
             console.log($('#verse').text().length);
             if ($('#verse').text().length > 6){
                 // $(".ui.basic.modal>.header").modal({ centered: false });
-                $(".ui.basic.modal").modal({ centered: false }).modal("toggle");
+                $(".ui.basic.modal").modal("toggle");
             }
         });
     </script>
