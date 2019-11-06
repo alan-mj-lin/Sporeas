@@ -158,18 +158,28 @@ def test_message(message):
     global overlay
     global ch_overlay
 
+    comma = False
     session_id = request.sid
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
     book = message['book']
     verse = message['verse']
+    extra_verse = ''
+    for i in verse:
+        if i == ',':
+            extra_verse = verse.split(',')[1]
+            comma = True
     passage = message['book'].split('|')[0] + message['verse']
+    passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
 
     print(passage)
     if book != '':
-        overlay = get_esv_text(passage)
+        if comma:
+            overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
+        else:
+            overlay = get_esv_text(passage)
         ch_overlay = get_chinese_text(passage)
 
     print(project_list)
