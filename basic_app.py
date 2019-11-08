@@ -189,8 +189,7 @@ def test_message(message):
         ch_overlay = get_chinese_text(passage)
 
     print(project_list)
-    # emit_session = project_list[active]
-    # print(emit_session)
+
     emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
 
 
