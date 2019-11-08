@@ -123,7 +123,8 @@ def get_user(message):
     global user_list
     duplicate = False
     username = message['user'].replace(' ', '_')
-    join_room(username)
+    if username != '':
+        join_room(username)
     print(username)
     for i in user_list:
         if username == i:
@@ -177,7 +178,8 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
-
+    print(active)
+    print(message)
     print(passage)
     if book != '':
         if comma:
@@ -187,8 +189,8 @@ def test_message(message):
         ch_overlay = get_chinese_text(passage)
 
     print(project_list)
-    emit_session = project_list[active]
-    print(emit_session)
+    # emit_session = project_list[active]
+    # print(emit_session)
     emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
 
 

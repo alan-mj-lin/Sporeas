@@ -11,7 +11,6 @@
             $("#project").attr("disabled", true);
             var protocol = window.location.protocol;
             var socket = io.connect('http://' + document.domain + ':' + location.port);
-            var user = '';
             
             if (sessionStorage){
               if (sessionStorage.getItem("connected") == "True") {
@@ -24,7 +23,7 @@
               if(/^[a-zA-Z0-9- ]*$/.test($("#user").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else if ($.trim($('#user').val()) != ''){
-                user = $('#user').val();
+                var user = $('#user').val();
                 socket.emit('user active', {user: $('#user').val()});
                 sessionStorage.setItem("user", user);
                 return false;
@@ -42,7 +41,7 @@
               $('#update').show();
               $('#connect').hide();
               event.preventDefault();
-              window.open('http://127.0.0.1:9000/' + user, '_blank');
+              window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank');
             });
 
             $('#reset').click(function(event) {
@@ -53,9 +52,6 @@
               if(/^[a-zA-Z0-9- ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
-                user = $('#user').val();
-                socket.emit('user active', {user: $('#user').val()});
-                sessionStorage.setItem("user", user);
                 active = sessionStorage.getItem("user");
                 socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
                 return false;
