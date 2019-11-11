@@ -1,6 +1,6 @@
 import requests, json
 from flask import Flask, render_template, request, session
-from flask_socketio import SocketIO, emit, join_room, leave_room
+from flask_socketio import SocketIO, emit
 from flask_session import Session
 import collections
 
@@ -22,7 +22,7 @@ ch_overlay = ''
 username = ''
 user_list = []
 project_list = {}
-rooms = []
+
 
 def find(key, dictionary):
     for k, v in dictionary.items():
@@ -102,7 +102,6 @@ def connect_test():
 @socketio.on('get sid')
 def get_session(message):
     global project_list
-    global rooms
     duplicate = False
     user = message['user'].strip('/')
     for key, value in project_list.items():
@@ -110,8 +109,6 @@ def get_session(message):
             duplicate = True
     print(duplicate)
     print(user)
-    rooms.append(user)
-    join_room(user)
     if user != '' and not duplicate:
         print(project_list)
         project_list[user] = request.sid
@@ -123,8 +120,6 @@ def get_user(message):
     global user_list
     duplicate = False
     username = message['user'].replace(' ', '_')
-    if username != '':
-        join_room(username)
     print(username)
     for i in user_list:
         if username == i:
@@ -178,8 +173,7 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
-    print(active)
-    print(message)
+
     print(passage)
     if book != '':
         if comma:
@@ -189,8 +183,9 @@ def test_message(message):
         ch_overlay = get_chinese_text(passage)
 
     print(project_list)
-
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
+    emit_session = project_list[active]
+    print(emit_session)
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=emit_session)
 
 
 if __name__ == '__main__':

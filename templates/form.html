@@ -49,7 +49,7 @@
               return false;
             });
             $('form#update').submit(function(event) {
-              if(/^[a-zA-Z0-9- ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9- ]*$/.test($("#verse").val()) == false) {
+              if(/^[a-zA-Z0-9-,: ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,: ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
                 active = sessionStorage.getItem("user");
