@@ -24,6 +24,7 @@ user_list = []
 project_list = {}
 rooms = []
 
+
 def find(key, dictionary):
     for k, v in dictionary.items():
         if k == key:
