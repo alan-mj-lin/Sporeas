@@ -22,9 +22,14 @@ ch_overlay = ''
 username = ''
 user_list = []
 project_list = {}
-rooms = []
+rooms = {} # Room list for Route Broadcast feature
 
 
+"""
+This function is used to find any given key value in a very complicated JSON.
+getbible.net's API is not as sophisticated enough that it just gives you the verse texts. 
+It will return a JSON whichwe have to parse on our own.
+"""
 def find(key, dictionary):
     for k, v in dictionary.items():
         if k == key:
@@ -38,6 +43,9 @@ def find(key, dictionary):
                     yield result
 
 
+"""
+Function to get the chinese verse text.
+"""
 def get_chinese_text(passage):
     chinese_overlay = ''
     version = 'cut'
@@ -61,6 +69,9 @@ def get_chinese_text(passage):
     return chinese_overlay
 
 
+"""
+Function to get the english verse text.
+"""
 def get_esv_text(passage):
     params = {
         'q': passage,
@@ -82,6 +93,9 @@ def get_esv_text(passage):
     return passages[0].strip() if passages else 'Error: Passage not found'
 
 
+"""
+Flask route for root directory
+"""
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
 
@@ -89,21 +103,30 @@ def index(user):
     return render_template("index.html")
 
 
-
+"""
+Flask route for admin directory
+"""
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return render_template("form.html")
 
 
+"""
+If a client connects call function to get the SID (Used for session management)
+"""
 @socketio.on('connect')
 def connect_test():
     emit('get sid')
 
 
+"""
+Function to get the SID of a client connection. Called via connection to WebSocket.
+"""
 @socketio.on('get sid')
 def get_session(message):
     global project_list
-    global rooms
+    global rooms # Route Broadcast Feature
+
     duplicate = False
     user = message['user'].strip('/')
     for key, value in project_list.items():
@@ -111,8 +134,7 @@ def get_session(message):
             duplicate = True
     print(duplicate)
     print(user)
-    rooms.append(user)
-    join_room(user)
+    join_room(user) # Route Broadcast Feature
     if user != '' and not duplicate:
         print(project_list)
         project_list[user] = request.sid
@@ -122,36 +144,62 @@ def get_session(message):
 def get_user(message):
     global username
     global user_list
+    global rooms # Route Broadcast Feature
     duplicate = False
     username = message['user'].replace(' ', '_')
+
+    # Route Broadcast Feature
     if username != '':
         join_room(username)
+        rooms[username] = []
+        rooms[username].append(request.sid)
+        emit('auth event', {'auth': str(duplicate)})
+    # End of Route Broadcast Feature
+
+    # Session Logic
+    """
     print(username)
     for i in user_list:
         if username == i:
             duplicate = True
-
     if not duplicate:
         user_list.append(username)
         emit('auth event', {'auth': str(duplicate)})
-
+    """
+    # End of Session Logic
 
 @socketio.on('disconnect')
 def disconnect_event():
     global user_list
     global project_list
+    global rooms # Room Logic
 
-    session_id = request.sid
+    # Session Logic
+    """
+    # session_id = request.sid # Session Logic
     remove_user = ''
+    
+    
     for key, value in project_list.items():
         print("current: " +session_id)
         print("list: " + project_list[key])
         if session_id == project_list[key]:
             remove_user = key
-
+            
     if remove_user != '':
         del project_list[remove_user]
-        # del user_list[remove_user]
+        del user_list[remove_user]
+    """
+    # End Session Logic
+
+    # Route Broadcast Logic
+    active = request.sid
+    for room in rooms:
+        for num in range(len(rooms[room])):
+            if rooms[room][num] == active:
+                leave_room(room)
+                del rooms[room][num]
+    print(rooms)
 
 
 @socketio.on('my broadcast event', namespace='/')
@@ -165,7 +213,8 @@ def test_message(message):
     global ch_overlay
 
     comma = False
-    session_id = request.sid
+    # session_id = request.sid
+
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
@@ -179,9 +228,12 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
+
+    # Debug Info
     print(active)
     print(message)
     print(passage)
+
     if book != '':
         if comma:
             overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
@@ -189,9 +241,18 @@ def test_message(message):
             overlay = get_esv_text(passage)
         ch_overlay = get_chinese_text(passage)
 
+    # Debug Info
     print(project_list)
 
+    # Route Broadcast Feature
     emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
+
+    # Session Feature
+    """
+    emit_session = project_list[active]	
+    print(emit_session)	
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=emit_session)
+    """
 
 
 if __name__ == '__main__':
