@@ -201,6 +201,10 @@ def disconnect_event():
                 del rooms[room][num]
     print(rooms)
 
+@socketio.on('reset', namespace='/')
+def reset(message):
+    active = message['user']
+    emit('reset', {"verse": ''}, namespace='/', room=active)
 
 @socketio.on('my broadcast event', namespace='/')
 def test_message(message):

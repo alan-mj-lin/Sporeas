@@ -42,6 +42,17 @@
                 sessionStorage.setItem("state", JSON.stringify(msg));
                 //location.reload();
             });
+            
+            socket.on('reset', function(msg) {
+                msg.title = $('#title').html();
+                msg.hymn = $('#hymn').html();
+                msg.ch_title = $('#ch_title').html();
+                msg.overlay = $('#overlay').html();
+                msg.ch_overlay = $('#ch_overlay').html();
+                $('#verse').html(msg.verse);
+                console.log(msg);
+                sessionStorage.setItem("state", JSON.stringify(msg)); 
+            });
         });
         $(document).click(function() {
             console.log($('#verse').text().length);

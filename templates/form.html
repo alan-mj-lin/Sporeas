@@ -45,11 +45,13 @@
             });
 
             $('#reset').click(function(event) {
-              socket.emit('my broadcast event', {title: '', ch_title: '', hymn: '', book: '', verse: ''});
+              active = sessionStorage.getItem("user");
+              socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
               return false;
             });
+            
             $('form#update').submit(function(event) {
-              if(/^[a-zA-Z0-9-,: ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,: ]*$/.test($("#verse").val()) == false) {
+              if(/^[a-zA-Z0-9-,: ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,: ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
                 active = sessionStorage.getItem("user");
