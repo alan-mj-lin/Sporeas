@@ -140,6 +140,10 @@ def get_session(message):
         project_list[user] = request.sid
 
 
+"""
+Function to join a room according to user input, and emits to client whether to
+allow the user access or not.
+"""
 @socketio.on('user active')
 def get_user(message):
     global username
@@ -168,6 +172,10 @@ def get_user(message):
     """
     # End of Session Logic
 
+
+"""
+Disconnect event should cause client to leave the room, and delete the active room entry.
+"""
 @socketio.on('disconnect')
 def disconnect_event():
     global user_list
@@ -201,11 +209,43 @@ def disconnect_event():
                 del rooms[room][num]
     print(rooms)
 
+
+"""
+Function to send a reset event - clears the set verse.
+"""
 @socketio.on('reset', namespace='/')
 def reset(message):
     active = message['user']
     emit('reset', {"verse": ''}, namespace='/', room=active)
 
+
+"""
+Function to set the projection screen to hymn singing mode.
+"""
+@socketio.on('hymn singing', namespace='/')
+def hymn_singing_mode(message):
+    global title
+    global ch_title
+    global hymn
+    global book
+    global verse
+    global overlay
+    global ch_overlay
+
+    title = message['title']
+    ch_title = message['ch_title']
+    hymn = message['hymn']
+    book = message['book']
+    verse = message['verse']
+    active = message['user']
+
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay,
+                     "ch_overlay": ch_overlay}, namespace='/', room=active)
+
+
+"""
+Main function for form handling. Emits the message to active clients in the same room only.
+"""
 @socketio.on('my broadcast event', namespace='/')
 def test_message(message):
     global title

@@ -9,14 +9,34 @@
             $('.ui.dropdown').dropdown({ fullTextSearch: true });
             $('#update').hide();
             $("#project").attr("disabled", true);
-            var protocol = window.location.protocol;
+
             var socket = io.connect('http://' + document.domain + ':' + location.port);
+            
+            $('#title').prop('disabled', false);
+            $('#ch_title').prop('disabled', false);
+            $('.ui.dropdown').removeClass("disabled");
+            $('#verse').prop('disabled', false);
             
             if (sessionStorage){
               if (sessionStorage.getItem("connected") == "True") {
                 $('#update').show();
                 $('#connect').hide();
               }
+              /* Toggle Logic for hymn singing
+              if (sessionStorage.getItem("hymn_singing") == "true") {
+                $('#title').prop('disabled', true);
+                $('#ch_title').prop('disabled', true);
+                $('.ui.dropdown').addClass("disabled");
+                $('#verse').prop('disabled', true);
+                console.log(sessionStorage.getItem("hymn_singing"));
+              } else if (sessionStorage.getItem("hymn_singing") == "false") {
+                $('#title').prop('disabled', false);
+                $('#ch_title').prop('disabled', false);
+                $('.ui.dropdown').removeClass("disabled");
+                $('#verse').prop('disabled', false);
+                console.log(sessionStorage.getItem("hymn_singing"));
+              }
+              */
             }
             
             $('form#connect').submit(function(event) {
@@ -48,6 +68,36 @@
               active = sessionStorage.getItem("user");
               socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
               return false;
+            });
+            
+            /* Toggle Logic for hymn singing
+            $('#hymn_singing').click(function() {
+              if (sessionStorage.getItem("hymn_singing") == "true") {
+                sessionStorage.setItem("hymn_singing", "false");
+                $('#title').prop('disabled', false);
+                $('#ch_title').prop('disabled', false);
+                $('.ui.dropdown').removeClass("disabled");
+                $('#verse').prop('disabled', false);
+                console.log(sessionStorage.getItem("hymn_singing"));
+              } else {
+                sessionStorage.setItem("hymn_singing", "true");
+                $('#title').prop('disabled', true);
+                $('#ch_title').prop('disabled', true);
+                $('.ui.dropdown').addClass("disabled");
+                $('#verse').prop('disabled', true);
+                console.log(sessionStorage.getItem("hymn_singing"));
+              }
+            });
+            */
+            
+            $('#hymn_singing').click(function() {
+              active = sessionStorage.getItem("user");
+              if (/^[a-zA-Z0-9-,: ]*$/.test($("#hymn_input").val()) == false) {
+                alert("Input can have only alphabets and numbers.");
+              } else {
+                socket.emit('hymn singing', {user: active, title: '', ch_title: '', hymn: $('#hymn_input').val(), book: '', verse: ''});
+                return false;
+              }
             });
             
             $('form#update').submit(function(event) {
@@ -172,7 +222,11 @@
       </div>
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
-    </form>
+      <div class="ui action input">
+        <input type="text" placeholder="Hymn Numbers..." id="hymn_input">
+        <button class="ui blue basic button" type="button" id="hymn_singing">Hymn Singing</button>
+      </div>
+    </form>   
   </div>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
