@@ -1,7 +1,6 @@
 import requests, json
 from flask import Flask, render_template, request, session
 from flask_socketio import SocketIO, emit, join_room, leave_room
-from flask_session import Session
 import collections
 
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
@@ -10,7 +9,6 @@ CH_API_URL = 'http://getbible.net/json?'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
 socketio = SocketIO(app, manage_session=False, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
 title = "Title"
 ch_title = "Chinese Title"
