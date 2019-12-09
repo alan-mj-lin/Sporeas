@@ -227,7 +227,7 @@ def reset(message):
 """
 Function to set the projection screen to hymn singing mode.
 """
-@socketio.on('hymn singing', namespace='/')
+@socketio.on('custom message', namespace='/')
 def hymn_singing_mode(message):
     global title
     global ch_title
@@ -237,17 +237,17 @@ def hymn_singing_mode(message):
     global overlay
     global ch_overlay
 
-    title = message['title']
-    ch_title = message['ch_title']
-    hymn = message['hymn']
-    book = message['book']
-    verse = message['verse']
+    type = message['type']
     active = message['user']
-
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay,
-                     "ch_overlay": ch_overlay}, namespace='/', room=active)
-
-
+    print(type)
+    if type == 'hymn':
+        hymn = message['hymn']
+        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "overlay": '',
+                     "ch_overlay": ''}, namespace='/', room=active)
+    elif type == 'morning':
+        hymn = message['hymn']
+        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "verse": '', "overlay": '',
+                         "ch_overlay": ''}, namespace='/', room=active)
 """
 Main function for form handling. Emits the message to active clients in the same room only.
 """

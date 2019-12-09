@@ -8,6 +8,7 @@
         $(document).ready(function(){
             $('.ui.dropdown').dropdown({ fullTextSearch: true });
             $('#update').hide();
+            $('#service_mode').hide();
             $("#project").attr("disabled", true);
 
             var socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -20,6 +21,7 @@
             if (sessionStorage){
               if (sessionStorage.getItem("connected") == "True") {
                 $('#update').show();
+                $('#service_mode').show();
                 $('#connect').hide();
               }
             }
@@ -48,6 +50,7 @@
             
             $('#project').click(function(event) {
               $('#update').show();
+              $('#service_mode').show();
               $('#connect').hide();
               event.preventDefault();
               //window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank');
@@ -64,11 +67,33 @@
               if (/^[a-zA-Z0-9-,: ]*$/.test($("#hymn_input").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
-                socket.emit('hymn singing', {user: active, title: '', ch_title: '', hymn: $('#hymn_input').val(), book: '', verse: ''});
+                socket.emit('custom message', {user: active, type: 'hymn', hymn: $('#hymn_input').val()});
                 return false;
               }
             });
-
+            
+            $('#morning_prayer').click(function() {
+              active = sessionStorage.getItem("user");
+              if (/^[a-zA-Z0-9-,: ]*$/.test($("#m_hymn_input").val()) == false) {
+                alert("Input can have only alphabets and numbers.");
+              } else {
+                socket.emit('custom message', {user: active, type: 'morning', hymn: $('#m_hymn_input').val()});
+                return false;
+              }
+            });
+            
+            $('#verse_update').click(function() {
+              active = sessionStorage.getItem("user");
+              var msg = JSON.parse(localStorage.getItem(active));
+              if (/^[a-zA-Z0-9-,: ]*$/.test($("#verse").val()) == false) {
+                alert("Input can have only alphabets and numbers.");
+              } else {
+                var hymnStorage = msg.hymn.replace(/\D/g,'');
+                socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
+                return false;
+              }
+            });
+            
             $('#new_tab').click(function() {
               window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank'); 
             });
@@ -200,15 +225,26 @@
             <input type="text" name="verse" id="verse">
           </div>
         </div>
+        <button class="ui button" type="button" id="verse_update">Update</button>
       </div>
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
       <button class="ui button" type="button" id="new_tab">New Window</button>
+    </form>
+    <br>
+    <br>
+    <div id="service_mode">
       <div class="ui action input">
         <input type="text" placeholder="Hymn Numbers..." id="hymn_input">
         <button class="ui blue basic button" type="button" id="hymn_singing">Hymn Singing</button>
       </div>
-    </form>   
+      <br>
+      <br>
+      <div class="ui action input">
+        <input type="text" placeholder="Hymn Numbers..." id="m_hymn_input">
+        <button class="ui teal basic button" type="button" id="morning_prayer">Morning Prayer</button>
+      </div>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 </body>
