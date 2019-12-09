@@ -22,23 +22,7 @@
                 $('#update').show();
                 $('#connect').hide();
               }
-              /* Toggle Logic for hymn singing
-              if (sessionStorage.getItem("hymn_singing") == "true") {
-                $('#title').prop('disabled', true);
-                $('#ch_title').prop('disabled', true);
-                $('.ui.dropdown').addClass("disabled");
-                $('#verse').prop('disabled', true);
-                console.log(sessionStorage.getItem("hymn_singing"));
-              } else if (sessionStorage.getItem("hymn_singing") == "false") {
-                $('#title').prop('disabled', false);
-                $('#ch_title').prop('disabled', false);
-                $('.ui.dropdown').removeClass("disabled");
-                $('#verse').prop('disabled', false);
-                console.log(sessionStorage.getItem("hymn_singing"));
-              }
-              */
             }
-            
             $('form#connect').submit(function(event) {
               if(/^[a-zA-Z0-9- ]*$/.test($("#user").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
@@ -54,12 +38,12 @@
               if (msg.auth != 'True') {
                 sessionStorage.setItem("connected", "True");
                 $("#project").attr("disabled", false);
-		$("#connect").removeClass("ui form error");
-		$("#connect").addClass("ui form success");
-		$("#con_msg").html('Connected to room: /'+ $('#user').val());
+                $("#connect").removeClass("ui form error");
+                $("#connect").addClass("ui form success");
+                $("#con_msg").html('Connected to room: /'+ $('#user').val());
               } else {
-		$("#connect").addClass("ui form error");
-	      }
+                $("#connect").addClass("ui form error");
+              }
             });
             
             $('#project').click(function(event) {
@@ -74,27 +58,7 @@
               socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
               return false;
             });
-            
-            /* Toggle Logic for hymn singing
-            $('#hymn_singing').click(function() {
-              if (sessionStorage.getItem("hymn_singing") == "true") {
-                sessionStorage.setItem("hymn_singing", "false");
-                $('#title').prop('disabled', false);
-                $('#ch_title').prop('disabled', false);
-                $('.ui.dropdown').removeClass("disabled");
-                $('#verse').prop('disabled', false);
-                console.log(sessionStorage.getItem("hymn_singing"));
-              } else {
-                sessionStorage.setItem("hymn_singing", "true");
-                $('#title').prop('disabled', true);
-                $('#ch_title').prop('disabled', true);
-                $('.ui.dropdown').addClass("disabled");
-                $('#verse').prop('disabled', true);
-                console.log(sessionStorage.getItem("hymn_singing"));
-              }
-            });
-            */
-            
+                       
             $('#hymn_singing').click(function() {
               active = sessionStorage.getItem("user");
               if (/^[a-zA-Z0-9-,: ]*$/.test($("#hymn_input").val()) == false) {
@@ -106,8 +70,8 @@
             });
 
             $('#new_tab').click(function() {
-	      window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank'); 
-	    });
+              window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank'); 
+            });
 
             $('form#update').submit(function(event) {
               if(/^[a-zA-Z0-9-,: ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,: ]*$/.test($("#verse").val()) == false) {
