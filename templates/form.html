@@ -54,7 +54,12 @@
               if (msg.auth != 'True') {
                 sessionStorage.setItem("connected", "True");
                 $("#project").attr("disabled", false);
-              }
+		$("#connect").removeClass("ui form error");
+		$("#connect").addClass("ui form success");
+		$("#con_msg").html('Connected to room: /'+ $('#user').val());
+              } else {
+		$("#connect").addClass("ui form error");
+	      }
             });
             
             $('#project').click(function(event) {
@@ -125,7 +130,14 @@
         <button class="ui secondary button" type="submit">Connect</button>
         <button class="ui button" id="project" type="button">Project</button>
       </div>
-      <div id="live"></div>
+      <div class="ui error message">
+	<div class="header">Error</div>
+	<p>This room name is already taken.</p>
+      </div>
+      <div class="ui success message">
+	<div class="header">Connected</div>
+	<p id="con_msg"></p>
+      </div>
     </form>
     <form class="ui form" id="update" target="_self" method="post">
       <div class="field">

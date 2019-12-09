@@ -1,5 +1,5 @@
 import requests, json
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 import collections
 
@@ -7,8 +7,6 @@ API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-app.config['SESSION_TYPE'] = 'filesystem'
 socketio = SocketIO(app, manage_session=False, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
 title = "Title"
 ch_title = "Chinese Title"
@@ -151,6 +149,10 @@ def get_user(message):
     username = message['user'].replace(' ', '_')
 
     # Route Broadcast Feature
+    for key, value in rooms.items():
+        if username == key:
+            duplicate = True
+
     if username != '':
         join_room(username)
         rooms[username] = []
@@ -200,11 +202,16 @@ def disconnect_event():
 
     # Route Broadcast Logic
     active = request.sid
+    left = ''
     for room in rooms:
         for num in range(len(rooms[room])):
             if rooms[room][num] == active:
                 leave_room(room)
+                left = room
                 del rooms[room][num]
+
+    if left != '' and len(rooms[left]) == 0:
+        del rooms[left]
     print(rooms)
 
 

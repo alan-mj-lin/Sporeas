@@ -13,9 +13,11 @@
                 socket.emit('get sid', {user: window.location.pathname});
             });
             
+	    var user = window.location.pathname;
+	    var user = user.substr(1);
             
-            if (sessionStorage.length !=0 ) {
-                var msg = JSON.parse(sessionStorage.getItem("state"));
+            if (localStorage.length !=0 ) {
+                var msg = JSON.parse(localStorage.getItem(user));
                 console.log(msg);
                 if (msg != null) {
                     $('#title').html(msg.title);
@@ -39,7 +41,7 @@
                 $('#overlay').html(msg.overlay);
                 $('#ch_overlay').html(msg.ch_overlay);
                 console.log(msg);
-                sessionStorage.setItem("state", JSON.stringify(msg));
+                localStorage.setItem(user, JSON.stringify(msg));
                 //location.reload();
             });
             
@@ -51,7 +53,7 @@
                 msg.ch_overlay = $('#ch_overlay').html();
                 $('#verse').html(msg.verse);
                 console.log(msg);
-                sessionStorage.setItem("state", JSON.stringify(msg)); 
+                localStorage.setItem(user, JSON.stringify(msg)); 
             });
         });
         $(document).click(function() {
