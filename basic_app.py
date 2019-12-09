@@ -225,10 +225,10 @@ def reset(message):
 
 
 """
-Function to set the projection screen to hymn singing mode.
+Function to handle any service mode messages (hymn singing mode, morning prayer mode...)
 """
 @socketio.on('custom message', namespace='/')
-def hymn_singing_mode(message):
+def custom_message(message):
     global title
     global ch_title
     global hymn
