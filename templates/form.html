@@ -88,7 +88,9 @@
               if (/^[a-zA-Z0-9-,: ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
-                var hymnStorage = msg.hymn.replace(/\D/g,'');
+                var hymnStorage = msg.hymn;
+                console.log(hymnStorage);
+                hymnStorage = hymnStorage.trim();
                 socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val()});
                 return false;
               }

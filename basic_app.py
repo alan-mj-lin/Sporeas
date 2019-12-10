@@ -248,6 +248,8 @@ def custom_message(message):
         hymn = message['hymn']
         emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "verse": '', "overlay": '',
                          "ch_overlay": ''}, namespace='/', room=active)
+
+        
 """
 Main function for form handling. Emits the message to active clients in the same room only.
 """
