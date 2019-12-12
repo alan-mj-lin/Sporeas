@@ -18,6 +18,6 @@ Windows setup to run the webapp on startup:
 After these steps are taken the webapp should be able to run on every fresh boot of Windows
 
 Linux startup:
-- User systemctl and create a service script to run on startup
+- Use systemctl and create a service script to run on startup
 
 Mac?? look into launchctl
