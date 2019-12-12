@@ -22,7 +22,7 @@
                 if (msg != null) {
                     $('#title').html(msg.title);
                     $('#ch_title').html(msg.ch_title);
-                    $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
+                    $('#hymn').html(msg.hymn);
                     $('#verse').html(msg.verse);
                     $('#innerTitle').html(msg.title);
                     $('#innerChTitle').html(msg.ch_title);
@@ -35,6 +35,7 @@
                 $('#title').html(msg.title);
                 $('#ch_title').html(msg.ch_title);
                 $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
+		msg.hymn = $('#hymn').html();
                 $('#verse').html(msg.verse);
                 $('#innerTitle').html(msg.title);
                 $('#innerChTitle').html(msg.ch_title);
