@@ -14,7 +14,7 @@
             });
             
 	    var user = window.location.pathname;
-	    var user = user.substr(1);
+	    user = user.substr(1);
             
             if (localStorage.length !=0 ) {
                 var msg = JSON.parse(localStorage.getItem(user));
@@ -23,20 +23,46 @@
                     $('#title').html(msg.title);
                     $('#ch_title').html(msg.ch_title);
                     $('#hymn').html(msg.hymn);
-                    $('#verse').html(msg.verse);
+                    $('#verse').html(msg.book + msg.verse);
                     $('#innerTitle').html(msg.title);
                     $('#innerChTitle').html(msg.ch_title);
                     $('#overlay').html(msg.overlay);
                     $('#ch_overlay').html(msg.ch_overlay);
                 }
             }
+            if (localStorage.getItem("state") != null) {
+                if (localStorage.getItem("state") != "True"){
+                    $(document).off("click");
+                }
+            }
+            
+            socket.on('state check', function(msg) {
+                var storage = JSON.parse(localStorage.getItem(user));
+                console.log(msg.state);
+                console.log(typeof(msg.state));
+                console.log(storage.hymn);
+                if (msg.state) {
+                    socket.emit('my broadcast event', {user: user, title: storage.title, ch_title: storage.ch_title, hymn: storage.hymn, book: storage.book, verse: storage.verse});
+                    $(document).click(function() {
+                        console.log($('#verse').text().length);
+                        if ($('#verse').text().length > 6){
+                            // $(".ui.basic.modal>.header").modal({ centered: false });
+                            $(".ui.basic.modal").modal("toggle");
+                        }
+                    });
+                    localStorage.setItem("state", "True");
+                } else {
+                    $(document).off("click");
+                    localStorage.setItem("state", "False");
+                }
+            });
             
             socket.on('refresh', function(msg) {
                 $('#title').html(msg.title);
                 $('#ch_title').html(msg.ch_title);
                 $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
-		msg.hymn = $('#hymn').html();
-                $('#verse').html(msg.verse);
+                msg.hymn = $('#hymn').html();
+                $('#verse').html(msg.book + msg.verse);
                 $('#innerTitle').html(msg.title);
                 $('#innerChTitle').html(msg.ch_title);
                 $('#overlay').html(msg.overlay);

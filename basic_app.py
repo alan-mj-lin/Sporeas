@@ -23,7 +23,7 @@ username = ''
 user_list = []
 project_list = {}
 rooms = {} # Room list for Route Broadcast feature
-
+roomState = {} # Keep track of api state for each room
 
 """
 This function is used to find any given key value in a very complicated JSON.
@@ -149,6 +149,8 @@ def get_user(message):
     global username
     global user_list
     global rooms # Route Broadcast Feature
+    global roomState
+
     duplicate = False
     username = message['user'].replace(' ', '_')
 
@@ -161,6 +163,7 @@ def get_user(message):
         join_room(username)
         rooms[username] = []
         rooms[username].append(request.sid)
+        roomState[username] = True
         emit('auth event', {'auth': str(duplicate)})
     # End of Route Broadcast Feature
 
@@ -216,6 +219,7 @@ def disconnect_event():
 
     if left != '' and len(rooms[left]) == 0:
         del rooms[left]
+        del roomState[left]
     print(rooms)
 
 
@@ -226,6 +230,20 @@ Function to send a reset event - clears the set verse.
 def reset(message):
     active = message['user']
     emit('reset', {"verse": ''}, namespace='/', room=active)
+
+
+"""
+Function to handle api toggle.
+"""
+@socketio.on('toggle api', namespace='/')
+def api_toggle_handler(message):
+    global rooms
+    active = message['user']
+    state = message['state']
+    print(rooms)
+    roomState[active] = state
+    emit('state check', {"state": state}, namespace='/', room=active)
+    print(state)
 
 
 """
@@ -253,6 +271,23 @@ def custom_message(message):
         emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "verse": '', "overlay": '',
                          "ch_overlay": ''}, namespace='/', room=active)
 
+
+"""
+Function to filter hymns for only numbers and commas.
+"""
+def hymn_filter(string):
+    colon = False
+    for i in string:
+        if i == ':':
+            colon = True
+
+    if colon:
+        hymn_string = string.split(":")[1].strip()
+    else:
+        hymn_string = string
+
+    return hymn_string
+
         
 """
 Main function for form handling. Emits the message to active clients in the same room only.
@@ -266,6 +301,8 @@ def test_message(message):
     global verse
     global overlay
     global ch_overlay
+    global rooms
+    global roomState
 
     comma = False
     # session_id = request.sid
@@ -273,6 +310,7 @@ def test_message(message):
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
+    hymn = hymn_filter(hymn)
     book = message['book']
     verse = message['verse']
     extra_verse = ''
@@ -283,24 +321,26 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
+    state = roomState[active]
 
     # Debug Info
     print(active)
     print(message)
     print(passage)
 
-    if book != '':
-        if comma:
-            overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
-        else:
-            overlay = get_esv_text(passage)
-        ch_overlay = get_chinese_text(passage)
+    if state:
+        if book != '':
+            if comma:
+                overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
+            else:
+                overlay = get_esv_text(passage)
+            ch_overlay = get_chinese_text(passage)
 
     # Debug Info
     print(project_list)
 
     # Route Broadcast Feature
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay, "state": state}, namespace='/', room=active)
 
     # Session Feature
     """

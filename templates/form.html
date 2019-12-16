@@ -24,8 +24,14 @@
                 $('#service_mode').show();
                 $('#connect').hide();
               }
+              if (sessionStorage.getItem("api")== "false") {
+                $('#toggle').removeClass("ui green button");
+                $('#toggle').addClass("ui red button");
+                $('#toggle').html("Off");
+              }
             }
-            $('form#connect').submit(function(event) {
+            
+            $('form#connect').submit(function() {
               if(/^[a-zA-Z0-9- ]*$/.test($("#user").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else if ($.trim($('#user').val()) != ''){
@@ -56,7 +62,7 @@
               //window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank');
             });
 
-            $('#reset').click(function(event) {
+            $('#reset').click(function() {
               active = sessionStorage.getItem("user");
               socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
               return false;
@@ -82,6 +88,23 @@
               }
             });
             
+            $('#toggle').click(function() {
+              active = sessionStorage.getItem("user");
+              if ($('#toggle').hasClass("ui green button")) {
+                $('#toggle').removeClass("ui green button");
+                $('#toggle').addClass("ui red button");
+                $('#toggle').html("Off");
+                sessionStorage.setItem("api", "false");
+                socket.emit('toggle api', {user: active, state: false});
+              } else {
+                $('#toggle').removeClass("ui red button");
+                $('#toggle').addClass("ui green button");
+                $('#toggle').html("On");
+                sessionStorage.setItem("api", "true");
+                socket.emit('toggle api', {user: active, state: true});
+              }
+            });
+            
             $('#verse_update').click(function() {
               active = sessionStorage.getItem("user");
               var msg = JSON.parse(localStorage.getItem(active));
@@ -100,7 +123,7 @@
               window.open('http://127.0.0.1:9000/' + sessionStorage.getItem("user"), '_blank'); 
             });
 
-            $('form#update').submit(function(event) {
+            $('form#update').submit(function() {
               if(/^[a-zA-Z0-9-,:' ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:'\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,:' ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
@@ -235,6 +258,7 @@
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
       <button class="ui button" type="button" id="new_tab">New Window</button>
+      <button class="ui green button" type="button" id="toggle">On</button>
     </form>
     <br>
     <br>
