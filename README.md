@@ -1,4 +1,6 @@
-# Sporeas
+# [Sporeas](https://translate.google.com/?hl=en#el/en/σπορέας)
+
+**Sporeas ([σπορέας](https://translate.google.com/?hl=en#el/en/σπορέας)) is Greek for "sower".**
 
 To set up locally:
 1. Ensure Python 3.7 is installed (Ensure python version is not less than 3.6; Python 3.8 should not be used as it cannot setup eventlet)
