@@ -1,10 +1,12 @@
-# Toronto-TJC-AV
+# Sporeas
 
 To set up locally:
 1. Ensure Python 3.7 is installed (Ensure python version is not less than 3.6; Python 3.8 should not be used as it cannot setup eventlet)
 2. pip install eventlet
 3. pip install flask
 4. pip install flask_socketio
+5. pip install requests
+6. pip install pyopenssl (19.1.0) -> otherwise monkey patching for eventlet will break stuff
 5. run basic_app.py in command line
 
 Windows setup to run the webapp on startup:

@@ -1,3 +1,7 @@
+# Need to monkey patch eventlet to prevent hang
+import eventlet
+eventlet.monkey_patch()
+
 import requests, json
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
