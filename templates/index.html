@@ -42,7 +42,7 @@
                 console.log(typeof(msg.state));
                 console.log(storage.hymn);
                 if (msg.state) {
-                    socket.emit('my broadcast event', {user: user, title: storage.title, ch_title: storage.ch_title, hymn: storage.hymn, book: storage.book, verse: storage.verse});
+                    socket.emit('my broadcast event', {user: user, title: storage.title, ch_title: storage.ch_title, hymn: storage.hymn, book: storage.book, verse: storage.verse, state: msg.state});
                     $(document).click(function() {
                         console.log($('#verse').text().length);
                         if ($('#verse').text().length > 6){

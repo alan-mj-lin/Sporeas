@@ -302,7 +302,6 @@ def test_message(message):
     global overlay
     global ch_overlay
     global rooms
-    global roomState
 
     comma = False
     # session_id = request.sid
@@ -321,7 +320,7 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
-    state = roomState[active]
+    state = message['state']
 
     # Debug Info
     print(active)
