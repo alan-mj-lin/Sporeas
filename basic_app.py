@@ -25,6 +25,7 @@ project_list = {}
 rooms = {} # Room list for Route Broadcast feature
 roomState = {} # Keep track of api state for each room
 
+
 """
 This function is used to find any given key value in a very complicated JSON.
 getbible.net's API is not as sophisticated enough that it just gives you the verse texts. 
