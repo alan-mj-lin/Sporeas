@@ -329,13 +329,12 @@ def test_message(message):
     print(message)
     print(passage)
 
-    if state is None or state == 'true':
-        if book != '':
-            if comma:
-                overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
-            else:
-                overlay = get_esv_text(passage)
-            ch_overlay = get_chinese_text(passage)
+    if (state is None or state == 'true') and book != '':
+        if comma:
+            overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
+        else:
+            overlay = get_esv_text(passage)
+        ch_overlay = get_chinese_text(passage)
 
     # Debug Info
     print(project_list)
