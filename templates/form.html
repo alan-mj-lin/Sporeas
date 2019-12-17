@@ -25,7 +25,9 @@
                 $('#connect').hide();
               }
               if (sessionStorage.getItem("api")== "false") {
+                $('#toggle_label').removeClass("ui basic green label");
                 $('#toggle').removeClass("ui green button");
+                $('#toggle_label').addClass("ui basic red label");
                 $('#toggle').addClass("ui red button");
                 $('#toggle').html("Off");
               }
@@ -91,17 +93,23 @@
             $('#toggle').click(function() {
               active = sessionStorage.getItem("user");
               if ($('#toggle').hasClass("ui green button")) {
+                $('#toggle_label').removeClass("ui basic green label");
                 $('#toggle').removeClass("ui green button");
+                $('#toggle_label').addClass("ui basic red label");
                 $('#toggle').addClass("ui red button");
                 $('#toggle').html("Off");
                 sessionStorage.setItem("api", "false");
                 socket.emit('toggle api', {user: active, state: 'false'});
+                return false;
               } else {
+                $('#toggle_label').removeClass("ui basic red label");
                 $('#toggle').removeClass("ui red button");
+                $('#toggle_label').addClass("ui basic green label");
                 $('#toggle').addClass("ui green button");
                 $('#toggle').html("On");
                 sessionStorage.setItem("api", "true");
                 socket.emit('toggle api', {user: active, state: 'true'});
+                return false;
               }
             });
             
@@ -260,7 +268,13 @@
       <button class="ui secondary button" type="submit">Submit</button>
       <button class="ui button" type="reset" id="reset">Reset</button>
       <button class="ui button" type="button" id="new_tab">New Window</button>
-      <button class="ui green button" type="button" id="toggle">On</button>
+      <div class="ui labeled button">
+        <div class="ui green button" id="toggle">On
+        </div>
+        <a class="ui basic green label" id="toggle_label">
+          Verse Display
+        </a>
+      </div>
     </form>
     <br>
     <br>
