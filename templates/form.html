@@ -35,7 +35,9 @@
             
             $('form#connect').submit(function() {
               if(/^[a-zA-Z0-9- ]*$/.test($("#user").val()) == false) {
-                alert("Input can have only alphabets and numbers.");
+                $('#connect_error').html("Input can only have alphabets and numbers");
+                $("#connect").addClass("ui form error");
+                return false;
               } else if ($.trim($('#user').val()) != ''){
                 var user = $('#user').val();
                 socket.emit('user active', {user: $('#user').val()});
@@ -118,8 +120,11 @@
               api_state = sessionStorage.getItem("api");
               var msg = JSON.parse(localStorage.getItem(active));
               if (/^[a-zA-Z0-9-,: ]*$/.test($("#verse").val()) == false) {
-                alert("Input can have only alphabets and numbers.");
+                $('#update').addClass("ui form error");
+                return false;
               } else {
+                $('#update').removeClass("ui form error");
+                $('#update').addClass("ui form");
                 var hymnStorage = msg.hymn;
                 console.log(typeof(hymnStorage));
                 hymnStorage = hymnStorage.split(":")[1].trim();
@@ -135,8 +140,11 @@
             $('form#update').submit(function() {
               api_state = sessionStorage.getItem("api");
               if(/^[a-zA-Z0-9-,:' ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#verse").val()) == false) {
-                alert("Input can have only alphabets and numbers.");
+                $('#update').addClass("ui form error");
+                return false;
               } else {
+                $('#update').removeClass("ui form error");
+                $('#update').addClass("ui form");
                 active = sessionStorage.getItem("user");
                 socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: api_state});
                 return false;
@@ -162,12 +170,12 @@
         <button class="ui button" id="project" type="button">Project</button>
       </div>
       <div class="ui error message">
-	<div class="header">Error</div>
-	<p>This room name is already taken.</p>
+        <div class="header">Error</div>
+        <p id="connect_error">This room name is already taken.</p>
       </div>
       <div class="ui success message">
-	<div class="header">Connected</div>
-	<p id="con_msg"></p>
+        <div class="header">Connected</div>
+        <p id="con_msg"></p>
       </div>
     </form>
     <form class="ui form" id="update" target="_self" method="post">
@@ -274,6 +282,10 @@
         <a class="ui basic green label" id="toggle_label">
           Verse Display
         </a>
+      </div>
+      <div class="ui error message">
+        <div class="header">Error</div>
+        <p>Inputs can only have alphabets and numbers</p>
       </div>
     </form>
     <br>
