@@ -95,13 +95,13 @@
                 $('#toggle').addClass("ui red button");
                 $('#toggle').html("Off");
                 sessionStorage.setItem("api", "false");
-                socket.emit('toggle api', {user: active, state: false});
+                socket.emit('toggle api', {user: active, state: 'false'});
               } else {
                 $('#toggle').removeClass("ui red button");
                 $('#toggle').addClass("ui green button");
                 $('#toggle').html("On");
                 sessionStorage.setItem("api", "true");
-                socket.emit('toggle api', {user: active, state: true});
+                socket.emit('toggle api', {user: active, state: 'true'});
               }
             });
             
@@ -126,7 +126,7 @@
 
             $('form#update').submit(function() {
               api_state = sessionStorage.getItem("api");
-              if(/^[a-zA-Z0-9-,:' ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:'\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9,:' ]*$/.test($("#verse").val()) == false) {
+              if(/^[a-zA-Z0-9-,:' ]*$/.test($("#title").val()) == false || /^[a-zA-Z0-9-,:'\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($("#ch_title").val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($("#hymn").val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($("#verse").val()) == false) {
                 alert("Input can have only alphabets and numbers.");
               } else {
                 active = sessionStorage.getItem("user");

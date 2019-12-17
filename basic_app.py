@@ -321,13 +321,14 @@ def test_message(message):
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
     state = message['state']
-
+    print(state)
+    print(type(state))
     # Debug Info
     print(active)
     print(message)
     print(passage)
 
-    if state:
+    if state is None or state == 'true':
         if book != '':
             if comma:
                 overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
@@ -339,7 +340,7 @@ def test_message(message):
     print(project_list)
 
     # Route Broadcast Feature
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay, "state": state}, namespace='/', room=active)
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
 
     # Session Feature
     """

@@ -2,8 +2,14 @@
 
 **Sporeas ([σπορέας](https://translate.google.com/?hl=en#el/en/σπορέας)) is Greek for "sower".**
 
+The main purpose of this application is to help sermon speakers get their message across by projecting sermon
+titles and bible verses to help the listener follow along, in hopes that they can get the most out of the
+messages on the pulpit. In that sense it helps with the "sowing" process of the word, and therefore it has
+been given the name "sporeas" which is greek for "sower".
+
 To set up locally:
-1. Ensure Python 3.7 is installed (Ensure python version is not less than 3.6; Python 3.8 should not be used as it cannot setup eventlet)
+1. Ensure Python 3.7 is installed (Ensure python version is not less than 3.6; Python 3.8 should not be used as it 
+cannot setup eventlet)
 2. pip install eventlet
 3. pip install flask
 4. pip install flask_socketio
