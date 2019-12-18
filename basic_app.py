@@ -99,8 +99,6 @@ Flask route for root directory
 """
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
-
-    # return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
     return render_template("index.html")
 
 
@@ -168,18 +166,6 @@ def get_user(message):
         emit('auth event', {'auth': str(duplicate)})
     # End of Route Broadcast Feature
 
-    # Session Logic
-    """
-    print(username)
-    for i in user_list:
-        if username == i:
-            duplicate = True
-    if not duplicate:
-        user_list.append(username)
-        emit('auth event', {'auth': str(duplicate)})
-    """
-    # End of Session Logic
-
 
 """
 Disconnect event should cause client to leave the room, and delete the active room entry.
@@ -189,24 +175,6 @@ def disconnect_event():
     global user_list
     global project_list
     global rooms # Room Logic
-
-    # Session Logic
-    """
-    # session_id = request.sid # Session Logic
-    remove_user = ''
-    
-    
-    for key, value in project_list.items():
-        print("current: " +session_id)
-        print("list: " + project_list[key])
-        if session_id == project_list[key]:
-            remove_user = key
-            
-    if remove_user != '':
-        del project_list[remove_user]
-        del user_list[remove_user]
-    """
-    # End Session Logic
 
     # Route Broadcast Logic
     active = request.sid
@@ -305,7 +273,6 @@ def test_message(message):
     global rooms
 
     comma = False
-    # session_id = request.sid
 
     title = message['title']
     ch_title = message['ch_title']
@@ -329,26 +296,18 @@ def test_message(message):
     print(message)
     print(passage)
 
-    if state is None or state == 'true':
-        if book != '':
-            if comma:
-                overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
-            else:
-                overlay = get_esv_text(passage)
-            ch_overlay = get_chinese_text(passage)
+    if (state is None or state == 'true') and book != '':
+        if comma:
+            overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
+        else:
+            overlay = get_esv_text(passage)
+        ch_overlay = get_chinese_text(passage)
 
     # Debug Info
     print(project_list)
 
     # Route Broadcast Feature
     emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
-
-    # Session Feature
-    """
-    emit_session = project_list[active]	
-    print(emit_session)	
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=emit_session)
-    """
 
 
 if __name__ == '__main__':
