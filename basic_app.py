@@ -233,12 +233,12 @@ def custom_message(message):
     print(type)
     if type == 'hymn':
         hymn = message['hymn']
-        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "overlay": '',
+        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "book": '', "overlay": '',
                      "ch_overlay": ''}, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
-        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "verse": '', "overlay": '',
-                         "ch_overlay": ''}, namespace='/', room=active)
+        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "book": '', "verse": '',
+                         "overlay": '', "ch_overlay": ''}, namespace='/', room=active)
 
 
 """
