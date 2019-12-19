@@ -115,6 +115,11 @@
               }
             });
             
+            $('#scroll').click(function(){
+              active = sessionStorage.getItem("user");
+              socket.emit('hymn scroll', {user: active});
+            });
+            
             $('#verse_update').click(function() {
               active = sessionStorage.getItem("user");
               api_state = sessionStorage.getItem("api");
@@ -187,10 +192,14 @@
         <label>Chinese Title:</label>
         <input type="text" name="ch_title" id="ch_title">
       </div>
-      <div class="field">
-        <label>Hymn:</label>
+      <div class="ui action input">
         <input type="text" name="hymn" id="hymn">
+        <button class="ui blue icon button" type="button" id="scroll">
+          Hymn<i class="angle right icon"></i>
+        </button>
       </div>
+      <br>
+      <br>
       <div class="inline fields">
         <label>Verse:</label>
         <select class="ui search dropdown" name="ddbible" id="ddbible">

@@ -230,16 +230,18 @@ def custom_message(message):
 
     type = message['type']
     active = message['user']
-    print(type)
+
     if type == 'hymn':
         hymn = message['hymn']
+        filtered = hymn_filter(hymn).split(",")
         emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "book": '', "overlay": '',
-                     "ch_overlay": ''}, namespace='/', room=active)
+                     "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
+        filtered = hymn_filter(hymn).split(",")
         emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "book": '', "verse": '',
-                         "overlay": '', "ch_overlay": ''}, namespace='/', room=active)
-
+                         "overlay": '', "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
+    print(filtered)
 
 """
 Function to filter hymns for only numbers and commas.
@@ -256,6 +258,15 @@ def hymn_filter(string):
         hymn_string = string
 
     return hymn_string
+
+
+"""
+Function to notify hymn scroll event
+"""
+@socketio.on('hymn scroll', namespace='/')
+def hymn_scroll(message):
+    active = message['user']
+    emit('scroll', namespace='/', room=active)
 
         
 """
@@ -278,6 +289,7 @@ def test_message(message):
     ch_title = message['ch_title']
     hymn = message['hymn']
     hymn = hymn_filter(hymn)
+    hymnList = hymn.split(",")
     book = message['book']
     verse = message['verse']
     extra_verse = ''
@@ -307,8 +319,8 @@ def test_message(message):
     print(project_list)
 
     # Route Broadcast Feature
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
-
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay, "hymn_list": hymnList}, namespace='/', room=active)
+    print(hymnList)
 
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)

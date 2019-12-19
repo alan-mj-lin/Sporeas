@@ -69,7 +69,69 @@
                 $('#ch_overlay').html(msg.ch_overlay);
                 console.log(msg);
                 localStorage.setItem(user, JSON.stringify(msg));
-                //location.reload();
+                localStorage.setItem("hymn_list", msg.hymn_list);
+                localStorage.setItem("hymn_scroll", "null");
+            });
+            
+            //WIP
+            socket.on('scroll', function(){
+                var scrollState = localStorage.getItem("hymn_scroll");
+                var hymnList = localStorage.getItem("hymn_list").split(',');
+                var temp = '';
+                var scrollStateVal = 0;
+                var check = hymnList.length -1;
+                console.log(scrollState);
+                console.log(hymnList);
+                console.log(hymnList.length);
+                console.log(typeof(hymnList));
+                console.log(parseInt(scrollState));
+                console.log(scrollState.toString());
+                console.log(check);
+                if (hymnList == null){
+                    return;
+                } else if (scrollState == null) {
+                    return;
+                }
+                $('#hymn').html('讚美詩 Hymn: ');
+                if (scrollState == "null") {
+                    console.log('entered');
+                    scrollStateVal = 0;
+                    temp = "<u>" + hymnList[0] + "</u>";
+                    console.log(temp);
+                    localStorage.setItem("hymn_scroll", "0");
+                    for (i=0; i < hymnList.length; i++) {
+                        if (i == 0){
+                            $('#hymn').append(temp);
+                        } else {
+                            $('#hymn').append(", " + hymnList[i]);
+                        }
+                    }
+                    return;
+                } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
+                    scrollStateVal = parseInt(scrollState);
+                    scrollStateVal ++;
+                    for (i=0; i < hymnList.length; i++) {
+                        if (i == scrollStateVal){
+                            temp = "<u>" + hymnList[i] + "</u>";
+                            console.log(temp);
+                            $('#hymn').append(", " + temp);
+                        } else if (i == 0 && i != scrollStateVal){
+                            $('#hymn').append(hymnList[0]);
+                        } else {
+                            $('#hymn').append(", " + hymnList[i]);
+                        }
+                    }
+                    localStorage.setItem("hymn_scroll", scrollStateVal.toString());
+                    console.log(scrollStateVal.toString());
+                    
+                    return;
+                } else if (check == parseInt(scrollState)) {
+                    scrollStateVal = 0;
+                    console.log(temp);
+                    localStorage.setItem("hymn_scroll", "null");
+                    $('#hymn').html('讚美詩 Hymn: ' + localStorage.getItem("hymn_list"));
+                    return;
+                }
             });
             
             socket.on('reset', function(msg) {
