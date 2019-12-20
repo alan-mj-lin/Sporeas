@@ -13,8 +13,8 @@
                 socket.emit('get sid', {user: window.location.pathname});
             });
             
-	    var user = window.location.pathname;
-	    user = user.substr(1);
+            var user = window.location.pathname;
+            user = user.substr(1);
             
             if (localStorage.length !=0 ) {
                 var msg = JSON.parse(localStorage.getItem(user));
@@ -22,7 +22,11 @@
                 if (msg != null) {
                     $('#title').html(msg.title);
                     $('#ch_title').html(msg.ch_title);
-                    $('#hymn').html(msg.hymn);
+                    if (localStorage.getItem("hymn_state") == null){
+                        $('#hymn').html(msg.hymn);
+                    } else {
+                        $('#hymn').html(localStorage.getItem("hymn_state"));
+                    }
                     $('#verse').html(msg.book + msg.verse);
                     $('#innerTitle').html(msg.title);
                     $('#innerChTitle').html(msg.ch_title);
@@ -34,6 +38,9 @@
                 if (localStorage.getItem("state") != "True"){
                     $(document).off("click");
                 }
+            }
+            if (localStorage.getItem("hymn_scroll") == null) {
+                localStorage.setItem("hymn_scroll", "null");
             }
             
             socket.on('state check', function(msg) {
@@ -106,6 +113,7 @@
                             $('#hymn').append(", " + hymnList[i]);
                         }
                     }
+                    localStorage.setItem("hymn_state", $('#hymn').html());
                     return;
                 } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
                     scrollStateVal = parseInt(scrollState);
@@ -123,13 +131,14 @@
                     }
                     localStorage.setItem("hymn_scroll", scrollStateVal.toString());
                     console.log(scrollStateVal.toString());
-                    
+                    localStorage.setItem("hymn_state", $('#hymn').html());
                     return;
                 } else if (check == parseInt(scrollState)) {
                     scrollStateVal = 0;
                     console.log(temp);
                     localStorage.setItem("hymn_scroll", "null");
                     $('#hymn').html('讚美詩 Hymn: ' + localStorage.getItem("hymn_list"));
+                    localStorage.setItem("hymn_state", $('#hymn').html());
                     return;
                 }
             });
