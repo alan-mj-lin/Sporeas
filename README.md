@@ -17,6 +17,10 @@ cannot setup eventlet)
 6. pip install pyOpenSSL==19.1.0 -> otherwise monkey patching for eventlet will break stuff
 5. run basic_app.py in command line
 
+### To get feedback on code best practices:
+- For python: `bash pyCodeFeedback.sh`
+- For javascript: `bash jsCodeFeedback.sh`
+
 ## Windows setup to run the webapp on startup:
 1. Create a batch script to run basic_app.py (this file should be located wherever basic_app.py is)
 2. Create a vbs script to run the batch script in minimal mode (so that a cmd shell doesn't show up everytime you boot)
