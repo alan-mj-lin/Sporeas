@@ -34,10 +34,8 @@
                     $('#ch_overlay').html(msg.ch_overlay);
                 }
             }
-            if (localStorage.getItem("state") != null) {
-                if (localStorage.getItem("state") != "True"){
-                    $(document).off("click");
-                }
+            if (localStorage.getItem("state") != null && localStorage.getItem("state") != "True"){
+                $(document).off("click");
             }
             if (localStorage.getItem("hymn_scroll") == null) {
                 localStorage.setItem("hymn_scroll", "null");
@@ -94,9 +92,7 @@
                 console.log(parseInt(scrollState));
                 console.log(scrollState.toString());
                 console.log(check);
-                if (hymnList == null){
-                    return;
-                } else if (scrollState == null) {
+                if (hymnList == null || scrollState == null) {
                     return;
                 }
                 $('#hymn').html('讚美詩 Hymn: ');
