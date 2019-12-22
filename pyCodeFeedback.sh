@@ -2,7 +2,7 @@
 
 function installPylintIfMissing() {
   if ! [ -x "$(command -v pylint)" ]; then
-    echo 'Error: pylint is not installed.' >&2
+    echo 'Error: pylint is not installed.'
     pip install pylint
   fi
 }
