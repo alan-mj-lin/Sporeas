@@ -1,3 +1,7 @@
+# Need to monkey patch eventlet to prevent hang
+import eventlet
+eventlet.monkey_patch()
+
 import requests, json
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -19,6 +23,7 @@ username = ''
 user_list = []
 project_list = {}
 rooms = {} # Room list for Route Broadcast feature
+roomState = {} # Keep track of api state for each room
 
 
 """
@@ -94,8 +99,6 @@ Flask route for root directory
 """
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
-
-    # return render_template("index.html", titleString=title, chTitleString=ch_title, hymnString=hymn, bookString=book, verseString=verse, overlayString=overlay, chOverlayString=ch_overlay)
     return render_template("index.html")
 
 
@@ -145,6 +148,8 @@ def get_user(message):
     global username
     global user_list
     global rooms # Route Broadcast Feature
+    global roomState
+
     duplicate = False
     username = message['user'].replace(' ', '_')
 
@@ -157,20 +162,9 @@ def get_user(message):
         join_room(username)
         rooms[username] = []
         rooms[username].append(request.sid)
+        roomState[username] = True
         emit('auth event', {'auth': str(duplicate)})
     # End of Route Broadcast Feature
-
-    # Session Logic
-    """
-    print(username)
-    for i in user_list:
-        if username == i:
-            duplicate = True
-    if not duplicate:
-        user_list.append(username)
-        emit('auth event', {'auth': str(duplicate)})
-    """
-    # End of Session Logic
 
 
 """
@@ -181,24 +175,6 @@ def disconnect_event():
     global user_list
     global project_list
     global rooms # Room Logic
-
-    # Session Logic
-    """
-    # session_id = request.sid # Session Logic
-    remove_user = ''
-    
-    
-    for key, value in project_list.items():
-        print("current: " +session_id)
-        print("list: " + project_list[key])
-        if session_id == project_list[key]:
-            remove_user = key
-            
-    if remove_user != '':
-        del project_list[remove_user]
-        del user_list[remove_user]
-    """
-    # End Session Logic
 
     # Route Broadcast Logic
     active = request.sid
@@ -212,6 +188,7 @@ def disconnect_event():
 
     if left != '' and len(rooms[left]) == 0:
         del rooms[left]
+        del roomState[left]
     print(rooms)
 
 
@@ -222,6 +199,20 @@ Function to send a reset event - clears the set verse.
 def reset(message):
     active = message['user']
     emit('reset', {"verse": ''}, namespace='/', room=active)
+
+
+"""
+Function to handle api toggle.
+"""
+@socketio.on('toggle api', namespace='/')
+def api_toggle_handler(message):
+    global rooms
+    active = message['user']
+    state = message['state']
+    print(rooms)
+    roomState[active] = state
+    emit('state check', {"state": state}, namespace='/', room=active)
+    print(state)
 
 
 """
@@ -239,15 +230,43 @@ def custom_message(message):
 
     type = message['type']
     active = message['user']
-    print(type)
+
     if type == 'hymn':
         hymn = message['hymn']
-        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "overlay": '',
-                     "ch_overlay": ''}, namespace='/', room=active)
+        filtered = hymn_filter(hymn).split(",")
+        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "book": '', "overlay": '',
+                     "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
-        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "verse": '', "overlay": '',
-                         "ch_overlay": ''}, namespace='/', room=active)
+        filtered = hymn_filter(hymn).split(",")
+        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "book": '', "verse": '',
+                         "overlay": '', "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
+    print(filtered)
+
+"""
+Function to filter hymns for only numbers and commas.
+"""
+def hymn_filter(string):
+    colon = False
+    for i in string:
+        if i == ':':
+            colon = True
+
+    if colon:
+        hymn_string = string.split(":")[1].strip()
+    else:
+        hymn_string = string
+
+    return hymn_string
+
+
+"""
+Function to notify hymn scroll event
+"""
+@socketio.on('hymn scroll', namespace='/')
+def hymn_scroll(message):
+    active = message['user']
+    emit('scroll', namespace='/', room=active)
 
         
 """
@@ -262,13 +281,15 @@ def test_message(message):
     global verse
     global overlay
     global ch_overlay
+    global rooms
 
     comma = False
-    # session_id = request.sid
 
     title = message['title']
     ch_title = message['ch_title']
     hymn = message['hymn']
+    hymn = hymn_filter(hymn)
+    hymnList = hymn.split(",")
     book = message['book']
     verse = message['verse']
     extra_verse = ''
@@ -279,13 +300,15 @@ def test_message(message):
     passage = message['book'].split('|')[0] + message['verse']
     passage_remainder = passage.split(':')[0] + ':' + extra_verse
     active = message['user']
-
+    state = message['state']
+    print(state)
+    print(type(state))
     # Debug Info
     print(active)
     print(message)
     print(passage)
 
-    if book != '':
+    if (state is None or state == 'true') and book != '':
         if comma:
             overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
         else:
@@ -296,15 +319,8 @@ def test_message(message):
     print(project_list)
 
     # Route Broadcast Feature
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=active)
-
-    # Session Feature
-    """
-    emit_session = project_list[active]	
-    print(emit_session)	
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "verse": book + verse, "overlay": overlay, "ch_overlay": ch_overlay}, namespace='/', room=emit_session)
-    """
-
+    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay, "hymn_list": hymnList}, namespace='/', room=active)
+    print(hymnList)
 
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)
