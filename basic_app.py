@@ -15,8 +15,8 @@ eventlet.monkey_patch()
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
-APP = Flask(__name__)
-socketio = SocketIO(APP, manage_session=False, logger=True, \
+app = Flask(__name__)
+socketio = SocketIO(app, manage_session=False, logger=True, \
     cors_allowed_origins=[
         'http://127.0.0.1:9000',
         'https://127.0.0.1:9000',
@@ -364,4 +364,4 @@ def test_message(message):
     print(hymnList)
 
 if __name__ == '__main__':
-    socketio.run(APP, host='127.0.0.1', port=9000, debug=True)
+    socketio.run(app, host='127.0.0.1', port=9000, debug=True)
