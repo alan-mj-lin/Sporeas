@@ -1,17 +1,22 @@
-# Need to monkey patch eventlet to prevent hang
-import eventlet
-eventlet.monkey_patch()
+"""
+This is the file to run.
+"""
 
-import requests, json
+import eventlet
+import requests
+import json
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 import collections
 
+# Need to monkey patch eventlet to prevent hang
+eventlet.monkey_patch()
+
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
-app = Flask(__name__)
-socketio = SocketIO(app, manage_session=False, logger=True, \
+APP = Flask(__name__)
+socketio = SocketIO(APP, manage_session=False, logger=True, \
     cors_allowed_origins=[
         'http://127.0.0.1:9000',
         'https://127.0.0.1:9000',
@@ -38,8 +43,8 @@ roomState = {} # Keep track of api state for each room
 
 """
 This function is used to find any given key value in a very complicated JSON.
-getbible.net's API is not as sophisticated enough that it just gives you the verse texts. 
-It will return a JSON whichwe have to parse on our own.
+getbible.net's API is not sophisticated enough to just give you the verse text.
+It will return a JSON that we have to parse on our own.
 """
 def find(key, dictionary):
     for k, v in dictionary.items():
@@ -241,16 +246,33 @@ def custom_message(message):
     type = message['type']
     active = message['user']
 
+    filtered = []
     if type == 'hymn':
         hymn = message['hymn']
         filtered = hymn_filter(hymn).split(",")
-        emit('refresh', {"title": '', "ch_title": '', "hymn": hymn, "verse": '', "book": '', "overlay": '',
-                     "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
+        emit('refresh', {
+            "title": '',
+            "ch_title": '',
+            "hymn": hymn,
+            "verse": '',
+            "book": '',
+            "overlay": '',
+            "ch_overlay": '',
+            "hymn_list": filtered
+            }, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
         filtered = hymn_filter(hymn).split(",")
-        emit('refresh', {"title": "Morning Prayer", "ch_title": "早禱會", "hymn": hymn, "book": '', "verse": '',
-                         "overlay": '', "ch_overlay": '', "hymn_list": filtered}, namespace='/', room=active)
+        emit('refresh', {
+            "title": "Morning Prayer",
+            "ch_title": "早禱會",
+            "hymn": hymn,
+            "book": '',
+            "verse": '',
+            "overlay": '',
+            "ch_overlay": '',
+            "hymn_list": filtered
+            }, namespace='/', room=active)
     print(filtered)
 
 """
@@ -278,7 +300,7 @@ def hymn_scroll(message):
     active = message['user']
     emit('scroll', namespace='/', room=active)
 
-        
+
 """
 Main function for form handling. Emits the message to active clients in the same room only.
 """
@@ -329,9 +351,17 @@ def test_message(message):
     print(project_list)
 
     # Route Broadcast Feature
-    emit('refresh', {"title": title, "ch_title": ch_title, "hymn": hymn, "book": book, "verse": verse, "overlay": overlay, "ch_overlay": ch_overlay, "hymn_list": hymnList}, namespace='/', room=active)
+    emit('refresh', {
+        "title": title,
+        "ch_title": ch_title,
+        "hymn": hymn,
+        "book": book,
+        "verse": verse,
+        "overlay": overlay,
+        "ch_overlay": ch_overlay,
+        "hymn_list": hymnList
+        }, namespace='/', room=active)
     print(hymnList)
 
 if __name__ == '__main__':
-    socketio.run(app, host='127.0.0.1', port=9000, debug=True)
-
+    socketio.run(APP, host='127.0.0.1', port=9000, debug=True)
