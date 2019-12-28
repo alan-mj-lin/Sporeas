@@ -121,7 +121,7 @@
         
             $('#verse_update').click(function() {
               active = sessionStorage.getItem('user');
-              api_state = sessionStorage.getItem('api');
+              apiState = sessionStorage.getItem('api');
               const msg = JSON.parse(localStorage.getItem(active));
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
                 $('#update').addClass('ui form error');
@@ -132,7 +132,7 @@
                 let hymnStorage = msg.hymn;
                 console.log(typeof(hymnStorage));
                 hymnStorage = hymnStorage.split(':')[1].trim();
-                socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: api_state});
+                socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: apiState});
                 return false;
               }
             });
@@ -142,7 +142,7 @@
             });
 
             $('form#update').submit(function() {
-              api_state = sessionStorage.getItem('api');
+              apiState = sessionStorage.getItem('api');
               if (/^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false || /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($('#ch_title').val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
                 $('#update').addClass('ui form error');
                 return false;
@@ -150,7 +150,7 @@
                 $('#update').removeClass('ui form error');
                 $('#update').addClass('ui form');
                 active = sessionStorage.getItem('user');
-                socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: api_state});
+                socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: apiState});
                 return false;
               }
             });
