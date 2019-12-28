@@ -2,12 +2,14 @@
 This is the file to run.
 """
 
+# pylint: disable=invalid-name, global-statement
+
+import json
+import collections
+from flask import Flask, render_template, request
 import eventlet
 import requests
-import json
-from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
-import collections
 
 # Need to monkey patch eventlet to prevent hang
 eventlet.monkey_patch()
@@ -41,12 +43,12 @@ rooms = {} # Room list for Route Broadcast feature
 roomState = {} # Keep track of api state for each room
 
 
-"""
-This function is used to find any given key value in a very complicated JSON.
-getbible.net's API is not sophisticated enough to just give you the verse text.
-It will return a JSON that we have to parse on our own.
-"""
 def find(key, dictionary):
+    """
+    This function is used to find any given key value in a very complicated JSON.
+    getbible.net's API is not sophisticated enough to just give you the verse text.
+    It will return a JSON that we have to parse on our own.
+    """
     for k, v in dictionary.items():
         if k == key:
             yield v
@@ -59,10 +61,10 @@ def find(key, dictionary):
                     yield result
 
 
-"""
-Function to get the chinese verse text.
-"""
 def get_chinese_text(passage):
+    """
+    Function to get the chinese verse text.
+    """
     chinese_overlay = ''
     version = 'cut'
     url = CH_API_URL + 'passage=' + passage + '&version=' + version
@@ -85,10 +87,10 @@ def get_chinese_text(passage):
     return chinese_overlay
 
 
-"""
-Function to get the english verse text.
-"""
 def get_esv_text(passage):
+    """
+    Function to get the english verse text.
+    """
     params = {
         'q': passage,
         'include-headings': False,
@@ -109,42 +111,42 @@ def get_esv_text(passage):
     return passages[0].strip() if passages else 'Error: Passage not found'
 
 
-"""
-Flask route for root directory
-"""
 @app.route('/<user>', methods=['GET', 'POST'])
-def index(user):
+def index(user): # pylint: disable=unused-argument
+    """
+    Flask route for root directory
+    """
     return render_template("index.html")
 
 
-"""
-Flask route for admin directory
-"""
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    """
+    Flask route for admin directory
+    """
     return render_template("form.html")
 
 
-"""
-If a client connects call function to get the SID (Used for session management)
-"""
 @socketio.on('connect')
 def connect_test():
+    """
+    If a client connects call function to get the SID (Used for session management)
+    """
     emit('get sid')
 
 
-"""
-Function to get the SID of a client connection. Called via connection to WebSocket.
-"""
 @socketio.on('get sid')
 def get_session(message):
+    """
+    Function to get the SID of a client connection. Called via connection to WebSocket.
+    """
     global project_list
     global rooms # Route Broadcast Feature
 
     duplicate = False
     user = message['user'].strip('/')
-    for key, value in project_list.items():
-        if user == key:
+    for project in project_list:
+        if user == project:
             duplicate = True
     print(duplicate)
     print(user)
@@ -154,12 +156,12 @@ def get_session(message):
         project_list[user] = request.sid
 
 
-"""
-Function to join a room according to user input, and emits to client whether to
-allow the user access or not.
-"""
 @socketio.on('user active')
 def get_user(message):
+    """
+    Function to join a room according to user input, and emits to client whether to
+    allow the user access or not.
+    """
     global username
     global user_list
     global rooms # Route Broadcast Feature
@@ -169,8 +171,8 @@ def get_user(message):
     username = message['user'].replace(' ', '_')
 
     # Route Broadcast Feature
-    for key, value in rooms.items():
-        if username == key:
+    for room in rooms:
+        if username == room:
             duplicate = True
 
     if username != '':
@@ -182,11 +184,11 @@ def get_user(message):
     # End of Route Broadcast Feature
 
 
-"""
-Disconnect event should cause client to leave the room, and delete the active room entry.
-"""
 @socketio.on('disconnect')
 def disconnect_event():
+    """
+    Disconnect event should cause client to leave the room, and delete the active room entry.
+    """
     global user_list
     global project_list
     global rooms # Room Logic
@@ -201,26 +203,26 @@ def disconnect_event():
                 left = room
                 del rooms[room][num]
 
-    if left != '' and len(rooms[left]) == 0:
+    if left != '' and not rooms[left]:
         del rooms[left]
         del roomState[left]
     print(rooms)
 
 
-"""
-Function to send a reset event - clears the set verse.
-"""
 @socketio.on('reset', namespace='/')
 def reset(message):
+    """
+    Function to send a reset event - clears the set verse.
+    """
     active = message['user']
     emit('reset', {"verse": ''}, namespace='/', room=active)
 
 
-"""
-Function to handle api toggle.
-"""
 @socketio.on('toggle api', namespace='/')
 def api_toggle_handler(message):
+    """
+    Function to handle api toggle.
+    """
     global rooms
     active = message['user']
     state = message['state']
@@ -230,11 +232,11 @@ def api_toggle_handler(message):
     print(state)
 
 
-"""
-Function to handle any service mode messages (hymn singing mode, morning prayer mode...)
-"""
 @socketio.on('custom message', namespace='/')
 def custom_message(message):
+    """
+    Function to handle any service mode messages (hymn singing mode, morning prayer mode...)
+    """
     global title
     global ch_title
     global hymn
@@ -243,11 +245,11 @@ def custom_message(message):
     global overlay
     global ch_overlay
 
-    type = message['type']
+    message_type = message['type']
     active = message['user']
 
     filtered = []
-    if type == 'hymn':
+    if message_type == 'hymn':
         hymn = message['hymn']
         filtered = hymn_filter(hymn).split(",")
         emit('refresh', {
@@ -260,7 +262,7 @@ def custom_message(message):
             "ch_overlay": '',
             "hymn_list": filtered
             }, namespace='/', room=active)
-    elif type == 'morning':
+    elif message_type == 'morning':
         hymn = message['hymn']
         filtered = hymn_filter(hymn).split(",")
         emit('refresh', {
@@ -275,10 +277,11 @@ def custom_message(message):
             }, namespace='/', room=active)
     print(filtered)
 
-"""
-Function to filter hymns for only numbers and commas.
-"""
+
 def hymn_filter(string):
+    """
+    Function to filter hymns for only numbers and commas.
+    """
     colon = False
     for i in string:
         if i == ':':
@@ -292,20 +295,20 @@ def hymn_filter(string):
     return hymn_string
 
 
-"""
-Function to notify hymn scroll event
-"""
 @socketio.on('hymn scroll', namespace='/')
 def hymn_scroll(message):
+    """
+    Function to notify hymn scroll event
+    """
     active = message['user']
     emit('scroll', namespace='/', room=active)
 
 
-"""
-Main function for form handling. Emits the message to active clients in the same room only.
-"""
 @socketio.on('my broadcast event', namespace='/')
 def test_message(message):
+    """
+    Main function for form handling. Emits the message to active clients in the same room only.
+    """
     global title
     global ch_title
     global hymn
