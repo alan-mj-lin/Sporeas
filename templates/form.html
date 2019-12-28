@@ -66,13 +66,13 @@
             });
 
             $('#reset').click(function() {
-              active = sessionStorage.getItem('user');
+              const active = sessionStorage.getItem('user');
               socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
               return false;
             });
         
             $('#hymn_singing').click(function() {
-              active = sessionStorage.getItem('user');
+              const active = sessionStorage.getItem('user');
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
                 alert('Input can have only alphabets and numbers.');
               } else {
@@ -82,7 +82,7 @@
             });
         
             $('#morning_prayer').click(function() {
-              active = sessionStorage.getItem('user');
+              const active = sessionStorage.getItem('user');
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
                 alert('Input can have only alphabets and numbers.');
               } else {
@@ -92,7 +92,7 @@
             });
         
             $('#toggle').click(function() {
-              active = sessionStorage.getItem('user');
+              const active = sessionStorage.getItem('user');
               if ($('#toggle').hasClass('ui green button')) {
                 $('#toggle_label').removeClass('ui basic green label');
                 $('#toggle').removeClass('ui green button');
@@ -115,13 +115,13 @@
             });
         
             $('#scroll').click(function() {
-              active = sessionStorage.getItem('user');
+              const active = sessionStorage.getItem('user');
               socket.emit('hymn scroll', {user: active});
             });
         
             $('#verse_update').click(function() {
-              active = sessionStorage.getItem('user');
-              apiState = sessionStorage.getItem('api');
+              const active = sessionStorage.getItem('user');
+              const apiState = sessionStorage.getItem('api');
               const msg = JSON.parse(localStorage.getItem(active));
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
                 $('#update').addClass('ui form error');
@@ -129,7 +129,7 @@
               } else {
                 $('#update').removeClass('ui form error');
                 $('#update').addClass('ui form');
-                let hymnStorage = msg.hymn;
+                const hymnStorage = msg.hymn;
                 console.log(typeof(hymnStorage));
                 hymnStorage = hymnStorage.split(':')[1].trim();
                 socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: apiState});
@@ -142,14 +142,14 @@
             });
 
             $('form#update').submit(function() {
-              apiState = sessionStorage.getItem('api');
+              const apiState = sessionStorage.getItem('api');
               if (/^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false || /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($('#ch_title').val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
                 $('#update').addClass('ui form error');
                 return false;
               } else {
                 $('#update').removeClass('ui form error');
                 $('#update').addClass('ui form');
-                active = sessionStorage.getItem('user');
+                const active = sessionStorage.getItem('user');
                 socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: apiState});
                 return false;
               }
