@@ -11,7 +11,17 @@ API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
 app = Flask(__name__)
-socketio = SocketIO(app, manage_session=False, logger=True, cors_allowed_origins=['http://127.0.0.1:9000', 'https://127.0.0.1:9000','https://api.esv.org', 'http://getbible.net', 'https://tjc-av.herokuapp.com', 'http://tjc-av.herokuapp.com', 'https://192.168.0.120', 'http://192.168.0.120'])
+socketio = SocketIO(app, manage_session=False, logger=True, \
+    cors_allowed_origins=[
+        'http://127.0.0.1:9000',
+        'https://127.0.0.1:9000',
+        'https://api.esv.org',
+        'http://getbible.net',
+        'https://tjc-av.herokuapp.com',
+        'http://tjc-av.herokuapp.com',
+        'https://192.168.0.120',
+        'http://192.168.0.120'
+    ])
 title = "Title"
 ch_title = "Chinese Title"
 hymn = ''

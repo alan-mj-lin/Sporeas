@@ -35,7 +35,7 @@
         
             $('form#connect').submit(function() {
               if (/^[a-zA-Z0-9- ]*$/.test($('#user').val()) == false) {
-                $('#connect_error').html('Input can only have alphabets and numbers');
+                $('#connect_error').html('Input can only have letters and numbers');
                 $('#connect').addClass('ui form error');
                 return false;
               } else if ($.trim($('#user').val()) != '') {
@@ -83,7 +83,7 @@
             $('#hymn_singing').click(function() {
               const active = sessionStorage.getItem('user');
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
-                alert('Input can have only alphabets and numbers.');
+                alert('Input can have only letters and numbers.');
               } else {
                 socket.emit('custom message',
                   {
@@ -99,7 +99,7 @@
             $('#morning_prayer').click(function() {
               const active = sessionStorage.getItem('user');
               if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
-                alert('Input can have only alphabets and numbers.');
+                alert('Input can have only letters and numbers.');
               } else {
                 socket.emit('custom message',
                   {
@@ -339,7 +339,7 @@
       </div>
       <div class="ui error message">
         <div class="header">Error</div>
-        <p>Inputs can only have alphabets and numbers</p>
+        <p>Inputs can only have letters and numbers</p>
       </div>
     </form>
     <br>
