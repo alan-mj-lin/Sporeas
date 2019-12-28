@@ -2,7 +2,7 @@
 This is the file to run.
 """
 
-# pylint: disable=invalid-name, global-statement
+# pylint: disable=invalid-name
 
 import json
 import collections
