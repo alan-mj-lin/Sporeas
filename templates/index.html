@@ -8,7 +8,8 @@
             $('.ui.modal').modal();
             $('.ui.basic.modal').modal({centered: false});
             const protocol = window.location.protocol;
-            const socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
+            const url = protocol + '//' + document.domain + ':' + location.port;
+            const socket = io.connect(url);
             socket.on('connect', function() {
                 socket.emit('get sid', {user: window.location.pathname});
             });
@@ -34,9 +35,12 @@
                     $('#ch_overlay').html(msg.ch_overlay);
                 }
             }
-            if (localStorage.getItem('state') != null && localStorage.getItem('state') != 'True') {
+
+            const haveState = localStorage.getItem('state');
+            if (haveState && localStorage.getItem('state') != 'True') {
                 $(document).off('click');
             }
+
             if (localStorage.getItem('hymn_scroll') == null) {
                 localStorage.setItem('hymn_scroll', 'null');
             }
@@ -47,7 +51,17 @@
                 console.log(typeof(msg.state));
                 console.log(storage.hymn);
                 if (msg.state == 'true') {
-                    socket.emit('my broadcast event', {user: user, title: storage.title, ch_title: storage.ch_title, hymn: storage.hymn, book: storage.book, verse: storage.verse, state: msg.state});
+                    socket.emit('my broadcast event',
+                        {
+                            user: user,
+                            title: storage.title,
+                            ch_title: storage.ch_title,
+                            hymn: storage.hymn,
+                            book: storage.book,
+                            verse: storage.verse,
+                            state: msg.state,
+                        }
+                    );
                     $(document).click(function() {
                         console.log($('#verse').text().length);
                         if ($('#verse').text().length > 6) {
@@ -79,7 +93,7 @@
         
             // WIP
             socket.on('scroll', function() {
-                const scrollState = localStorage.getItem('hymn_scroll');
+                const scrollState = parseInt(localStorage.getItem('hymn_scroll'));
                 const hymnList = localStorage.getItem('hymn_list').split(',');
                 let temp = '';
                 let scrollStateVal = 0;
@@ -91,11 +105,11 @@
                 console.log(parseInt(scrollState));
                 console.log(scrollState.toString());
                 console.log(check);
-                if (hymnList == null || scrollState == null) {
+                if (hymnList == null || scrollState == null || isNaN(scrollState)) {
                     return;
                 }
                 $('#hymn').html('讚美詩 Hymn: ');
-                if (scrollState == 'null') {
+                if (scrollState == 'null' || isNaN(scrollState)) {
                     console.log('entered');
                     scrollStateVal = 0;
                     temp = '<u>' + hymnList[0] + '</u>';
@@ -110,8 +124,8 @@
                     }
                     localStorage.setItem('hymn_state', $('#hymn').html());
                     return;
-                } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
-                    scrollStateVal = parseInt(scrollState);
+                } else if (scrollState >= 0 && scrollState < check) {
+                    scrollStateVal = scrollState;
                     scrollStateVal ++;
                     for (i=0; i < hymnList.length; i++) {
                         if (i == scrollStateVal) {
@@ -128,7 +142,7 @@
                     console.log(scrollStateVal.toString());
                     localStorage.setItem('hymn_state', $('#hymn').html());
                     return;
-                } else if (check == parseInt(scrollState)) {
+                } else if (check == scrollState) {
                     scrollStateVal = 0;
                     console.log(temp);
                     localStorage.setItem('hymn_scroll', 'null');

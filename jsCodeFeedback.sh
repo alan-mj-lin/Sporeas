@@ -10,20 +10,11 @@ function installEslintIfMissing() {
 }
 
 function giveFeedback() {
+  eslint templates/*.html
+  # example: 11:9  error  This line has a length of 87. Maximum allowed is 80   max-len
+  # 11 means "line 11"
   echo
-  read -p "Do you want to continue and get feedback on templates/index.html? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    eslint templates/index.html
-  fi
-  echo
-  read -p "Do you want to continue and get feedback on templates/form.html? (y/n) " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    eslint templates/form.html
-  fi
-  echo
-  echo "Done."
+  echo "JS linter finished checking JS code."
 }
 
 installEslintIfMissing
