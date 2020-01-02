@@ -28,7 +28,7 @@ roomState = {} # Keep track of api state for each room
 
 """
 This function is used to find any given key value in a very complicated JSON.
-getbible.net's API is not as sophisticated enough that it just gives you the verse texts. 
+getbible.net's API is not as sophisticated enough that it just gives you the verse texts.
 It will return a JSON whichwe have to parse on our own.
 """
 def find(key, dictionary):
@@ -268,7 +268,7 @@ def hymn_scroll(message):
     active = message['user']
     emit('scroll', namespace='/', room=active)
 
-        
+
 """
 Main function for form handling. Emits the message to active clients in the same room only.
 """
@@ -324,4 +324,3 @@ def test_message(message):
 
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)
-
