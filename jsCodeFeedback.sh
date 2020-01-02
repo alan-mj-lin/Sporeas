@@ -16,6 +16,9 @@ function giveFeedback() {
   # 11 means "line 11"
   echo
   echo "JS linter finished checking JS code."
+  echo
+  echo "TIP: eslint can fix simple problems for you: eslint --fix static/*.js"
+  echo "NOTE: Check git diff before you commit."
 }
 
 installEslintIfMissing
