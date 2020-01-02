@@ -21,6 +21,7 @@ cannot setup eventlet)
 - `npm install`
 - `bash pyCodeFeedback.sh` for feedback on Python code
 - `bash jsCodeFeedback.sh` for feedback on JavaScript code
+- `npm run test` as a convenient way to run both of the above
 
 ## Windows setup to run the webapp on startup:
 1. Create a batch script to run basic_app.py (this file should be located wherever basic_app.py is)
