@@ -150,9 +150,8 @@
               } else {
                 $('#update').removeClass('ui form error');
                 $('#update').addClass('ui form');
-                const hymnStorage = msg.hymn;
-                console.log(typeof(hymnStorage));
-                hymnStorage = hymnStorage.split(':')[1].trim();
+                console.log(typeof(msg.hymn));
+                const hymnStorage = hymnStorage.split(':')[1].trim();
                 socket.emit('my broadcast event',
                   {
                     user: active,
