@@ -10,7 +10,8 @@ function installEslintIfMissing() {
 }
 
 function giveFeedback() {
-  eslint templates/*.html
+  # eslint templates/*.html
+  eslint templates/*.js
   # example: 11:9  error  This line has a length of 87. Maximum allowed is 80   max-len
   # 11 means "line 11"
   echo
