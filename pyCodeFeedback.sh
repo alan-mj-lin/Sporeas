@@ -12,6 +12,8 @@ function giveFeedback() {
   pylint basic_app.py
   # example: file-being-tested.py:1:0: C0111: Missing module docstring (missing-docstring)
   # 1:0 means "line 1, character at index 0"
+  echo
+  echo "Python linter finished checking Python code."
 }
 
 installPylintIfMissing
