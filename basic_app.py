@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.7
+
 # Need to monkey patch eventlet to prevent hang
 import eventlet
 import requests
