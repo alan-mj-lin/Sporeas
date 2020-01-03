@@ -259,7 +259,8 @@ def custom_message(message):
                             "book": '',
                             "overlay": '',
                             "ch_overlay": '',
-                            "hymn_list": filtered}, namespace='/', room=active)
+                            "hymn_list": filtered
+                        }, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
         filtered = hymn_filter(hymn).split(",")
@@ -271,7 +272,8 @@ def custom_message(message):
                             "verse": '',
                             "overlay": '',
                             "ch_overlay": '',
-                            "hymn_list": filtered}, namespace='/', room=active)
+                            "hymn_list": filtered
+                        }, namespace='/', room=active)
     print(filtered)
 
 
@@ -350,7 +352,7 @@ def test_message(message):
 
     # Debug Info
     print(project_list)
-
+    print(overlay)
     # Route Broadcast Feature
     emit('refresh', {
                         "title": title,
@@ -360,7 +362,8 @@ def test_message(message):
                         "verse": verse,
                         "overlay": overlay,
                         "ch_overlay": ch_overlay,
-                        "hymn_list": hymnList}, namespace='/', room=active)
+                        "hymn_list": hymnList
+                    }, namespace='/', room=active)
     print(hymnList)
 
 

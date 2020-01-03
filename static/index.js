@@ -1,3 +1,48 @@
+function isOverflown(element) {
+  console.log(element.scrollHeight);
+  console.log($(window.top).height());
+  return element.scrollHeight > $(window.top).height();
+}
+
+function stringProcessToInt(string){
+  string = string.replace(/\D/g, '');
+  return parseInt(string);
+}
+
+function screenAdjust(element) {
+  var fontSize = document.getElementById('title').style.fontSize;
+  fontSizeInt = stringProcessToInt(fontSize);
+  var newFontSize = '';
+  console.log(fontSizeInt);
+  console.log(isOverflown(element));
+  while (isOverflown(element) != true) {
+    if (fontSizeInt < 100) {
+      fontSizeInt = fontSizeInt + 5;
+    } else {
+      break;
+    }
+    newFontSize = fontSizeInt.toString() + 'px';
+    console.log(newFontSize);
+    document.getElementById('title').style.fontSize = newFontSize;
+    document.getElementById('ch_title').style.fontSize = newFontSize;
+    document.getElementById('hymn').style.fontSize = newFontSize;
+    document.getElementById('verse').style.fontSize = newFontSize;
+    console.log(document.getElementById('title').style.fontSize);
+    localStorage.setItem("font", newFontSize);
+  }
+  while (isOverflown(element)) {
+    fontSizeInt = fontSizeInt - 5;
+    newFontSize = fontSizeInt.toString() + 'px';
+    console.log(newFontSize);
+    document.getElementById('title').style.fontSize = newFontSize;
+    document.getElementById('ch_title').style.fontSize = newFontSize;
+    document.getElementById('hymn').style.fontSize = newFontSize;
+    document.getElementById('verse').style.fontSize = newFontSize;
+    console.log(document.getElementById('title').style.fontSize);
+    localStorage.setItem("font", newFontSize);
+  }
+}
+
 $(document).ready(function(){
     $('.ui.modal').modal();
     $(".ui.basic.modal").modal({ centered: false });
@@ -29,10 +74,16 @@ $(document).ready(function(){
         }
     }
     if (localStorage.getItem("state") != null && localStorage.getItem("state") != "True"){
-        $(document).off("click");
+      $(document).off("click");
     }
     if (localStorage.getItem("hymn_scroll") == null) {
-        localStorage.setItem("hymn_scroll", "null");
+      localStorage.setItem("hymn_scroll", "null");
+    }
+    if (localStorage.getItem("font") != null) {
+      document.getElementById('title').style.fontSize = localStorage.getItem("font");
+      document.getElementById('ch_title').style.fontSize = localStorage.getItem("font");
+      document.getElementById('hymn').style.fontSize = localStorage.getItem("font");
+      document.getElementById('verse').style.fontSize = localStorage.getItem("font");
     }
 
     socket.on('state check', function(msg) {
@@ -69,6 +120,8 @@ $(document).ready(function(){
         localStorage.setItem(user, JSON.stringify(msg));
         localStorage.setItem("hymn_list", msg.hymn_list);
         localStorage.setItem("hymn_scroll", "null");
+        localStorage.setItem("hymn_state", msg.hymn);
+        screenAdjust(document.getElementById('grid'));
     });
 
     //WIP
