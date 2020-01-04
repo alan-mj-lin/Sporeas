@@ -21,6 +21,11 @@ been given the name "sporeas" which is greek for "sower".
 - For python: `bash pyCodeFeedback.sh`
 - For javascript: `bash jsCodeFeedback.sh`
 
+### To run automated test:
+1. Install the [Chrome](https://www.google.com/chrome) extension [Selenium IDE](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd).
+2. Click on the extension's icon and "Open an existing project": select the [Sporeas-test.side](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/Sporeas-test.side) file.
+3. Run the test. It should look something like [this](https://www.dropbox.com/s/4vi8o41twjafhsu/Selenium_IDE_Chrome_Extension_Demo.mov).
+
 ## Windows setup to run the webapp on startup:
 1. Create a batch script to run basic_app.py (this file should be located wherever basic_app.py is)
 2. Create a vbs script to run the batch script in minimal mode (so that a cmd shell doesn't show up everytime you boot)
