@@ -8,14 +8,14 @@ messages on the pulpit. In that sense it helps with the "sowing" process of the 
 been given the name "sporeas" which is greek for "sower".
 
 ## To set up locally:
-1. Ensure Python 3.7 is installed (Ensure python version is not less than 3.6; Python 3.8 should not be used as it 
-cannot setup eventlet)
-2. pip install eventlet
-3. pip install flask
-4. pip install flask_socketio
-5. pip install requests
-6. pip install pyOpenSSL==19.1.0 -> otherwise monkey patching for eventlet will break stuff
-5. run basic_app.py in command line
+1. Ensure Python 3.7 is installed. Ensure python version is not less than 3.6; Python 3.8 should not be used as it cannot setup eventlet. You can check in command line with: `python --version` or with `python3 --version`
+2. `pip install eventlet`
+3. `pip install flask`
+4. `pip install flask_socketio`
+5. `pip install requests`
+6. `pip install pyOpenSSL==19.1.0` -> otherwise monkey patching for eventlet will break stuff
+5. Run basic_app.py in command line: `python basic_app.py`
+6. Go to http://127.0.0.1:9000/admin in your browser
 
 ### To get feedback on code best practices:
 - For python: `bash pyCodeFeedback.sh`
