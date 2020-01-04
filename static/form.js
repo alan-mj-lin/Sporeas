@@ -61,7 +61,7 @@ $(document).ready(function() {
   });
 
   $('#reset').click(function() {
-    active = sessionStorage.getItem('user');
+    const active = sessionStorage.getItem('user');
     socket.emit('reset', {
       user: active,
       title: '',
@@ -74,7 +74,7 @@ $(document).ready(function() {
   });
 
   $('#hymn_singing').click(function() {
-    active = sessionStorage.getItem('user');
+    const active = sessionStorage.getItem('user');
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
       alert('Input can have only alphabets and numbers.');
     } else {
@@ -88,7 +88,7 @@ $(document).ready(function() {
   });
 
   $('#morning_prayer').click(function() {
-    active = sessionStorage.getItem('user');
+    const active = sessionStorage.getItem('user');
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
       alert('Input can have only alphabets and numbers.');
     } else {
@@ -102,7 +102,7 @@ $(document).ready(function() {
   });
 
   $('#toggle').click(function() {
-    active = sessionStorage.getItem('user');
+    const active = sessionStorage.getItem('user');
     if ($('#toggle').hasClass('ui green button')) {
       $('#toggle_label').removeClass('ui basic green label');
       $('#toggle').removeClass('ui green button');
@@ -130,15 +130,15 @@ $(document).ready(function() {
   });
 
   $('#scroll').click(function() {
-    active = sessionStorage.getItem('user');
+    const active = sessionStorage.getItem('user');
     socket.emit('hymn scroll', {
       user: active,
     });
   });
 
   $('#verse_update').click(function() {
-    active = sessionStorage.getItem('user');
-    apiState = sessionStorage.getItem('api');
+    const active = sessionStorage.getItem('user');
+    const apiState = sessionStorage.getItem('api');
     const msg = JSON.parse(localStorage.getItem(active));
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
       $('#update').addClass('ui form error');
@@ -167,7 +167,7 @@ $(document).ready(function() {
   });
 
   $('form#update').submit(function() {
-    apiState = sessionStorage.getItem('api');
+    const apiState = sessionStorage.getItem('api');
     const invalidTitle = /^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false;
     const chReg = /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/;
     const invalidChTitle = chReg.test($('#ch_title').val()) == false;
@@ -179,7 +179,7 @@ $(document).ready(function() {
     } else {
       $('#update').removeClass('ui form error');
       $('#update').addClass('ui form');
-      active = sessionStorage.getItem('user');
+      const active = sessionStorage.getItem('user');
       socket.emit('my broadcast event', {
         user: active,
         title: $('#title').val(),
