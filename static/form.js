@@ -33,7 +33,9 @@ $(document).ready(function() {
       return false;
     } else if ($.trim($('#user').val()) != '') {
       const user = $('#user').val();
-      socket.emit('user active', {user: $('#user').val()});
+      socket.emit('user active', {
+        user: $('#user').val(),
+      });
       sessionStorage.setItem('user', user);
       return false;
     }
@@ -60,7 +62,14 @@ $(document).ready(function() {
 
   $('#reset').click(function() {
     active = sessionStorage.getItem('user');
-    socket.emit('reset', {user: active, title: '', ch_title: '', hymn: '', book: '', verse: ''});
+    socket.emit('reset', {
+      user: active,
+      title: '',
+      ch_title: '',
+      hymn: '',
+      book: '',
+      verse: '',
+    });
     return false;
   });
 
@@ -69,7 +78,11 @@ $(document).ready(function() {
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
       alert('Input can have only alphabets and numbers.');
     } else {
-      socket.emit('custom message', {user: active, type: 'hymn', hymn: $('#hymn_input').val()});
+      socket.emit('custom message', {
+        user: active,
+        type: 'hymn',
+        hymn: $('#hymn_input').val(),
+      });
       return false;
     }
   });
@@ -79,7 +92,11 @@ $(document).ready(function() {
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
       alert('Input can have only alphabets and numbers.');
     } else {
-      socket.emit('custom message', {user: active, type: 'morning', hymn: $('#m_hymn_input').val()});
+      socket.emit('custom message', {
+        user: active,
+        type: 'morning',
+        hymn: $('#m_hymn_input').val(),
+      });
       return false;
     }
   });
@@ -93,7 +110,9 @@ $(document).ready(function() {
       $('#toggle').addClass('ui red button');
       $('#toggle').html('Off');
       sessionStorage.setItem('api', 'false');
-      socket.emit('toggle api', {user: active, state: 'false'});
+      socket.emit('toggle api', {
+        user: active, state: 'false',
+      });
       return false;
     } else {
       $('#toggle_label').removeClass('ui basic red label');
@@ -102,19 +121,24 @@ $(document).ready(function() {
       $('#toggle').addClass('ui green button');
       $('#toggle').html('On');
       sessionStorage.setItem('api', 'true');
-      socket.emit('toggle api', {user: active, state: 'true'});
+      socket.emit('toggle api', {
+        user: active,
+        state: 'true',
+      });
       return false;
     }
   });
 
   $('#scroll').click(function() {
     active = sessionStorage.getItem('user');
-    socket.emit('hymn scroll', {user: active});
+    socket.emit('hymn scroll', {
+      user: active,
+    });
   });
 
   $('#verse_update').click(function() {
     active = sessionStorage.getItem('user');
-    api_state = sessionStorage.getItem('api');
+    apiState = sessionStorage.getItem('api');
     const msg = JSON.parse(localStorage.getItem(active));
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
       $('#update').addClass('ui form error');
@@ -125,7 +149,15 @@ $(document).ready(function() {
       let hymnStorage = msg.hymn;
       console.log(typeof(hymnStorage));
       hymnStorage = hymnStorage.split(':')[1].trim();
-      socket.emit('my broadcast event', {user: active, title: msg.title, ch_title: msg.ch_title, hymn: hymnStorage, book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: api_state});
+      socket.emit('my broadcast event', {
+        user: active,
+        title: msg.title,
+        ch_title: msg.ch_title,
+        hymn: hymnStorage,
+        book: $('#ddbible option:selected').text(),
+        verse: $('#verse').val(),
+        state: apiState,
+      });
       return false;
     }
   });
@@ -135,15 +167,28 @@ $(document).ready(function() {
   });
 
   $('form#update').submit(function() {
-    api_state = sessionStorage.getItem('api');
-    if (/^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false || /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/.test($('#ch_title').val()) == false || /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false || /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
+    apiState = sessionStorage.getItem('api');
+    const invalidTitle = /^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false;
+    const chReg = /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/;
+    const invalidChTitle = chReg.test($('#ch_title').val()) == false;
+    const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
+    const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
+    if (invalidTitle || invalidChTitle || invalidHymn || invalidVerse) {
       $('#update').addClass('ui form error');
       return false;
     } else {
       $('#update').removeClass('ui form error');
       $('#update').addClass('ui form');
       active = sessionStorage.getItem('user');
-      socket.emit('my broadcast event', {user: active, title: $('#title').val(), ch_title: $('#ch_title').val(), hymn: $('#hymn').val(), book: $('#ddbible option:selected').text(), verse: $('#verse').val(), state: api_state});
+      socket.emit('my broadcast event', {
+        user: active,
+        title: $('#title').val(),
+        ch_title: $('#ch_title').val(),
+        hymn: $('#hymn').val(),
+        book: $('#ddbible option:selected').text(),
+        verse: $('#verse').val(),
+        state: apiState,
+      });
       return false;
     }
   });

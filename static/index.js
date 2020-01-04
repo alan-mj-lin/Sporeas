@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+
 function isOverflown(element) {
   console.log(element.scrollHeight);
   console.log($(window.top).height());
@@ -47,7 +49,9 @@ $(document).ready(function() {
   $('.ui.modal').modal();
   $('.ui.basic.modal').modal({centered: false});
   const protocol = window.location.protocol;
-  const socket = io.connect(protocol + '//' + document.domain + ':' + location.port);
+  const socket = io.connect(
+      protocol + '//' + document.domain + ':' + location.port
+  );
   socket.on('connect', function() {
     socket.emit('get sid', {user: window.location.pathname});
   });
@@ -73,17 +77,20 @@ $(document).ready(function() {
       $('#ch_overlay').html(msg.ch_overlay);
     }
   }
-  if (localStorage.getItem('state') != null && localStorage.getItem('state') != 'True') {
+  const haveState = (localStorage.getItem('state') != null);
+  const haveOnState = (localStorage.getItem('state') != 'True');
+  if (haveState && haveOnState) {
     $(document).off('click');
   }
   if (localStorage.getItem('hymn_scroll') == null) {
     localStorage.setItem('hymn_scroll', 'null');
   }
-  if (localStorage.getItem('font') != null) {
-    document.getElementById('title').style.fontSize = localStorage.getItem('font');
-    document.getElementById('ch_title').style.fontSize = localStorage.getItem('font');
-    document.getElementById('hymn').style.fontSize = localStorage.getItem('font');
-    document.getElementById('verse').style.fontSize = localStorage.getItem('font');
+  const font = localStorage.getItem('font');
+  if (font) {
+    document.getElementById('title').style.fontSize = font;
+    document.getElementById('ch_title').style.fontSize = font;
+    document.getElementById('hymn').style.fontSize = font;
+    document.getElementById('verse').style.fontSize = font;
   }
 
   socket.on('state check', function(msg) {
@@ -92,7 +99,15 @@ $(document).ready(function() {
     console.log(typeof(msg.state));
     console.log(storage.hymn);
     if (msg.state == 'true') {
-      socket.emit('my broadcast event', {user: user, title: storage.title, ch_title: storage.ch_title, hymn: storage.hymn, book: storage.book, verse: storage.verse, state: msg.state});
+      socket.emit('my broadcast event', {
+        user: user,
+        title: storage.title,
+        ch_title: storage.ch_title,
+        hymn: storage.hymn,
+        book: storage.book,
+        verse: storage.verse,
+        state: msg.state,
+      });
       $(document).click(function() {
         console.log($('#verse').text().length);
         if ($('#verse').text().length > 6) {
