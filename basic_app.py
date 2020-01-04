@@ -325,23 +325,32 @@ def test_message(message):
     hymn = message['hymn']
     hymn = hymn_filter(hymn)
     hymnList = hymn.split(",")
-    book = message['book']
-    verse = message['verse']
-    extra_verse = ''
-    for i in verse:
-        if i == ',':
-            extra_verse = verse.split(',')[1]
-            comma = True
-    passage = message['book'].split('|')[0] + message['verse']
-    passage_remainder = passage.split(':')[0] + ':' + extra_verse
+
+    try:
+        book = message['book']
+        verse = message['verse']
+    except KeyError:
+        book = ''
+        verse = ''
+
+    if verse != '':
+        extra_verse = ''
+        for i in verse:
+            if i == ',':
+                extra_verse = verse.split(',')[1]
+                comma = True
+        passage = message['book'].split('|')[0] + message['verse']
+        passage_remainder = passage.split(':')[0] + ':' + extra_verse
+        print(passage)
+
     active = message['user']
     state = message['state']
+
+    # Debug Info
     print(state)
     print(type(state))
-    # Debug Info
     print(active)
     print(message)
-    print(passage)
 
     if (state is None or state == 'true') and book != '':
         if comma:
