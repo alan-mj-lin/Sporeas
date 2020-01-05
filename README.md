@@ -22,6 +22,9 @@ been given the name "sporeas" which is greek for "sower".
 - For javascript: `bash jsCodeFeedback.sh`
 
 ### To run automated test:
+
+(Make sure that you have `basic_app.py` already running.)
+
 1. Install the [Chrome](https://www.google.com/chrome) extension [Selenium IDE](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd).
 2. Click on the extension's icon and "Open an existing project": select the [Sporeas-test.side](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/Sporeas-test.side) file.
 3. Run the test. It should look something like [this](https://www.dropbox.com/s/4vi8o41twjafhsu/Selenium_IDE_Chrome_Extension_Demo.mov).
