@@ -505,6 +505,33 @@
         ["xpath=//div[2]/input", "xpath:position"]
       ],
       "value": "DON'T FORGET TO CLOSE CHROME COMPLETELY (and Selenium IDE too)"
+    }, {
+      "id": "cfb503e4-35bf-4d51-b47f-3be1b4297166",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ui:nth-child(7)",
+      "targets": [
+        ["css=.ui:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button", "xpath:idRelative"],
+        ["xpath=//form[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ad63a4d-6101-4590-a535-c1ec2c100980",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=.ui:nth-child(11) > .header",
+      "targets": [],
+      "value": "Error"
+    }, {
+      "id": "d6c10dbf-919a-46c4-b510-eb8f225e75d7",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[@class='ui error message']/p[contains(text(), 'Inputs can only have')]",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{
