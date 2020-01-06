@@ -1,9 +1,14 @@
 # automatic testing with Travis CI!
 
-language: node_js
+language:
+  - node_js
+  - python
 
 node_js:
   - "11"
+
+python:
+  - "3.7"
 
 addons:
   chrome: stable
@@ -14,9 +19,14 @@ cache:
     - node_modules
 
 before_script:
+  - pip install eventlet
+  - pip install flask
+  - pip install flask_socketio
+  - pip install requests
+  - pip install pyOpenSSL==19.1.0
   - npm install -g chromedriver
   - npm install -g selenium-side-runner
 
 script:
-  # - python3.7 basic_app.py & selenium-side-runner -c \"goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome\" Sporeas-test.side; pkill -9 -f basic_app.py
+  # - python3.7 basic_app.py & selenium-side-runner -c "goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome" Sporeas-test.side; # pkill -9 -f basic_app.py
   - npm run test
