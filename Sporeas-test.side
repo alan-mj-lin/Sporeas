@@ -180,12 +180,12 @@
       ],
       "value": "Gene"
     }, {
-      "id": "1b52e1e0-a350-4a75-aa5c-caca7a7f5e29",
+      "id": "18a1d406-c5ed-4ba5-9b22-948f56f41851",
       "comment": "",
-      "command": "select",
-      "target": "id=ddbible",
+      "command": "sendKeys",
+      "target": "css=.search:nth-child(3)",
       "targets": [],
-      "value": "label=Genesis | 創世記"
+      "value": "${KEY_TAB}"
     }, {
       "id": "4a42d104-5401-418c-bc4b-f2bb2d12fd0b",
       "comment": "",
