@@ -540,7 +540,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": []
+    "tests": ["ef096fb4-6344-4358-9194-9a319c8105e9"]
   }],
   "urls": ["http://127.0.0.1:9000/admin"],
   "plugins": []
