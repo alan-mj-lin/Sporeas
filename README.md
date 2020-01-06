@@ -27,6 +27,8 @@ been given the name "sporeas" which is greek for "sower".
 2. Run `npm run test` in the CLI. **_DON'T TOUCH ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._** Under the hood, `npm run test` is currently set to run [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner).
 3. Wait for all the automatically-opened windows/tabs to close. You should see ass tests passed in the CLI.
 
+(Or just run `npm t`, which is short for `npm run test`.)
+
 ### To edit the automated test:
 
 (Make sure that you have `basic_app.py` already running.)
