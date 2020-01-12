@@ -35,5 +35,7 @@ script:
 
 notifications:
   email:
+    # If you don't want to specify emails here,
+    # you can set your email with git config --global user.email
     on_success: change
     on_failure: always
