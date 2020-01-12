@@ -32,3 +32,8 @@ before_script:
 script:
   # - python3.7 basic_app.py & selenium-side-runner -c "goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome" Sporeas-test.side; # pkill -9 -f basic_app.py
   - npm run test
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
