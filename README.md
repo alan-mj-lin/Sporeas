@@ -21,6 +21,22 @@ been given the name "sporeas" which is greek for "sower".
 - For python: `bash pyCodeFeedback.sh`
 - For javascript: `bash jsCodeFeedback.sh`
 
+### To run the automated test:
+
+1. Ideally close all browser windows and then run `basic_app.py` (this avoids having previous state affect the current test run).
+2. Run `npm run test` in the CLI. **_DON'T TOUCH ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._** Under the hood, `npm run test` is currently set to run [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner).
+3. Wait for all the automatically-opened windows/tabs to close. You should see ass tests passed in the CLI.
+
+(Or just run `npm t`, which is short for `npm run test`.)
+
+### To edit the automated test:
+
+(Make sure that you have `basic_app.py` already running.)
+
+1. Install the [Chrome](https://www.google.com/chrome) extension [Selenium IDE](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd).
+2. Click on the extension's icon and "Open an existing project": select the [Sporeas-test.side](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/Sporeas-test.side) file.
+3. You can now edit/run the test. It should look something like [this](https://www.dropbox.com/s/4vi8o41twjafhsu/Selenium_IDE_Chrome_Extension_Demo.mov).
+
 ## Windows setup to run the webapp on startup:
 1. Create a batch script to run basic_app.py (this file should be located wherever basic_app.py is)
 2. Create a vbs script to run the batch script in minimal mode (so that a cmd shell doesn't show up everytime you boot)

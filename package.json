@@ -5,12 +5,13 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "eslint-config-google": "^0.14.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-html": "^6.0.0"
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-html": "^6.0.0",
+    "selenium-side-runner": "^3.16.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "python3.7 basic_app.py & selenium-side-runner -c \"goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome\" Sporeas-test.side; pkill -9 -f basic_app.py"
   },
   "repository": {
     "type": "git",
