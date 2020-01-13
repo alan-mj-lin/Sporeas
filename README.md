@@ -7,6 +7,8 @@ titles and bible verses to help the listener follow along, in hopes that they ca
 messages on the pulpit. In that sense it helps with the "sowing" process of the word, and therefore it has
 been given the name "sporeas" which is greek for "sower".
 
+[![Build Status](https://travis-ci.com/alan-mj-lin/Sporeas.svg?branch=master)](https://travis-ci.com/alan-mj-lin/Sporeas)
+
 ## To set up locally:
 1. Ensure Python 3.7 is installed. Ensure python version is not less than 3.6; Python 3.8 should not be used as it cannot setup eventlet. You can check in command line with: `python --version` or with `python3 --version`
 2. `pip install eventlet`
