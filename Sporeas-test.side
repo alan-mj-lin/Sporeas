@@ -429,6 +429,20 @@
       ],
       "value": "2"
     }, {
+      "id": "17ecab0f-9ae8-4228-9d75-a77e8dad996a",
+      "comment": "",
+      "command": "click",
+      "target": "id=morning_prayer",
+      "targets": [
+        ["id=morning_prayer", "id"],
+        ["css=#morning_prayer", "css:finder"],
+        ["xpath=//button[@id='morning_prayer']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Morning Prayer')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
       "id": "f1b7ded4-64e2-48b4-b069-7aede6ea538c",
       "comment": "",
       "command": "click",
@@ -449,6 +463,13 @@
       "target": "http://127.0.0.1:9000/test-location",
       "targets": [],
       "value": ""
+    }, {
+      "id": "51faa49d-a5b6-4145-9cb9-dff7e23f2b7f",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//h1[@id='title' and contains(text(), 'Morning Prayer')]",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "a6bb3243-d100-4152-bb00-503f1bbd658b",
       "comment": "",
