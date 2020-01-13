@@ -135,7 +135,8 @@ def admin():
 @socketio.on('connect')
 def connect_test():
     """
-    If a client connects call function to get the SID (Used for session management)
+    If a client connects call function to get the SID
+    (Used for session management)
     """
     emit('get sid')
 
@@ -165,8 +166,8 @@ def get_session(message):
 @socketio.on('user active')
 def get_user(message):
     """
-    Function to join a room according to user input, and emits to client whether to
-    allow the user access or not.
+    Function to join a room according to user input, and emits to client
+    whether to allow the user access or not.
     """
     global username
     global user_list
@@ -193,8 +194,8 @@ def get_user(message):
 @socketio.on('disconnect')
 def disconnect_event():
     """
-    Disconnect event should cause client to leave the room, and delete the active
-    room entry.
+    Disconnect event should cause client to leave the room, and delete the
+    active room entry.
     """
     global user_list
     global project_list
@@ -242,8 +243,8 @@ def api_toggle_handler(message):
 @socketio.on('custom message', namespace='/')
 def custom_message(message):
     """
-    Function to handle any service mode messages (hymn singing mode, morning prayer
-    mode...)
+    Function to handle any service mode messages (hymn singing mode, morning
+    prayer mode...)
     """
     global title
     global ch_title
@@ -360,7 +361,7 @@ def test_message(message):
     print(active)
     print(message)
 
-    if (state is None or state == 'true') and book != '':
+    if state == 'true' and book != '':
         if comma:
             overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
         else:
