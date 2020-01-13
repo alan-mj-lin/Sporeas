@@ -158,6 +158,13 @@
       ],
       "value": "123, 345"
     }, {
+      "id": "6b1cc289-ac13-4f60-81e9-f053844b941c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.search:nth-child(3)",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "43e1a735-42c3-4e8b-9a7f-60623cb900bd",
       "comment": "",
       "command": "click",
