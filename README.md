@@ -23,15 +23,15 @@ been given the name "sporeas" which is greek for "sower".
 - For python: `bash pyCodeFeedback.sh`
 - For javascript: `bash jsCodeFeedback.sh`
 
-### To run the automated test:
+### To run the automated test from CLI:
 
-1. Ideally close all browser windows and then run `basic_app.py` (this avoids having previous state affect the current test run).
-2. Run `npm run test` in the CLI. **_DON'T TOUCH ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._** Under the hood, `npm run test` is currently set to run [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner).
-3. Wait for all the automatically-opened windows/tabs to close. You should see ass tests passed in the CLI.
+1. Ideally close all browser windows (this avoids having previous state affect the current test run).
+2. [`npm run test`](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/package.json) or just `npm t` (either one will run `basic_app.py` and then [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner))
+    - _Or_ to run the test with visuals showing: `npm run test-visually` and wait for all automatically-opened tabs to close. **_NOTE: AVOID TOUCHING ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._**
+4. When it's done, you should see all tests passed (green) in the CLI.
+5. Hit `Ctrl+C` in the CLI to stop `basic_app.py`.
 
-(Or just run `npm t`, which is short for `npm run test`.)
-
-### To edit the automated test:
+### To edit the automated test (or run it manually):
 
 (Make sure that you have `basic_app.py` already running.)
 
