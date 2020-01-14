@@ -28,8 +28,7 @@ been given the name "sporeas" which is greek for "sower".
 1. Ideally close all browser windows (this avoids having previous state affect the current test run).
 2. [`npm run test`](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/package.json) or just `npm t` (either one will run `basic_app.py` and then [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner))
     - _Or_ to run the test with visuals showing: `npm run test-visually` and wait for all automatically-opened tabs to close. **_NOTE: AVOID TOUCHING ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._**
-4. When it's done, you should see all tests passed (green) in the CLI.
-5. `npm stop` or or hit `Ctrl+C` in the CLI to stop `basic_app.py`.
+3. When it's done, you should see all tests passed (green) in the CLI.
 
 ### To edit the automated test (or run it manually):
 

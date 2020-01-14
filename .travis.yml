@@ -30,7 +30,7 @@ before_script:
   - npm install -g selenium-side-runner
 
 script:
-  # - python3.7 basic_app.py & selenium-side-runner -c "goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome" Sporeas-test.side; # pkill -9 -f basic_app.py
+  # - python3.7 basic_app.py & selenium-side-runner -c "goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome" Sporeas-test.side; (pkill -f basic_app.py) || true;
   - npm run test
 
 notifications:
