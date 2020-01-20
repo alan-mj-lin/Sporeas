@@ -66,6 +66,22 @@ def find(key, dictionary):
                     yield result
 
 
+def split_by_verse_esv(passage):
+    """
+    This function is used to process the english passages so that they
+    can be displayed verse by verse.
+    """
+    verse_list = passage.split('[')
+    for i in range(len(verse_list)):
+        verse_list[i] = verse_list[i].replace("]", "")
+
+    verse_list.remove('')
+
+    return verse_list
+
+
+
+
 def get_chinese_text(passage):
     """
     Function to get the chinese verse text.
@@ -366,11 +382,15 @@ def test_message(message):
             overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
         else:
             overlay = get_esv_text(passage)
-        ch_overlay = get_chinese_text(passage)
+        ch_overlay = get_chinese_text(passage).splitlines()
 
+    overlay = split_by_verse_esv(overlay)
     # Debug Info
+    print(overlay)
     print(project_list)
     print(overlay)
+    print(ch_overlay)
+    # print(ch_overlay.splitlines()[0])
     # Route Broadcast Feature
     emit('refresh', {
         "title": title,

@@ -73,8 +73,8 @@ $(document).ready(function() {
       $('#verse').html(msg.book + msg.verse);
       $('#innerTitle').html(msg.title);
       $('#innerChTitle').html(msg.ch_title);
-      $('#overlay').html(msg.overlay);
-      $('#ch_overlay').html(msg.ch_overlay);
+      $('#overlay').html(msg.overlay[0]);
+      $('#ch_overlay').html(msg.ch_overlay[0]);
     }
   }
   const haveState = (localStorage.getItem('state') != null);
@@ -129,13 +129,15 @@ $(document).ready(function() {
     $('#verse').html(msg.book + msg.verse);
     $('#innerTitle').html(msg.title);
     $('#innerChTitle').html(msg.ch_title);
-    $('#overlay').html(msg.overlay);
-    $('#ch_overlay').html(msg.ch_overlay);
+    $('#overlay').html(msg.overlay[0]);
+    $('#ch_overlay').html(msg.ch_overlay[0]);
     console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
     localStorage.setItem('hymn_list', msg.hymn_list);
     localStorage.setItem('hymn_scroll', 'null');
     localStorage.setItem('hymn_state', msg.hymn);
+    localStorage.setItem('eng_verse_data', JSON.stringify(msg.overlay));
+    localStorage.setItem('ch_verse_data', JSON.stringify(msg.ch_overlay));
     screenAdjust(document.getElementById('grid'));
   });
 
@@ -202,19 +204,43 @@ $(document).ready(function() {
   });
 
   socket.on('reset', function(msg) {
+    /*
     msg.title = $('#title').html();
     msg.hymn = $('#hymn').html();
     msg.ch_title = $('#ch_title').html();
     msg.overlay = $('#overlay').html();
     msg.ch_overlay = $('#ch_overlay').html();
+    */
     $('#verse').html(msg.verse);
-    console.log(msg);
-    localStorage.setItem(user, JSON.stringify(msg));
+
+    //console.log(msg);
+    //localStorage.setItem(user, JSON.stringify(msg));
   });
 });
 $(document).click(function() {
   console.log($('#verse').text().length);
   if ($('#verse').text().length > 6) {
     $('.ui.basic.modal').modal('toggle');
+  }
+});
+$(window).keypress(function(e){
+  const eng_verses = JSON.parse(localStorage.getItem('eng_verse_data'));
+  const ch_verses = JSON.parse(localStorage.getItem('ch_verse_data'));
+  console.log(eng_verses);
+  if ($('#modal').hasClass("visible") && e.which === 32) {
+    //console.log($('#overlay').html());
+    for (i = 0; i < eng_verses.length; i++) {
+      //console.log(eng_verses[i]);
+      if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
+        $('#overlay').html(eng_verses[i+1]);
+        $('#ch_overlay').html(ch_verses[i+1]);
+        break;
+      } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
+        $('#overlay').html(eng_verses[0]);
+        $('#ch_overlay').html(ch_verses[0]);
+        break;
+      }
+    }
+    console.log("SPACEBAR Pressed");
   }
 });
