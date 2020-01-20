@@ -204,6 +204,7 @@ $(document).ready(function() {
   });
 
   socket.on('reset', function(msg) {
+    const msgActive = JSON.parse(localStorage.getItem(user));
     /*
     msg.title = $('#title').html();
     msg.hymn = $('#hymn').html();
@@ -212,6 +213,9 @@ $(document).ready(function() {
     msg.ch_overlay = $('#ch_overlay').html();
     */
     $('#verse').html(msg.verse);
+    msgActive.book = '';
+    msgActive.verse = '';
+    localStorage.setItem(user, JSON.stringify(msgActive));
 
     //console.log(msg);
     //localStorage.setItem(user, JSON.stringify(msg));
