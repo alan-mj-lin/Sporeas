@@ -292,7 +292,8 @@ def custom_message(message):
             "book": '',
             "overlay": '',
             "ch_overlay": '',
-            "hymn_list": filtered
+            "hymn_list": filtered,
+            "hymn_scroll": "null"
         }, namespace='/', room=active)
     elif type == 'morning':
         hymn = message['hymn']
@@ -305,7 +306,8 @@ def custom_message(message):
             "verse": '',
             "overlay": '',
             "ch_overlay": '',
-            "hymn_list": filtered
+            "hymn_list": filtered,
+            "hymn_scroll": "null"
         }, namespace='/', room=active)
     print(filtered)
 
@@ -392,7 +394,7 @@ def test_message(message):
             overlay = get_esv_text(passage)
         ch_overlay = get_chinese_text(passage).splitlines()
 
-    overlay = split_by_verse_esv(overlay)
+        overlay = split_by_verse_esv(overlay)
     # Debug Info
     print(overlay)
     print(project_list)
@@ -408,7 +410,9 @@ def test_message(message):
         "verse": verse,
         "overlay": overlay,
         "ch_overlay": ch_overlay,
-        "hymn_list": hymnList
+        "hymn_list": hymnList,
+        "hymn_scroll": "null",
+        "state": state
     }, namespace='/', room=active)
     print(hymnList)
 

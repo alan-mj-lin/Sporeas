@@ -12,6 +12,9 @@ function stringProcessToInt(string) {
 }
 
 function screenAdjust(element) {
+  let user = window.location.pathname;
+  user = user.substr(1);
+  const msg = JSON.parse(localStorage.getItem(user));
   const fontSize = document.getElementById('title').style.fontSize;
   fontSizeInt = stringProcessToInt(fontSize);
   let newFontSize = '';
@@ -30,7 +33,8 @@ function screenAdjust(element) {
     document.getElementById('hymn').style.fontSize = newFontSize;
     document.getElementById('verse').style.fontSize = newFontSize;
     console.log(document.getElementById('title').style.fontSize);
-    localStorage.setItem('font', newFontSize);
+    msg.font = newFontSize;
+    localStorage.setItem(user, JSON.stringify(storage));
   }
   while (isOverflown(element)) {
     fontSizeInt = fontSizeInt - 5;
@@ -41,7 +45,37 @@ function screenAdjust(element) {
     document.getElementById('hymn').style.fontSize = newFontSize;
     document.getElementById('verse').style.fontSize = newFontSize;
     console.log(document.getElementById('title').style.fontSize);
-    localStorage.setItem('font', newFontSize);
+    msg.font = newFontSize;
+    localStorage.setItem(user, JSON.stringify(storage));
+  }
+}
+
+function spaceBar(e){
+  let user = window.location.pathname;
+  user = user.substr(1);
+  const msg = JSON.parse(localStorage.getItem(user));
+  console.log(msg);
+  const eng_verses = msg.overlay;
+  const ch_verses = msg.ch_overlay;
+  console.log(eng_verses);
+  if ($('#modal').hasClass("visible") && e.which === 32) {
+    //console.log($('#overlay').html());
+    for (i = 0; i < eng_verses.length; i++) {
+      //console.log(eng_verses[i]);
+      if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
+        $('#overlay').html(eng_verses[i+1]);
+        $('#ch_overlay').html(ch_verses[i+1]);
+        break;
+      } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
+        $('.ui.basic.modal').modal('toggle');
+        break;
+      }
+    }
+    console.log("SPACEBAR Pressed");
+  } else if (e.which ===32 && $('#verse').text().length > 6 ){
+    $('.ui.basic.modal').modal('toggle');
+    $('#overlay').html(eng_verses[0]);
+    $('#ch_overlay').html(ch_verses[0]);
   }
 }
 
@@ -58,40 +92,50 @@ $(document).ready(function() {
 
   let user = window.location.pathname;
   user = user.substr(1);
+  console.log(user);
 
-  if (localStorage.length !=0 ) {
-    const msg = JSON.parse(localStorage.getItem(user));
-    console.log(msg);
-    if (msg != null) {
-      $('#title').html(msg.title);
-      $('#ch_title').html(msg.ch_title);
-      if (localStorage.getItem('hymn_state') == null) {
-        $('#hymn').html(msg.hymn);
-      } else {
-        $('#hymn').html(localStorage.getItem('hymn_state'));
-      }
-      $('#verse').html(msg.book + msg.verse);
-      $('#innerTitle').html(msg.title);
-      $('#innerChTitle').html(msg.ch_title);
-      $('#overlay').html(msg.overlay[0]);
-      $('#ch_overlay').html(msg.ch_overlay[0]);
+  var msg = JSON.parse(localStorage.getItem(user));
+
+  if (msg == null){
+    var msg = {
+      "title": "English Title",
+      "ch_title": "Chinese Title",
+      "verse": '',
+      "book": '',
+      "overlay": '',
+      "ch_overlay": '',
+      "state": 'false',
+      "font": '100px'
     }
   }
-  const haveState = (localStorage.getItem('state') != null);
-  const haveOnState = (localStorage.getItem('state') != 'True');
-  if (haveState && haveOnState) {
-    $(document).off('click');
+
+  const font = msg.font;
+
+  $('#title').html(msg.title);
+  $('#ch_title').html(msg.ch_title);
+  $('#hymn').html(msg.hymn);
+  $('#verse').html(msg.book + msg.verse);
+  $('#innerTitle').html(msg.title);
+  $('#innerChTitle').html(msg.ch_title);
+  $('#overlay').html(msg.overlay[0]);
+  $('#ch_overlay').html(msg.ch_overlay[0]);
+  if (msg.state != null){
+    if(msg.state != 'true'){
+      $(window).on('keypress', spaceBar);
+    } else {
+      $(window).off('keypress', spaceBar);
+    }
+  } else {
+    $(window).off('keypress', spaceBar);
   }
-  if (localStorage.getItem('hymn_scroll') == null) {
-    localStorage.setItem('hymn_scroll', 'null');
-  }
-  const font = localStorage.getItem('font');
   if (font) {
     document.getElementById('title').style.fontSize = font;
     document.getElementById('ch_title').style.fontSize = font;
     document.getElementById('hymn').style.fontSize = font;
     document.getElementById('verse').style.fontSize = font;
   }
+
+  localStorage.setItem(user, JSON.stringify(msg));
 
   socket.on('state check', function(msg) {
     const storage = JSON.parse(localStorage.getItem(user));
@@ -108,16 +152,13 @@ $(document).ready(function() {
         verse: storage.verse,
         state: msg.state,
       });
-      $(document).click(function() {
-        console.log($('#verse').text().length);
-        if ($('#verse').text().length > 6) {
-          $('.ui.basic.modal').modal('toggle');
-        }
-      });
-      localStorage.setItem('state', 'True');
+      $(window).on('keypress', spaceBar);
+      storage.state = 'true';
+      localStorage.setItem(user, JSON.stringify(storage));
     } else {
-      $(document).off('click');
-      localStorage.setItem('state', 'False');
+      $(window).off('keypress', spaceBar);
+      storage.state = 'false';
+      localStorage.setItem(user, JSON.stringify(storage));
     }
   });
 
@@ -133,18 +174,21 @@ $(document).ready(function() {
     $('#ch_overlay').html(msg.ch_overlay[0]);
     console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
+    /*
     localStorage.setItem('hymn_list', msg.hymn_list);
     localStorage.setItem('hymn_scroll', 'null');
     localStorage.setItem('hymn_state', msg.hymn);
     localStorage.setItem('eng_verse_data', JSON.stringify(msg.overlay));
     localStorage.setItem('ch_verse_data', JSON.stringify(msg.ch_overlay));
+    */
     screenAdjust(document.getElementById('grid'));
   });
 
   // WIP
   socket.on('scroll', function() {
-    const scrollState = localStorage.getItem('hymn_scroll');
-    const hymnList = localStorage.getItem('hymn_list').split(',');
+    const msg = JSON.parse(localStorage.getItem(user));
+    const scrollState = msg.hymn_scroll;
+    const hymnList = msg.hymn_list;
     let temp = '';
     let scrollStateVal = 0;
     const check = hymnList.length -1;
@@ -165,7 +209,8 @@ $(document).ready(function() {
       scrollStateVal = 0;
       temp = '<u>' + hymnList[0] + '</u>';
       console.log(temp);
-      localStorage.setItem('hymn_scroll', '0');
+      msg.hymn_scroll = '0';
+      localStorage.setItem(user, JSON.stringify(msg));
       for (i=0; i < hymnList.length; i++) {
         if (i == 0) {
           $('#hymn').append(temp);
@@ -173,7 +218,8 @@ $(document).ready(function() {
           $('#hymn').append(', ' + hymnList[i]);
         }
       }
-      localStorage.setItem('hymn_state', $('#hymn').html());
+      msg.hymn = $('#hymn').html();
+      localStorage.setItem(user, JSON.stringify(msg));
       return;
     } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
       scrollStateVal = parseInt(scrollState);
@@ -189,16 +235,19 @@ $(document).ready(function() {
           $('#hymn').append(', ' + hymnList[i]);
         }
       }
-      localStorage.setItem('hymn_scroll', scrollStateVal.toString());
+
       console.log(scrollStateVal.toString());
-      localStorage.setItem('hymn_state', $('#hymn').html());
+      msg.hymn_scroll = scrollStateVal.toString();
+      msg.hymn = $('#hymn').html();
+      localStorage.setItem(user, JSON.stringify(msg));
       return;
     } else if (check == parseInt(scrollState)) {
       scrollStateVal = 0;
       console.log(temp);
-      localStorage.setItem('hymn_scroll', 'null');
-      $('#hymn').html('讚美詩 Hymn: ' + localStorage.getItem('hymn_list'));
-      localStorage.setItem('hymn_state', $('#hymn').html());
+      msg.hymn_scroll = 'null';
+      $('#hymn').html('讚美詩 Hymn: ' + msg.hymn_list);
+      msg.hymn = $('#hymn').html();
+      localStorage.setItem(user, JSON.stringify(msg));
       return;
     }
   });
@@ -220,31 +269,4 @@ $(document).ready(function() {
     //console.log(msg);
     //localStorage.setItem(user, JSON.stringify(msg));
   });
-});
-$(document).click(function() {
-  console.log($('#verse').text().length);
-  if ($('#verse').text().length > 6) {
-    $('.ui.basic.modal').modal('toggle');
-  }
-});
-$(window).keypress(function(e){
-  const eng_verses = JSON.parse(localStorage.getItem('eng_verse_data'));
-  const ch_verses = JSON.parse(localStorage.getItem('ch_verse_data'));
-  console.log(eng_verses);
-  if ($('#modal').hasClass("visible") && e.which === 32) {
-    //console.log($('#overlay').html());
-    for (i = 0; i < eng_verses.length; i++) {
-      //console.log(eng_verses[i]);
-      if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
-        $('#overlay').html(eng_verses[i+1]);
-        $('#ch_overlay').html(ch_verses[i+1]);
-        break;
-      } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
-        $('#overlay').html(eng_verses[0]);
-        $('#ch_overlay').html(ch_verses[0]);
-        break;
-      }
-    }
-    console.log("SPACEBAR Pressed");
-  }
 });
