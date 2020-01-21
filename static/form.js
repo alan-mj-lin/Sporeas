@@ -1,3 +1,4 @@
+//Sporeas 1.1.0
 $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
