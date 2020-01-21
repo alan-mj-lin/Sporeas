@@ -72,7 +72,7 @@ function spaceBar(e){
       }
     }
     console.log("SPACEBAR Pressed");
-  } else if (e.which ===32 && $('#verse').text().length > 6 ){
+  } else if (e.which === 32 && $('#verse').text().length > 6 ){
     $('.ui.basic.modal').modal('toggle');
     $('#overlay').html(eng_verses[0]);
     $('#ch_overlay').html(ch_verses[0]);
