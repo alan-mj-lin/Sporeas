@@ -148,6 +148,14 @@ def admin():
     return render_template("form.html")
 
 
+@app.route('/how-to', methods=['GET', 'POST'])
+def how_to():
+    """
+    Flask route for how-to directory
+    """
+    return render_template("how-to.html")
+
+
 @socketio.on('connect')
 def connect_test():
     """
