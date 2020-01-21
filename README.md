@@ -25,8 +25,9 @@ been given the name "sporeas" which is greek for "sower".
 
 ### To run the automated test from CLI:
 
-1. Ideally close all browser windows (this avoids having previous state affect the current test run).
-2. [`npm run test`](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/package.json) or just `npm t` (either one will run `basic_app.py` and then [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner))
+1. Check that you have Node.js and npm: `node --version` and `npm --version` in CLI. If get error messages, install [Node.js](https://nodejs.org). Then go inside our project folder and install project dependencies with `npm install` just once.
+2. Ideally close all browser windows (this avoids having previous state affect the current test run).
+3. [`npm run test`](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/package.json) or just `npm t` (either one will run `basic_app.py` and then [`selenium-side-runner`](https://selenium.dev/selenium-ide/docs/en/introduction/command-line-runner))
     - _Or_ to run the test with visuals showing: `npm run test-visually` and wait for all automatically-opened tabs to close. **_NOTE: AVOID TOUCHING ANYTHING IN THE BROWSER WHILE THIS IS RUNNING._**
 3. When it's done, you should see all tests passed (green) in the CLI.
 
