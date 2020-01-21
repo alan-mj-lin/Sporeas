@@ -34,7 +34,7 @@ function screenAdjust(element) {
     document.getElementById('verse').style.fontSize = newFontSize;
     console.log(document.getElementById('title').style.fontSize);
     msg.font = newFontSize;
-    localStorage.setItem(user, JSON.stringify(storage));
+    localStorage.setItem(user, JSON.stringify(msg));
   }
   while (isOverflown(element)) {
     fontSizeInt = fontSizeInt - 5;
@@ -46,7 +46,7 @@ function screenAdjust(element) {
     document.getElementById('verse').style.fontSize = newFontSize;
     console.log(document.getElementById('title').style.fontSize);
     msg.font = newFontSize;
-    localStorage.setItem(user, JSON.stringify(storage));
+    localStorage.setItem(user, JSON.stringify(msg));
   }
 }
 
