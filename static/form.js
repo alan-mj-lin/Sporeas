@@ -1,9 +1,9 @@
 $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
-  $('#update').hide();
-  $('#service_mode').hide();
+  $('#content').hide();
+  //$('#service_mode').hide();
   $('#project').attr('disabled', true);
-
+  $('.menu .item').tab();
   const socket = io.connect('http://' + document.domain + ':' + location.port);
 
   $('#title').prop('disabled', false);
@@ -13,8 +13,9 @@ $(document).ready(function() {
 
   if (sessionStorage) {
     if (sessionStorage.getItem('connected') == 'True') {
-      $('#update').show();
-      $('#service_mode').show();
+      //$('#update').show();
+      //$('#service_mode').show();
+      $('#content').show();
       $('#connect').hide();
     }
     if (sessionStorage.getItem('api')== 'false') {
@@ -54,8 +55,9 @@ $(document).ready(function() {
   });
 
   $('#project').click(function(event) {
-    $('#update').show();
-    $('#service_mode').show();
+    //$('#update').show();
+    //$('#service_mode').show();
+    $('#content').show();
     $('#connect').hide();
     event.preventDefault();
   });
