@@ -18,6 +18,8 @@ $(document).ready(function() {
       //$('#service_mode').show();
       $('#content').show();
       $('#connect').hide();
+      $('#mainitem').addClass('active');
+      $('#maintab').addClass('active');
     }
     if (sessionStorage.getItem('api')== 'false') {
       $('#toggle_label').removeClass('ui basic green label');
