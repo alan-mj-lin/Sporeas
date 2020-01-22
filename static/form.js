@@ -56,10 +56,10 @@ $(document).ready(function() {
   });
 
   $('#project').click(function(event) {
-    //$('#update').show();
-    //$('#service_mode').show();
     $('#content').show();
     $('#connect').hide();
+    $('#mainitem').addClass('active');
+    $('#maintab').addClass('active');
     event.preventDefault();
   });
 
