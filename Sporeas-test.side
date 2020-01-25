@@ -21,6 +21,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f8227a80-7f90-4251-a46e-9e265a7a089c",
+      "comment": "",
+      "command": "runScript",
+      "target": "document.getElementById('connect').style.display = 'block'; document.getElementById('content').style.display = 'none'; document.getElementById('maintab').style.display = 'none'; (document.getElementById('utility'))? document.getElementById('utility').style.display = 'none' : true;",
+      "targets": [],
+      "value": "(Just in case.)"
+    }, {
       "id": "7039363c-a174-4af7-ac07-553659d09703",
       "comment": "",
       "command": "click",
@@ -66,6 +73,13 @@
       "target": "id=project",
       "targets": [],
       "value": ""
+    }, {
+      "id": "1f281889-1229-4338-a992-e7bf5adf1e02",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": "(Just in case.)"
     }, {
       "id": "5b3b24d9-8e9d-4361-83e0-22f5a8f2853b",
       "comment": "",
