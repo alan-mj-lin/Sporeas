@@ -50,7 +50,7 @@
       "id": "190e51a3-a470-426d-bafc-ab6effe7187f",
       "comment": "",
       "command": "click",
-      "target": "css=.secondary:nth-child(3)",
+      "target": "css=form#connect button[type=\"submit\"]",
       "targets": [
         ["css=.secondary:nth-child(3)", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
