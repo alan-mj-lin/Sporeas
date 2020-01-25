@@ -705,6 +705,13 @@
     "id": "eab146e2-a566-4eff-bdd2-5c75136b488c",
     "name": "Submit",
     "commands": [{
+      "id": "f668e244-8df5-4e11-a8c0-d88679feaa10",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f8a255c5-1d4b-46ba-bf5b-1619611ca506",
       "comment": "",
       "command": "click",
@@ -788,18 +795,6 @@
         ["xpath=//div[3]/input", "xpath:position"]
       ],
       "value": "123, 345"
-    }, {
-      "id": "b96619b2-5736-4e60-a58f-daabfe11e552",
-      "comment": "",
-      "command": "waitForElementPresent",
-      "target": "css=.stop",
-      "targets": [
-        ["css=.stop", "css:finder"],
-        ["xpath=//ul[@id='tempo-tracker-actions']/a[3]", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[18]", "xpath:href"],
-        ["xpath=//a[3]", "xpath:position"]
-      ],
-      "value": "30000"
     }]
   }, {
     "id": "ce70134b-75eb-40f4-af92-1cf00393a727",
