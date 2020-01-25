@@ -685,19 +685,12 @@
     "id": "c2d75f82-c081-4dd0-9ca5-79ee97635e10",
     "name": "Teardown",
     "commands": [{
-      "id": "a2a7e0b1-6bea-429e-bed0-2aec0d7c29cd",
+      "id": "8d0894fe-3d6c-46fe-82b4-d7e8e0c0a919",
       "comment": "",
       "command": "close",
       "target": "http://127.0.0.1:9000/admin",
       "targets": [],
-      "value": ""
-    }, {
-      "id": "9a690016-3442-4a31-a19e-e3a4b19575ae",
-      "comment": "",
-      "command": "close",
-      "target": "http://127.0.0.1:9000/test-location",
-      "targets": [],
-      "value": ""
+      "value": "no need to close http://127.0.0.1:9000/test-location"
     }]
   }, {
     "id": "2cf75288-3f3c-4002-b4e8-2ed520d2ff0a",
