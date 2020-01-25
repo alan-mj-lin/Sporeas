@@ -154,14 +154,14 @@
       "id": "6b1cc289-ac13-4f60-81e9-f053844b941c",
       "comment": "",
       "command": "waitForElementPresent",
-      "target": "css=.search:nth-child(3)",
+      "target": "css=.search.dropdown > input.search",
       "targets": [],
       "value": "30000"
     }, {
       "id": "13d5f566-6b59-4857-ab0a-69753d2e0fe9",
       "comment": "",
       "command": "click",
-      "target": "css=.search:nth-child(3)",
+      "target": "css=.search.dropdown > input.search",
       "targets": [
         ["css=.search:nth-child(3)", "css:finder"],
         ["xpath=//form[@id='update']/div[4]/div/input", "xpath:idRelative"],
@@ -172,7 +172,7 @@
       "id": "843523f3-0dfc-4412-b38d-2b9e6b31165f",
       "comment": "",
       "command": "type",
-      "target": "css=.search:nth-child(3)",
+      "target": "css=.search.dropdown > input.search",
       "targets": [
         ["css=.search:nth-child(3)", "css:finder"],
         ["xpath=//form[@id='update']/div[4]/div/input", "xpath:idRelative"],
@@ -190,7 +190,7 @@
       "id": "18a1d406-c5ed-4ba5-9b22-948f56f41851",
       "comment": "",
       "command": "sendKeys",
-      "target": "css=.search:nth-child(3)",
+      "target": "css=.search.dropdown > input.search",
       "targets": [],
       "value": "${KEY_TAB}"
     }, {
@@ -228,7 +228,7 @@
       "id": "f59b551b-e101-45bf-8db6-d883ea254f7a",
       "comment": "",
       "command": "click",
-      "target": "css=.ui:nth-child(7)",
+      "target": "css=.form > button[type=\"submit\"]",
       "targets": [
         ["css=.ui:nth-child(7)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
@@ -283,7 +283,7 @@
       "id": "6a56875b-d796-4d4d-93fc-cbfda3bf99a7",
       "comment": "",
       "command": "click",
-      "target": "css=.ui:nth-child(6)",
+      "target": "css=.form > button[type=\"submit\"]",
       "targets": [
         ["css=.ui:nth-child(6)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
@@ -565,7 +565,7 @@
       "id": "cfb503e4-35bf-4d51-b47f-3be1b4297166",
       "comment": "",
       "command": "click",
-      "target": "css=.ui:nth-child(6)",
+      "target": "css=.form > button[type=\"submit\"]",
       "targets": [
         ["css=.ui:nth-child(7)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
@@ -578,21 +578,9 @@
       "id": "3ad63a4d-6101-4590-a535-c1ec2c100980",
       "comment": "",
       "command": "assertText",
-      "target": "css=.ui:nth-child(9) > .header",
+      "target": "css=form#update .error.message .header",
       "targets": [],
       "value": "Error"
-    }, {
-      "id": "e2009610-a162-4bb9-9e25-6f6c1b3cc320",
-      "comment": "",
-      "command": "click",
-      "target": "css=.ui:nth-child(9) > p",
-      "targets": [
-        ["css=.ui:nth-child(9) > p", "css:finder"],
-        ["xpath=//form[@id='update']/div[5]/p", "xpath:idRelative"],
-        ["xpath=//div[5]/p", "xpath:position"],
-        ["xpath=//p[contains(.,'Inputs can only have alphabets and numbers')]", "xpath:innerText"]
-      ],
-      "value": ""
     }, {
       "id": "d6c10dbf-919a-46c4-b510-eb8f225e75d7",
       "comment": "",
