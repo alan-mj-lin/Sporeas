@@ -62,7 +62,7 @@
     }, {
       "id": "14bb3fa2-6868-42f7-a1d9-29f4fc3c14f6",
       "comment": "",
-      "command": "",
+      "command": "click",
       "target": "id=project",
       "targets": [],
       "value": ""
@@ -158,7 +158,7 @@
       "targets": [],
       "value": "30000"
     }, {
-      "id": "43e1a735-42c3-4e8b-9a7f-60623cb900bd",
+      "id": "13d5f566-6b59-4857-ab0a-69753d2e0fe9",
       "comment": "",
       "command": "click",
       "target": "css=.search:nth-child(3)",
@@ -169,7 +169,7 @@
       ],
       "value": ""
     }, {
-      "id": "0fb779ee-718d-42f7-a250-74bca93b80e5",
+      "id": "843523f3-0dfc-4412-b38d-2b9e6b31165f",
       "comment": "",
       "command": "type",
       "target": "css=.search:nth-child(3)",
@@ -179,6 +179,13 @@
         ["xpath=//div[4]/div/input", "xpath:position"]
       ],
       "value": "Gene"
+    }, {
+      "id": "0f70d2b1-c711-4230-a5cd-307ed90a5b06",
+      "comment": "",
+      "command": "select",
+      "target": "id=ddbible",
+      "targets": [],
+      "value": "label=Genesis | 創世記"
     }, {
       "id": "18a1d406-c5ed-4ba5-9b22-948f56f41851",
       "comment": "",
@@ -273,15 +280,15 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "a4282667-2b73-4673-9c7e-397b56ab82db",
+      "id": "6a56875b-d796-4d4d-93fc-cbfda3bf99a7",
       "comment": "",
       "command": "click",
-      "target": "css=.ui:nth-child(7)",
+      "target": "css=.ui:nth-child(6)",
       "targets": [
-        ["css=.ui:nth-child(7)", "css:finder"],
+        ["css=.ui:nth-child(6)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
         ["xpath=//form[@id='update']/button", "xpath:idRelative"],
-        ["xpath=//form[2]/button", "xpath:position"],
+        ["xpath=//form/button", "xpath:position"],
         ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
       ],
       "value": ""
@@ -326,6 +333,20 @@
       "command": "open",
       "target": "http://127.0.0.1:9000/admin",
       "targets": [],
+      "value": ""
+    }, {
+      "id": "d052e3a4-678d-4526-a3e4-31a780657fe9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "a8c929cf-74f0-47b1-972b-18421e19f42a",
@@ -394,6 +415,20 @@
       "command": "open",
       "target": "http://127.0.0.1:9000/admin",
       "targets": [],
+      "value": ""
+    }, {
+      "id": "1ac3b3f5-b140-4301-92a8-38fa709744c2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "8f316b8d-23c6-48ab-96a7-b8a3ca43ae33",
@@ -530,7 +565,7 @@
       "id": "cfb503e4-35bf-4d51-b47f-3be1b4297166",
       "comment": "",
       "command": "click",
-      "target": "css=.ui:nth-child(7)",
+      "target": "css=.ui:nth-child(6)",
       "targets": [
         ["css=.ui:nth-child(7)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
@@ -543,9 +578,21 @@
       "id": "3ad63a4d-6101-4590-a535-c1ec2c100980",
       "comment": "",
       "command": "assertText",
-      "target": "css=.ui:nth-child(11) > .header",
+      "target": "css=.ui:nth-child(9) > .header",
       "targets": [],
       "value": "Error"
+    }, {
+      "id": "e2009610-a162-4bb9-9e25-6f6c1b3cc320",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ui:nth-child(9) > p",
+      "targets": [
+        ["css=.ui:nth-child(9) > p", "css:finder"],
+        ["xpath=//form[@id='update']/div[5]/p", "xpath:idRelative"],
+        ["xpath=//div[5]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Inputs can only have alphabets and numbers')]", "xpath:innerText"]
+      ],
+      "value": ""
     }, {
       "id": "d6c10dbf-919a-46c4-b510-eb8f225e75d7",
       "comment": "",
