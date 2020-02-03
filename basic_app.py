@@ -8,6 +8,7 @@ This is the main file to run.
 
 # Need to monkey patch eventlet to prevent hang
 import json
+import re
 import collections
 import eventlet
 import requests
@@ -78,7 +79,6 @@ def split_by_verse_esv(passage):
     verse_list.remove('')
 
     return verse_list
-
 
 
 
@@ -326,7 +326,9 @@ def hymn_filter(string):
     else:
         hymn_string = string
 
-    return hymn_string
+    clean = re.compile('<.*?>')
+
+    return re.sub(clean, '', hymn_string)
 
 
 @socketio.on('hymn scroll', namespace='/')
@@ -359,6 +361,7 @@ def test_message(message):
     ch_title = message['ch_title']
     hymn = message['hymn']
     hymn = hymn_filter(hymn)
+    print(hymn)
     hymnList = hymn.split(",")
 
     try:

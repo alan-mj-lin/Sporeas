@@ -161,6 +161,7 @@ $(document).ready(function() {
         hymn: hymnStorage,
         book: $('#ddbible option:selected').text(),
         verse: $('#verse').val(),
+        hymn_scroll: msg.hymn_scroll,
         state: apiState,
       });
       return false;
@@ -177,8 +178,8 @@ $(document).ready(function() {
 
   $('form#update').submit(function() {
     const apiState = sessionStorage.getItem('api');
-    const invalidTitle = /^[a-zA-Z0-9-,:' ]*$/.test($('#title').val()) == false;
-    const chReg = /^[a-zA-Z0-9-,:' \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]*$/;
+    const invalidTitle = /^[a-zA-Z0-9-,:'" ]*$/.test($('#title').val()) == false;
+    const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
     const invalidChTitle = chReg.test($('#ch_title').val()) == false;
     const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
     const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
@@ -196,6 +197,7 @@ $(document).ready(function() {
         hymn: $('#hymn').val(),
         book: $('#ddbible option:selected').text(),
         verse: $('#verse').val(),
+        hymn_scroll: "null",
         state: apiState,
       });
       return false;

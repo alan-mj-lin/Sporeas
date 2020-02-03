@@ -174,13 +174,6 @@ $(document).ready(function() {
     $('#ch_overlay').html(msg.ch_overlay[0]);
     console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
-    /*
-    localStorage.setItem('hymn_list', msg.hymn_list);
-    localStorage.setItem('hymn_scroll', 'null');
-    localStorage.setItem('hymn_state', msg.hymn);
-    localStorage.setItem('eng_verse_data', JSON.stringify(msg.overlay));
-    localStorage.setItem('ch_verse_data', JSON.stringify(msg.ch_overlay));
-    */
     screenAdjust(document.getElementById('grid'));
   });
 
@@ -241,7 +234,7 @@ $(document).ready(function() {
       msg.hymn = $('#hymn').html();
       localStorage.setItem(user, JSON.stringify(msg));
       return;
-    } else if (check == parseInt(scrollState)) {
+    } else if (check == parseInt(scrollState) || check < parseInt(scrollState)) {
       scrollStateVal = 0;
       console.log(temp);
       msg.hymn_scroll = 'null';
