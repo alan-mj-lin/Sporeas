@@ -182,7 +182,7 @@ $(document).ready(function() {
     window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user'), '_blank');
   });
 
-  $('#help').click(function() {
+  $('button.help').click(function() {
     window.open('http://127.0.0.1:9000/how-to', '_blank');
   });
 
