@@ -57,6 +57,14 @@ $(document).ready(function() {
     }
   });
 
+  socket.on('no passage', function(msg) {
+    if (msg.out_of_range) {
+      $('#error1').hide();
+      $('#error2').show();
+      $('#update').addClass('ui form error');
+    }
+  });
+
   $('#project').click(function(event) {
     $('#content').show();
     $('#connect').hide();
@@ -146,6 +154,8 @@ $(document).ready(function() {
     const apiState = sessionStorage.getItem('api');
     const msg = JSON.parse(localStorage.getItem(active));
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false) {
+      $('#error2').hide();
+      $('#error1').show();
       $('#update').addClass('ui form error');
       return false;
     } else {
@@ -184,6 +194,8 @@ $(document).ready(function() {
     const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
     const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
     if (invalidTitle || invalidChTitle || invalidHymn || invalidVerse) {
+      $('#error2').hide();
+      $('#error1').show();
       $('#update').addClass('ui form error');
       return false;
     } else {

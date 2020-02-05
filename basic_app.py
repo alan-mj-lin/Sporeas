@@ -74,12 +74,14 @@ def split_by_verse_esv(passage):
     """
     verse_list = passage.split('[')
     for i in range(len(verse_list)):
-        verse_list[i] = verse_list[i].replace("]", "")
+        verse_list[i] = verse_list[i].replace("]", "").strip()
 
-    verse_list.remove('')
+    try:
+        verse_list.remove('')
+    except ValueError:
+        pass
 
     return verse_list
-
 
 
 def get_chinese_text(passage):
@@ -105,10 +107,14 @@ def get_chinese_text(passage):
         chinese_overlay += str(verse_nr[j])
         chinese_overlay += i
         j += 1
-    return chinese_overlay
+    print('The ch_overlay is: ' + response.text)
+    if response.text is None:
+        return 'ERROR: Passage not found'
+    else:
+        return chinese_overlay
 
 
-def get_esv_text(passage):
+def get_esv_text(passage, comma):
     """
     Function to get the english verse text.
     """
@@ -126,10 +132,40 @@ def get_esv_text(passage):
     }
 
     response = requests.get(API_URL, params=params, headers=headers)
-
+    parsed = response.text
+    parsed_dict = json.loads(parsed)
+    query = parsed_dict['query']
+    query = query.replace(u'\u2013', '-')
+    print(parsed_dict)
+    print(ascii(passage))
+    print('The ASCII is: ' + ascii(query))
+    if query != passage and not comma:
+        print("NOT EQUAL")
+        return 'ERROR: Passage not found'
+    elif comma:
+        query_list = query.split(';')
+        string = ''
+        for i in query_list:
+            if i != query_list[-1]:
+                string = string + i.split(':')[1] + ','
+            else:
+                string = string + i.split(':')[1]
+        query = query_list[0].split(':')[0] + ":" + string
+        query = query.replace(" ","")
+        passage_sent = passage.replace(" ", "")
+        print(passage_sent)
+        print(query)
+        if query != passage_sent:
+            print("NOT EQUAL")
+            return 'ERROR: Passage not found'
+    else:
+        print("EQUAL")
     passages = response.json()['passages']
 
-    return passages[0].strip() if passages else 'Error: Passage not found'
+    for i in passages:
+        i.strip()
+
+    return passages if passages else 'Error: Passage not found'
 
 
 @app.route('/<user>', methods=['GET', 'POST'])
@@ -355,6 +391,7 @@ def test_message(message):
     global ch_overlay
     global rooms
 
+    out_of_range = False
     comma = False
 
     title = message['title']
@@ -378,7 +415,7 @@ def test_message(message):
                 extra_verse = verse.split(',')[1]
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
-        passage_remainder = passage.split(':')[0] + ':' + extra_verse
+        # passage_remainder = passage.split(':')[0] + ':' + extra_verse
         print(passage)
 
     active = message['user']
@@ -392,32 +429,46 @@ def test_message(message):
 
     if state == 'true' and book != '':
         if comma:
-            overlay = get_esv_text(passage) + get_esv_text(passage_remainder)
+            overlay = get_esv_text(passage, comma) # + get_esv_text(passage_remainder)
+            print(overlay)
         else:
-            overlay = get_esv_text(passage)
-        ch_overlay = get_chinese_text(passage).splitlines()
+            overlay = get_esv_text(passage, comma)
+            print(overlay)
+        try:
+            ch_overlay = get_chinese_text(passage).splitlines()
+            print(len(overlay))
+            if len(overlay) == 1:
+                overlay = split_by_verse_esv(overlay[0])
+        except:
+            out_of_range = True
 
-        overlay = split_by_verse_esv(overlay)
+    if overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
+        out_of_range = True
+
     # Debug Info
-    print(overlay)
     print(project_list)
     print(overlay)
     print(ch_overlay)
     # print(ch_overlay.splitlines()[0])
     # Route Broadcast Feature
-    emit('refresh', {
-        "title": title,
-        "ch_title": ch_title,
-        "hymn": hymn,
-        "book": book,
-        "verse": verse,
-        "overlay": overlay,
-        "ch_overlay": ch_overlay,
-        "hymn_list": hymnList,
-        "hymn_scroll": "null",
-        "state": state
-    }, namespace='/', room=active)
-    print(hymnList)
+    if not out_of_range:
+        emit('refresh', {
+            "title": title,
+            "ch_title": ch_title,
+            "hymn": hymn,
+            "book": book,
+            "verse": verse,
+            "overlay": overlay,
+            "ch_overlay": ch_overlay,
+            "hymn_list": hymnList,
+            "hymn_scroll": "null",
+            "state": state
+        }, namespace='/', room=active)
+        print(hymnList)
+    else:
+        emit('no passage', {"out_of_range": out_of_range})
+
+    out_of_range = False
 
 
 if __name__ == '__main__':
