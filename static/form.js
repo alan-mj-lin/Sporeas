@@ -1,4 +1,22 @@
 //Sporeas 1.1.0
+function en_sanitize (text) {
+  const enReg = /^[a-zA-Z0-9-,:'" ]*$/;
+  let invalid = false;
+  if (enReg.test(text) == false){
+    invalid = false;
+  }
+  return invalid;
+}
+
+function ch_sanitize (text) {
+  const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+  let invalid = false;
+  if (chReg.test(text)==false) {
+    invalid = false;
+  }
+  return invalid;
+}
+
 $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
@@ -246,5 +264,36 @@ $(document).ready(function() {
       });
       return false;
     }
+  });
+
+  $('#announce').click(function() {
+    if (en_sanitize($('#GA').val()) || en_sanitize($('#FA').val()) || en_sanitize($('#RA').val()) || en_sanitize($('#RE').val())) {
+      $('#announcements').addClass('ui form error');
+      console.log('invalid');
+      return false;
+    } else if (ch_sanitize($('#ch_GA').val()) || ch_sanitize($('#ch_FA').val()) || ch_sanitize($('#ch_RA').val()) || ch_sanitize($('#ch_RE').val())) {
+      $('#announcements').addClass('ui form error');
+      console.log('invalid');
+      return false;
+    } else {
+      $('#update').removeClass('error');
+      const active = sessionStorage.getItem('user');
+      socket.emit('announce', {
+        user: active,
+        GA: $('#GA').val(),
+        FA: $('#FA').val(),
+        RA: $('#RA').val(),
+        RE: $('#RE').val(),
+        ch_GA: $('#ch_GA').val(),
+        ch_FA: $('#ch_FA').val(),
+        ch_RA: $('#ch_RA').val(),
+        ch_RE: $('#ch_RE').val()
+      });
+    }
+  });
+
+  $('#show_announce').click(function(){
+    const active = sessionStorage.getItem('user');
+    socket.emit('show announce', {user: active});
   });
 });

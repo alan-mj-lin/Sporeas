@@ -11,6 +11,15 @@ function stringProcessToInt(string) {
   return parseInt(string);
 }
 
+function update_announce(announceList, id){
+  for (i=0; i<announceList.length; i++){
+    let bullet = $("<li></li>").text(announceList[i]);
+    console.log(bullet);
+    console.log(announceList[i]);
+    $('#' + id).append(bullet);
+  }
+}
+
 function screenAdjust(element) {
   let user = window.location.pathname;
   user = user.substr(1);
@@ -82,6 +91,10 @@ function spaceBar(e){
 $(document).ready(function() {
   $('.ui.modal').modal();
   $('.ui.basic.modal').modal({centered: false});
+  $('#grid').show();
+  $('#break1').show();
+  $('#break2').show();
+  $('#announcements').hide();
   const protocol = window.location.protocol;
   const socket = io.connect(
       protocol + '//' + document.domain + ':' + location.port
@@ -95,6 +108,7 @@ $(document).ready(function() {
   console.log(user);
 
   var msg = JSON.parse(localStorage.getItem(user));
+  var announcements = JSON.parse(localStorage.getItem(user+'_ann'));
 
   if (msg == null){
     var msg = {
@@ -109,6 +123,18 @@ $(document).ready(function() {
     }
   }
 
+  if (announcements != null){
+    $("li").remove();
+    update_announce(announcements.GA, 'GA');
+    update_announce(announcements.FA, 'FA');
+    update_announce(announcements.RA, 'RA');
+    update_announce(announcements.RE, 'RE');
+    update_announce(announcements.ch_GA, 'cGA');
+    update_announce(announcements.ch_RA, 'cRA');
+    update_announce(announcements.ch_FA, 'cFA');
+    update_announce(announcements.ch_RE, 'cRE');
+  }
+  
   const font = msg.font;
 
   $('#title').html(msg.title);
@@ -175,6 +201,10 @@ $(document).ready(function() {
     console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
     screenAdjust(document.getElementById('grid'));
+    $('#announcements').hide();
+    $('#grid').show();
+    $('#break1').show();
+    $('#break2').show();
   });
 
   // WIP
@@ -261,5 +291,29 @@ $(document).ready(function() {
 
     //console.log(msg);
     //localStorage.setItem(user, JSON.stringify(msg));
+  });
+
+  socket.on('update announcements', function(msg){
+    $("li").remove();
+    update_announce(msg.GA, 'GA');
+    update_announce(msg.FA, 'FA');
+    update_announce(msg.RA, 'RA');
+    update_announce(msg.RE, 'RE');
+    update_announce(msg.ch_GA, 'cGA');
+    update_announce(msg.ch_RA, 'cRA');
+    update_announce(msg.ch_FA, 'cFA');
+    update_announce(msg.ch_RE, 'cRE');
+    localStorage.setItem(user+'_ann', JSON.stringify(msg));
+    $('#grid').hide();
+    $('#break1').hide();
+    $('#break2').hide();
+    $('#announcements').show();
+  });
+
+  socket.on('show announcements', function(msg){
+    $('#grid').hide();
+    $('#break1').hide();
+    $('#break2').hide();
+    $('#announcements').show();
   });
 });

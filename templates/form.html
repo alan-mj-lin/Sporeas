@@ -35,6 +35,7 @@
     <div class="ui top attached tabular menu" id="content">
       <a class="item" data-tab="main" id="mainitem">Main</a>
       <a class="item" data-tab="utility">Utility</a>
+      <a class="item" data-tab="announcements">Announcements</a>
     </div>
     <div class="ui bottom attached tab segment" data-tab="main" id="maintab">
       <h1 class="ui large header">
@@ -168,12 +169,10 @@
         </div>
         <br>
         <br>
-        <div class="ui input">
+        <div class="ui left attached input">
           <input type="text" placeholder="Hymn Numbers..." id="hf_hymn_input">
-        </div>
-        <div class="ui buttons">
-            <button class="ui olive basic button" type="button" id="holy_communion" data-tooltip="Set projection to show Holy Communion">Holy Communion | 聖餐禮</button>
-            <button class="ui blue basic button" type="button" id="foot_washing" data-tooltip="Set projection to show Holy Communion">Footwashing | 洗腳禮</button>
+          <button class="ui olive basic left attached button" type="button" id="holy_communion" data-tooltip="Set projection to show Holy Communion">Holy Communion | 聖餐禮</button>
+          <button class="ui blue basic right attached button" type="button" id="foot_washing" data-tooltip="Set projection to show Holy Communion">Footwashing | 洗腳禮</button>
         </div>
         <br>
         <br>
@@ -198,6 +197,67 @@
       </div>
       <br>
       <font face="courier new">Sporeas v1.1.0</font>
+    </div>
+    <div class="ui bottom attached tab segment" data-tab="announcements">
+      <div class="ui info message">
+        <div class="ui header">
+            How to use:
+        </div>
+        <p>Enter each announcement bullet point into the text boxes and 
+        separate them by linebreak ONLY (new line). Do not use a numbering 
+        system or format in bullet points (do not do: 1. Text... 2. Text.. 
+        or - Point1... - Point2...)</p>
+      </div>
+      <form class="ui form" id="announcements" target="_self" method="post">
+        <div class="two fields">
+          <div class="field">
+            <label>Announcements from GA</label>
+            <textarea rows="2" id="GA"></textarea>
+          </div>
+          <div class="field">
+            <label>Announcements from GA</label>
+            <textarea rows="2" id="ch_GA"></textarea>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Announcements from FA</label>
+            <textarea rows="2" id="FA"></textarea>
+          </div>
+          <div class="field">
+            <label>Announcements from FA</label>
+            <textarea rows="2" id="ch_FA"></textarea>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Announcements from RA</label>
+            <textarea rows="2" id="RA"></textarea>
+          </div>
+          <div class="field">
+            <label>Announcements from RA</label>
+            <textarea rows="2" id="ch_RA"></textarea>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label>Announcements from RE</label>
+            <textarea rows="2" id="RE"></textarea>
+          </div>
+          <div class="field">
+            <label>Announcements from RE</label>
+            <textarea rows="2" id="ch_RE"></textarea>
+          </div>
+        </div>
+        <div class="ui bottom attached buttons">
+          <div class="ui primary button" id="announce">Update Announcements</div>
+          <div class="ui secondary button" id="show_announce">Show Announcements</div>
+        </div>
+        <div class="ui error message">
+          <div class="header">Error</div>
+          <p>Inputs are invalid</p>
+        </div>
+      </form>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
