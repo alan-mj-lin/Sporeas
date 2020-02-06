@@ -158,13 +158,22 @@
       <div id="service_mode">
         <div class="ui action input">
           <input type="text" placeholder="Hymn Numbers..." id="hymn_input">
-          <button class="ui blue basic button" type="button" id="hymn_singing" data-tooltip="Set projection to show only hymns">Hymn Singing</button>
+          <button class="ui grey basic button" type="button" id="hymn_singing" data-tooltip="Set projection to show only hymns">Hymn Singing</button>
         </div>
         <br>
         <br>
         <div class="ui action input">
           <input type="text" placeholder="Hymn Numbers..." id="m_hymn_input">
-          <button class="ui teal basic button" type="button" id="morning_prayer" data-tooltip="Set projection to show Morning Prayer">Morning Prayer</button>
+          <button class="ui teal basic button" type="button" id="morning_prayer" data-tooltip="Set projection to show Morning Prayer">Morning Prayer | 早禱會</button>
+        </div>
+        <br>
+        <br>
+        <div class="ui input">
+          <input type="text" placeholder="Hymn Numbers..." id="hf_hymn_input">
+        </div>
+        <div class="ui buttons">
+            <button class="ui olive basic button" type="button" id="holy_communion" data-tooltip="Set projection to show Holy Communion">Holy Communion | 聖餐禮</button>
+            <button class="ui blue basic button" type="button" id="foot_washing" data-tooltip="Set projection to show Holy Communion">Footwashing | 洗腳禮</button>
         </div>
         <br>
         <br>
@@ -179,6 +188,13 @@
           </a>
         </div>
         <button class="ui button help" type="button">Help</button>
+        <div class="ui negative hidden message" id="service_mode_error">
+          <i class="close icon"></i>
+          <div class="header">
+            Invalid Input Data
+          </div>
+          <p>Please type in a list of comma separated hymn numbers</p>
+        </div>
       </div>
       <br>
       <font face="courier new">Sporeas v1.1.0</font>

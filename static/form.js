@@ -89,8 +89,9 @@ $(document).ready(function() {
   $('#hymn_singing').click(function() {
     const active = sessionStorage.getItem('user');
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
-      alert('Input can have only alphabets and numbers.');
+      $('#service_mode_error').removeClass('hidden');
     } else {
+      $('#service_mode_error').addClass('hidden');
       socket.emit('custom message', {
         user: active,
         type: 'hymn',
@@ -103,12 +104,43 @@ $(document).ready(function() {
   $('#morning_prayer').click(function() {
     const active = sessionStorage.getItem('user');
     if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
-      alert('Input can have only alphabets and numbers.');
+      $('#service_mode_error').removeClass('hidden');
     } else {
+      $('#service_mode_error').addClass('hidden');
       socket.emit('custom message', {
         user: active,
         type: 'morning',
         hymn: $('#m_hymn_input').val(),
+      });
+      return false;
+    }
+  });
+
+  $('#holy_communion').click(function() {
+    const active = sessionStorage.getItem('user');
+    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+      $('#serivce_mode_error').removeClass('hidden');
+    } else {
+      $('#serivce_mode_error').addClass('hidden');
+      socket.emit('custom message', {
+        user: active,
+        type: 'communion',
+        hymn: $('#hf_hymn_input').val(),
+      });
+      return false;
+    }
+  });
+
+  $('#foot_washing').click(function() {
+    const active = sessionStorage.getItem('user');
+    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+      $('#serivce_mode_error').removeClass('hidden');
+    } else {
+      $('#serivce_mode_error').addClass('hidden');
+      socket.emit('custom message', {
+        user: active,
+        type: 'footwashing',
+        hymn: $('#hf_hymn_input').val(),
       });
       return false;
     }

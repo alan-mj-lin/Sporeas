@@ -317,29 +317,27 @@ def custom_message(message):
     type = message['type']
     active = message['user']
 
+    hymn = message['hymn']
+    filtered = hymn_filter(hymn).split(",")
     if type == 'hymn':
-        hymn = message['hymn']
-        filtered = hymn_filter(hymn).split(",")
-        emit('refresh', {
-            "title": '',
-            "ch_title": '',
-            "hymn": hymn,
-            "verse": '',
-            "book": '',
-            "overlay": '',
-            "ch_overlay": '',
-            "hymn_list": filtered,
-            "hymn_scroll": "null"
-        }, namespace='/', room=active)
+        title = ''
+        ch_title = ''
     elif type == 'morning':
-        hymn = message['hymn']
-        filtered = hymn_filter(hymn).split(",")
-        emit('refresh', {
-            "title": "Morning Prayer",
-            "ch_title": "早禱會",
+        title = 'Morning Prayer'
+        ch_title = '早禱會'
+    elif type == 'communion':
+        title = 'Holy Communion'
+        ch_title = '聖餐禮'
+    elif type == 'footwashing':
+        title = 'Foot Washing'
+        ch_title = '洗腳禮'
+
+    emit('refresh', {
+            "title": title,
+            "ch_title": ch_title,
             "hymn": hymn,
-            "book": '',
             "verse": '',
+            "book": '',
             "overlay": '',
             "ch_overlay": '',
             "hymn_list": filtered,
