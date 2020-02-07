@@ -292,8 +292,33 @@ $(document).ready(function() {
     }
   });
 
-  $('#show_announce').click(function(){
+  $('#show_announce').click(function() {
     const active = sessionStorage.getItem('user');
     socket.emit('show announce', {user: active});
   });
+
+  $('form#announcements textarea').each(function(i, e) {
+    $(e).keyup(function() {
+      const inputText = $(e).val();
+      const lintedText = lintAnnouncement(inputText);
+      $(e).val(lintedText);
+    })
+  });
 });
+
+function lintAnnouncement(inputText) {
+  let foundSomethingToFix = false;
+  const announcementRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
+  // remove preceding spaces, "- ", "* ", "1. ", "1) ", but accept "1.2 million" and "-1 Celsius"
+  let lintedText = inputText.split('\n');
+  for (let i = 0; i < lintedText.length; i++) {
+    if (!foundSomethingToFix && announcementRegex.test(lintedText[i])) {
+      foundSomethingToFix = true;
+    }
+    lintedText[i] = lintedText[i].replace(announcementRegex, '');
+  }
+  if (foundSomethingToFix) {
+    alert('Do not type in bullet points.\nJust use new lines (hit enter key) for each point.');
+  }
+  return lintedText.join('\n');
+}
