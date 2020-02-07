@@ -88,6 +88,8 @@ $(document).ready(function() {
     $('#connect').hide();
     $('#mainitem').addClass('active');
     $('#maintab').addClass('active');
+    $('#welcome-overlay').show();
+    sessionStorage.setItem('showWelcomeOverlay', true);
     event.preventDefault();
   });
 
