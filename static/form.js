@@ -83,6 +83,14 @@ $(document).ready(function() {
     }
   });
 
+  $('#cam_hymn').click(function() {
+	 socket.emit('camera request', {type: 'Hymn Singing'}); 
+  });
+  
+  $('#cam_sermon').click(function() {
+	  socket.emit('camera request', {type: 'Sermon'});
+  });
+  
   $('#project').click(function(event) {
     $('#content').show();
     $('#connect').hide();
