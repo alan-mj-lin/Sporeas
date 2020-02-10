@@ -147,9 +147,9 @@ $(document).ready(function() {
   $('#ch_overlay').html(msg.ch_overlay[0]);
   if (msg.state != null){
     if(msg.state != 'true'){
-      $(window).on('keypress', spaceBar);
-    } else {
       $(window).off('keypress', spaceBar);
+    } else {
+      $(window).on('keypress', spaceBar);
     }
   } else {
     $(window).off('keypress', spaceBar);
