@@ -12,3 +12,7 @@ section#welcome-overlay {
 section#welcome-overlay * {
   margin: 10px;
 }
+
+.sidebar a {
+  font-size: small;
+}

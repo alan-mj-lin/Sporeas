@@ -1,66 +1,75 @@
-// TODO: refactor DRY
-
-$('button#highlight-service').click(function() {
-  $('#welcome-overlay').hide();
+function highlightUIElement(tabName, inputboxID, buttonID) {
+  hideOverlay();
   const active = sessionStorage.getItem('user');
   if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="main"]').click();
-  $('input#title').effect('highlight', {color: 'blue'}, 1000);
+  if (tabName) {
+    $('a[data-tab="' + tabName + '"]').click();
+  }
+  if (inputboxID) {
+    $('#' + inputboxID).effect('highlight', {color: 'blue'}, 1000);
+  }
+  if (buttonID) {
+    $('#' + buttonID).effect('shake', 1000);
+  }
+}
+
+$('.highlight-service').click(function() {
+  highlightUIElement('main', 'title');
 });
 
-$('button#highlight-hymn-singing').click(function() {
-  $('#welcome-overlay').hide();
-  const active = sessionStorage.getItem('user');
-  if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="utility"]').click();
-  $('#hymn_input').effect('highlight', {color: 'blue'}, 1000);
-  $('button#hymn_singing').effect('shake', 1000);
+$('.highlight-hymn-singing').click(function() {
+  highlightUIElement('utility', 'hymn_input', 'hymn_singing');
 });
 
-$('button#highlight-morning-prayer').click(function() {
-  $('#welcome-overlay').hide();
-  const active = sessionStorage.getItem('user');
-  if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="utility"]').click();
-  $('#m_hymn_input').effect('highlight', {color: 'blue'}, 1000);
-  $('button#morning_prayer').effect('shake', 1000);
+$('.highlight-morning-prayer').click(function() {
+  highlightUIElement('utility', 'm_hymn_input', 'morning_prayer');
 });
 
-$('button#highlight-announcements').click(function() {
-  $('#welcome-overlay').hide();
-  const active = sessionStorage.getItem('user');
-  if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="announcements"]').click();
-  $('#GA').effect('highlight', {color: 'blue'}, 1000);
+$('.highlight-holy-communion').click(function() {
+  highlightUIElement('utility', 'hf_hymn_input', 'holy_communion');
 });
 
-$('button#highlight-holy-communion').click(function() {
-  $('#welcome-overlay').hide();
-  const active = sessionStorage.getItem('user');
-  if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="utility"]').click();
-  $('#hf_hymn_input').effect('highlight', {color: 'blue'}, 1000);
-  $('button#holy_communion').effect('shake', 1000);
+$('.highlight-foot-washing').click(function() {
+  highlightUIElement('utility', 'hf_hymn_input', 'foot_washing');
 });
 
-$('button#highlight-foot-washing').click(function() {
-  $('#welcome-overlay').hide();
-  const active = sessionStorage.getItem('user');
-  if (!active) return; // avoid showing tab when user is not logged in
-  $('a[data-tab="utility"]').click();
-  $('#hf_hymn_input').effect('highlight', {color: 'blue'}, 1000);
-  $('button#foot_washing').effect('shake', 1000);
+$('.highlight-announcements').click(function() {
+  highlightUIElement('announcements', 'GA');
 });
 
 // hide welcome overlay in this session if user asks to:
 let showWelcomeOverlay = false || (sessionStorage.getItem('showWelcomeOverlay') === 'true');
 if (showWelcomeOverlay) {
-  $('#welcome-overlay').show();
+  showOverlay()
 } else {
-  $('#welcome-overlay').hide();
+  hideOverlay()
 }
 $('button#stop-showing-welcome-overlay').click(function() {
-  $('#welcome-overlay').hide();
+  hideOverlay();
   showWelcomeOverlay = false;
   sessionStorage.setItem('showWelcomeOverlay', showWelcomeOverlay);
 });
+
+// Semantic UI sidebar settings:
+$('.sidebar')
+  .sidebar('setting', 'dimPage', false)
+  .sidebar('setting', 'closable', false);
+
+function showOverlay() {
+  $('#welcome-overlay').show();
+  collapseSideBar();
+}
+
+function hideOverlay() {
+  $('#welcome-overlay').hide();
+  expandSidebar();
+}
+
+function expandSidebar() {
+  $('.sidebar').sidebar('show');
+  $('.pusher').css({transform: 'translate3d(140px,0,0)'});
+}
+
+function collapseSideBar() {
+  $('.sidebar').sidebar('hide');
+}
