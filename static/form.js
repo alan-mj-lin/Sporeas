@@ -31,6 +31,8 @@ $(document).ready(function() {
   $('#verse').prop('disabled', false);
 
   if (sessionStorage) {
+    const active = sessionStorage.getItem('user');
+    console.log(sessionStorage.getItem('api'));
     if (sessionStorage.getItem('connected') == 'True') {
       //$('#update').show();
       //$('#service_mode').show();
@@ -45,6 +47,15 @@ $(document).ready(function() {
       $('#toggle_label').addClass('ui basic red label');
       $('#toggle').addClass('ui red button');
       $('#toggle').html('Off');
+    } else if (sessionStorage.getItem('api') == null) {
+      sessionStorage.setItem('api', 'false');
+      console.log(sessionStorage.getItem('api'));
+    } else {
+      $('#toggle_label').removeClass('ui basic red label');
+      $('#toggle').removeClass('ui red button');
+      $('#toggle_label').addClass('ui basic green label');
+      $('#toggle').addClass('ui green button');
+      $('#toggle').html('On');
     }
   }
 
@@ -89,6 +100,20 @@ $(document).ready(function() {
     $('#mainitem').addClass('active');
     $('#maintab').addClass('active');
     event.preventDefault();
+  });
+
+  socket.on('state form check', function() {
+    const active = sessionStorage.getItem('user');
+    if ($('#toggle').hasClass('ui green button')) {
+      socket.emit('toggle api', {
+        user: active, state: 'true',
+      });
+    } else {
+      socket.emit('toggle api', {
+        user: active,
+        state: 'false',
+      });
+    }
   });
 
   $('#reset').click(function() {

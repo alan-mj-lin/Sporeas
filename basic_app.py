@@ -286,6 +286,15 @@ def reset(message):
     emit('reset', {"verse": ''}, namespace='/', room=active)
 
 
+@socketio.on('get state', namespace='/')
+def get_state(message):
+    """
+    Function to get the state at startup from control panel
+    """
+    active = message['user'].split('/')[1]
+    emit('state form check', namespace='/', room=active)
+
+
 @socketio.on('toggle api', namespace='/')
 def api_toggle_handler(message):
     """

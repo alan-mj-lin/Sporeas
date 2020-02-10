@@ -101,6 +101,9 @@ $(document).ready(function() {
   );
   socket.on('connect', function() {
     socket.emit('get sid', {user: window.location.pathname});
+    let msg = JSON.parse(localStorage.getItem(user));
+    console.log(msg.state);
+    socket.emit('get state', {user: window.location.pathname});
   });
 
   let user = window.location.pathname;
