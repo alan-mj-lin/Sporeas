@@ -55,6 +55,8 @@ $('.sidebar')
   .sidebar('setting', 'dimPage', false)
   .sidebar('setting', 'closable', false);
 
+collapseSideBar();
+
 function showOverlay() {
   $('#welcome-overlay').show();
   collapseSideBar();
@@ -72,4 +74,8 @@ function expandSidebar() {
 
 function collapseSideBar() {
   $('.sidebar').sidebar('hide');
+  $('.pusher').css({transform: 'translate3d(0,0,0)'});
+  setTimeout(function() { // workaround
+    $('.pusher').removeClass('dimmed');
+  }, 0);
 }
