@@ -40,9 +40,9 @@ $('.highlight-announcements').click(function() {
 // hide welcome overlay in this session if user asks to:
 let showWelcomeOverlay = false || (sessionStorage.getItem('showWelcomeOverlay') === 'true');
 if (showWelcomeOverlay) {
-  showOverlay()
+  showOverlay();
 } else {
-  hideOverlay()
+  hideOverlay();
 }
 $('button#stop-showing-welcome-overlay').click(function() {
   hideOverlay();
