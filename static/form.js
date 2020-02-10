@@ -18,6 +18,7 @@ function ch_sanitize (text) {
 }
 
 $(document).ready(function() {
+  $('#wip').hide();
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
   //$('#service_mode').hide();
