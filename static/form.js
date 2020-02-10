@@ -20,7 +20,6 @@ function ch_sanitize (text) {
 $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
-  //$('#service_mode').hide();
   $('#project').attr('disabled', true);
   $('.menu .item').tab();
   const socket = io.connect('http://' + document.domain + ':' + location.port);
@@ -34,8 +33,6 @@ $(document).ready(function() {
     const active = sessionStorage.getItem('user');
     console.log(sessionStorage.getItem('api'));
     if (sessionStorage.getItem('connected') == 'True') {
-      //$('#update').show();
-      //$('#service_mode').show();
       $('#content').show();
       $('#connect').hide();
       $('#mainitem').addClass('active');

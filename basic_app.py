@@ -231,13 +231,12 @@ def get_user(message):
     """
     global username
     global user_list
-    global rooms  # Route Broadcast Feature
+    global rooms  
     global roomState
 
     duplicate = False
     username = message['user'].replace(' ', '_')
 
-    # Route Broadcast Feature
     for key, value in rooms.items():
         if username == key:
             duplicate = True
@@ -248,7 +247,6 @@ def get_user(message):
         rooms[username].append(request.sid)
         roomState[username] = True
         emit('auth event', {'auth': str(duplicate)})
-    # End of Route Broadcast Feature
 
 
 @socketio.on('disconnect')
@@ -259,9 +257,8 @@ def disconnect_event():
     """
     global user_list
     global project_list
-    global rooms  # Room Logic
+    global rooms
 
-    # Route Broadcast Logic
     active = request.sid
     left = ''
     for room in rooms:
@@ -422,7 +419,6 @@ def test_message(message):
                 extra_verse = verse.split(',')[1]
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
-        # passage_remainder = passage.split(':')[0] + ':' + extra_verse
         print(passage)
 
     active = message['user']
@@ -436,7 +432,7 @@ def test_message(message):
 
     if state == 'true' and book != '':
         if comma:
-            overlay = get_esv_text(passage, comma) # + get_esv_text(passage_remainder)
+            overlay = get_esv_text(passage, comma)
             print(overlay)
         else:
             overlay = get_esv_text(passage, comma)
@@ -477,6 +473,7 @@ def test_message(message):
              {"out_of_range": out_of_range}, namespace='/', room=active)
 
     out_of_range = False
+
 
 @socketio.on('announce', namespace='/')
 def announce(message):
