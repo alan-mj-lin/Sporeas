@@ -68,9 +68,7 @@ function spaceBar(e){
   const ch_verses = msg.ch_overlay;
   console.log(eng_verses);
   if ($('#modal').hasClass("visible") && e.which === 32) {
-    //console.log($('#overlay').html());
     for (i = 0; i < eng_verses.length; i++) {
-      //console.log(eng_verses[i]);
       if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
         $('#overlay').html(eng_verses[i+1]);
         $('#ch_overlay').html(ch_verses[i+1]);
@@ -210,7 +208,6 @@ $(document).ready(function() {
     $('#break2').show();
   });
 
-  // WIP
   socket.on('scroll', function() {
     const msg = JSON.parse(localStorage.getItem(user));
     const scrollState = msg.hymn_scroll;
@@ -280,20 +277,10 @@ $(document).ready(function() {
 
   socket.on('reset', function(msg) {
     const msgActive = JSON.parse(localStorage.getItem(user));
-    /*
-    msg.title = $('#title').html();
-    msg.hymn = $('#hymn').html();
-    msg.ch_title = $('#ch_title').html();
-    msg.overlay = $('#overlay').html();
-    msg.ch_overlay = $('#ch_overlay').html();
-    */
     $('#verse').html(msg.verse);
     msgActive.book = '';
     msgActive.verse = '';
     localStorage.setItem(user, JSON.stringify(msgActive));
-
-    //console.log(msg);
-    //localStorage.setItem(user, JSON.stringify(msg));
   });
 
   socket.on('update announcements', function(msg){
