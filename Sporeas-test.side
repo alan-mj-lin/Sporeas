@@ -14,13 +14,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "81b563e8-9fa9-41e9-a334-7e7aaa4c8e58",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1280x687",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "f8227a80-7f90-4251-a46e-9e265a7a089c",
       "comment": "",
       "command": "runScript",
@@ -54,10 +47,10 @@
       ],
       "value": "test-location"
     }, {
-      "id": "190e51a3-a470-426d-bafc-ab6effe7187f",
+      "id": "caccaf87-259f-4a64-9b12-d460c4b27cee",
       "comment": "",
       "command": "click",
-      "target": "css=form#connect button[type=\"submit\"]",
+      "target": "xpath=//button[contains(text(), 'Connect')]",
       "targets": [
         ["css=.secondary:nth-child(3)", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
@@ -239,15 +232,15 @@
       "windowHandleName": "win6742",
       "windowTimeout": 2000
     }, {
-      "id": "f59b551b-e101-45bf-8db6-d883ea254f7a",
+      "id": "ed7e4156-f241-4b69-ac45-0995a516c594",
       "comment": "",
       "command": "click",
-      "target": "css=.form > button[type=\"submit\"]",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
       "targets": [
-        ["css=.ui:nth-child(7)", "css:finder"],
+        ["css=.ui:nth-child(6)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
         ["xpath=//form[@id='update']/button", "xpath:idRelative"],
-        ["xpath=//form[2]/button", "xpath:position"],
+        ["xpath=//form/button", "xpath:position"],
         ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
       ],
       "value": ""
@@ -297,7 +290,7 @@
       "id": "6a56875b-d796-4d4d-93fc-cbfda3bf99a7",
       "comment": "",
       "command": "click",
-      "target": "css=.form > button[type=\"submit\"]",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
       "targets": [
         ["css=.ui:nth-child(6)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
@@ -576,15 +569,15 @@
       ],
       "value": "DON'T FORGET TO CLOSE CHROME COMPLETELY (and Selenium IDE too)"
     }, {
-      "id": "cfb503e4-35bf-4d51-b47f-3be1b4297166",
+      "id": "0408c092-7483-401f-833b-f4710d11df2f",
       "comment": "",
       "command": "click",
-      "target": "css=.form > button[type=\"submit\"]",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
       "targets": [
-        ["css=.ui:nth-child(7)", "css:finder"],
+        ["css=.ui:nth-child(6)", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
         ["xpath=//form[@id='update']/button", "xpath:idRelative"],
-        ["xpath=//form[2]/button", "xpath:position"],
+        ["xpath=//form/button", "xpath:position"],
         ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
       ],
       "value": ""
@@ -647,7 +640,7 @@
       ],
       "value": "test-location"
     }, {
-      "id": "d8e51fa0-cbe2-41b5-b51a-7aba709b743f",
+      "id": "9f5dc813-de41-4fc6-a73c-b530b59b5b0b",
       "comment": "",
       "command": "click",
       "target": "xpath=//button[contains(text(), 'Connect')]",
@@ -660,17 +653,16 @@
       ],
       "value": ""
     }, {
-      "id": "abe3b916-9d21-48c2-b1fa-8d659bfcae4f",
+      "id": "d8e51fa0-cbe2-41b5-b51a-7aba709b743f",
       "comment": "",
       "command": "click",
-      "target": "id=project",
+      "target": "xpath=//button[contains(text(), 'Project')]",
       "targets": [
-        ["id=project", "id"],
-        ["css=#project", "css:finder"],
-        ["xpath=//button[@id='project']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -910,7 +902,7 @@
       ],
       "value": ""
     }, {
-      "id": "c7190c8b-eb69-4e0d-8045-d4f28b728405",
+      "id": "1e9df3f2-fc32-4153-9cde-3c9ef5eefad5",
       "comment": "",
       "command": "click",
       "target": "id=new_tab",
@@ -924,13 +916,13 @@
       ],
       "value": "",
       "opensWindow": true,
-      "windowHandleName": "win8168",
+      "windowHandleName": "win6742",
       "windowTimeout": 2000
     }, {
-      "id": "59da977c-9d68-44a4-a9c4-6e8da0a531fa",
+      "id": "53ac93c1-6332-45b4-a0e9-d3937a59f341",
       "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win8168}",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
       "targets": [],
       "value": ""
     }, {
@@ -1050,7 +1042,7 @@
       ],
       "value": ""
     }, {
-      "id": "c7c3aea7-8260-472b-874c-1991a2a985a5",
+      "id": "5cbfc799-31a5-4e5a-ba01-4e5635fedcee",
       "comment": "",
       "command": "click",
       "target": "id=new_tab",
@@ -1064,13 +1056,13 @@
       ],
       "value": "",
       "opensWindow": true,
-      "windowHandleName": "win8168",
+      "windowHandleName": "win6742",
       "windowTimeout": 2000
     }, {
-      "id": "fe1a20ed-cc24-4e39-8faa-c1277b714bbd",
+      "id": "48fb28c8-16e9-42dd-b021-bf62091687f6",
       "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win8168}",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
       "targets": [],
       "value": ""
     }, {
