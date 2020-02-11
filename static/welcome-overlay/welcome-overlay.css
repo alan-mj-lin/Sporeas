@@ -1,0 +1,30 @@
+section#welcome-overlay {
+  position: fixed;
+  z-index: 9000;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  text-align: center;
+  padding: 10% 10%;
+}
+
+section#welcome-overlay * {
+  margin: 10px;
+}
+
+.sidebar a {
+  font-size: small;
+}
+
+.pusher .container {
+  /* compensate for sidebar squishing stuff to the right: */
+  margin-left: 20px !important;
+  padding-right: 20px !important;
+  /* let user scroll lowest UI elements to a comfortable height */
+  padding-bottom: 100px !important;
+}
+
+#hymn_singing {
+  width: 130px; /* so doesn't change height when button shakes */
+}

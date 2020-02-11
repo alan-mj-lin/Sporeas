@@ -37,6 +37,7 @@ $(document).ready(function() {
       $('#connect').hide();
       $('#mainitem').addClass('active');
       $('#maintab').addClass('active');
+      socket.emit('get state', {user: active});
     }
     if (sessionStorage.getItem('api')== 'false') {
       $('#toggle_label').removeClass('ui basic green label');
@@ -66,6 +67,7 @@ $(document).ready(function() {
       socket.emit('user active', {
         user: $('#user').val(),
       });
+      socket.emit('get state', {user: $('#user').val()});
       sessionStorage.setItem('user', user);
       return false;
     }
@@ -96,6 +98,8 @@ $(document).ready(function() {
     $('#connect').hide();
     $('#mainitem').addClass('active');
     $('#maintab').addClass('active');
+    $('#welcome-overlay').show();
+    sessionStorage.setItem('showWelcomeOverlay', true);
     event.preventDefault();
   });
 
