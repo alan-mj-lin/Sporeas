@@ -602,6 +602,13 @@
       "target": "xpath=//div[@class='ui error message']/p[contains(text(), 'Inputs are invalid')]",
       "targets": [],
       "value": ""
+    }, {
+      "id": "7045e4d1-9d16-4bc1-a228-578b8d90d502",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "081ccd17-efbf-4cce-8a1f-1db2ea0b2230",
@@ -828,7 +835,7 @@
     }, {
       "id": "7ee59df5-2dfd-4a68-b0e5-1c7546276291",
       "comment": "",
-      "command": "run",
+      "command": "//run",
       "target": "Initialization",
       "targets": [],
       "value": ""
@@ -947,6 +954,13 @@
       "target": "id=hymn",
       "targets": [],
       "value": "讚美詩 Hymn: 123, 456"
+    }, {
+      "id": "7f396a08-ef8d-4bfc-8e47-f35317eeba46",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "4a94d64f-87ce-4560-a096-a0ddacf35c7b",
@@ -1080,6 +1094,13 @@
       "target": "id=hymn",
       "targets": [],
       "value": "讚美詩 Hymn: 123, 456"
+    }, {
+      "id": "f0c0300a-f521-46d8-ad85-5144b0c82c8a",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{
