@@ -815,6 +815,258 @@
     "id": "e6965a2e-5ff2-491c-88d2-089f89b76bc0",
     "name": "Passage Display",
     "commands": []
+  }, {
+    "id": "c5ed90c3-79f3-4aa5-a6b7-1ddfca8d08a9",
+    "name": "Util: HC",
+    "commands": [{
+      "id": "3a6c080d-e9cb-4967-95d0-9f9e2b0f336f",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "536391a5-23b0-48c5-810e-fea77705bdd9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d2626e0-f0cb-4588-b39f-a165bf4093b1",
+      "comment": "",
+      "command": "click",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b5f0992-b433-4478-ad9f-8f20b58382fc",
+      "comment": "",
+      "command": "type",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 456"
+    }, {
+      "id": "02134f38-25d9-4830-b50f-0e1580ba0698",
+      "comment": "",
+      "command": "click",
+      "target": "id=holy_communion",
+      "targets": [
+        ["id=holy_communion", "id"],
+        ["css=#holy_communion", "css:finder"],
+        ["xpath=//button[@id='holy_communion']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Holy Communion | 聖餐禮')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "71ff12bc-59e8-4669-819f-f1e31bf5ccf7",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7190c8b-eb69-4e0d-8045-d4f28b728405",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win8168",
+      "windowTimeout": 2000
+    }, {
+      "id": "59da977c-9d68-44a4-a9c4-6e8da0a531fa",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win8168}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5f2cb730-951f-41d4-936a-2bf502eeff42",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=title",
+      "targets": [],
+      "value": "Holy Communion"
+    }, {
+      "id": "98c7a151-f1a0-4a2c-9527-22bfc6c5e79a",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=ch_title",
+      "targets": [],
+      "value": "聖餐禮"
+    }, {
+      "id": "34750434-17ce-4148-8ef0-22460b287fc6",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=hymn",
+      "targets": [],
+      "value": "讚美詩 Hymn: 123, 456"
+    }]
+  }, {
+    "id": "4a94d64f-87ce-4560-a096-a0ddacf35c7b",
+    "name": "Util: FW",
+    "commands": [{
+      "id": "b8d86040-6300-44d2-8603-a5999383918b",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a3213db-b8fe-4836-a06f-11e5fbd3d7d0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f5e00c8-81f7-4010-a095-1433f39ec599",
+      "comment": "",
+      "command": "click",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7508c4e5-f910-4fde-83ad-ccbb29084ad4",
+      "comment": "",
+      "command": "type",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 456"
+    }, {
+      "id": "01c32a2a-873a-4bbb-b7ab-b2b77f34483a",
+      "comment": "",
+      "command": "click",
+      "target": "id=foot_washing",
+      "targets": [
+        ["id=foot_washing", "id"],
+        ["css=#foot_washing", "css:finder"],
+        ["xpath=//button[@id='foot_washing']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Footwashing | 洗腳禮')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d285bda8-6e34-4cc5-ae75-2ef633c9ec43",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7c3aea7-8260-472b-874c-1991a2a985a5",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win8168",
+      "windowTimeout": 2000
+    }, {
+      "id": "fe1a20ed-cc24-4e39-8faa-c1277b714bbd",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win8168}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f140c5a8-5cfc-4488-8276-96a255ce4928",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=title",
+      "targets": [],
+      "value": "Foot Washing"
+    }, {
+      "id": "5213542d-6d05-4253-a9cc-fc141e626c5e",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=ch_title",
+      "targets": [],
+      "value": "洗腳禮"
+    }, {
+      "id": "cf0b40a2-4e07-4eb7-aafd-42d0362ec160",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=hymn",
+      "targets": [],
+      "value": "讚美詩 Hymn: 123, 456"
+    }]
   }],
   "suites": [{
     "id": "2cdc6c0d-29cf-4ac7-a6b3-1158ab66a59e",
