@@ -826,6 +826,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "7ee59df5-2dfd-4a68-b0e5-1c7546276291",
+      "comment": "",
+      "command": "run",
+      "target": "Initialization",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "536391a5-23b0-48c5-810e-fea77705bdd9",
       "comment": "",
       "command": "click",
@@ -949,6 +956,13 @@
       "comment": "",
       "command": "open",
       "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c6e7d233-d6ab-4702-b57c-fde5f34de729",
+      "comment": "",
+      "command": "run",
+      "target": "Initialization",
       "targets": [],
       "value": ""
     }, {
