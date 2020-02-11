@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='form.js') }}"></script>
 </head>
@@ -260,6 +261,31 @@
       </form>
     </div>
   </div>
+
+  <section id="welcome-overlay">
+    <h1>What would you like to do?</h1>
+    <p>Quick Links:</p>
+    <button class="ui button highlight-service">Service</button>
+    <button class="ui button highlight-hymn-singing">Just Hymn Singing</button>
+    <button class="ui button highlight-morning-prayer">Morning Prayer</button>
+    <button class="ui button highlight-holy-communion">Holy Communion</button>
+    <button class="ui button highlight-foot-washing">Foot Washing</button>
+    <!-- <button class="ui button highlight-announcements">Announcements</button> -->
+    <br/>
+    <button class="ui secondary button" id="stop-showing-welcome-overlay">(Stop Showing Me This Page)</button>
+  </section>
+
+  <div class="ui left vertical menu sidebar" style="display: flex; width: 140px;">
+    <a class="item highlight-service">Service</a>
+    <a class="item highlight-hymn-singing">Hymn Singing</a>
+    <a class="item highlight-morning-prayer">Morning Prayer</a>
+    <a class="item highlight-holy-communion">Holy Communion</a>
+    <a class="item highlight-foot-washing">Foot Washing</a>
+    <!-- <a class="item highlight-announcements">Announcements</a> -->
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
 </body>
 </html>
