@@ -599,7 +599,7 @@
       "id": "d6c10dbf-919a-46c4-b510-eb8f225e75d7",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "xpath=//div[@class='ui error message']/p[contains(text(), 'Inputs can only have')]",
+      "target": "xpath=//div[@class='ui error message']/p[contains(text(), 'Inputs are invalid')]",
       "targets": [],
       "value": ""
     }]
