@@ -643,7 +643,7 @@
       "id": "d8e51fa0-cbe2-41b5-b51a-7aba709b743f",
       "comment": "",
       "command": "click",
-      "target": "css=form#connect button[type=\"submit\"]",
+      "target": "xpath=//button[contains(text(), 'Connect')]",
       "targets": [
         ["css=.secondary:nth-child(3)", "css:finder"],
         ["xpath=//button[@type='submit']", "xpath:attributes"],
