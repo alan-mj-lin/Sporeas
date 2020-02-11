@@ -69,7 +69,9 @@ function hideOverlay() {
 
 function expandSidebar() {
   $('.sidebar').sidebar('show');
-  $('.pusher').css({transform: 'translate3d(140px,0,0)'});
+  setTimeout(function() { // workaround
+    $('.pusher').css({transform: 'translate3d(140px,0,0)'});
+  }, 0);
 }
 
 function collapseSideBar() {
