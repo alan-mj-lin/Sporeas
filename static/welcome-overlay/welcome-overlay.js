@@ -44,13 +44,6 @@ if (showWelcomeOverlay) {
 } else {
   hideOverlay();
 }
-// hide sidebar if user is not logged in:
-const active = sessionStorage.getItem('user');
-if (active == null) {
-  setTimeout(function() { // workaround
-    collapseSideBar();
-  }, 0);
-}
 $('button#stop-showing-welcome-overlay').click(function() {
   hideOverlay();
   showWelcomeOverlay = false;

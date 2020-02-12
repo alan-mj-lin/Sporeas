@@ -11,7 +11,6 @@
     "selenium-side-runner": "^3.16.0"
   },
   "scripts": {
-    "stop": "pkill -f basic_app.py",
     "test": "python3.7 basic_app.py & selenium-side-runner -c \"goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome\" Sporeas-test.side; (pkill -f basic_app.py) || true;",
     "test-visually": "python3.7 basic_app.py & selenium-side-runner Sporeas-test.side; (pkill -f basic_app.py) || true;"
   },

@@ -290,10 +290,7 @@ def get_state(message):
     """
     Function to get the state at startup from control panel
     """
-    active = message['user']
-    for i in active:
-        if i == '/':
-            active = active.split('/')[1]
+    active = message['user'].split('/')[1]
     emit('state form check', namespace='/', room=active)
 
 
