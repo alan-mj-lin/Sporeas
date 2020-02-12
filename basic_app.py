@@ -292,6 +292,7 @@ def get_state(message):
     for i in active:
         if i == '/':
             active = active.split('/')[1]
+            
     emit('state form check', namespace='/', room=active)
 
 
