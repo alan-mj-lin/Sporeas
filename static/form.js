@@ -38,6 +38,7 @@ $(document).ready(function() {
       $('#connect').hide();
       $('#mainitem').addClass('active');
       $('#maintab').addClass('active');
+      socket.emit('get state', {user: active});
     }
     if (sessionStorage.getItem('api')== 'false') {
       $('#toggle_label').removeClass('ui basic green label');
