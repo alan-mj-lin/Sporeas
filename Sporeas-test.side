@@ -1,0 +1,1428 @@
+{
+  "id": "a7e8a5f4-c7bd-41a7-9ef7-df3b3ce7a113",
+  "version": "2.0",
+  "name": "Sporeas-test",
+  "url": "http://127.0.0.1:9000/admin",
+  "tests": [{
+    "id": "ef096fb4-6344-4358-9194-9a319c8105e9",
+    "name": "run-through",
+    "commands": [{
+      "id": "c5852a3e-ef9d-476d-ae90-61bbc5ab60f2",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f8227a80-7f90-4251-a46e-9e265a7a089c",
+      "comment": "",
+      "command": "runScript",
+      "target": "document.getElementById('connect').style.display = 'block'; document.getElementById('content').style.display = 'none'; document.getElementById('maintab').style.display = 'none'; (document.getElementById('utility'))? document.getElementById('utility').style.display = 'none' : true;",
+      "targets": [],
+      "value": "(Just in case.)"
+    }, {
+      "id": "7039363c-a174-4af7-ac07-553659d09703",
+      "comment": "",
+      "command": "click",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02728bf6-8e18-4437-9847-ba98d111a40d",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "test-location"
+    }, {
+      "id": "caccaf87-259f-4a64-9b12-d460c4b27cee",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Connect')]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "14bb3fa2-6868-42f7-a1d9-29f4fc3c14f6",
+      "comment": "",
+      "command": "click",
+      "target": "id=project",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1f281889-1229-4338-a992-e7bf5adf1e02",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": "(Just in case.)"
+    }, {
+      "id": "5b3b24d9-8e9d-4361-83e0-22f5a8f2853b",
+      "comment": "",
+      "command": "click",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "937eab8d-c739-47b8-ad89-a8d9b7e39eea",
+      "comment": "",
+      "command": "type",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": "English Title 123"
+    }, {
+      "id": "fd8be025-5fb5-47ee-bd9f-3d30e9f7bdc5",
+      "comment": "",
+      "command": "click",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b1a9c4d0-de64-446b-b665-6eb81bdfcdd2",
+      "comment": "",
+      "command": "type",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Chinese Title 123"
+    }, {
+      "id": "2f2624cf-cbf5-460b-824b-696c27dde913",
+      "comment": "",
+      "command": "click",
+      "target": "id=hymn",
+      "targets": [
+        ["id=hymn", "id"],
+        ["name=hymn", "name"],
+        ["css=#hymn", "css:finder"],
+        ["xpath=//input[@id='hymn']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b8b90e02-e978-492c-967f-121e7e5bb2f2",
+      "comment": "",
+      "command": "type",
+      "target": "id=hymn",
+      "targets": [
+        ["id=hymn", "id"],
+        ["name=hymn", "name"],
+        ["css=#hymn", "css:finder"],
+        ["xpath=//input[@id='hymn']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 345"
+    }, {
+      "id": "6b1cc289-ac13-4f60-81e9-f053844b941c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.search.dropdown > input.search",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "13d5f566-6b59-4857-ab0a-69753d2e0fe9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.search.dropdown > input.search",
+      "targets": [
+        ["css=.search:nth-child(3)", "css:finder"],
+        ["xpath=//form[@id='update']/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "843523f3-0dfc-4412-b38d-2b9e6b31165f",
+      "comment": "",
+      "command": "type",
+      "target": "css=.search.dropdown > input.search",
+      "targets": [
+        ["css=.search:nth-child(3)", "css:finder"],
+        ["xpath=//form[@id='update']/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/input", "xpath:position"]
+      ],
+      "value": "Gene"
+    }, {
+      "id": "0f70d2b1-c711-4230-a5cd-307ed90a5b06",
+      "comment": "",
+      "command": "select",
+      "target": "id=ddbible",
+      "targets": [],
+      "value": "label=Genesis | 創世記"
+    }, {
+      "id": "18a1d406-c5ed-4ba5-9b22-948f56f41851",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "css=.search.dropdown > input.search",
+      "targets": [],
+      "value": "${KEY_TAB}"
+    }, {
+      "id": "4a42d104-5401-418c-bc4b-f2bb2d12fd0b",
+      "comment": "",
+      "command": "type",
+      "target": "id=verse",
+      "targets": [
+        ["id=verse", "id"],
+        ["name=verse", "name"],
+        ["css=#verse", "css:finder"],
+        ["xpath=//input[@id='verse']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[4]/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "1:1"
+    }, {
+      "id": "2be8a08a-2c55-4158-b8fe-3dece93c1920",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win6742",
+      "windowTimeout": 2000
+    }, {
+      "id": "ed7e4156-f241-4b69-ac45-0995a516c594",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
+      "targets": [
+        ["css=.ui:nth-child(6)", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c8845520-1418-4eb1-8478-6e37f92c1ed8",
+      "comment": "These \"assert value\"s just check /admin page:",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "437fee28-fc32-426d-8f70-7e1802a0e8f1",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=title",
+      "targets": [],
+      "value": "English Title 123"
+    }, {
+      "id": "57125f93-c652-492a-85c9-68e218187ff6",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=ch_title",
+      "targets": [],
+      "value": "Chinese Title 123"
+    }, {
+      "id": "cb4f0078-5894-42d6-9bec-ab0a5fc8d622",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=hymn",
+      "targets": [],
+      "value": "123, 345"
+    }, {
+      "id": "f41db4fc-4930-4df6-8ec9-872157ecf7d0",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=verse",
+      "targets": [],
+      "value": "1:1"
+    }, {
+      "id": "e29da75c-4a10-485e-8214-5e9586d4ea66",
+      "comment": "These \"assert element present\"s with xpaths actually check /test-location:",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6a56875b-d796-4d4d-93fc-cbfda3bf99a7",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
+      "targets": [
+        ["css=.ui:nth-child(6)", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fdd04cc-a66d-48b3-92c8-e1426e63de7f",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "28cac1db-6758-4729-be59-bc4751531d0b",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='title' and contains(text(), 'English Title 123')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3bd251f4-3506-4633-adf8-cf237edbb202",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='ch_title' and contains(text(), 'Chinese Title 123')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1da61281-acfa-40b2-8645-186c8b95dc82",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='hymn' and contains(text(), '123, 345')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "01f3152b-45b5-48f5-b15f-6ba8b3984965",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='verse' and contains(text(), 'Genesis | 創世記1:1')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dd89d07b-3d79-49bf-87bd-dbe4ce713285",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d052e3a4-678d-4526-a3e4-31a780657fe9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a8c929cf-74f0-47b1-972b-18421e19f42a",
+      "comment": "",
+      "command": "click",
+      "target": "id=hymn_input",
+      "targets": [
+        ["id=hymn_input", "id"],
+        ["css=#hymn_input", "css:finder"],
+        ["xpath=//input[@id='hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div/input", "xpath:idRelative"],
+        ["xpath=//body/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e15eb610-183f-4aae-a30c-818e72e80ae5",
+      "comment": "",
+      "command": "type",
+      "target": "id=hymn_input",
+      "targets": [
+        ["id=hymn_input", "id"],
+        ["css=#hymn_input", "css:finder"],
+        ["xpath=//input[@id='hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div/input", "xpath:idRelative"],
+        ["xpath=//body/div/div/div/input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "ced47b1c-6d5d-40af-9fba-3c158ea7c207",
+      "comment": "",
+      "command": "click",
+      "target": "id=hymn_singing",
+      "targets": [
+        ["id=hymn_singing", "id"],
+        ["css=#hymn_singing", "css:finder"],
+        ["xpath=//button[@id='hymn_singing']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div/button", "xpath:idRelative"],
+        ["xpath=//div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Hymn Singing')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4eeda2ff-e852-4fe3-8194-19265e2fee65",
+      "comment": "",
+      "command": "storeWindowHandle",
+      "target": "root",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4c4c2786-cc1b-4993-b485-a6b5246e3f65",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ef5078dc-a6f5-498b-940a-ce6edc613973",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[contains(text(), '讚美詩 Hymn: 1')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "274a998a-119b-4fde-93d7-aaade36ee12d",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1ac3b3f5-b140-4301-92a8-38fa709744c2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f316b8d-23c6-48ab-96a7-b8a3ca43ae33",
+      "comment": "",
+      "command": "click",
+      "target": "id=m_hymn_input",
+      "targets": [
+        ["id=m_hymn_input", "id"],
+        ["css=#m_hymn_input", "css:finder"],
+        ["xpath=//input[@id='m_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div/div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eaa1a24d-5bd9-43b5-8a62-c13726f66b2d",
+      "comment": "",
+      "command": "type",
+      "target": "id=m_hymn_input",
+      "targets": [
+        ["id=m_hymn_input", "id"],
+        ["css=#m_hymn_input", "css:finder"],
+        ["xpath=//input[@id='m_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div/div[2]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "17ecab0f-9ae8-4228-9d75-a77e8dad996a",
+      "comment": "",
+      "command": "click",
+      "target": "id=morning_prayer",
+      "targets": [
+        ["id=morning_prayer", "id"],
+        ["css=#morning_prayer", "css:finder"],
+        ["xpath=//button[@id='morning_prayer']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Morning Prayer')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f1b7ded4-64e2-48b4-b069-7aede6ea538c",
+      "comment": "",
+      "command": "click",
+      "target": "id=morning_prayer",
+      "targets": [
+        ["id=morning_prayer", "id"],
+        ["css=#morning_prayer", "css:finder"],
+        ["xpath=//button[@id='morning_prayer']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Morning Prayer')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d0e2b24-06df-46c0-a5ed-cacbef843262",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "51faa49d-a5b6-4145-9cb9-dff7e23f2b7f",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//h1[@id='title' and contains(text(), 'Morning Prayer')]",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "a6bb3243-d100-4152-bb00-503f1bbd658b",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='title' and contains(text(), 'Morning Prayer')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cbeac181-b1ad-4194-b1ed-ed934dd8ae85",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='ch_title' and contains(text(), '早禱會')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1285a7f9-4c02-41c0-8cf3-a99ee1f14c81",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='hymn' and contains(text(), '讚美詩 Hymn: 2')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "31c8e4c4-699c-4562-8e11-d9e2bd4511cf",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "da82b890-e7ca-4ff5-8420-c619c0dfe0af",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c996c2f-0bc5-448c-999e-4e6e31a0bd23",
+      "comment": "",
+      "command": "type",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": "DONE RECORDING :)"
+    }, {
+      "id": "0e77dc62-492f-490b-8c9d-4f4921c74d97",
+      "comment": "",
+      "command": "type",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "DON'T FORGET TO CLOSE CHROME COMPLETELY (and Selenium IDE too)"
+    }, {
+      "id": "0408c092-7483-401f-833b-f4710d11df2f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
+      "targets": [
+        ["css=.ui:nth-child(6)", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ad63a4d-6101-4590-a535-c1ec2c100980",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=form#update .error.message .header",
+      "targets": [],
+      "value": "Error"
+    }, {
+      "id": "d6c10dbf-919a-46c4-b510-eb8f225e75d7",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//div[@class='ui error message']/p[contains(text(), 'Inputs are invalid')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7045e4d1-9d16-4bc1-a228-578b8d90d502",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "081ccd17-efbf-4cce-8a1f-1db2ea0b2230",
+    "name": "Initialization",
+    "commands": [{
+      "id": "ba2619bd-97c1-46bb-84d6-c7735bb7c520",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2e117761-0619-475b-8d63-72c203c88e50",
+      "comment": "",
+      "command": "click",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0301f2e0-bf1c-4684-ad85-93d1c6369e98",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "test-location"
+    }, {
+      "id": "9f5dc813-de41-4fc6-a73c-b530b59b5b0b",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Connect')]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d8e51fa0-cbe2-41b5-b51a-7aba709b743f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Project')]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "24c024e7-e77b-4a0a-9a82-6c5db4572b8e",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c2d75f82-c081-4dd0-9ca5-79ee97635e10",
+    "name": "Teardown",
+    "commands": [{
+      "id": "b8c0d215-cbb4-4c16-9f30-21c01fd4f2d5",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c09ad9f2-9083-4c9a-ba5b-498281a7e791",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6bc05e5f-2473-455a-a21e-43f87f063457",
+      "comment": "",
+      "command": "type",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/form/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cbfb4122-26b7-410f-8f67-04c191daf35a",
+      "comment": "",
+      "command": "type",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0444b763-74f2-4bed-8c2b-5a9107eae05c",
+      "comment": "",
+      "command": "type",
+      "target": "id=hymn",
+      "targets": [
+        ["id=hymn", "id"],
+        ["name=hymn", "name"],
+        ["css=#hymn", "css:finder"],
+        ["xpath=//input[@id='hymn']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85fc7cad-f0b7-49c1-9b89-c2e995630853",
+      "comment": "",
+      "command": "type",
+      "target": "id=verse",
+      "targets": [
+        ["id=verse", "id"],
+        ["name=verse", "name"],
+        ["css=#verse", "css:finder"],
+        ["xpath=//input[@id='verse']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[4]/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2df18557-7342-4b21-a265-569141704eb3",
+      "comment": "",
+      "command": "type",
+      "target": "id=verse",
+      "targets": [
+        ["id=verse", "id"],
+        ["name=verse", "name"],
+        ["css=#verse", "css:finder"],
+        ["xpath=//input[@id='verse']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[4]/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "341d8bdd-63c7-4c31-86cb-1181cc21e076",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Submit')]",
+      "targets": [
+        ["css=.ui:nth-child(6)", "css:finder"],
+        ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d0894fe-3d6c-46fe-82b4-d7e8e0c0a919",
+      "comment": "",
+      "command": "close",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": "no need to close http://127.0.0.1:9000/test-location"
+    }]
+  }, {
+    "id": "2cf75288-3f3c-4002-b4e8-2ed520d2ff0a",
+    "name": "Submit-Refresh",
+    "commands": []
+  }, {
+    "id": "f534b805-3b86-4ca4-8af8-3391adbdaa1c",
+    "name": "Update-Refresh",
+    "commands": []
+  }, {
+    "id": "21cfc5e1-bb0f-4afe-b0a9-d3368c28c452",
+    "name": "Reset",
+    "commands": []
+  }, {
+    "id": "2aea528b-6264-4bd7-9af7-ef858fd560cb",
+    "name": "Reset-Refresh",
+    "commands": []
+  }, {
+    "id": "eab146e2-a566-4eff-bdd2-5c75136b488c",
+    "name": "Submit",
+    "commands": [{
+      "id": "f668e244-8df5-4e11-a8c0-d88679feaa10",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f8a255c5-1d4b-46ba-bf5b-1619611ca506",
+      "comment": "",
+      "command": "click",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f47024c0-6c7d-4a4e-b7d7-a4add8a3814e",
+      "comment": "",
+      "command": "type",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": "English Title 123"
+    }, {
+      "id": "ff6b0941-b358-4d50-918f-c8c40e8e20ac",
+      "comment": "",
+      "command": "click",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c915157-40ed-47ab-90f7-09c1ed959dd4",
+      "comment": "",
+      "command": "type",
+      "target": "id=ch_title",
+      "targets": [
+        ["id=ch_title", "id"],
+        ["name=ch_title", "name"],
+        ["css=#ch_title", "css:finder"],
+        ["xpath=//input[@id='ch_title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Chinese Title 123"
+    }, {
+      "id": "a318af39-2539-4212-a361-95dcceee72d6",
+      "comment": "",
+      "command": "click",
+      "target": "id=hymn",
+      "targets": [
+        ["id=hymn", "id"],
+        ["name=hymn", "name"],
+        ["css=#hymn", "css:finder"],
+        ["xpath=//input[@id='hymn']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75160f70-0bc2-47d2-ab39-ab2aabdb4b9f",
+      "comment": "",
+      "command": "type",
+      "target": "id=hymn",
+      "targets": [
+        ["id=hymn", "id"],
+        ["name=hymn", "name"],
+        ["css=#hymn", "css:finder"],
+        ["xpath=//input[@id='hymn']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 345"
+    }]
+  }, {
+    "id": "ce70134b-75eb-40f4-af92-1cf00393a727",
+    "name": "Update",
+    "commands": []
+  }, {
+    "id": "cbe4c808-da13-412c-ba4d-dc94e8c77d01",
+    "name": "Hymn Scroll",
+    "commands": []
+  }, {
+    "id": "e6965a2e-5ff2-491c-88d2-089f89b76bc0",
+    "name": "Passage Display",
+    "commands": []
+  }, {
+    "id": "c5ed90c3-79f3-4aa5-a6b7-1ddfca8d08a9",
+    "name": "Util: HC",
+    "commands": [{
+      "id": "3a6c080d-e9cb-4967-95d0-9f9e2b0f336f",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ee59df5-2dfd-4a68-b0e5-1c7546276291",
+      "comment": "",
+      "command": "//run",
+      "target": "Initialization",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "536391a5-23b0-48c5-810e-fea77705bdd9",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d2626e0-f0cb-4588-b39f-a165bf4093b1",
+      "comment": "",
+      "command": "click",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b5f0992-b433-4478-ad9f-8f20b58382fc",
+      "comment": "",
+      "command": "type",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 456"
+    }, {
+      "id": "f111541f-5f62-48d9-90d2-67931de7326c",
+      "comment": "",
+      "command": "click",
+      "target": "id=holy_communion",
+      "targets": [
+        ["id=holy_communion", "id"],
+        ["css=#holy_communion", "css:finder"],
+        ["xpath=//button[@id='holy_communion']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Holy Communion | 聖餐禮')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "065034c0-c7f4-4bc3-8a94-088d7bfb45a5",
+      "comment": "",
+      "command": "click",
+      "target": "id=holy_communion",
+      "targets": [
+        ["id=holy_communion", "id"],
+        ["css=#holy_communion", "css:finder"],
+        ["xpath=//button[@id='holy_communion']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Holy Communion | 聖餐禮')]", "xpath:innerText"]
+      ],
+      "value": "hit again just in case"
+    }, {
+      "id": "d6fb47cf-3e8d-4844-9575-93f68b7aab15",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1e9df3f2-fc32-4153-9cde-3c9ef5eefad5",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win6742",
+      "windowTimeout": 2000
+    }, {
+      "id": "53ac93c1-6332-45b4-a0e9-d3937a59f341",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a0545658-c46b-4402-8582-948f60018d54",
+      "comment": "go back again (for some reason need to do this for it to work)",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bce6231-182b-485b-86de-21d3f180fb17",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ecfe1a9b-fd14-4631-9c6d-909b6d0e8732",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d79e510-ba53-4b83-bc58-aef5ca8f9f04",
+      "comment": "",
+      "command": "click",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "87a0222d-2ada-40d4-8774-d6bb9591d691",
+      "comment": "",
+      "command": "type",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 456"
+    }, {
+      "id": "1bc02bc8-d957-4692-a178-5abcfab5b7b9",
+      "comment": "",
+      "command": "click",
+      "target": "id=holy_communion",
+      "targets": [
+        ["id=holy_communion", "id"],
+        ["css=#holy_communion", "css:finder"],
+        ["xpath=//button[@id='holy_communion']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button", "xpath:idRelative"],
+        ["xpath=//div[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Holy Communion | 聖餐禮')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e39f3420-cdf3-4cb6-a04d-b6a72f60681c",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "843ec8b8-96fa-44f0-b4c4-3f89d3529afd",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win6742",
+      "windowTimeout": 2000
+    }, {
+      "id": "ee01d19f-caab-46ce-81ab-0d60479791d2",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4998e1b0-18c0-4918-9076-c336be5646e1",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=title",
+      "targets": [],
+      "value": "Holy Communion"
+    }, {
+      "id": "98c7a151-f1a0-4a2c-9527-22bfc6c5e79a",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=ch_title",
+      "targets": [],
+      "value": "聖餐禮"
+    }, {
+      "id": "34750434-17ce-4148-8ef0-22460b287fc6",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=hymn",
+      "targets": [],
+      "value": "讚美詩 Hymn: 123, 456"
+    }, {
+      "id": "7f396a08-ef8d-4bfc-8e47-f35317eeba46",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "4a94d64f-87ce-4560-a096-a0ddacf35c7b",
+    "name": "Util: FW",
+    "commands": [{
+      "id": "b8d86040-6300-44d2-8603-a5999383918b",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c6e7d233-d6ab-4702-b57c-fde5f34de729",
+      "comment": "",
+      "command": "run",
+      "target": "Initialization",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4a3213db-b8fe-4836-a06f-11e5fbd3d7d0",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Utility",
+      "targets": [
+        ["linkText=Utility", "linkText"],
+        ["css=#content > .item:nth-child(2)", "css:finder"],
+        ["xpath=//a[contains(text(),'Utility')]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[2]", "xpath:idRelative"],
+        ["xpath=//a[2]", "xpath:position"],
+        ["xpath=//a[contains(.,'Utility')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f5e00c8-81f7-4010-a095-1433f39ec599",
+      "comment": "",
+      "command": "click",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7508c4e5-f910-4fde-83ad-ccbb29084ad4",
+      "comment": "",
+      "command": "type",
+      "target": "id=hf_hymn_input",
+      "targets": [
+        ["id=hf_hymn_input", "id"],
+        ["css=#hf_hymn_input", "css:finder"],
+        ["xpath=//input[@id='hf_hymn_input']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div/div[3]/input", "xpath:position"]
+      ],
+      "value": "123, 456"
+    }, {
+      "id": "2a352126-a65e-4e24-8e27-e852c7b266db",
+      "comment": "",
+      "command": "click",
+      "target": "id=foot_washing",
+      "targets": [
+        ["id=foot_washing", "id"],
+        ["css=#foot_washing", "css:finder"],
+        ["xpath=//button[@id='foot_washing']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Footwashing | 洗腳禮')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "01c32a2a-873a-4bbb-b7ab-b2b77f34483a",
+      "comment": "",
+      "command": "click",
+      "target": "id=foot_washing",
+      "targets": [
+        ["id=foot_washing", "id"],
+        ["css=#foot_washing", "css:finder"],
+        ["xpath=//button[@id='foot_washing']", "xpath:attributes"],
+        ["xpath=//div[@id='service_mode']/div[3]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Footwashing | 洗腳禮')]", "xpath:innerText"]
+      ],
+      "value": "hit again just in case"
+    }, {
+      "id": "d285bda8-6e34-4cc5-ae75-2ef633c9ec43",
+      "comment": "",
+      "command": "click",
+      "target": "id=mainitem",
+      "targets": [
+        ["id=mainitem", "id"],
+        ["linkText=Main", "linkText"],
+        ["css=#mainitem", "css:finder"],
+        ["xpath=//a[contains(text(),'Main')]", "xpath:link"],
+        ["xpath=//a[@id='mainitem']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/a", "xpath:idRelative"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'Main')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5cbfc799-31a5-4e5a-ba01-4e5635fedcee",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win6742",
+      "windowTimeout": 2000
+    }, {
+      "id": "48fb28c8-16e9-42dd-b021-bf62091687f6",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/test-location",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f140c5a8-5cfc-4488-8276-96a255ce4928",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=title",
+      "targets": [],
+      "value": "Foot Washing"
+    }, {
+      "id": "5213542d-6d05-4253-a9cc-fc141e626c5e",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=ch_title",
+      "targets": [],
+      "value": "洗腳禮"
+    }, {
+      "id": "cf0b40a2-4e07-4eb7-aafd-42d0362ec160",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=hymn",
+      "targets": [],
+      "value": "讚美詩 Hymn: 123, 456"
+    }, {
+      "id": "f0c0300a-f521-46d8-ad85-5144b0c82c8a",
+      "comment": "",
+      "command": "run",
+      "target": "Teardown",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "5cf4efc8-422f-42a6-9f15-13d042fc1024",
+    "name": "Close welcome splash",
+    "commands": [{
+      "id": "ee6b27b7-3934-4ab9-bc6f-224d9e416638",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eeb07ac0-5a3c-433f-98b4-e7584d5e8553",
+      "comment": "",
+      "command": "click",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ae69a96-7ea6-465d-af89-7e63e7483f3e",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "test-location"
+    }, {
+      "id": "088bf2d7-e66b-472e-8042-e963cdd4c98d",
+      "comment": "",
+      "command": "click",
+      "target": "css=form#connect button[type=\"submit\"]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca9b7ad5-8371-4668-9918-d2b57f617637",
+      "comment": "",
+      "command": "click",
+      "target": "id=project",
+      "targets": [
+        ["id=project", "id"],
+        ["css=#project", "css:finder"],
+        ["xpath=//button[@id='project']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "96df8c19-9d08-403b-8adf-87eee14fbbe1",
+      "comment": "",
+      "command": "click",
+      "target": "id=stop-showing-welcome-overlay",
+      "targets": [
+        ["id=stop-showing-welcome-overlay", "id"],
+        ["css=#stop-showing-welcome-overlay", "css:finder"],
+        ["xpath=//button[@id='stop-showing-welcome-overlay']", "xpath:attributes"],
+        ["xpath=//section[@id='welcome-overlay']/button[7]", "xpath:idRelative"],
+        ["xpath=//button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'(Stop Showing Me This Page)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "2cdc6c0d-29cf-4ac7-a6b3-1158ab66a59e",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["ef096fb4-6344-4358-9194-9a319c8105e9"]
+  }],
+  "urls": ["http://127.0.0.1:9000/admin"],
+  "plugins": []
+}

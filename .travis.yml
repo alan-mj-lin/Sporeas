@@ -1,0 +1,41 @@
+# automatic testing with Travis CI!
+
+dist: xenial # to get python3.7
+
+language:
+  - "python"
+  - "node_js"
+
+python:
+  - "3.7"
+
+addons:
+  chrome: stable
+
+cache:
+  pip: true
+  npm: true
+  directories:
+    - node_modules
+
+before_script:
+  - pip install eventlet
+  - pip install flask
+  - pip install flask_socketio
+  - pip install requests
+  - pip install setuptools # to get pyOpenSSL to work
+  - pip install cryptography # to get pyOpenSSL to work
+  - pip install pyOpenSSL==19.1.0
+  - npm install -g chromedriver
+  - npm install -g selenium-side-runner
+
+script:
+  # - python3.7 basic_app.py & selenium-side-runner -c "goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome" Sporeas-test.side; (pkill -f basic_app.py) || true;
+  - npm run test
+
+notifications:
+  email:
+    # If you don't want to specify emails here,
+    # you can set your email with git config --global user.email
+    on_success: change
+    on_failure: always

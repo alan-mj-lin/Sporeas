@@ -6,3 +6,4 @@ venv/
 flask_session/2029240f6d1128be89ddc32729463129
 flask_session/38bfb7735c1e0b2fc3a9ac1747fb1fb5
 node_modules
+.DS_Store

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>How to Use this Web App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <style>
+    img.floated.image {
+      box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    }
+    .green {
+      background: rgb(33, 186, 69);
+      color: white;
+      padding: 0.1em;
+      border-radius: 0.2em;
+    }
+    .red {
+      background: rgb(219, 40, 40);
+      color: white;
+      padding: 0.1em;
+      border-radius: 0.2em;
+    }
+  </style>
+</head>
+<body>
+  <a id="top"></a>
+
+  <h1 class="ui huge header center aligned">How to Use this Web App</h1>
+
+  <div class="ui text container">
+    <div id="menu" class="ui menu">
+      <a href="#connect" class="item">Connect</a>
+      <a href="#morning-prayer" class="item">Morning Prayer</a>
+      <a href="#hymn-singing" class="item">Hymn Singing</a>
+      <a href="#service" class="item">Service</a>
+      <a href="#verse-display" class="item">Verse Display</a>
+      <a href="#announcements" class="item">Announcements</a>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="ui text container">
+
+    <h2><a id="connect" href="#">Connect:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/connect.png">
+    <ol>
+      <li>Go to <a href="http://127.0.0.1:9000/admin" target="_blank">http://127.0.0.1:9000/<strong><em>admin</em></strong></a></li>
+      <li>Type in your <strong>location</strong> (for example: <strong><em>toronto</em></strong>).</li>
+      <li>Hit the <strong>"Connect"</strong> button.</li>
+      <li>Hit the <img src="static/instructions/project.png" alt="Project" title="Project" style="width:60px;" align="top">button (the page will change to show a new form).</li>
+    </ol>
+    <p>
+      The form page should now look like this: <img class="ui medium bordered rounded image" src="static/instructions/service-main-unfilled.png" style="box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);">
+    </p>
+    <p>If you hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button, a new tab will open to show the current <em>projection</em> display (example: <em>http://127.0.0.1:9000/<strong>toronto</strong></em>).</p>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="morning-prayer" href="#">During Morning Prayer:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/morning-prayer-button.png">
+    <ol>
+      <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
+      <li>Type in <strong>hymn numbers</strong> next to the button labelled "Morning Prayer".</li>
+      <li>Hit the <strong>"Morning Prayer"</strong> button.</li>
+      <li>Go to the projection page to see it update live (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise go back to the "Main" tab and hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+    </ol>
+    <p>
+      The projection page should look something like this: <img class="ui medium bordered rounded image" src="static/instructions/morning-prayer-projection.png" style="box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);">
+    </p>
+    <p>
+      You can mark the current hymn with an underline by pressing on <img src="static/instructions/hymn-underline-button.png" alt="Hymn Scroll" title="Hymn Scroll" style="width:80px;" align="top">.
+    </p>
+    <p>
+      Click <img src="static/instructions/hymn-underline-button.png" alt="Hymn Scroll" title="Hymn Scroll" style="width:80px;" align="top"> multiple times to loop back to the beginning (or to have none underlined).
+    </p>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="hymn-singing" href="#">During Hymn Singing:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/hymn-singing-button.png">
+    <ol>
+      <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
+      <li>Type in <strong>hymn numbers</strong> next to the button labelled "Hymn Singing".</li>
+      <li>Hit the <strong>"Hymn Singing"</strong> button.</li>
+      <li>Go to the projection page to see it update live (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+    </ol>
+    <p>
+      The projection page should look something like this: <img class="ui medium bordered rounded image" src="static/instructions/hymn-singing-projection.png" style="box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);">
+    </p>
+    <p>
+      You can mark the current hymn with an underline by pressing on <img src="static/instructions/hymn-underline-button.png" alt="Hymn Scroll" title="Hymn Scroll" style="width:80px;" align="top">.
+    </p>
+    <p>
+      Click <img src="static/instructions/hymn-underline-button.png" alt="Hymn Scroll" title="Hymn Scroll" style="width:80px;" align="top"> multiple times to loop back to the beginning (or to have none underlined).
+    </p>
+  
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="service" href="#">During Service:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/service-main.png">
+    <ol>
+      <li>Go to the "Main" tab<img class="ui small rounded image" src="static/instructions/main-tab.png"></li>
+      <li>Type in the <strong>English Title</strong>.</li>
+      <li>Type in the <strong>Chinese Title</strong>.</li>
+      <li>Type in the <strong>Hymns</strong>.</li>
+      <li>Hit the <strong>"Submit"</strong> button.</li>
+      <li>Go to the projection page to see it update live (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+    </ol>
+    <p>During service, you can enter a <strong>verse</strong>:</p>
+    <ol>
+      <li>Next to "Verse:", enter a <strong>book</strong> (e.g.: Genesis).</li>
+      <li>Next to "Passage", enter the <strong>chapter/verse</strong> (e.g.: 1:1).</li>
+      <li>Hit the <img src="static/instructions/update.png" alt="Update" title="Update" style="width:65px;" align="top"> button to update the display.</li>
+    </ol>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="verse-display" href="#">Verse Display:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/verse-display-on.png" alt="Verse Display On" title="Verse Display On">
+    <p>Off by default. "Verse Display" lets you show the actual words in the Bible verse(s) on the projection screen.</p>
+    <ol>
+      <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
+      <li>To enable or disable Verse Display, click on the <strong>toggle button</strong> so that it says <span class="green">"On"</span> or <span class="red">"Off"</span>.</li>
+      <li>Hit the <img src="static/instructions/update.png" alt="Update" title="Update" style="width:65px;" align="top"> button to update the display.</li>
+      <li>Go to the projection page to see it update (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+      <li>(While on the projection page:) Hit the <strong>spacebar</strong> button on your keyboard to show/hide the verse overlay.</li>
+    </ol>
+    <br/>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="announcements" href="#">Announcements:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/announcements.png" alt="Verse Display On" title="Verse Display On">
+    <p>Off by default. "Verse Display" lets you show the actual words in the Bible verse(s) on the projection screen.</p>
+    <ol>
+      <li>Go to the "Announcements" tab<img class="ui small rounded image" src="static/instructions/announcements-tab.png"></li>
+      <li>Enter the English on the left side.</li>
+      <li>Enter the Chinese on the right side.</li>
+      <li>Hit "Update Announcements" to project the latest announcements.</li>
+      <li>Go to the projection page to see it update live (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise go back to the "Main" tab and hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+    </ol>
+    <br/>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+  </div>
+
+  <div class="ui huge header center aligned">
+    <a href="#top" class="ui image"><img class="ui image" src="static/tjc.jpg"></a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='smooth-scroll.js') }}"></script>
+</body>
+</html>
