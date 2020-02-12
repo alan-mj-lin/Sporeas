@@ -36,7 +36,7 @@
     <div class="ui top attached tabular menu" id="content">
       <a class="item" data-tab="main" id="mainitem">Main</a>
       <a class="item" data-tab="utility">Utility</a>
-      <a class="item" data-tab="announcements">Announcements</a>
+      <!-- <a class="item" data-tab="announcements">Announcements</a> -->
     </div>
     <div class="ui bottom attached tab segment" data-tab="main" id="maintab">
       <h1 class="ui large header">
@@ -188,6 +188,11 @@
           </a>
         </div>
         <button class="ui button help" type="button">Help</button>
+		<h1 class="ui large header">Camera Modes</h1>
+		<div class="ui buttons">
+			<button class="ui grey button" id="cam_hymn">Hymn Singing</button>
+			<button class="ui secondary button" id="cam_sermon">Sermon</button>
+		</div>
         <div class="ui negative hidden message" id="service_mode_error">
           <i class="close icon"></i>
           <div class="header">
@@ -199,7 +204,7 @@
       <br>
       <font face="courier new">Sporeas v1.1.0</font>
     </div>
-    <div class="ui bottom attached tab segment" data-tab="announcements">
+    <div id="wip" class="ui bottom attached tab segment" data-tab="announcements">
       <div class="ui info message">
         <div class="ui header">
             How to use:
