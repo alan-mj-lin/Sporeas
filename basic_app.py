@@ -20,7 +20,6 @@ eventlet.monkey_patch()
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
-CAM_API_URL = 'http://192.168.1.142/cgi-bin/recall.cgi?recall='
 app = Flask(__name__)
 socketio = SocketIO(app,
                     manage_session=False,
@@ -33,8 +32,7 @@ socketio = SocketIO(app,
                         'https://tjc-av.herokuapp.com',
                         'http://tjc-av.herokuapp.com',
                         'https://192.168.0.120',
-                        'http://192.168.0.120',
-						'http://192.168.1.142'
+                        'http://192.168.0.120'
                     ])
 title = "Title"
 ch_title = "Chinese Title"
@@ -306,18 +304,6 @@ def api_toggle_handler(message):
     roomState[active] = state
     emit('state check', {"state": state}, namespace='/', room=active)
     print(state)
-
-	
-@socketio.on('camera request', namespace='/')
-def camera_rquest(message):
-	"""
-	Function to handle camera angle changes
-	"""
-	type = message['type']
-	if type == 'Sermon':
-		requests.get(CAM_API_URL + 'Sermon')
-	elif type == 'Hymn Singing':
-		requests.get(CAM_API_URL + 'Hymn%20Singing')
 
 
 @socketio.on('custom message', namespace='/')
