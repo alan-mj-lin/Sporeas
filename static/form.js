@@ -18,6 +18,7 @@ function ch_sanitize (text) {
 }
 
 $(document).ready(function() {
+  $('#wip').hide();
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
   $('#project').attr('disabled', true);
@@ -89,6 +90,14 @@ $(document).ready(function() {
       $('#error2').show();
       $('#update').addClass('ui form error');
     }
+  });
+
+  $('#cam_hymn').click(function() {
+    socket.emit('camera request', {type: 'Hymn Singing'}); 
+  });
+
+  $('#cam_sermon').click(function() {
+    socket.emit('camera request', {type: 'Sermon'});
   });
 
   $('#project').click(function(event) {
