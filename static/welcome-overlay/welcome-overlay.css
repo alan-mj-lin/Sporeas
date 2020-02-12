@@ -6,7 +6,7 @@ section#welcome-overlay {
   height: 100%;
   background: white;
   text-align: center;
-  padding: 10% 10%;
+  padding: 5% 10%;
 }
 
 section#welcome-overlay * {
@@ -27,4 +27,72 @@ section#welcome-overlay * {
 
 #hymn_singing {
   width: 130px; /* so doesn't change height when button shakes */
+}
+
+#button-circle-container {
+  position: relative;
+  width: 30vh;
+  height: 35vh;
+  left: calc(50% - 16.5vh);
+  margin-top: 5vh !important;
+  margin-bottom: 5vh !important;
+}
+
+#button-circle-container > * {
+  position: absolute;
+}
+
+#button-circle-underlay {
+  width: 40vh;
+  height: 40vh;
+  left: -6.5vh;
+  background: rgb(247, 247, 247);
+  border-radius: 50%;
+}
+
+#button-circle-container > button {
+  top: 12vh;
+  left: 5vh;
+  border-radius: 50%;
+  padding: 10px;
+  height: 15vh;
+  width: 15vh;
+  box-shadow: 1px 1px 5px lightblue;
+  z-index: 1;
+}
+
+#button-circle-container > button:hover {
+  box-shadow: 2px 5px 10px lightblue;
+  background: blue;
+  color: white;
+  transition: 0.5s;
+}
+
+#button-circle-container > button:nth-child(4) {
+  transform: translate(20vh);
+}
+
+#button-circle-container > button:nth-child(6) {
+  transform: rotate(60deg) translate(20vh) rotate(-60deg);
+}
+
+#button-circle-container > button:nth-child(5) {
+  transform: rotate(120deg) translate(20vh) rotate(-120deg);
+}
+
+#button-circle-container > button:nth-child(3) {
+  transform: rotate(180deg) translate(20vh) rotate(180deg);
+}
+
+#button-circle-container > button:nth-child(1) {
+  transform: rotate(240deg) translate(20vh) rotate(-240deg);
+}
+
+#button-circle-container > button:nth-child(2) {
+  transform: rotate(300deg) translate(20vh) rotate(-300deg);
+}
+
+#stop-showing-welcome-overlay:hover {
+  background: maroon;
+  color: white;
 }
