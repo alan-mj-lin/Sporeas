@@ -33,6 +33,10 @@ $('.highlight-foot-washing').click(function() {
   highlightUIElement('utility', 'hf_hymn_input', 'foot_washing');
 });
 
+$('.highlight-camera').click(function() {
+  highlightUIElement('utility', '', 'cam_sermon');
+});
+
 $('.highlight-announcements').click(function() {
   highlightUIElement('announcements', 'GA');
 });
