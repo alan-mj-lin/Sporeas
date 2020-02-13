@@ -5,8 +5,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='form.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='form.js') }}"></script>
 </head>
 <body>
   <br>
@@ -36,6 +36,7 @@
     <div class="ui top attached tabular menu" id="content">
       <a class="item" data-tab="main" id="mainitem">Main</a>
       <a class="item" data-tab="utility">Utility</a>
+      <a class="item" data-tab="camera">Camera</a>
       <!--<a class="item" data-tab="announcements">Announcements</a>-->
     </div>
     <div class="ui bottom attached tab segment" data-tab="main" id="maintab">
@@ -204,6 +205,37 @@
       <br>
       <font face="courier new">Sporeas v1.1.0</font>
     </div>
+    <div class="ui bottom attached tab segment" data-tab="camera">
+      <div id="camera-view-group">
+        <h2>Camera View:</h2>
+        <object id="camera-view" data="" type="" width="250" height="200">
+          <p class="fallback">(Camera Not Found) (找不到相機)</p>
+        </object>
+        <!-- investigate: iframe vs. embed vs. object -->
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object -->
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed -->
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe -->
+        <!-- https://stackoverflow.com/questions/16660559/difference-between-iframe-embed-and-object-elements/21115112#21115112 -->
+      </div>
+      <div id="camera-controls">
+        <h2>Camera Position:</h2>
+        <div id="camera-gaze-group">
+          <button class="filler-button"></button>
+          <button class="ui button" id="camera-button-up">&#9650;</button>
+          <button class="filler-button"></button>
+          <button class="ui button" id="camera-button-left">&#9664;</button>
+          <button class="ui button" id="camera-button-down">&#9660;</button>
+          <button class="ui button" id="camera-button-right">&#9654;</button>
+        </div>
+        <h2>Other Camera Buttons:</h2>
+        <div>
+          <button><i class="power off icon"></i></button>
+          <button><i class="camera icon"></i></button>
+          <button><i class="toggle on icon"></i></button>
+          <button><i class="toggle off icon"></i></button>
+        </div>
+      </div>
+    </div>
     <div id="wip" class="ui bottom attached tab segment" data-tab="announcements">
       <div class="ui info message">
         <div class="ui header">
@@ -292,5 +324,6 @@
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
+  <link rel="stylesheet" href="{{ url_for('static', filename='camera.css') }}"></link>
 </body>
 </html>

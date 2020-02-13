@@ -1,0 +1,31 @@
+div[data-tab="camera"].active {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr;
+}
+
+#camera-view .fallback {
+  width: 250px;
+  height: 200px;
+  background: black;
+  color: white;
+  padding: 5%;
+  line-height: 150px;
+}
+
+#camera-gaze-group {
+  width: 100px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  margin: 10px;
+}
+
+#camera-gaze-group button.filler-button {
+  visibility: hidden;
+}
+
+#camera-gaze-group button#camera-button-left,
+#camera-gaze-group button#camera-button-right {
+  position: relative;
+  top: -50%;
+}
