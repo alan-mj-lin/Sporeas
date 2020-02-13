@@ -10,6 +10,7 @@ div[data-tab="camera"].active {
   color: white;
   padding: 5%;
   line-height: 150px;
+  text-align: center;
 }
 
 #camera-gaze-group {
