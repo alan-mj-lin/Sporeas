@@ -29,3 +29,8 @@ div[data-tab="camera"].active {
   position: relative;
   top: -50%;
 }
+
+#camera-controls button i.icon {
+  position: relative;
+  left: calc(50% - 5px);
+}
