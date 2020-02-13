@@ -20,11 +20,8 @@ section#welcome-overlay * {
 .pusher .container {
   /* compensate for sidebar squishing stuff to the right: */
   margin-left: 20px !important;
-  padding-right: 20px !important;
+  /* make main panel look more centered: */
+  padding-right: 140px !important;
   /* let user scroll lowest UI elements to a comfortable height */
   padding-bottom: 100px !important;
-}
-
-#hymn_singing {
-  width: 130px; /* so doesn't change height when button shakes */
 }
