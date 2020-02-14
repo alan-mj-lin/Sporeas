@@ -93,6 +93,7 @@ $(document).ready(function() {
   $('#break1').show();
   $('#break2').show();
   $('#announcements').hide();
+  $('#announcements_title').hide();
   const protocol = window.location.protocol;
   const socket = io.connect(
       protocol + '//' + document.domain + ':' + location.port
@@ -298,6 +299,7 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+    $('#announcements_title').show();
   });
 
   socket.on('show announcements', function(msg){
@@ -305,5 +307,6 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+    $('#announcements_title').show();
   });
 });
