@@ -74,6 +74,13 @@
       "targets": [],
       "value": "(Just in case.)"
     }, {
+      "id": "9235fd0f-21cf-459c-8d30-be395f0bf89b",
+      "comment": "",
+      "command": "run",
+      "target": "Close welcome splash",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "5b3b24d9-8e9d-4361-83e0-22f5a8f2853b",
       "comment": "",
       "command": "click",
@@ -679,6 +686,13 @@
         ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "ab819b10-9273-45c8-9e1a-c1355f0d5b03",
+      "comment": "",
+      "command": "run",
+      "target": "Close welcome splash",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "c2d75f82-c081-4dd0-9ca5-79ee97635e10",
@@ -933,7 +947,7 @@
     }, {
       "id": "7ee59df5-2dfd-4a68-b0e5-1c7546276291",
       "comment": "",
-      "command": "//run",
+      "command": "run",
       "target": "Initialization",
       "targets": [],
       "value": ""
@@ -1340,66 +1354,6 @@
     "id": "5cf4efc8-422f-42a6-9f15-13d042fc1024",
     "name": "Close welcome splash",
     "commands": [{
-      "id": "ee6b27b7-3934-4ab9-bc6f-224d9e416638",
-      "comment": "",
-      "command": "open",
-      "target": "http://127.0.0.1:9000/admin",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "eeb07ac0-5a3c-433f-98b4-e7584d5e8553",
-      "comment": "",
-      "command": "click",
-      "target": "id=user",
-      "targets": [
-        ["id=user", "id"],
-        ["css=#user", "css:finder"],
-        ["xpath=//input[@id='user']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "5ae69a96-7ea6-465d-af89-7e63e7483f3e",
-      "comment": "",
-      "command": "type",
-      "target": "id=user",
-      "targets": [
-        ["id=user", "id"],
-        ["css=#user", "css:finder"],
-        ["xpath=//input[@id='user']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "test-location"
-    }, {
-      "id": "088bf2d7-e66b-472e-8042-e963cdd4c98d",
-      "comment": "",
-      "command": "click",
-      "target": "css=form#connect button[type=\"submit\"]",
-      "targets": [
-        ["css=.secondary:nth-child(3)", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "ca9b7ad5-8371-4668-9918-d2b57f617637",
-      "comment": "",
-      "command": "click",
-      "target": "id=project",
-      "targets": [
-        ["id=project", "id"],
-        ["css=#project", "css:finder"],
-        ["xpath=//button[@id='project']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
       "id": "96df8c19-9d08-403b-8adf-87eee14fbbe1",
       "comment": "",
       "command": "click",
