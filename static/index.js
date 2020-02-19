@@ -342,6 +342,7 @@ $(document).ready(function() {
   socket.on('clear announcements', function(){
     console.log('clearing...')
     $("div").remove(".item");
+    element_count = 0;
   });
 
   socket.on('show announcements', function(msg){
