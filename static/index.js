@@ -19,7 +19,7 @@ function update_announce(announceList, id){
     $('#' + id).append(bullet);
   }
 }
-
+var element_count = 0;
 function screenAdjust(element) {
   let user = window.location.pathname;
   user = user.substr(1);
@@ -87,13 +87,13 @@ function spaceBar(e){
 }
 
 $(document).ready(function() {
+  console.log(element_count);
   $('.ui.modal').modal();
   $('.ui.basic.modal').modal({centered: false});
   $('#grid').show();
   $('#break1').show();
   $('#break2').show();
   $('#announcements').hide();
-  $('#announcements_title').hide();
   const protocol = window.location.protocol;
   const socket = io.connect(
       protocol + '//' + document.domain + ':' + location.port
@@ -285,21 +285,63 @@ $(document).ready(function() {
   });
 
   socket.on('update announcements', function(msg){
-    $("li").remove();
-    update_announce(msg.GA, 'GA');
-    update_announce(msg.FA, 'FA');
-    update_announce(msg.RA, 'RA');
-    update_announce(msg.RE, 'RE');
-    update_announce(msg.ch_GA, 'cGA');
-    update_announce(msg.ch_RA, 'cRA');
-    update_announce(msg.ch_FA, 'cFA');
-    update_announce(msg.ch_RE, 'cRE');
-    localStorage.setItem(user+'_ann', JSON.stringify(msg));
+    console.log(element_count.toString());
+    console.log(msg.image);
+    let image = msg.image;
+    $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
+    if (image == 'GA'){
+      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/GA.png"></div>');
+      $('#' + element_count.toString()).append('\
+            <div class="middle aligned content">\
+              <div class="ui header">Announcements from GA</div>\
+              <div class="description">\
+                <p>'+ msg.english+'</p>\
+                <p>'+msg.chinese+'</p>\
+              </div>\
+            </div>');
+    } else if (image == 'RA') {
+      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RA.png"></div>');
+      $('#' + element_count.toString()).append('\
+            <div class="middle aligned content">\
+              <div class="ui header">Announcements from RA</div>\
+              <div class="description">\
+                <p>'+ msg.english+'</p>\
+                <p>'+msg.chinese+'</p>\
+              </div>\
+            </div>');
+    } else if (image == 'FA') {
+      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/FA.png"></div>');
+      $('#' + element_count.toString()).append('\
+            <div class="middle aligned content">\
+              <div class="ui header">Announcements from FA</div>\
+              <div class="description">\
+                <p>'+ msg.english+'</p>\
+                <p>'+msg.chinese+'</p>\
+              </div>\
+            </div>');
+    } else if (image == 'RE') {
+      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RE.png"></div>');
+      $('#' + element_count.toString()).append('\
+            <div class="middle aligned content">\
+              <div class="ui header">Announcements from RE</div>\
+              <div class="description">\
+                <p>'+ msg.english+'</p>\
+                <p>'+msg.chinese+'</p>\
+              </div>\
+            </div>');
+    }
+    element_count++;
+    
+    //localStorage.setItem(user+'_ann', JSON.stringify(msg));
     $('#grid').hide();
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
-    $('#announcements_title').show();
+  });
+
+  socket.on('clear announcements', function(){
+    console.log('clearing...')
+    $("div").remove(".item");
   });
 
   socket.on('show announcements', function(msg){
@@ -307,6 +349,5 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
-    $('#announcements_title').show();
   });
 });

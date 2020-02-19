@@ -479,35 +479,32 @@ def test_message(message):
     out_of_range = False
 
 
-@socketio.on('announce', namespace='/')
-def announce(message):
+@socketio.on('clear announce', namespace='/')
+def clear(message):
     print(message)
     active = message['user']
-    eGA = message['GA'].splitlines()
-    eFA = message['FA'].splitlines()
-    eRA = message['RA'].splitlines()
-    eRE = message['RE'].splitlines()
-    cGA = message['ch_GA'].splitlines()
-    cFA = message['ch_FA'].splitlines()
-    cRA = message['ch_RA'].splitlines()
-    cRE = message['ch_RE'].splitlines()
-    print(eGA)
-    emit('update announcements', {
-         "GA": eGA,
-         "FA": eFA,
-         "RA": eRA,
-         "RE": eRE,
-         "ch_GA": cGA,
-         "ch_FA": cFA,
-         "ch_RA": cRA,
-         "ch_RE": cRE
-         }, namespace='/', room=active)
+    emit('clear announcements', namespace='/', room=active)
 
 
 @socketio.on('show announce', namespace='/')
 def show(message):
     active = message['user']
     emit('show announcements', namespace='/', room=active)
+
+
+@socketio.on('add announce', namespace='/')
+def add(message):
+    active = message['user']
+    eng_text = message['english']
+    ch_text = message['chinese']
+    department = message['department']
+    image = message['department'].split('|')[0].strip()
+    emit('update announcements', {
+            "english": eng_text,
+            "chinese": ch_text,
+            "department": department,
+            "image": image
+         }, namespace='/', room=active)
 
 
 if __name__ == '__main__':

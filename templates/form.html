@@ -212,47 +212,27 @@
       <form class="ui form" id="announcements" target="_self" method="post">
         <div class="two fields">
           <div class="field">
-            <label>Announcements from GA</label>
-            <textarea rows="2" id="GA"></textarea>
+            <label>English</label>
+            <textarea rows="2" id="engAnn"></textarea>
           </div>
           <div class="field">
-            <label>Announcements from GA</label>
-            <textarea rows="2" id="ch_GA"></textarea>
+            <label>Chinese</label>
+            <textarea rows="2" id="chAnn"></textarea>
           </div>
         </div>
-        <div class="two fields">
-          <div class="field">
-            <label>Announcements from FA</label>
-            <textarea rows="2" id="FA"></textarea>
-          </div>
-          <div class="field">
-            <label>Announcements from FA</label>
-            <textarea rows="2" id="ch_FA"></textarea>
-          </div>
-        </div>
-        <div class="two fields">
-          <div class="field">
-            <label>Announcements from RA</label>
-            <textarea rows="2" id="RA"></textarea>
-          </div>
-          <div class="field">
-            <label>Announcements from RA</label>
-            <textarea rows="2" id="ch_RA"></textarea>
-          </div>
-        </div>
-        <div class="two fields">
-          <div class="field">
-            <label>Announcements from RE</label>
-            <textarea rows="2" id="RE"></textarea>
-          </div>
-          <div class="field">
-            <label>Announcements from RE</label>
-            <textarea rows="2" id="ch_RE"></textarea>
-          </div>
+        <div class="three wide field">
+          <label>DEPARTMENT</label>
+          <select class="ui search dropdown" id="dd_dep">
+            <option value="1">GA | 總務</option>
+            <option value="2">RA | 教務</option>
+            <option value="3">FA | 財務</option>
+            <option value="4">RE | 宗教教育</option>
+          </select>
         </div>
         <div class="ui bottom attached buttons">
-          <div class="ui primary button" id="announce">Update Announcements</div>
-          <div class="ui secondary button" id="show_announce">Show Announcements</div>
+          <div class="ui primary button" id="add_announce">Add Announcements</div>
+          <div class="ui primary button" id="clear_announce">Clear Announcements</div>
+          <div class="ui primary button" id="show_announce">Show Announcements</div>
         </div>
         <div class="ui error message">
           <div class="header">Error</div>

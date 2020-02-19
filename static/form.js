@@ -293,30 +293,30 @@ $(document).ready(function() {
     }
   });
 
-  $('#announce').click(function() {
-    if (en_sanitize($('#GA').val()) || en_sanitize($('#FA').val()) || en_sanitize($('#RA').val()) || en_sanitize($('#RE').val())) {
+  $('#add_announce').click(function() {
+    if (en_sanitize($('#engAnn').val())) {
       $('#announcements').addClass('ui form error');
       console.log('invalid');
       return false;
-    } else if (ch_sanitize($('#ch_GA').val()) || ch_sanitize($('#ch_FA').val()) || ch_sanitize($('#ch_RA').val()) || ch_sanitize($('#ch_RE').val())) {
+    } else if (ch_sanitize($('#chAnn').val())) {
       $('#announcements').addClass('ui form error');
       console.log('invalid');
       return false;
     } else {
-      $('#update').removeClass('error');
+      $('#announcements').removeClass('error');
       const active = sessionStorage.getItem('user');
-      socket.emit('announce', {
+      socket.emit('add announce', {
         user: active,
-        GA: $('#GA').val(),
-        FA: $('#FA').val(),
-        RA: $('#RA').val(),
-        RE: $('#RE').val(),
-        ch_GA: $('#ch_GA').val(),
-        ch_FA: $('#ch_FA').val(),
-        ch_RA: $('#ch_RA').val(),
-        ch_RE: $('#ch_RE').val()
+        english: $('#engAnn').val(),
+        chinese: $('#chAnn').val(),
+        department: $('#dd_dep option:selected').text(),
       });
     }
+  });
+
+  $('#clear_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    socket.emit('clear announce', {user: active});
   });
 
   $('#show_announce').click(function() {
