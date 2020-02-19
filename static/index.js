@@ -59,6 +59,30 @@ function screenAdjust(element) {
   }
 }
 
+function announcementsScale(element) {
+  let scale = 0.8;
+  const x = document.getElementsByTagName("body")[0];
+  x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
+  x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
+  x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+  while (isOverflown(element) != true) {
+    if (scale < 1) {
+      scale = scale + 0.01;
+    } else {
+      break;
+    }
+    x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
+    x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
+    x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+  }
+  while (isOverflown(element)) {
+    scale = scale - 0.01;
+    x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
+    x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
+    x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+  }
+}
+
 function spaceBar(e){
   let user = window.location.pathname;
   user = user.substr(1);
@@ -331,7 +355,7 @@ $(document).ready(function() {
             </div>');
     }
     element_count++;
-    
+    announcementsScale(document.getElementsByTagName("body")[0]);
     //localStorage.setItem(user+'_ann', JSON.stringify(msg));
     $('#grid').hide();
     $('#break1').hide();
