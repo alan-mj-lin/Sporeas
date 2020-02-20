@@ -6,6 +6,12 @@ function isOverflown(element) {
   return element.scrollHeight > $(window.top).height();
 }
 
+function transformedIsOverflown(element) {
+  console.log(element.getBoundingClientRect().height);
+  console.log($(window.top).height());
+  return element.getBoundingClientRect().height > $(window.top).height();
+}
+
 function stringProcessToInt(string) {
   string = string.replace(/\D/g, '');
   return parseInt(string);
@@ -60,27 +66,53 @@ function screenAdjust(element) {
 }
 
 function announcementsScale(element) {
-  let scale = 0.8;
-  const x = document.getElementsByTagName("body")[0];
-  x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
-  x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
-  x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+  let user = window.location.pathname;
+  user = user.substr(1);
+  var scale = 0.8;
+  const x = document.getElementById("main");
+  const msg = JSON.parse(localStorage.getItem(user));
+  $("body").css({
+    "-webkit-transform": "scale(" + scale.toString()+")",
+    "-moz-transform": "scale(" + scale.toString()+")",
+    "transform": "scale(" +scale.toString()+")"
+  });
+  console.log(x);
+  console.log(transformedIsOverflown(element));
+  console.log(element.getBoundingClientRect().height);
   while (isOverflown(element) != true) {
-    if (scale < 1) {
+    if (scale < 2) {
       scale = scale + 0.01;
     } else {
       break;
     }
-    x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
-    x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
-    x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+    $("body").css({
+      "-webkit-transform": "scale(" + scale.toString()+")",
+      "-moz-transform": "scale(" + scale.toString()+")",
+      "transform": "scale(" +scale.toString()+")"
+    });
+    console.log('if too small: ' + scale);
+    console.log(isOverflown(element));
+    console.log(element.scrollHeight);
+    console.log(element.getBoundingClientRect().height);
+    msg.scale = scale;
+    localStorage.setItem(user, JSON.stringify(msg));
   }
-  while (isOverflown(element)) {
+  while (transformedIsOverflown(element)) {
     scale = scale - 0.01;
-    x.setAttribute("style", "-webkit-transform: scale(" + scale.toString() +");");
-    x.setAttribute("style", "-moz-transform: scale(" + scale.toString() +");");
-    x.setAttribute("style", "transform: scale(" + scale.toString() +");");
+    $("body").css({
+      "-webkit-transform": "scale(" + scale.toString()+")",
+      "-moz-transform": "scale(" + scale.toString()+")",
+      "transform": "scale(" +scale.toString()+")"
+    });
+    console.log('if too big: ' + scale);
+    console.log(isOverflown(element));
+    console.log(element.scrollHeight);
+    console.log(element.getBoundingClientRect().height);
+    console.log(x.style.transform);
+    msg.scale = scale;
+    localStorage.setItem(user, JSON.stringify(msg));
   }
+
 }
 
 function spaceBar(e){
@@ -147,18 +179,6 @@ $(document).ready(function() {
       "state": 'false',
       "font": '100px'
     }
-  }
-
-  if (announcements != null){
-    $("li").remove();
-    update_announce(announcements.GA, 'GA');
-    update_announce(announcements.FA, 'FA');
-    update_announce(announcements.RA, 'RA');
-    update_announce(announcements.RE, 'RE');
-    update_announce(announcements.ch_GA, 'cGA');
-    update_announce(announcements.ch_RA, 'cRA');
-    update_announce(announcements.ch_FA, 'cFA');
-    update_announce(announcements.ch_RE, 'cRE');
   }
 
   const font = msg.font;
@@ -355,7 +375,7 @@ $(document).ready(function() {
             </div>');
     }
     element_count++;
-    announcementsScale(document.getElementsByTagName("body")[0]);
+    announcementsScale(document.getElementById("items"));
     //localStorage.setItem(user+'_ann', JSON.stringify(msg));
     $('#grid').hide();
     $('#break1').hide();
