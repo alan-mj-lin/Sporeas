@@ -486,6 +486,13 @@ def clear(message):
     emit('clear announcements', namespace='/', room=active)
 
 
+@socketio.on('delete announce', namespace='/')
+def delete(message):
+    print(message)
+    active = message['user']
+    emit('delete announcements', namespace='/', room=active)
+
+
 @socketio.on('show announce', namespace='/')
 def show(message):
     active = message['user']

@@ -334,6 +334,9 @@ $(document).ready(function() {
   });
 
   socket.on('update announcements', function(msg){
+    while ($('#' + element_count.toString()).length) {
+      element_count++;
+    }
     console.log(element_count.toString());
     console.log(msg.image);
     let image = msg.image;
@@ -404,6 +407,13 @@ $(document).ready(function() {
     console.log('clearing...')
     $("div").remove(".item");
     element_count = 0;
+    localStorage.setItem(user+'_ann', $('#announcements').html());
+    announcementsScale(document.getElementById("items"));
+  });
+
+  socket.on('delete announcements', function(){
+    console.log('deleting...')
+    $(".table").prev().remove(".item");
     localStorage.setItem(user+'_ann', $('#announcements').html());
     announcementsScale(document.getElementById("items"));
   });

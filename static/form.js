@@ -319,6 +319,11 @@ $(document).ready(function() {
     socket.emit('clear announce', {user: active});
   });
 
+  $('#delete_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    socket.emit('delete announce', {user: active});
+  });
+
   $('#show_announce').click(function() {
     const active = sessionStorage.getItem('user');
     socket.emit('show announce', {user: active});
