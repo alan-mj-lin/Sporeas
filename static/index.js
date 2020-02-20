@@ -160,7 +160,7 @@ $(document).ready(function() {
   console.log(user);
 
   var msg = JSON.parse(localStorage.getItem(user));
-  var announcements = JSON.parse(localStorage.getItem(user+'_ann'));
+  var announcements = localStorage.getItem(user+'_ann');
 
   if (msg == null){
     var msg = {
@@ -174,6 +174,10 @@ $(document).ready(function() {
       "font": '100px',
       "scale": 1
     };
+  }
+
+  if (announcements != null) {
+    $('#announcements').html(announcements);
   }
 
   const font = msg.font;
@@ -389,7 +393,7 @@ $(document).ready(function() {
     }
     element_count++;
     announcementsScale(document.getElementById("items"));
-    //localStorage.setItem(user+'_ann', JSON.stringify(msg));
+    localStorage.setItem(user+'_ann', $('#announcements').html());
     $('#grid').hide();
     $('#break1').hide();
     $('#break2').hide();
@@ -400,6 +404,8 @@ $(document).ready(function() {
     console.log('clearing...')
     $("div").remove(".item");
     element_count = 0;
+    localStorage.setItem(user+'_ann', $('#announcements').html());
+    announcementsScale(document.getElementById("items"));
   });
 
   socket.on('show announcements', function(msg){
@@ -407,5 +413,6 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+    announcementsScale(document.getElementById("items"));
   });
 });
