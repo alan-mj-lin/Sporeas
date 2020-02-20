@@ -21,6 +21,7 @@ $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
   $('#project').attr('disabled', true);
+  $('#sidebar').hide();
   $('.menu .item').tab();
   const socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -32,12 +33,16 @@ $(document).ready(function() {
   if (sessionStorage) {
     const active = sessionStorage.getItem('user');
     console.log(sessionStorage.getItem('api'));
+    console.log(active);
     if (sessionStorage.getItem('connected') == 'True') {
       $('#content').show();
+      $('#sidebar').show();
       $('#connect').hide();
       $('#mainitem').addClass('active');
       $('#maintab').addClass('active');
-      
+      socket.emit('user active', {
+        user: active,
+      });
       socket.emit('get state', {user: active});
     }
     if (sessionStorage.getItem('api')== 'false') {
@@ -83,6 +88,7 @@ $(document).ready(function() {
       $('#con_msg').html('Connected to room: /'+ $('#user').val());
     } else {
       $('#connect').addClass('ui form error');
+      sessionStorage.removeItem('user');
     }
   });
 

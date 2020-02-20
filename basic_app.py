@@ -14,6 +14,7 @@ import eventlet
 import requests
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
+from collections import defaultdict
 
 eventlet.monkey_patch()
 
@@ -231,7 +232,7 @@ def get_user(message):
     """
     global username
     global user_list
-    global rooms  
+    global rooms
     global roomState
 
     duplicate = False
@@ -242,11 +243,13 @@ def get_user(message):
             duplicate = True
 
     if username != '':
-        join_room(username)
-        rooms[username] = []
-        rooms[username].append(request.sid)
-        roomState[username] = True
+        if not duplicate:
+            join_room(username)
+            rooms[username] = []
+            rooms[username].append(request.sid)
+            roomState[username] = True
         emit('auth event', {'auth': str(duplicate)})
+    print(rooms)
 
 
 @socketio.on('disconnect')
@@ -292,7 +295,6 @@ def get_state(message):
     for i in active:
         if i == '/':
             active = active.split('/')[1]
-            
     emit('state form check', namespace='/', room=active)
 
 

@@ -51,6 +51,7 @@ if (active == null) {
     collapseSideBar();
   }, 0);
 }
+
 $('button#stop-showing-welcome-overlay').click(function() {
   hideOverlay();
   showWelcomeOverlay = false;
