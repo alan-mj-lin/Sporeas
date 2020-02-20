@@ -1,5 +1,11 @@
 /* eslint-disable require-jsdoc */
 //Sporeas 1.1.0
+
+var date = new Date();
+let month = parseInt(date.getMonth());
+month = month + 1;
+var dateString = date.getFullYear() + "-" + month.toString() + "-" +date.getDate();
+
 function isOverflown(element) {
   console.log(element.scrollHeight);
   console.log($(window.top).height());
@@ -337,6 +343,9 @@ $(document).ready(function() {
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
               </div>\
+              <div class="extra">'
+                +dateString+
+              '</div>\
             </div>');
     } else if (image == 'RA') {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RA.png"></div>');
@@ -347,6 +356,9 @@ $(document).ready(function() {
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
               </div>\
+              <div class="extra">'
+                +dateString+
+              '</div>\
             </div>');
     } else if (image == 'FA') {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/FA.png"></div>');
@@ -357,6 +369,9 @@ $(document).ready(function() {
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
               </div>\
+              <div class="extra">'
+                +dateString+
+              '</div>\
             </div>');
     } else if (image == 'RE') {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RE.png"></div>');
@@ -367,6 +382,9 @@ $(document).ready(function() {
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
               </div>\
+              <div class="extra">'
+                +dateString+
+              '</div>\
             </div>');
     }
     element_count++;
