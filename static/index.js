@@ -76,9 +76,6 @@ function announcementsScale(element) {
     "-moz-transform": "scale(" + scale.toString()+")",
     "transform": "scale(" +scale.toString()+")"
   });
-  console.log(x);
-  console.log(transformedIsOverflown(element));
-  console.log(element.getBoundingClientRect().height);
   while (isOverflown(element) != true) {
     if (scale < 2) {
       scale = scale + 0.01;
@@ -90,10 +87,6 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
-    console.log('if too small: ' + scale);
-    console.log(isOverflown(element));
-    console.log(element.scrollHeight);
-    console.log(element.getBoundingClientRect().height);
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
   }
@@ -104,11 +97,6 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
-    console.log('if too big: ' + scale);
-    console.log(isOverflown(element));
-    console.log(element.scrollHeight);
-    console.log(element.getBoundingClientRect().height);
-    console.log(x.style.transform);
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
   }
@@ -177,8 +165,9 @@ $(document).ready(function() {
       "overlay": '',
       "ch_overlay": '',
       "state": 'false',
-      "font": '100px'
-    }
+      "font": '100px',
+      "scale": 1
+    };
   }
 
   const font = msg.font;
@@ -244,6 +233,12 @@ $(document).ready(function() {
     $('#innerChTitle').html(msg.ch_title);
     $('#overlay').html(msg.overlay[0]);
     $('#ch_overlay').html(msg.ch_overlay[0]);
+    $("body").css({
+    "-webkit-transform": "scale(1)",
+    "-moz-transform": "scale(1)",
+    "transform": "scale(1)"
+    });
+    msg.scale = 1;
     console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
     screenAdjust(document.getElementById('grid'));
