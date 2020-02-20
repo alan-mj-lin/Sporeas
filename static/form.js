@@ -313,6 +313,7 @@ $(document).ready(function() {
       const active = sessionStorage.getItem('user');
       socket.emit('add announce', {
         user: active,
+        title: $('#announcement_title').val(),
         english: $('#engAnn').val(),
         chinese: $('#chAnn').val(),
         department: $('#dd_dep option:selected').text(),

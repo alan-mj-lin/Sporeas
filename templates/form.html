@@ -208,6 +208,10 @@
         Do this for each announcement item.</p>
       </div>
       <form class="ui form" id="announcements" target="_self" method="post">
+        <div class="field">
+          <label>Announcement Title</label>
+          <input type="text" id="announcement_title">
+        </div>
         <div class="two fields">
           <div class="field">
             <label>English</label>
@@ -227,11 +231,33 @@
             <option value="4">RE | 宗教教育</option>
           </select>
         </div>
-        <div class="ui bottom attached buttons">
+        <div class="ui fluid buttons">
           <div class="ui primary button" id="add_announce">Add Announcement</div>
           <div class="ui primary button" id="show_announce">Show Announcements</div>
           <div class="ui primary button" id="delete_announce">Delete Announcement</div>
           <div class="ui primary button" id="clear_announce">Clear Announcements</div>
+        </div>
+        <br>
+        <br>
+        <div class="inline fields">
+          <div class="four wide field">
+            <label>Bible Reading</label>
+            <input type="text" id="bible_reading">
+          </div>
+          <div class="field">
+            <label>Cleaning Group:</label>
+            <select class="ui search dropdown" id="cleaning_group">
+              <option value="1">A</option>
+              <option value="2">B</option>
+              <option value="3">C</option>
+              <option value="4">D</option>
+            </select>
+          </div>
+          <div class="five wide field">
+            <label>Dish Washing:</label>
+            <input type="text" id="dish_washing">
+          </div>
+          <button class="ui button" type="button" id="ann_update" data-tooltip="Update the bottom header of the announcements">Update</button>
         </div>
         <div class="ui error message">
           <div class="header">Error</div>

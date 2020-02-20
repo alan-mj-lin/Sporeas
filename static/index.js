@@ -340,12 +340,13 @@ $(document).ready(function() {
     console.log(element_count.toString());
     console.log(msg.image);
     let image = msg.image;
+    let title = msg.title;
     $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
     if (image == 'GA'){
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/GA.png"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">Announcements from GA</div>\
+              <div class="ui header">' + title + '</div>\
               <div class="description">\
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
@@ -358,7 +359,7 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RA.png"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">Announcements from RA</div>\
+              <div class="ui header">' + title + '</div>\
               <div class="description">\
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
@@ -371,7 +372,7 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/FA.png"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">Announcements from FA</div>\
+              <div class="ui header">' + title + '</div>\
               <div class="description">\
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\
@@ -384,7 +385,7 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RE.png"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">Announcements from RE</div>\
+              <div class="ui header">' + title + '</div>\
               <div class="description">\
                 <p>'+ msg.english+'</p>\
                 <p>'+msg.chinese+'</p>\

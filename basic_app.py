@@ -504,11 +504,13 @@ def show(message):
 @socketio.on('add announce', namespace='/')
 def add(message):
     active = message['user']
+    title = message['title']
     eng_text = message['english']
     ch_text = message['chinese']
     department = message['department']
     image = message['department'].split('|')[0].strip()
     emit('update announcements', {
+            "title": title,
             "english": eng_text,
             "chinese": ch_text,
             "department": department,
