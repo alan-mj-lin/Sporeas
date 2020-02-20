@@ -308,6 +308,10 @@ $(document).ready(function() {
       $('#announcements').addClass('ui form error');
       console.log('invalid');
       return false;
+    } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
+      $('#announcements').addClass('ui form error');
+      console.log('invalid');
+      return false;
     } else {
       $('#announcements').removeClass('error');
       const active = sessionStorage.getItem('user');
@@ -317,6 +321,22 @@ $(document).ready(function() {
         english: $('#engAnn').val(),
         chinese: $('#chAnn').val(),
         department: $('#dd_dep option:selected').text(),
+      });
+    }
+  });
+
+  $('#ann_update').click(function(){
+    if (en_sanitize($('#bible_reading').val()) || en_sanitize($('#dish_washing').val())) {
+      $('#announcements').addClass('ui form error');
+      console.log('invalid');
+      return false;
+    } else {
+      const active = sessionStorage.getItem('user');
+      socket.emit('header update', {
+        user: active,
+        bible_reading: $('#dd_reading option:selected').text() + ' ' + $('#bible_reading').val(),
+        cleaning: $('#cleaning_group option:selected').text(),
+        dish_washing: $('#dish_washing').val(),
       });
     }
   });

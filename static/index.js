@@ -244,9 +244,9 @@ $(document).ready(function() {
     $('#overlay').html(msg.overlay[0]);
     $('#ch_overlay').html(msg.ch_overlay[0]);
     $("body").css({
-    "-webkit-transform": "scale(1)",
-    "-moz-transform": "scale(1)",
-    "transform": "scale(1)"
+      "-webkit-transform": "scale(1)",
+      "-moz-transform": "scale(1)",
+      "transform": "scale(1)"
     });
     msg.scale = 1;
     console.log(msg);
@@ -402,6 +402,18 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+  });
+
+  socket.on('misc updates', function(msg){
+    console.log('updating bottom header...');
+    console.log(msg);
+    $('#bible_reading').html('Bible Reading: ' + msg.reading);
+    $('#cleaning_group').html('Cleaning Group: ' +msg.cleaning);
+    $('#dish_washing').html('Dish Washing: ' + msg.dish_washing);
+    localStorage.setItem(user+'_ann', $('#announcements').html());
+    if (document.getElementById("grid").style.display == 'none'){
+      //announcementsScale(document.getElementById("items"));
+    }
   });
 
   socket.on('clear announcements', function(){

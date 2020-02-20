@@ -518,5 +518,19 @@ def add(message):
          }, namespace='/', room=active)
 
 
+@socketio.on('header update', namespace='/')
+def update(message):
+    active = message['user']
+    reading = message['bible_reading']
+    cleaning = message['cleaning']
+    dish_washing = message['dish_washing']
+    print(message)
+    emit('misc updates', {
+            "reading": reading,
+            "cleaning": cleaning,
+            "dish_washing": dish_washing
+         }, namespace='/', room=active)
+
+
 if __name__ == '__main__':
     socketio.run(app, host='127.0.0.1', port=9000, debug=True)
