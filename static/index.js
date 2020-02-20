@@ -408,14 +408,18 @@ $(document).ready(function() {
     $("div").remove(".item");
     element_count = 0;
     localStorage.setItem(user+'_ann', $('#announcements').html());
-    announcementsScale(document.getElementById("items"));
+    if (document.getElementById("grid").style.display == 'none'){
+      announcementsScale(document.getElementById("items"));
+    }
   });
 
   socket.on('delete announcements', function(){
     console.log('deleting...')
     $(".table").prev().remove(".item");
     localStorage.setItem(user+'_ann', $('#announcements').html());
-    announcementsScale(document.getElementById("items"));
+    if (document.getElementById("grid").style.display == 'none'){
+      announcementsScale(document.getElementById("items"));
+    }
   });
 
   socket.on('show announcements', function(msg){
