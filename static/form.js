@@ -21,7 +21,8 @@ $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
   $('#project').attr('disabled', true);
-  $('#sidebar').hide();
+  $('.left.sidebar').hide();
+  $('.right.sidebar').hide();
   $('.menu .item').tab();
   const socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -36,7 +37,8 @@ $(document).ready(function() {
     console.log(active);
     if (sessionStorage.getItem('connected') == 'True') {
       $('#content').show();
-      $('#sidebar').show();
+      $('.left.sidebar').show();
+      $('.right.sidebar').show();
       $('#connect').hide();
       $('#mainitem').addClass('active');
       $('#maintab').addClass('active');

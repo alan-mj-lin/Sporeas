@@ -355,7 +355,7 @@
     <button class="ui secondary button" id="stop-showing-welcome-overlay">(Stop Showing Me This Page) (停止向我顯示此頁面)</button>
   </section>
 
-  <div class="ui left vertical menu sidebar" style="display: flex; width: 140px;" id="sidebar">
+  <div class="ui left vertical menu left sidebar" style="display: flex; width: 140px;">
     <a class="item highlight-service">Service <br/>聚會</a>
     <a class="item highlight-hymn-singing">Hymn Singing <br/>唱詩</a>
     <a class="item highlight-morning-prayer">Morning Prayer <br/>早禱會</a>
@@ -364,8 +364,13 @@
     <a class="item highlight-announcements">Announcements <br/>報告</a>
   </div>
 
+  <div class="ui left vertical menu right sidebar" style="display: flex; width: 140px;">
+    <!-- put stuff here -->
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
+  <link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}"></link>
 </body>
 </html>
