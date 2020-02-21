@@ -1,4 +1,6 @@
-/* style corrections required to show sidebar(s) properly: */
+.sidebar {
+  box-shadow: none !important;
+}
 
 .sidebar.right {
   z-index: 3 !important;
