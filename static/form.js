@@ -367,14 +367,15 @@ $(document).ready(function() {
 
 function lintAnnouncement(inputText) {
   let foundSomethingToFix = false;
-  const announcementRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
-  // remove preceding spaces, "- ", "* ", "1. ", "1) ", but accept "1.2 million" and "-1 Celsius"
+  const bulletPointRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
+  // remove preceding spaces, "- ", "* ", "1. ", "1) "
+  // but accept things like "1.2 million" or "-1 Celsius" at start of sentence
   let lintedText = inputText.split('\n');
   for (let i = 0; i < lintedText.length; i++) {
-    if (!foundSomethingToFix && announcementRegex.test(lintedText[i])) {
+    if (!foundSomethingToFix && bulletPointRegex.test(lintedText[i])) {
       foundSomethingToFix = true;
     }
-    lintedText[i] = lintedText[i].replace(announcementRegex, '');
+    lintedText[i] = lintedText[i].replace(bulletPointRegex, '');
   }
   if (foundSomethingToFix) {
     alert('Do not type in bullet points.\nJust use new lines (hit enter key) for each point.');
