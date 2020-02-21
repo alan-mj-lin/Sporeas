@@ -358,6 +358,14 @@ $(document).ready(function() {
     socket.emit('show announce', {user: active});
   });
 
+  $('#feed').click(function() {
+    $('#test_sidebar')
+      .sidebar('toggle');
+    $('.pusher').each(function(){
+      this.style.setProperty('transform', 'translate3d(140px,0,0)', 'important');
+    });
+  });
+
   $('form#announcements textarea').each(function(i, e) {
     $(e).keyup(function() {
       const inputText = $(e).val();

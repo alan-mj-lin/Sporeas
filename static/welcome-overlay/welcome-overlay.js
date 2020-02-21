@@ -59,9 +59,17 @@ $('button#stop-showing-welcome-overlay').click(function() {
 });
 
 // Semantic UI sidebar settings:
-$('.sidebar')
+$('#sidebar')
   .sidebar('setting', 'dimPage', false)
+  .sidebar('setting', 'exclusive', false)
   .sidebar('setting', 'closable', false);
+
+$('#test_sidebar')
+  .sidebar('setting', 'exclusive', false)
+  .sidebar('setting', 'dimPage', false)
+  .sidebar('setting', 'transition', 'overlay')
+  .sidebar('setting', 'mobileTransition', 'overlay')
+  .sidebar('setting', 'closable', true);
 
 collapseSideBar();
 
@@ -76,14 +84,18 @@ function hideOverlay() {
 }
 
 function expandSidebar() {
-  $('.sidebar').sidebar('show');
+  $('#sidebar').sidebar('show');
+  $('#sidebar').removeClass('uncover');
+  $('#test_sidebar').removeClass('uncover');
   setTimeout(function() { // workaround
     $('.pusher').css({transform: 'translate3d(140px,0,0)'});
   }, 0);
 }
 
 function collapseSideBar() {
-  $('.sidebar').sidebar('hide');
+  $('#sidebar').sidebar('hide');
+  $('#sidebar').removeClass('uncover');
+  $('#test_sidebar').removeClass('uncover');
   $('.pusher').css({transform: 'translate3d(0,0,0)'});
   setTimeout(function() { // workaround
     $('.pusher').removeClass('dimmed');
