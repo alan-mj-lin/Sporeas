@@ -34,7 +34,7 @@ $('.highlight-foot-washing').click(function() {
 });
 
 $('.highlight-announcements').click(function() {
-  highlightUIElement('announcements', 'GA');
+  highlightUIElement('announcements', 'engAnn', 'add_announce');
 });
 
 // hide welcome overlay in this session if user asks to:
