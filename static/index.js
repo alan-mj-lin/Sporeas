@@ -343,52 +343,52 @@ $(document).ready(function() {
     let title = msg.title;
     $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
     if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/GA.png"></div>');
+      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
+              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
               <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
+                <p style="font-size: 20px">'+ msg.english+'</p>\
+                <p style="font-size: 20px">'+msg.chinese+'</p>\
               </div>\
               <div class="extra">'
                 +dateString+
               '</div>\
             </div>');
     } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RA.png"></div>');
+      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
+              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
               <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
+                <p style="font-size: 20px">'+ msg.english+'</p>\
+                <p style="font-size: 20px">'+msg.chinese+'</p>\
               </div>\
               <div class="extra">'
                 +dateString+
               '</div>\
             </div>');
     } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/FA.png"></div>');
+      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
+              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
               <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
+                <p style="font-size: 20px">'+ msg.english+'</p>\
+                <p style="font-size: 20px">'+msg.chinese+'</p>\
               </div>\
               <div class="extra">'
                 +dateString+
               '</div>\
             </div>');
     } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RE.png"></div>');
+      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
+              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
               <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
+                <p style="font-size: 20px">'+ msg.english+'</p>\
+                <p style="font-size: 20px">'+msg.chinese+'</p>\
               </div>\
               <div class="extra">'
                 +dateString+
