@@ -4,8 +4,8 @@ section#welcome-overlay {
   top: 0;
   width: 100%;
   height: 100%;
-  background: #333;
-  color: #eee;
+  background: white;
+  color: black;
   text-align: center;
   padding: 10% 10%;
 }
