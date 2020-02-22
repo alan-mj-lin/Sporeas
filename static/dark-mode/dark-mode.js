@@ -1,18 +1,18 @@
 // aka batman mode
 
-let darkModeOn = true;
-let invertClassElements = [];
+let darkModeOn = false;
+let invertableClassElements = [];
 $(document).ready(function() {
-  // for better perf, only run once
   setup();
 });
 function setup() {
-  // get/set invertClassElements and session storage
-  if (invertClassElements.length === 0) {
-    invertClassElements = Array.from($('.inverted'));
-    sessionStorage.setItem('invertClassElements', invertClassElements);
-  } else {
-    invertClassElements = Array.from(JSON.parse(sessionStorage.getItem('invertClassElements')));
+  // get/set invertableClassElements and session storage
+  if (invertableClassElements.length === 0) {
+    // for better perf, only run once
+    invertableClassElements = Array.from($('.invertable'));
+    sessionStorage.setItem('invertableClassElements', invertableClassElements);
+  } else if (sessionStorage.getItem('invertableClassElements')) {
+    invertableClassElements = Array.from(JSON.parse(sessionStorage.getItem('invertableClassElements')));
   }
   // get/set darkModeOn and session storage
   if (sessionStorage.getItem('darkModeOn')) {
@@ -43,14 +43,14 @@ function toggleDarkMode() {
 
 function goLightMode() {
   $('link[href="/static/dark-mode/dark-mode.css"]').prop('disabled', true);
-  invertClassElements.forEach(function(e) {
+  invertableClassElements.forEach(function(e) {
     $(e).removeClass('inverted');
   });
 }
 
 function goDarkMode() {
   $('link[href="/static/dark-mode/dark-mode.css"]').removeAttr('disabled');
-  invertClassElements.forEach(function(e) {
+  invertableClassElements.forEach(function(e) {
     $(e).addClass('inverted');
   });
 }
