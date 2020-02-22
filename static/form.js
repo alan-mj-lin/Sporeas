@@ -1,6 +1,6 @@
 //Sporeas 1.1.0
 function en_sanitize (text) {
-  const enReg = /^[a-zA-Z0-9-,:'" ]*$/;
+  const enReg = /^[a-zA-Z0-9-,:'"() ]*$/;
   let invalid = false;
   if (enReg.test(text) == false){
     invalid = false;
@@ -9,7 +9,7 @@ function en_sanitize (text) {
 }
 
 function ch_sanitize (text) {
-  const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+  const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
   let invalid = false;
   if (chReg.test(text)==false) {
     invalid = false;
@@ -139,7 +139,7 @@ $(document).ready(function() {
 
   $('#hymn_singing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -154,7 +154,7 @@ $(document).ready(function() {
 
   $('#morning_prayer').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -169,7 +169,7 @@ $(document).ready(function() {
 
   $('#holy_communion').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -184,7 +184,7 @@ $(document).ready(function() {
 
   $('#foot_washing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -271,10 +271,10 @@ $(document).ready(function() {
 
   $('form#update').submit(function() {
     const apiState = sessionStorage.getItem('api');
-    const invalidTitle = /^[a-zA-Z0-9-,:'" ]*$/.test($('#title').val()) == false;
-    const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+    const invalidTitle = /^[a-zA-Z0-9-,:'"() ]*$/.test($('#title').val()) == false;
+    const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
     const invalidChTitle = chReg.test($('#ch_title').val()) == false;
-    const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
+    const invalidHymn = /^[a-zA-Z0-9-,:'() ]*$/.test($('#hymn').val()) == false;
     const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
     if (invalidTitle || invalidChTitle || invalidHymn || invalidVerse) {
       $('#error2').hide();
