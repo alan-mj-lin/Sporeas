@@ -77,12 +77,15 @@ function announcementsScale(element) {
   var scale = 0.8;
   const x = document.getElementById("main");
   const msg = JSON.parse(localStorage.getItem(user));
+  if (msg != null) {
+    scale = msg.scale;
+  }
   $("body").css({
     "-webkit-transform": "scale(" + scale.toString()+")",
     "-moz-transform": "scale(" + scale.toString()+")",
     "transform": "scale(" +scale.toString()+")"
   });
-  while (isOverflown(element) != true) {
+  while (transformedIsOverflown(element) != true) {
     if (scale < 2) {
       scale = scale + 0.01;
     } else {
@@ -93,8 +96,10 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
+    if (msg != null){
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
+    }
   }
   while (transformedIsOverflown(element)) {
     scale = scale - 0.01;
@@ -103,8 +108,10 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
+    if (msg != null){
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
+    }
   }
 
 }
@@ -343,7 +350,7 @@ $(document).ready(function() {
     let title = msg.title;
     $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
     if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
               <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
@@ -356,7 +363,7 @@ $(document).ready(function() {
               '</div>\
             </div>');
     } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
               <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
@@ -369,7 +376,7 @@ $(document).ready(function() {
               '</div>\
             </div>');
     } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
               <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
@@ -382,7 +389,7 @@ $(document).ready(function() {
               '</div>\
             </div>');
     } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
       $('#' + element_count.toString()).append('\
             <div class="middle aligned content">\
               <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
