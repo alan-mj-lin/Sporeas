@@ -341,6 +341,7 @@ $(document).ready(function() {
   });
 
   function addBlock(obj) {
+    console.log(obj.text);
     $('#' + element_count.toString()).append('\
       <div class="middle aligned content" style="padding-left: 55px;">\
         <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\

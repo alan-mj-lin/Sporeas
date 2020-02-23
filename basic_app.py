@@ -506,8 +506,9 @@ def announcement_process(en_string, ch_string):
     ch_text = ch_string.splitlines()
     result = ''
     for i in range(len(en_text)):
-        result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
-        if en_text[i] == en_text[-1]:
+        if en_text[i] != en_text[-1]:
+            result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
+        elif en_text[i] == en_text[-1]:
             result = result + en_text[i] + ' | ' + ch_text[i]
     return result
 
@@ -517,6 +518,7 @@ def add(message):
     active = message['user']
     title = message['title']
     text = announcement_process(message['english'], message['chinese'])
+    print(text)
     department = message['department']
     image = message['department'].split('|')[0].strip()
     emit('update announcements', {
