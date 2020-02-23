@@ -32,8 +32,8 @@ $(document).ready(function() {
 
   if (sessionStorage) {
     const active = sessionStorage.getItem('user');
-    console.log(sessionStorage.getItem('api'));
-    console.log(active);
+    // console.log(sessionStorage.getItem('api'));
+    // console.log(active);
     if (sessionStorage.getItem('connected') == 'True') {
       $('#content').show();
       $('#sidebar').show();
@@ -53,7 +53,7 @@ $(document).ready(function() {
       $('#toggle').html('Off');
     } else if (sessionStorage.getItem('api') == null) {
       sessionStorage.setItem('api', 'false');
-      console.log(sessionStorage.getItem('api'));
+      // console.log(sessionStorage.getItem('api'));
     } else {
       $('#toggle_label').removeClass('ui basic red label');
       $('#toggle').removeClass('ui red button');
@@ -245,7 +245,7 @@ $(document).ready(function() {
       $('#update').removeClass('ui form error');
       $('#update').addClass('ui form');
       let hymnStorage = msg.hymn;
-      console.log(typeof(hymnStorage));
+      // console.log(typeof(hymnStorage));
       hymnStorage = hymnStorage.split(':')[1].trim();
       socket.emit('my broadcast event', {
         user: active,
@@ -302,15 +302,15 @@ $(document).ready(function() {
   $('#add_announce').click(function() {
     if (en_sanitize($('#engAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else if (ch_sanitize($('#chAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else {
       $('#announcements').removeClass('error');
@@ -328,7 +328,7 @@ $(document).ready(function() {
   $('#ann_update').click(function(){
     if (en_sanitize($('#bible_reading').val()) || en_sanitize($('#dish_washing').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else {
       const active = sessionStorage.getItem('user');
