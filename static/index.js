@@ -86,7 +86,7 @@ function announcementsScale(element) {
     "transform": "scale(" +scale.toString()+")"
   });
   while (transformedIsOverflown(element) != true) {
-    if (scale < 2) {
+    if (scale < 1) {
       scale = scale + 0.01;
     } else {
       break;
@@ -340,6 +340,20 @@ $(document).ready(function() {
     localStorage.setItem(user, JSON.stringify(msgActive));
   });
 
+  function addBlock(obj) {
+    $('#' + element_count.toString()).append('\
+      <div class="middle aligned content" style="padding-left: 55px;">\
+        <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
+        <div class="description">\
+          <p style="font-size: 20px">'+ obj.text+'</p>\
+        </div>\
+        <div class="extra">'
+          +dateString+
+        '</div>\
+      </div>');
+  }
+
+
   socket.on('update announcements', function(msg){
     while ($('#' + element_count.toString()).length) {
       element_count++;
@@ -347,61 +361,18 @@ $(document).ready(function() {
     console.log(element_count.toString());
     console.log(msg.image);
     let image = msg.image;
-    let title = msg.title;
+
     $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
     if (image == 'GA'){
       $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
-              <div class="description">\
-                <p style="font-size: 20px">'+ msg.english+'</p>\
-                <p style="font-size: 20px">'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
     } else if (image == 'RA') {
       $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
-              <div class="description">\
-                <p style="font-size: 20px">'+ msg.english+'</p>\
-                <p style="font-size: 20px">'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
     } else if (image == 'FA') {
       $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
-              <div class="description">\
-                <p style="font-size: 20px">'+ msg.english+'</p>\
-                <p style="font-size: 20px">'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
     } else if (image == 'RE') {
       $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui centered header" style="font-size: 20px">' + title + '</div>\
-              <div class="description">\
-                <p style="font-size: 20px">'+ msg.english+'</p>\
-                <p style="font-size: 20px">'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
     }
+    addBlock(msg);
     element_count++;
     announcementsScale(document.getElementById("items"));
     localStorage.setItem(user+'_ann', $('#announcements').html());

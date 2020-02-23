@@ -501,18 +501,27 @@ def show(message):
     emit('show announcements', namespace='/', room=active)
 
 
+def announcement_process(en_string, ch_string):
+    en_text = en_string.splitlines()
+    ch_text = ch_string.splitlines()
+    result = ''
+    for i in range(len(en_text)):
+        result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
+        if en_text[i] == en_text[-1]:
+            result = result + en_text[i] + ' | ' + ch_text[i]
+    return result
+
+
 @socketio.on('add announce', namespace='/')
 def add(message):
     active = message['user']
     title = message['title']
-    eng_text = message['english']
-    ch_text = message['chinese']
+    text = announcement_process(message['english'], message['chinese'])
     department = message['department']
     image = message['department'].split('|')[0].strip()
     emit('update announcements', {
             "title": title,
-            "english": eng_text,
-            "chinese": ch_text,
+            "text": text,
             "department": department,
             "image": image
          }, namespace='/', room=active)
