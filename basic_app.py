@@ -506,10 +506,8 @@ def announcement_process(en_string, ch_string):
     ch_text = ch_string.splitlines()
     result = ''
     for i in range(len(en_text)):
-        if en_text[i] != en_text[-1]:
-            result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
-        elif en_text[i] == en_text[-1]:
-            result = result + en_text[i] + ' | ' + ch_text[i]
+        #if en_text[i] != en_text[-1]:
+        result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
     return result
 
 

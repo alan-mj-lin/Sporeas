@@ -145,6 +145,10 @@ function spaceBar(e){
 
 $(document).ready(function() {
   console.log(element_count);
+  const screenWidth = document.body.offsetWidth;
+  //document.getElementById('announcements').style.width = screenWidth*0.95 + 'px !important';
+  //document.getElementById('items').style.width = screenWidth + 'px !important';
+  console.log('the screen width is: ' +screenWidth);
   $('.ui.modal').modal();
   $('.ui.basic.modal').modal({centered: false});
   $('#grid').show();
@@ -343,10 +347,10 @@ $(document).ready(function() {
   function addBlock(obj) {
     console.log(obj.text);
     $('#' + element_count.toString()).append('\
-      <div class="middle aligned content" style="padding-left: 55px;">\
+      <div class="middle aligned centered content" style="padding-left: 100px;">\
         <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
         <div class="description">\
-          <p style="font-size: 20px">'+ obj.text+'</p>\
+          <p style="font-size: 20px;">'+ obj.text+'</p>\
         </div>\
         <div class="extra">'
           +dateString+
@@ -363,7 +367,7 @@ $(document).ready(function() {
     console.log(msg.image);
     let image = msg.image;
 
-    $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
+    $('.table').before('<div class="item" id="'+ element_count.toString()+'" style="padding-left: 10vw;"></div>');
     if (image == 'GA'){
       $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
     } else if (image == 'RA') {
