@@ -419,10 +419,8 @@ def test_message(message):
         verse = ''
 
     if verse != '':
-        extra_verse = ''
         for i in verse:
             if i == ',':
-                extra_verse = verse.split(',')[1]
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
         print(passage)
@@ -437,22 +435,19 @@ def test_message(message):
     print(message)
 
     if state == 'true' and book != '':
-        if comma:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
-        else:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
-        try:
-            ch_overlay = get_chinese_text(passage).splitlines()
-            print(len(overlay))
-            if len(overlay) == 1:
-                overlay = split_by_verse_esv(overlay[0])
-        except:
-            out_of_range = True
+        overlay = []
+        get_overlay = get_esv_text(passage, comma)
+        print(overlay)
 
-    if overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
-        out_of_range = True
+        ch_overlay = get_chinese_text(passage).splitlines()
+        print(len(overlay))
+        for i in range(len(get_overlay)):
+            overlay.extend(split_by_verse_esv(get_overlay[i]))
+        #except:
+           # out_of_range = True
+
+        if get_overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
+            out_of_range = True
 
     # Debug Info
     print(project_list)
