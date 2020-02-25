@@ -347,7 +347,7 @@ $(document).ready(function() {
   function addBlock(obj) {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
-      <div class="middle aligned centered content" style="padding-left: 100px;">\
+      <div class="middle aligned centered content">\
         <div class="ui header" style="font-size: 20px">' + obj.title + '</div>\
         <div class="description">\
           <p style="font-size: 20px;">'+ obj.text+'</p>\
@@ -367,15 +367,15 @@ $(document).ready(function() {
     // console.log(msg.image);
     let image = msg.image;
 
-    $('#items-wrapper').append('<div class="item" id="' + element_count.toString() + '" style="padding-left: 5vw; display: flex;"></div>');
+    $('#items-wrapper').append('<div class="item" id="' + element_count.toString() + '" style="padding-left: 5vw;"></div>');
     if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image avatar" style="overflow: hidden;"><img src="static/GA.png"></div>');
     } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image avatar" style="overflow: hidden;"><img src="static/RA.png"></div>');
     } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image avatar" style="overflow: hidden;"><img src="static/FA.png"></div>');
     } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image avatar" style="overflow: hidden;"><img src="static/RE.png"></div>');
     }
     addBlock(msg);
     element_count++;
