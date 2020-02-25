@@ -386,3 +386,37 @@ function lintAnnouncement(inputText) {
   }
   return lintedText.join('\n');
 }
+
+let translationTimer = null;
+let translationsInARow = 0;
+function suggestTranslation() {
+  // delay translations to avoid getting blocked
+  let delay = 2000;
+  translationsInARow++;
+  if (translationsInARow % 10 === 0) delay = 15000;
+  clearTimeout(translationTimer);
+  translationTimer = setTimeout(() => {
+    if ($('#engAnn').val() && !$('#chAnn').val()) {
+      translate($('#engAnn').val(), 'en', 'zh-tw', '#chAnn');
+    } else if ($('#chAnn').val() && !$('#engAnn').val()) {
+      translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
+    }
+  }, delay);
+}
+
+function translate(text, sourceLanguage, targetLanguage, elementId) {
+  if (!translationTimer) return;
+  let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd';
+  url += '&sl=' + encodeURIComponent(sourceLanguage);
+  url += '&tl=' + encodeURIComponent(targetLanguage);
+  url += '&q=' + encodeURIComponent(text);
+  return fetch(url)
+    .then((response) => response.json())
+    .then((response) => {
+      let result = response[0].map(value => value[0]).join('');
+      if (!$('#' + elementId).val()) {
+        $('#' + elementId).val(result);
+      }
+      return result;
+    });
+}
