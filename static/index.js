@@ -7,14 +7,14 @@ month = month + 1;
 var dateString = date.getFullYear() + "-" + month.toString() + "-" +date.getDate();
 
 function isOverflown(element) {
-  console.log(element.scrollHeight);
-  console.log($(window.top).height());
+  // console.log(element.scrollHeight);
+  // console.log($(window.top).height());
   return element.scrollHeight > $(window.top).height();
 }
 
 function transformedIsOverflown(element) {
-  console.log(element.getBoundingClientRect().height);
-  console.log($(window.top).height());
+  // console.log(element.getBoundingClientRect().height);
+  // console.log($(window.top).height());
   return element.getBoundingClientRect().height > $(window.top).height();
 }
 
@@ -26,8 +26,8 @@ function stringProcessToInt(string) {
 function update_announce(announceList, id){
   for (i=0; i<announceList.length; i++){
     let bullet = $("<li></li>").text(announceList[i]);
-    console.log(bullet);
-    console.log(announceList[i]);
+    // console.log(bullet);
+    // console.log(announceList[i]);
     $('#' + id).append(bullet);
   }
 }
@@ -39,8 +39,8 @@ function screenAdjust(element) {
   const fontSize = document.getElementById('title').style.fontSize;
   fontSizeInt = stringProcessToInt(fontSize);
   let newFontSize = '';
-  console.log(fontSizeInt);
-  console.log(isOverflown(element));
+  // console.log(fontSizeInt);
+  // console.log(isOverflown(element));
   while (isOverflown(element) != true) {
     if (fontSizeInt < 100) {
       fontSizeInt = fontSizeInt + 5;
@@ -48,24 +48,24 @@ function screenAdjust(element) {
       break;
     }
     newFontSize = fontSizeInt.toString() + 'px';
-    console.log(newFontSize);
+    // console.log(newFontSize);
     document.getElementById('title').style.fontSize = newFontSize;
     document.getElementById('ch_title').style.fontSize = newFontSize;
     document.getElementById('hymn').style.fontSize = newFontSize;
     document.getElementById('verse').style.fontSize = newFontSize;
-    console.log(document.getElementById('title').style.fontSize);
+    // console.log(document.getElementById('title').style.fontSize);
     msg.font = newFontSize;
     localStorage.setItem(user, JSON.stringify(msg));
   }
   while (isOverflown(element)) {
     fontSizeInt = fontSizeInt - 5;
     newFontSize = fontSizeInt.toString() + 'px';
-    console.log(newFontSize);
+    // console.log(newFontSize);
     document.getElementById('title').style.fontSize = newFontSize;
     document.getElementById('ch_title').style.fontSize = newFontSize;
     document.getElementById('hymn').style.fontSize = newFontSize;
     document.getElementById('verse').style.fontSize = newFontSize;
-    console.log(document.getElementById('title').style.fontSize);
+    // console.log(document.getElementById('title').style.fontSize);
     msg.font = newFontSize;
     localStorage.setItem(user, JSON.stringify(msg));
   }
@@ -77,13 +77,16 @@ function announcementsScale(element) {
   var scale = 0.8;
   const x = document.getElementById("main");
   const msg = JSON.parse(localStorage.getItem(user));
+  if (msg != null) {
+    scale = msg.scale;
+  }
   $("body").css({
     "-webkit-transform": "scale(" + scale.toString()+")",
     "-moz-transform": "scale(" + scale.toString()+")",
     "transform": "scale(" +scale.toString()+")"
   });
-  while (isOverflown(element) != true) {
-    if (scale < 2) {
+  while (transformedIsOverflown(element) != true) {
+    if (scale < 1) {
       scale = scale + 0.01;
     } else {
       break;
@@ -93,8 +96,10 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
+    if (msg != null){
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
+    }
   }
   while (transformedIsOverflown(element)) {
     scale = scale - 0.01;
@@ -103,8 +108,10 @@ function announcementsScale(element) {
       "-moz-transform": "scale(" + scale.toString()+")",
       "transform": "scale(" +scale.toString()+")"
     });
+    if (msg != null){
     msg.scale = scale;
     localStorage.setItem(user, JSON.stringify(msg));
+    }
   }
 
 }
@@ -113,10 +120,10 @@ function spaceBar(e){
   let user = window.location.pathname;
   user = user.substr(1);
   const msg = JSON.parse(localStorage.getItem(user));
-  console.log(msg);
+  // console.log(msg);
   const eng_verses = msg.overlay;
   const ch_verses = msg.ch_overlay;
-  console.log(eng_verses);
+  // console.log(eng_verses);
   if ($('#modal').hasClass("visible") && e.which === 32) {
     for (i = 0; i < eng_verses.length; i++) {
       if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
@@ -128,7 +135,7 @@ function spaceBar(e){
         break;
       }
     }
-    console.log("SPACEBAR Pressed");
+    // console.log("SPACEBAR Pressed");
   } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
     $('.ui.basic.modal').modal('toggle');
     $('#overlay').html(eng_verses[0]);
@@ -137,7 +144,11 @@ function spaceBar(e){
 }
 
 $(document).ready(function() {
-  console.log(element_count);
+  // console.log(element_count);
+  const screenWidth = document.body.offsetWidth;
+  //document.getElementById('announcements').style.width = screenWidth*0.95 + 'px !important';
+  //document.getElementById('items').style.width = screenWidth + 'px !important';
+  // console.log('the screen width is: ' +screenWidth);
   $('.ui.modal').modal();
   $('.ui.basic.modal').modal({centered: false});
   $('#grid').show();
@@ -151,13 +162,13 @@ $(document).ready(function() {
   socket.on('connect', function() {
     socket.emit('get sid', {user: window.location.pathname});
     let msg = JSON.parse(localStorage.getItem(user));
-    console.log(msg.state);
+    // console.log(msg.state);
     socket.emit('get state', {user: window.location.pathname});
   });
 
   let user = window.location.pathname;
   user = user.substr(1);
-  console.log(user);
+  // console.log(user);
 
   var msg = JSON.parse(localStorage.getItem(user));
   var announcements = localStorage.getItem(user+'_ann');
@@ -210,9 +221,9 @@ $(document).ready(function() {
 
   socket.on('state check', function(msg) {
     const storage = JSON.parse(localStorage.getItem(user));
-    console.log(msg.state);
-    console.log(typeof(msg.state));
-    console.log(storage.hymn);
+    // console.log(msg.state);
+    // console.log(typeof(msg.state));
+    // console.log(storage.hymn);
     if (msg.state == 'true') {
       socket.emit('my broadcast event', {
         user: user,
@@ -249,7 +260,7 @@ $(document).ready(function() {
       "transform": "scale(1)"
     });
     msg.scale = 1;
-    console.log(msg);
+    // console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
     screenAdjust(document.getElementById('grid'));
     $('#announcements').hide();
@@ -265,23 +276,23 @@ $(document).ready(function() {
     let temp = '';
     let scrollStateVal = 0;
     const check = hymnList.length -1;
-    console.log(scrollState);
-    console.log(typeof(scrollState));
-    console.log(hymnList);
-    console.log(hymnList.length);
-    console.log(typeof(hymnList));
-    console.log(parseInt(scrollState));
-    console.log(scrollState.toString());
-    console.log(check);
+    // console.log(scrollState);
+    // console.log(typeof(scrollState));
+    // console.log(hymnList);
+    // console.log(hymnList.length);
+    // console.log(typeof(hymnList));
+    // console.log(parseInt(scrollState));
+    // console.log(scrollState.toString());
+    // console.log(check);
     if (hymnList == null || scrollState == null) {
       return;
     }
     $('#hymn').html('讚美詩 Hymn: ');
     if (scrollState == 'null') {
-      console.log('entered');
+      // console.log('entered');
       scrollStateVal = 0;
       temp = '<u>' + hymnList[0] + '</u>';
-      console.log(temp);
+      // console.log(temp);
       msg.hymn_scroll = '0';
       localStorage.setItem(user, JSON.stringify(msg));
       for (i=0; i < hymnList.length; i++) {
@@ -300,7 +311,7 @@ $(document).ready(function() {
       for (i=0; i < hymnList.length; i++) {
         if (i == scrollStateVal) {
           temp = '<u>' + hymnList[i] + '</u>';
-          console.log(temp);
+          // console.log(temp);
           $('#hymn').append(', ' + temp);
         } else if (i == 0 && i != scrollStateVal) {
           $('#hymn').append(hymnList[0]);
@@ -309,14 +320,14 @@ $(document).ready(function() {
         }
       }
 
-      console.log(scrollStateVal.toString());
+      // console.log(scrollStateVal.toString());
       msg.hymn_scroll = scrollStateVal.toString();
       msg.hymn = $('#hymn').html();
       localStorage.setItem(user, JSON.stringify(msg));
       return;
     } else if (check == parseInt(scrollState) || check < parseInt(scrollState)) {
       scrollStateVal = 0;
-      console.log(temp);
+      // console.log(temp);
       msg.hymn_scroll = 'null';
       $('#hymn').html('讚美詩 Hymn: ' + msg.hymn_list);
       msg.hymn = $('#hymn').html();
@@ -333,68 +344,40 @@ $(document).ready(function() {
     localStorage.setItem(user, JSON.stringify(msgActive));
   });
 
+  function addBlock(obj) {
+    // console.log(obj.text);
+    $('#' + element_count.toString()).append('\
+      <div class="middle aligned centered content" style="padding-left: 100px;">\
+        <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
+        <div class="description">\
+          <p style="font-size: 20px;">'+ obj.text+'</p>\
+        </div>\
+        <div class="extra">'
+          +dateString+
+        '</div>\
+      </div>');
+  }
+
+
   socket.on('update announcements', function(msg){
     while ($('#' + element_count.toString()).length) {
       element_count++;
     }
-    console.log(element_count.toString());
-    console.log(msg.image);
+    // console.log(element_count.toString());
+    // console.log(msg.image);
     let image = msg.image;
-    let title = msg.title;
-    $('.table').before('<div class="item" id="'+ element_count.toString()+'"></div>');
+
+    $('.table').before('<div class="item" id="'+ element_count.toString()+'" style="padding-left: 10vw;"></div>');
     if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/GA.png"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
-              <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
     } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RA.png"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
-              <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
     } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/FA.png"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
-              <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
     } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui small circular image"><img src="static/RE.png"></div>');
-      $('#' + element_count.toString()).append('\
-            <div class="middle aligned content">\
-              <div class="ui header">' + title + '</div>\
-              <div class="description">\
-                <p>'+ msg.english+'</p>\
-                <p>'+msg.chinese+'</p>\
-              </div>\
-              <div class="extra">'
-                +dateString+
-              '</div>\
-            </div>');
+      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
     }
+    addBlock(msg);
     element_count++;
     announcementsScale(document.getElementById("items"));
     localStorage.setItem(user+'_ann', $('#announcements').html());
@@ -405,8 +388,8 @@ $(document).ready(function() {
   });
 
   socket.on('misc updates', function(msg){
-    console.log('updating bottom header...');
-    console.log(msg);
+    // console.log('updating bottom header...');
+    // console.log(msg);
     $('#bible_reading').html('Bible Reading: ' + msg.reading);
     $('#cleaning_group').html('Cleaning Group: ' +msg.cleaning);
     $('#dish_washing').html('Dish Washing: ' + msg.dish_washing);
@@ -417,7 +400,7 @@ $(document).ready(function() {
   });
 
   socket.on('clear announcements', function(){
-    console.log('clearing...')
+    // console.log('clearing...')
     $("div").remove(".item");
     element_count = 0;
     localStorage.setItem(user+'_ann', $('#announcements').html());
@@ -427,7 +410,7 @@ $(document).ready(function() {
   });
 
   socket.on('delete announcements', function(){
-    console.log('deleting...')
+    // console.log('deleting...')
     $(".table").prev().remove(".item");
     localStorage.setItem(user+'_ann', $('#announcements').html());
     if (document.getElementById("grid").style.display == 'none'){

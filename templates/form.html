@@ -49,12 +49,12 @@
     <br>
     <br>
     <br>
-    <div class="ui container">
-      <h1 class="ui huge header">
+    <div class="ui container invertable">
+      <h1 class="ui huge header invertable">
     		<img src="static/tjc.jpg" class="ui image">
     		Service Projection UI
   	  </h1>
-      <form class="ui form" id="connect" target="_self" method="post">
+      <form class="ui form invertable" id="connect" target="_self" method="post">
         <div class="inline field">
           <label>Location</label>
           <input type="text" id="user">
@@ -75,12 +75,12 @@
         <a class="item" data-tab="utility">Utility</a>
         <a class="item" data-tab="announcements">Announcements</a>
       </div>
-      <div class="ui bottom attached tab segment" data-tab="main" id="maintab">
+      <div class="ui bottom attached tab segment invertable" data-tab="main" id="maintab">
         <h1 class="ui large header">
       		Main Control Panel
     	  </h1>
         <br>
-        <form class="ui form" id="update" target="_self" method="post">
+        <form class="ui form invertable" id="update" target="_self" method="post">
           <div class="field">
             <label>English Title:</label>
             <input type="text" name="title" id="title">
@@ -189,7 +189,7 @@
         <br>
         <font face="courier new">Sporeas v1.1.0</font>
       </div>
-      <div class="ui bottom attached tab segment" data-tab="utility">
+      <div class="ui bottom attached tab segment invertable" data-tab="utility">
         <h1 class="ui large header">
           Tools and Service Modes
         </h1>
@@ -224,6 +224,7 @@
               Verse Display
             </a>
           </div>
+          <button class="ui button" type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
           <button class="ui button help" type="button">Help</button>
           <div class="ui negative hidden message" id="service_mode_error">
             <i class="close icon"></i>
@@ -236,7 +237,7 @@
         <br>
         <font face="courier new">Sporeas v1.1.0</font>
       </div>
-      <div class="ui bottom attached tab segment" data-tab="announcements">
+      <div class="ui bottom attached tab segment invertable" data-tab="announcements">
         <div class="ui info message">
           <div class="ui header">
               How to use:
@@ -244,7 +245,7 @@
           <p>Pick the department, type in the English and the Chinese text, and click 'Add Announcement'. 
           Do this for each announcement item.</p>
         </div>
-        <form class="ui form" id="announcements" target="_self" method="post">
+        <form class="ui form invertable" id="announcements" target="_self" method="post">
           <div class="field">
             <label>Announcement Title</label>
             <input type="text" id="announcement_title">
@@ -392,12 +393,13 @@
       <br/>
       <button class="ui secondary button" id="stop-showing-welcome-overlay">(Stop Showing Me This Page) (停止向我顯示此頁面)</button>
     </section>
-
  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
   <link rel="stylesheet" href="{{ url_for('static', filename='sidebar.css') }}"></link>
+  <script type="text/javascript" src="{{ url_for('static', filename='dark-mode/dark-mode.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-mode/dark-mode.css') }}" disabled="true"></link>
 </body>
 </html>

@@ -1,6 +1,6 @@
 //Sporeas 1.1.0
 function en_sanitize (text) {
-  const enReg = /^[a-zA-Z0-9-,:'" ]*$/;
+  const enReg = /^[a-zA-Z0-9-,:'"() ]*$/;
   let invalid = false;
   if (enReg.test(text) == false){
     invalid = false;
@@ -9,7 +9,7 @@ function en_sanitize (text) {
 }
 
 function ch_sanitize (text) {
-  const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+  const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
   let invalid = false;
   if (chReg.test(text)==false) {
     invalid = false;
@@ -33,8 +33,8 @@ $(document).ready(function() {
 
   if (sessionStorage) {
     const active = sessionStorage.getItem('user');
-    console.log(sessionStorage.getItem('api'));
-    console.log(active);
+    // console.log(sessionStorage.getItem('api'));
+    // console.log(active);
     if (sessionStorage.getItem('connected') == 'True') {
       $('#content').show();
       $('.left.sidebar').show();
@@ -55,7 +55,7 @@ $(document).ready(function() {
       $('#toggle').html('Off');
     } else if (sessionStorage.getItem('api') == null) {
       sessionStorage.setItem('api', 'false');
-      console.log(sessionStorage.getItem('api'));
+      // console.log(sessionStorage.getItem('api'));
     } else {
       $('#toggle_label').removeClass('ui basic red label');
       $('#toggle').removeClass('ui red button');
@@ -141,7 +141,7 @@ $(document).ready(function() {
 
   $('#hymn_singing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -156,7 +156,7 @@ $(document).ready(function() {
 
   $('#morning_prayer').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -171,7 +171,7 @@ $(document).ready(function() {
 
   $('#holy_communion').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -186,7 +186,7 @@ $(document).ready(function() {
 
   $('#foot_washing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -247,7 +247,7 @@ $(document).ready(function() {
       $('#update').removeClass('ui form error');
       $('#update').addClass('ui form');
       let hymnStorage = msg.hymn;
-      console.log(typeof(hymnStorage));
+      // console.log(typeof(hymnStorage));
       hymnStorage = hymnStorage.split(':')[1].trim();
       socket.emit('my broadcast event', {
         user: active,
@@ -273,10 +273,10 @@ $(document).ready(function() {
 
   $('form#update').submit(function() {
     const apiState = sessionStorage.getItem('api');
-    const invalidTitle = /^[a-zA-Z0-9-,:'" ]*$/.test($('#title').val()) == false;
-    const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+    const invalidTitle = /^[a-zA-Z0-9-,:'"() ]*$/.test($('#title').val()) == false;
+    const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
     const invalidChTitle = chReg.test($('#ch_title').val()) == false;
-    const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
+    const invalidHymn = /^[a-zA-Z0-9-,:'() ]*$/.test($('#hymn').val()) == false;
     const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
     if (invalidTitle || invalidChTitle || invalidHymn || invalidVerse) {
       $('#error2').hide();
@@ -304,15 +304,19 @@ $(document).ready(function() {
   $('#add_announce').click(function() {
     if (en_sanitize($('#engAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else if (ch_sanitize($('#chAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
+    } else if ($('#engAnn').val().split('\n').length !== $('#chAnn').val().split('\n').length || ($('#engAnn').val() === '' ^ $('#chAnn').val() === '')) {
+      $('#announcements').addClass('ui form error');
+      alert('The number of lines in English/Chinese do not match.');
+      // console.log('invalid');
     } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else {
       $('#announcements').removeClass('error');
@@ -330,7 +334,7 @@ $(document).ready(function() {
   $('#ann_update').click(function(){
     if (en_sanitize($('#bible_reading').val()) || en_sanitize($('#dish_washing').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
     } else {
       const active = sessionStorage.getItem('user');
