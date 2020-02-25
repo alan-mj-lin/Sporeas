@@ -348,7 +348,7 @@ $(document).ready(function() {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
       <div class="middle aligned centered content" style="padding-left: 100px;">\
-        <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
+        <div class="ui header" style="font-size: 20px">' + obj.title + '</div>\
         <div class="description">\
           <p style="font-size: 20px;">'+ obj.text+'</p>\
         </div>\
@@ -367,15 +367,15 @@ $(document).ready(function() {
     // console.log(msg.image);
     let image = msg.image;
 
-    $('.table').before('<div class="item" id="'+ element_count.toString()+'" style="padding-left: 10vw;"></div>');
+    $('#items-wrapper').append('<div class="item" id="' + element_count.toString() + '" style="padding-left: 5vw; display: flex;"></div>');
     if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
     } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
     } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
     } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
+      $('#' + element_count.toString()).append('<div class="ui small circular image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
     }
     addBlock(msg);
     element_count++;
@@ -411,7 +411,7 @@ $(document).ready(function() {
 
   socket.on('delete announcements', function(){
     // console.log('deleting...')
-    $(".table").prev().remove(".item");
+    $("#items-wrapper .item").last().remove();
     localStorage.setItem(user+'_ann', $('#announcements').html());
     if (document.getElementById("grid").style.display == 'none'){
       announcementsScale(document.getElementById("items"));
