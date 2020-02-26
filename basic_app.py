@@ -439,12 +439,13 @@ def test_message(message):
         get_overlay = get_esv_text(passage, comma)
         print(overlay)
 
-        ch_overlay = get_chinese_text(passage).splitlines()
-        print(len(overlay))
-        for i in range(len(get_overlay)):
-            overlay.extend(split_by_verse_esv(get_overlay[i]))
-        #except:
-           # out_of_range = True
+        try:
+            ch_overlay = get_chinese_text(passage).splitlines()
+            print(len(overlay))
+            for i in range(len(get_overlay)):
+                overlay.extend(split_by_verse_esv(get_overlay[i]))
+        except:
+            out_of_range = True
 
         if get_overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
             out_of_range = True
