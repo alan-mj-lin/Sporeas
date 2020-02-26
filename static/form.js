@@ -397,9 +397,9 @@ function suggestTranslation() {
   clearTimeout(translationTimer);
   translationTimer = setTimeout(() => {
     if ($('#engAnn').val() && !$('#chAnn').val()) {
-      translate($('#engAnn').val(), 'en', 'zh-tw', '#chAnn');
+      translate($('#engAnn').val(), 'en', 'zh-tw', 'chAnn');
     } else if ($('#chAnn').val() && !$('#engAnn').val()) {
-      translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
+      translate($('#chAnn').val(), 'zh-tw', 'en', 'engAnn');
     }
   }, delay);
 }
@@ -414,8 +414,8 @@ function translate(text, sourceLanguage, targetLanguage, elementId) {
     .then((response) => response.json())
     .then((response) => {
       let result = response[0].map(value => value[0]).join('');
-      if (!$('#' + elementId).val()) {
-        $('#' + elementId).val(result);
+      if (!$('#' + elementId.replace('#', '')).val()) {
+        $('#' + elementId.replace('#', '')).val(result);
       }
       return result;
     });
