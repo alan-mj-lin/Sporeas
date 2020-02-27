@@ -1,10 +1,12 @@
 $('#engAnn').on('input', function() {
   setNormalStyle('engAnn');
   suggestTranslation();
+  hideEnglishSuggestionNote();
 });
 
 $('#chAnn').on('input', function() {
   setNormalStyle('chAnn');
+  hideChineseSuggestionNote();
   suggestTranslation();
 });
 
@@ -27,9 +29,13 @@ function fillInTheOtherLanguage() {
   if (onlyEnglishNoChinese) {
     translate($('#engAnn').val(), 'en', 'zh-tw', 'chAnn');
     setSuggestionStyle('chAnn');
+    showChineseSuggestionNote();
+    hideEnglishSuggestionNote();
   } else if (onlyChineseNoEnglish) {
     translate($('#chAnn').val(), 'zh-tw', 'en', 'engAnn');
     setSuggestionStyle('engAnn');
+    showEnglishSuggestionNote();
+    hideChineseSuggestionNote();
   }
 }
 
@@ -58,4 +64,22 @@ function setNormalStyle(elementId) {
 function setSuggestionStyle(elementId) {
   const fadedFontColor = '#aaa';
   $('#' + elementId.replace('#', '')).css('color', fadedFontColor);
+}
+
+function showEnglishSuggestionNote() {
+  const hoverMessage = 'English - Draft translation automatically added. Edit before projecting.';
+  $('label:contains("English")').text(hoverMessage);
+}
+
+function showChineseSuggestionNote() {
+  const hoverMessage = 'Chinese - Draft translation automatically added. Edit before projecting.';
+  $('label:contains("Chinese")').text(hoverMessage);
+}
+
+function hideEnglishSuggestionNote() {
+  $('label:contains("English")').text('English');
+}
+
+function hideChineseSuggestionNote() {
+  $('label:contains("Chinese")').text('Chinese');
 }
