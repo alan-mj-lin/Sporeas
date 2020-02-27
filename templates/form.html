@@ -220,7 +220,6 @@
           <div class="field">
             <label>Chinese</label>
             <textarea rows="2" id="chAnn"></textarea>
-            <button onclick="suggestTranslation()" type="button" class="ui button">Get Suggested Translation</button>
           </div>
         </div>
         <div class="three wide field">
@@ -368,5 +367,6 @@
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
+  <script type="text/javascript" src="{{ url_for('static', filename='translation-helper.js') }}"></script>
 </body>
 </html>
