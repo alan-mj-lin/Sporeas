@@ -1,0 +1,9 @@
+button.engAnnSuggestion,
+button.chAnnSuggestion {
+  font-style: italic !important;
+}
+
+span.engAnnSuggestion,
+span.chAnnSuggestion {
+  font-style: normal !important;
+}
