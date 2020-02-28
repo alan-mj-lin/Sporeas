@@ -5,59 +5,71 @@ let translationTimer = null;
 let translationsInARow = 0;
 
 $('#engAnn').on('input', function() {
-  suggestTranslation();
+  suggestTranslation(editedLanguage='English');
   setNormalStyle('#engAnn');
-  hideEnglishSuggestionNote();
+  hideSuggestionNote(targetLanguageCode='en')
 });
 
 $('#chAnn').on('input', function() {
-  suggestTranslation();
+  suggestTranslation(editedLanguage='Chinese');
   setNormalStyle('#chAnn');
-  hideChineseSuggestionNote();
+  hideSuggestionNote('zh-tw')
 });
 
-function suggestTranslation() {
+function suggestTranslation(editedLanguage) {
   // delay translations to avoid getting blocked
   let delay = 2000;
   translationsInARow++;
   if (translationsInARow % 10 === 0) delay = 15000;
   clearTimeout(translationTimer); // so sends when user stops typing
   translationTimer = setTimeout(function() {
-    fillInTheOtherLanguage();
+    fillInTheOtherLanguage(editedLanguage);
   }, delay);
 }
 
-function fillInTheOtherLanguage() {
-  const onlyEnglishNoChinese = ($('#engAnn').val() !== '') && !$('#chAnn').val();
-  const onlyChineseNoEnglish = ($('#chAnn').val() !== '') && !$('#engAnn').val();
+function fillInTheOtherLanguage(editedLanguage) {
+  const englishFilled = $('#engAnn').val() !== '';
+  const chineseFilled = $('#chAnn').val() !== '';
   const englishTranslationSuggested = ($('#engAnn').css('color') === fadedFontColor);
   const chineseTranslationSuggested = ($('#chAnn').css('color') === fadedFontColor);
-  if ((onlyEnglishNoChinese && !englishTranslationSuggested) || chineseTranslationSuggested) {
-    translate($('#engAnn').val(), 'en', 'zh-tw', '#chAnn');
+  if ((englishFilled && !chineseFilled && !englishTranslationSuggested) || chineseTranslationSuggested) {
+    translate($('#engAnn').val(), from='en', to='zh-tw', '#chAnn');
     setSuggestionStyle('#chAnn');
-    showChineseSuggestionNote();
-    hideEnglishSuggestionNote();
-  } else if ((onlyChineseNoEnglish && !chineseTranslationSuggested) || englishTranslationSuggested) {
-    translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
+    showSuggestionNote(targetLanguageCode='zh-tw');
+    hideSuggestionNote(targetLanguageCode='en');
+    $('button.engAnnSuggestion').css('display', 'none');
+    $('button.chAnnSuggestion').css('display', 'none');
+  } else if ((chineseFilled && !englishFilled && !chineseTranslationSuggested) || englishTranslationSuggested) {
+    translate($('#chAnn').val(), from='zh-tw', to='en', '#engAnn');
     setSuggestionStyle('#engAnn');
-    showEnglishSuggestionNote();
-    hideChineseSuggestionNote();
+    showSuggestionNote(targetLanguageCode='en');
+    hideSuggestionNote(targetLanguageCode='zh-tw');
+    $('button.engAnnSuggestion').css('display', 'none');
+    $('button.chAnnSuggestion').css('display', 'none');
+  } else if (englishFilled && chineseFilled && editedLanguage === 'English') {
+    translate($('#engAnn').val(), from='en', to='zh-tw', 'span.chAnnSuggestion', suggestReplacementTranslation);
+    hideSuggestionNote(targetLanguageCode='en');
+    hideSuggestionNote(targetLanguageCode='zh-tw');
+  } else if (englishFilled && chineseFilled && editedLanguage === 'Chinese') {
+    translate($('#chAnn').val(), from='zh-tw', to='en', 'span.engAnnSuggestion', suggestReplacementTranslation);
+    hideSuggestionNote(targetLanguageCode='en');
+    hideSuggestionNote(targetLanguageCode='zh-tw');
   }
 }
 
-function translate(text, sourceLanguage, targetLanguage, selector) {
+function translate(text, from, to, targetSelector, callback) {
   if (!translationTimer) return;
   let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd';
-  url += '&sl=' + encodeURIComponent(sourceLanguage);
-  url += '&tl=' + encodeURIComponent(targetLanguage);
+  url += '&sl=' + encodeURIComponent(from);
+  url += '&tl=' + encodeURIComponent(to);
   url += '&q=' + encodeURIComponent(text);
   return fetch(url)
     .then(function(response) {return response.json();})
     .then(function(response) {
       const translationSuggestion = response[0].map(value => value[0]).join('');
-      // if (!$(selector).val()) {
-        $(selector).val(translationSuggestion);
-      // }
+      $(targetSelector).val(translationSuggestion);
+      $(targetSelector).text(translationSuggestion);
+      if (callback) callback(to);
       return translationSuggestion;
     });
 }
@@ -70,20 +82,49 @@ function setSuggestionStyle(selector) {
   $(selector).css('color', fadedFontColor);
 }
 
-function showEnglishSuggestionNote() {
-  const hoverMessage = 'English - Draft translation automatically added. Edit before projecting.';
-  $('label:contains("English")').text(hoverMessage);
+function showSuggestionNote(targetLanguageCode) {
+  if (targetLanguageCode === 'zh-tw') {
+    const hoverMessage = 'Chinese - Draft translation automatically added. Edit before projecting.';
+    $('label:contains("Chinese")').text(hoverMessage);
+  } else if (targetLanguageCode === 'en') {
+    const hoverMessage = 'English - Draft translation automatically added. Edit before projecting.';
+    $('label:contains("English")').text(hoverMessage);
+  }
 }
 
-function showChineseSuggestionNote() {
-  const hoverMessage = 'Chinese - Draft translation automatically added. Edit before projecting.';
-  $('label:contains("Chinese")').text(hoverMessage);
+function hideSuggestionNote(targetLanguageCode) {
+  if (targetLanguageCode === 'zh-tw') {
+    $('label:contains("Chinese")').text('Chinese');
+  } else if (targetLanguageCode === 'en') {
+    $('label:contains("English")').text('English');
+  }
 }
 
-function hideEnglishSuggestionNote() {
-  $('label:contains("English")').text('English');
-}
-
-function hideChineseSuggestionNote() {
-  $('label:contains("Chinese")').text('Chinese');
+function suggestReplacementTranslation(targetLanguageCode) {
+  let langTgt = '';
+  let langSrc = '';
+  if (targetLanguageCode === 'zh-tw') {
+    langTgt = 'ch';
+    langSrc = 'eng';
+  } else if (targetLanguageCode === 'en') {
+    langTgt = 'eng';
+    langSrc = 'ch';
+  }
+  const noChange = String($('#' + langTgt + 'Ann').val()) === String($('span.' + langTgt + 'AnnSuggestion').text());
+  if (noChange) {
+    $('span.' + langTgt + 'AnnSuggestion').text('');
+    $('button.' + langTgt + 'AnnSuggestion').css('display', 'none');
+    hideSuggestionNote(targetLanguageCode);
+    return;
+  }
+  $('button.' + langTgt + 'AnnSuggestion')
+    .css('display', 'block')
+    .off('click')
+    .on('click', function() {
+      $('#' + langTgt + 'Ann').val($('span.' + langTgt + 'AnnSuggestion').text());
+      $('span.' + langTgt + 'AnnSuggestion').text('');
+      $('button.' + langTgt + 'AnnSuggestion').css('display', 'none');
+    });
+  $('button.' + langSrc + 'AnnSuggestion').css('display', 'none');
+  hideSuggestionNote(targetLanguageCode);
 }
