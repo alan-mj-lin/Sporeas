@@ -1,17 +1,21 @@
+const normalFontColor = 'rgb(0, 0, 0)'; // black
+const fadedFontColor = 'rgb(170, 170, 170)'; // a grey (NOTE: used in jQuery color check)
+
+let translationTimer = null;
+let translationsInARow = 0;
+
 $('#engAnn').on('input', function() {
-  setNormalStyle('#engAnn');
   suggestTranslation();
+  setNormalStyle('#engAnn');
   hideEnglishSuggestionNote();
 });
 
 $('#chAnn').on('input', function() {
+  suggestTranslation();
   setNormalStyle('#chAnn');
   hideChineseSuggestionNote();
-  suggestTranslation();
 });
 
-let translationTimer = null;
-let translationsInARow = 0;
 function suggestTranslation() {
   // delay translations to avoid getting blocked
   let delay = 2000;
@@ -24,14 +28,17 @@ function suggestTranslation() {
 }
 
 function fillInTheOtherLanguage() {
-  const onlyEnglishNoChinese = $('#engAnn').val() !== '' && !$('#chAnn').val();
-  const onlyChineseNoEnglish = $('#chAnn').val() !== '' && !$('#engAnn').val();
-  if (onlyEnglishNoChinese) {
+  const onlyEnglishNoChinese = ($('#engAnn').val() !== '') && !$('#chAnn').val();
+  const onlyChineseNoEnglish = ($('#chAnn').val() !== '') && !$('#engAnn').val();
+  const englishTranslationSuggested = ($('#engAnn').css('color') === fadedFontColor);
+  const chineseTranslationSuggested = ($('#chAnn').css('color') === fadedFontColor);
+  if ((onlyEnglishNoChinese && !englishTranslationSuggested) || chineseTranslationSuggested) {
     translate($('#engAnn').val(), 'en', 'zh-tw', '#chAnn');
     setSuggestionStyle('#chAnn');
     showChineseSuggestionNote();
     hideEnglishSuggestionNote();
-  } else if (onlyChineseNoEnglish) {
+  }
+  if ((onlyChineseNoEnglish && !chineseTranslationSuggested) || englishTranslationSuggested) {
     translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
     setSuggestionStyle('#engAnn');
     showEnglishSuggestionNote();
@@ -46,23 +53,21 @@ function translate(text, sourceLanguage, targetLanguage, selector) {
   url += '&tl=' + encodeURIComponent(targetLanguage);
   url += '&q=' + encodeURIComponent(text);
   return fetch(url)
-    .then((response) => response.json())
-    .then((response) => {
-      let result = response[0].map(value => value[0]).join('');
-      if (!$(selector).val()) {
-        $(selector).val(result);
-      }
-      return result;
+    .then(function(response) {return response.json();})
+    .then(function(response) {
+      const translationSuggestion = response[0].map(value => value[0]).join('');
+      // if (!$(selector).val()) {
+        $(selector).val(translationSuggestion);
+      // }
+      return translationSuggestion;
     });
 }
 
 function setNormalStyle(selector) {
-  const normalFontColor = 'black';
   $(selector).css('color', normalFontColor);
 }
 
 function setSuggestionStyle(selector) {
-  const fadedFontColor = '#aaa';
   $(selector).css('color', fadedFontColor);
 }
 
