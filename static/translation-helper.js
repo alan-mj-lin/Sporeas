@@ -1,11 +1,11 @@
 $('#engAnn').on('input', function() {
-  setNormalStyle('engAnn');
+  setNormalStyle('#engAnn');
   suggestTranslation();
   hideEnglishSuggestionNote();
 });
 
 $('#chAnn').on('input', function() {
-  setNormalStyle('chAnn');
+  setNormalStyle('#chAnn');
   hideChineseSuggestionNote();
   suggestTranslation();
 });
@@ -27,19 +27,19 @@ function fillInTheOtherLanguage() {
   const onlyEnglishNoChinese = $('#engAnn').val() !== '' && !$('#chAnn').val();
   const onlyChineseNoEnglish = $('#chAnn').val() !== '' && !$('#engAnn').val();
   if (onlyEnglishNoChinese) {
-    translate($('#engAnn').val(), 'en', 'zh-tw', 'chAnn');
-    setSuggestionStyle('chAnn');
+    translate($('#engAnn').val(), 'en', 'zh-tw', '#chAnn');
+    setSuggestionStyle('#chAnn');
     showChineseSuggestionNote();
     hideEnglishSuggestionNote();
   } else if (onlyChineseNoEnglish) {
-    translate($('#chAnn').val(), 'zh-tw', 'en', 'engAnn');
-    setSuggestionStyle('engAnn');
+    translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
+    setSuggestionStyle('#engAnn');
     showEnglishSuggestionNote();
     hideChineseSuggestionNote();
   }
 }
 
-function translate(text, sourceLanguage, targetLanguage, elementId) {
+function translate(text, sourceLanguage, targetLanguage, selector) {
   if (!translationTimer) return;
   let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd';
   url += '&sl=' + encodeURIComponent(sourceLanguage);
@@ -49,21 +49,21 @@ function translate(text, sourceLanguage, targetLanguage, elementId) {
     .then((response) => response.json())
     .then((response) => {
       let result = response[0].map(value => value[0]).join('');
-      if (!$('#' + elementId.replace('#', '')).val()) {
-        $('#' + elementId.replace('#', '')).val(result);
+      if (!$(selector).val()) {
+        $(selector).val(result);
       }
       return result;
     });
 }
 
-function setNormalStyle(elementId) {
+function setNormalStyle(selector) {
   const normalFontColor = 'black';
-  $('#' + elementId.replace('#', '')).css('color', normalFontColor);
+  $(selector).css('color', normalFontColor);
 }
 
-function setSuggestionStyle(elementId) {
+function setSuggestionStyle(selector) {
   const fadedFontColor = '#aaa';
-  $('#' + elementId.replace('#', '')).css('color', fadedFontColor);
+  $(selector).css('color', fadedFontColor);
 }
 
 function showEnglishSuggestionNote() {
