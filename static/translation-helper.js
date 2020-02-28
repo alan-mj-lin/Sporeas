@@ -47,11 +47,11 @@ function fillInTheOtherLanguage(editedLanguage) {
     $('button.engAnnSuggestion').css('display', 'none');
     $('button.chAnnSuggestion').css('display', 'none');
   } else if (englishFilled && chineseFilled && editedLanguage === 'English') {
-    translate($('#engAnn').val(), from='en', to='zh-tw', 'span.chAnnSuggestion', suggestReplacementTranslation);
+    translate($('#engAnn').val(), from='en', to='zh-tw', 'span.chAnnSuggestion', suggestLineReplacementTranslation);
     hideSuggestionNote(targetLanguageCode='en');
     hideSuggestionNote(targetLanguageCode='zh-tw');
   } else if (englishFilled && chineseFilled && editedLanguage === 'Chinese') {
-    translate($('#chAnn').val(), from='zh-tw', to='en', 'span.engAnnSuggestion', suggestReplacementTranslation);
+    translate($('#chAnn').val(), from='zh-tw', to='en', 'span.engAnnSuggestion', suggestLineReplacementTranslation);
     hideSuggestionNote(targetLanguageCode='en');
     hideSuggestionNote(targetLanguageCode='zh-tw');
   }
@@ -71,6 +71,9 @@ function translate(text, sourceLanguage, targetLanguage, targetSelector, callbac
       }).join('');
       $(targetSelector).val(translationSuggestion);
       $(targetSelector).text(translationSuggestion);
+      if ($(targetSelector).is('[data-full-suggestion]')) {
+        $(targetSelector).attr('data-full-suggestion', translationSuggestion);
+      }
       if (callback) callback(targetLanguage);
       return translationSuggestion;
     });
@@ -102,31 +105,88 @@ function hideSuggestionNote(targetLanguageCode) {
   }
 }
 
-function suggestReplacementTranslation(targetLanguageCode) {
-  let langTgt = '';
+function suggestLineReplacementTranslation(targetLanguageCode) {
   let langSrc = '';
+  let langTgt = '';
   if (targetLanguageCode === 'zh-tw') {
-    langTgt = 'ch';
     langSrc = 'eng';
+    langTgt = 'ch';
   } else if (targetLanguageCode === 'en') {
-    langTgt = 'eng';
     langSrc = 'ch';
+    langTgt = 'eng';
   }
-  const noChange = String($('#' + langTgt + 'Ann').val()) === String($('span.' + langTgt + 'AnnSuggestion').text());
+  const noChange = String($('#' + langTgt + 'Ann').val()) === String($('span.' + langTgt + 'AnnSuggestion').attr('data-full-suggestion'));
   if (noChange) {
-    $('span.' + langTgt + 'AnnSuggestion').text('');
     $('button.' + langTgt + 'AnnSuggestion').css('display', 'none');
+    $('span.' + langTgt + 'AnnSuggestion').text('');
+    $('span.' + langTgt + 'AnnSuggestion').attr('data-full-suggestion', '');
     hideSuggestionNote(targetLanguageCode);
     return;
   }
-  $('button.' + langTgt + 'AnnSuggestion')
+  const suggestionOverride = getOneLineChange(langSrc, langTgt);
+  setUpLineSuggestionButton(langSrc, langTgt, suggestionOverride);
+  hideSuggestionNote(targetLanguageCode);
+}
+
+/**
+ * Replace just one line of the target language translation (instead of multiple lines at once).
+ * suggestionOverride should contain all of the original lines, with just one line added/changed.
+ */
+function getOneLineChange(langSrcPrefix, langTgtPrefix) {
+  let suggestionOverride = '';
+  const sourceArray = $('#' + langSrcPrefix + 'Ann').val().split('\n');
+  const targetArray = $('#' + langTgtPrefix + 'Ann').val().split('\n');
+  const fullTranslation = $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion').split('\n');
+  if (fullTranslation.length > targetArray.length + 1) {
+    return; // escape if something weird is happening
+  }
+  if (fullTranslation.length === targetArray.length + 1) {
+    // adds last line if different:
+    targetArray[targetArray.length - 1] = fullTranslation[fullTranslation.length - 1];
+    suggestionOverride = targetArray.join('\n');
+  } else if (fullTranslation.length === targetArray.length) {
+    // if edited a line in the middle, use suggestions starting from the bottom:
+    const diffIndices = getLineDiffIndices(fullTranslation, targetArray);
+    suggestionOverride = applyLastDiff(fullTranslation, targetArray, diffIndices);
+  }
+  return suggestionOverride;
+}
+
+function getLineDiffIndices(fullTranslationArray, targetArray) {
+  const numberOfLines = Math.min(fullTranslationArray.length, targetArray.length);
+  const diffIndices = [];
+  for (let i = 0; i < numberOfLines; i++) {
+    if (fullTranslationArray[i] !== targetArray[i]) {
+      diffIndices.push(i);
+    }
+  }
+  return diffIndices;
+}
+
+function applyLastDiff(fullTranslationArray, targetArray, diffIndices) {
+  const i = diffIndices[diffIndices.length - 1];
+  targetArray[i] = fullTranslationArray[i];
+  return targetArray.join('\n');
+}
+
+function setUpLineSuggestionButton(langSrcPrefix, langTgtPrefix, suggestionOverride) {
+  const suggestion = suggestionOverride || $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion');
+  $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion', suggestion);
+  const fullTranslation = suggestion.split('\n');
+  const targetArray = $('#' + langTgtPrefix + 'Ann').val().split('\n');
+  const diffIndices = getLineDiffIndices(fullTranslation, targetArray);
+  const lastDiffIndex = (diffIndices.length > 0) ? diffIndices[diffIndices.length - 1] : targetArray.length - 1;
+  const lastDiffSuggestion = fullTranslation[lastDiffIndex];
+  $('span.' + langTgtPrefix + 'AnnSuggestion').text(lastDiffSuggestion);
+  $('button.' + langTgtPrefix + 'AnnSuggestion')
     .css('display', 'block')
     .off('click')
     .on('click', function() {
-      $('#' + langTgt + 'Ann').val($('span.' + langTgt + 'AnnSuggestion').text());
-      $('span.' + langTgt + 'AnnSuggestion').text('');
-      $('button.' + langTgt + 'AnnSuggestion').css('display', 'none');
+      const suggestion = $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion');
+      $('#' + langTgtPrefix + 'Ann').val(suggestion);
+      $('button.' + langTgtPrefix + 'AnnSuggestion').css('display', 'none');
+      $('span.' + langTgtPrefix + 'AnnSuggestion').text('');
+      $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion', '');
     });
-  $('button.' + langSrc + 'AnnSuggestion').css('display', 'none');
-  hideSuggestionNote(targetLanguageCode);
+  $('button.' + langSrcPrefix + 'AnnSuggestion').css('display', 'none');
 }
