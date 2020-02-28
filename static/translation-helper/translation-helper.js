@@ -141,9 +141,13 @@ function getOneLineChange(langSrcPrefix, langTgtPrefix) {
     return; // escape if something weird is happening
   }
   if (fullTranslation.length === targetArray.length + 1) {
-    // adds last line if different:
-    targetArray[targetArray.length - 1] = fullTranslation[fullTranslation.length - 1];
-    suggestionOverride = targetArray.join('\n');
+    // add new last line to target:
+    suggestionOverride = [];
+    for (let i = 0; i < targetArray.length; i++) {
+      suggestionOverride[i] = targetArray[i];
+    }
+    suggestionOverride[fullTranslation.length - 1] = fullTranslation[fullTranslation.length - 1];
+    suggestionOverride = suggestionOverride.join('\n');
   } else if (fullTranslation.length === targetArray.length) {
     // if edited a line in the middle, use suggestions starting from the bottom:
     const diffIndices = getLineDiffIndices(fullTranslation, targetArray);
@@ -170,14 +174,20 @@ function applyLastDiff(fullTranslationArray, targetArray, diffIndices) {
 }
 
 function setUpLineSuggestionButton(langSrcPrefix, langTgtPrefix, suggestionOverride) {
+  // set up full suggestion:
   const suggestion = suggestionOverride || $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion');
   $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion', suggestion);
+  // set up text of just the one line diff:
   const fullTranslation = suggestion.split('\n');
   const targetArray = $('#' + langTgtPrefix + 'Ann').val().split('\n');
   const diffIndices = getLineDiffIndices(fullTranslation, targetArray);
-  const lastDiffIndex = (diffIndices.length > 0) ? diffIndices[diffIndices.length - 1] : targetArray.length - 1;
-  const lastDiffSuggestion = fullTranslation[lastDiffIndex];
+  const lastDiffIndex = (diffIndices.length > 0) ? diffIndices[diffIndices.length - 1] : -1;
+  const lastDiffSuggestion = (diffIndices.length > 0) ? fullTranslation[lastDiffIndex] : fullTranslation[fullTranslation.length - 1];
   $('span.' + langTgtPrefix + 'AnnSuggestion').text(lastDiffSuggestion);
+  // set up display of line number of diff:
+  const lineNumberMessage = (lastDiffIndex > -1) ? ' on line ' + (lastDiffIndex + 1) : '';
+  $('span.' + langTgtPrefix + 'AnnSuggestion-line').text(lineNumberMessage);
+  // set up button click listener:
   $('button.' + langTgtPrefix + 'AnnSuggestion')
     .css('display', 'block')
     .off('click')
@@ -186,7 +196,9 @@ function setUpLineSuggestionButton(langSrcPrefix, langTgtPrefix, suggestionOverr
       $('#' + langTgtPrefix + 'Ann').val(suggestion);
       $('button.' + langTgtPrefix + 'AnnSuggestion').css('display', 'none');
       $('span.' + langTgtPrefix + 'AnnSuggestion').text('');
+      $('span.' + langTgtPrefix + 'AnnSuggestion-line').text('');
       $('span.' + langTgtPrefix + 'AnnSuggestion').attr('data-full-suggestion', '');
     });
+  // make the SOURCE language button disappear:
   $('button.' + langSrcPrefix + 'AnnSuggestion').css('display', 'none');
 }

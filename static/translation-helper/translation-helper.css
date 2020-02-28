@@ -3,6 +3,11 @@ button.chAnnSuggestion {
   font-style: italic !important;
 }
 
+span.engAnnSuggestion-line,
+span.chAnnSuggestion-line {
+  font-style: italic !important;
+}
+
 span.engAnnSuggestion,
 span.chAnnSuggestion {
   font-style: normal !important;
