@@ -37,8 +37,7 @@ function fillInTheOtherLanguage() {
     setSuggestionStyle('#chAnn');
     showChineseSuggestionNote();
     hideEnglishSuggestionNote();
-  }
-  if ((onlyChineseNoEnglish && !chineseTranslationSuggested) || englishTranslationSuggested) {
+  } else if ((onlyChineseNoEnglish && !chineseTranslationSuggested) || englishTranslationSuggested) {
     translate($('#chAnn').val(), 'zh-tw', 'en', '#engAnn');
     setSuggestionStyle('#engAnn');
     showEnglishSuggestionNote();
