@@ -57,19 +57,21 @@ function fillInTheOtherLanguage(editedLanguage) {
   }
 }
 
-function translate(text, from, to, targetSelector, callback) {
+function translate(text, sourceLanguage, targetLanguage, targetSelector, callback) {
   if (!translationTimer) return;
   let url = 'https://translate.googleapis.com/translate_a/single?client=gtx&dt=t&dt=bd';
-  url += '&sl=' + encodeURIComponent(from);
-  url += '&tl=' + encodeURIComponent(to);
+  url += '&sl=' + encodeURIComponent(sourceLanguage);
+  url += '&tl=' + encodeURIComponent(targetLanguage);
   url += '&q=' + encodeURIComponent(text);
   return fetch(url)
     .then(function(response) {return response.json();})
     .then(function(response) {
-      const translationSuggestion = response[0].map(value => value[0]).join('');
+      const translationSuggestion = response[0].map(function(value) {
+        return value[0];
+      }).join('');
       $(targetSelector).val(translationSuggestion);
       $(targetSelector).text(translationSuggestion);
-      if (callback) callback(to);
+      if (callback) callback(targetLanguage);
       return translationSuggestion;
     });
 }
