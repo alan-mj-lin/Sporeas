@@ -348,9 +348,9 @@ $(document).ready(function() {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
       <div class="middle aligned centered content" style="padding-left: 100px;">\
-        <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
+        <div class="ui centered header" style="font-size: 30px">' + obj.title + '</div>\
         <div class="description">\
-          <p style="font-size: 20px;">'+ obj.text+'</p>\
+          <p style="font-size: 30px;">'+ obj.text+'</p>\
         </div>\
         <div class="extra">'
           +dateString+

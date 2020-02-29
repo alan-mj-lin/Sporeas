@@ -308,10 +308,6 @@ $(document).ready(function() {
       $('#announcements').addClass('ui form error');
       // console.log('invalid');
       return false;
-    } else if ($('#engAnn').val().split('\n').length !== $('#chAnn').val().split('\n').length || ($('#engAnn').val() === '' ^ $('#chAnn').val() === '')) {
-      $('#announcements').addClass('ui form error');
-      alert('The number of lines in English/Chinese do not match.');
-      // console.log('invalid');
     } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
       $('#announcements').addClass('ui form error');
       // console.log('invalid');
