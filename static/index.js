@@ -150,7 +150,7 @@ $(document).ready(function() {
   //document.getElementById('items').style.width = screenWidth + 'px !important';
   // console.log('the screen width is: ' +screenWidth);
   $('.ui.modal').modal();
-  $('.ui.basic.modal').modal({centered: false});
+  $('.ui.basic.modal').modal({centered: true});
   $('#grid').show();
   $('#break1').show();
   $('#break2').show();
