@@ -150,7 +150,7 @@ $(document).ready(function() {
   //document.getElementById('items').style.width = screenWidth + 'px !important';
   // console.log('the screen width is: ' +screenWidth);
   $('.ui.modal').modal();
-  $('.ui.basic.modal').modal({centered: false});
+  $('.ui.basic.modal').modal({centered: true});
   $('#grid').show();
   $('#break1').show();
   $('#break2').show();
@@ -347,10 +347,10 @@ $(document).ready(function() {
   function addBlock(obj) {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
-      <div class="middle aligned centered content">\
-        <div class="ui header" style="font-size: 20px">' + obj.title + '</div>\
+      <div class="middle aligned centered content" style="padding-left: 100px;">\
+        <div class="ui centered header" style="font-size: 30px">' + obj.title + '</div>\
         <div class="description">\
-          <p style="font-size: 20px;">'+ obj.text+'</p>\
+          <p style="font-size: 30px;">'+ obj.text+'</p>\
         </div>\
         <div class="extra">'
           +dateString+
