@@ -74,7 +74,9 @@ function screenAdjust(element) {
 function announcementsScale() {
   const announcementsHeight = $('#announcements').css('height').replace('px','');
   const viewHeight = window.innerHeight;
-  const scale = viewHeight/announcementsHeight;
+  const announcementsWidth = $('#announcements').css('width').replace('px','');
+  const viewWidth = window.innerWidth;
+  const scale = Math.min(viewHeight/announcementsHeight, viewWidth/announcementsWidth);
   $('#announcements').css({
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
