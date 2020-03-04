@@ -82,6 +82,24 @@ function announcementsScale() {
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
   });
+  itemsWrapperScale(scale);
+}
+
+function itemsWrapperScale(scale) {
+  const limit = 1.5;
+  if (1/scale > limit) {
+    $('#items-wrapper').css({
+      'position': 'relative',
+      'width': (100/scale) + 'vw',
+      'left': (100 - 100/scale)/2 + 'vw',
+    });
+  } else {
+    $('#items-wrapper').css({
+      'position': 'relative',
+      'width': '100vw',
+      'left': '0',
+    });
+  }
 }
 
 function spaceBar(e){
