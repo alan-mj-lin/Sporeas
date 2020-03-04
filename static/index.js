@@ -77,6 +77,7 @@ function announcementsScale() {
   const announcementsWidth = $('#announcements').css('width').replace('px','');
   const viewWidth = window.innerWidth;
   const scale = Math.min(viewHeight/announcementsHeight, viewWidth/announcementsWidth);
+  if (scale > 1) scale = 1; // do not scale bigger than 100%
   $('#announcements').css({
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
@@ -314,7 +315,7 @@ $(document).ready(function() {
   function addBlock(obj) {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
-      <div class="middle aligned centered content">\
+      <div class="aligned centered content">\
         <div class="ui centered header" style="font-size: 30px">' + obj.title + '</div>\
         <div class="description-wrapper">\
           <div class="description">\
