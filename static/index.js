@@ -76,7 +76,7 @@ function announcementsScale() {
   const viewHeight = window.innerHeight;
   const announcementsWidth = $('#announcements').css('width').replace('px','');
   const viewWidth = window.innerWidth;
-  const scale = Math.min(viewHeight/announcementsHeight, viewWidth/announcementsWidth);
+  let scale = Math.min(viewHeight/announcementsHeight, viewWidth/announcementsWidth);
   if (scale > 1) scale = 1; // do not scale bigger than 100%
   $('#announcements').css({
     'transform-origin': '50% 0%',
