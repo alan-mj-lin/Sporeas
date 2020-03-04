@@ -322,7 +322,7 @@ $(document).ready(function() {
             <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
           </div>\
           <div class="description">\
-            <p style="font-size: 30px;">| '+ obj.chinese_text.replace(/\n/g, '<br/>| ') +'</p>\
+            <p style="font-size: 30px;"><span style="color: lightgrey;">|</span> '+ obj.chinese_text.replace(/\n/g, '<br/><span style="color: lightgrey;">|</span> ') +'</p>\
           </div>\
         </div>\
         <div class="extra" style="clear: left;">'
