@@ -92,26 +92,34 @@ function spaceBar(e){
   let user = window.location.pathname;
   user = user.substr(1);
   const msg = JSON.parse(localStorage.getItem(user));
-  // console.log(msg);
+  //console.log(msg);
   const eng_verses = msg.overlay;
   const ch_verses = msg.ch_overlay;
-  // console.log(eng_verses);
-  if ($('#modal').hasClass("visible") && e.which === 32) {
-    for (i = 0; i < eng_verses.length; i++) {
-      if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
-        $('#overlay').html(eng_verses[i+1]);
-        $('#ch_overlay').html(ch_verses[i+1]);
-        break;
-      } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
-        $('.ui.basic.modal').modal('toggle');
-        break;
+  //console.log(eng_verses);
+  console.log(msg.state);
+  if (msg.state == "true" && msg.state != null){
+    if ($('#modal').hasClass("visible") && e.which === 32) {
+      console.log("SPACEBAR when shown");
+      for (i = 0; i < eng_verses.length; i++) {
+        if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
+          $('#overlay').html(eng_verses[i+1]);
+          console.log($('#overlay').html());
+          $('#ch_overlay').html(ch_verses[i+1]);
+          return;
+        } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
+          $('#modal').modal('hide');
+          return;
+        }
       }
+      // console.log("SPACEBAR Pressed");
+    } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
+      console.log('SPACEBAR when not shown');
+      $('#modal').modal('show');
+      $('#overlay').html(eng_verses[0]);
+      console.log($('#overlay').html());
+      $('#ch_overlay').html(ch_verses[0]);
+      return;
     }
-    // console.log("SPACEBAR Pressed");
-  } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
-    $('.ui.basic.modal').modal('toggle');
-    $('#overlay').html(eng_verses[0]);
-    $('#ch_overlay').html(ch_verses[0]);
   }
 }
 
@@ -173,15 +181,7 @@ $(document).ready(function() {
   $('#innerChTitle').html(msg.ch_title);
   $('#overlay').html(msg.overlay[0]);
   $('#ch_overlay').html(msg.ch_overlay[0]);
-  if (msg.state != null){
-    if(msg.state != 'true'){
-      $(window).off('keypress', spaceBar);
-    } else {
-      $(window).on('keypress', spaceBar);
-    }
-  } else {
-    $(window).off('keypress', spaceBar);
-  }
+  $(window).on('keypress', spaceBar);
   if (font) {
     document.getElementById('title').style.fontSize = font;
     document.getElementById('ch_title').style.fontSize = font;
@@ -206,11 +206,9 @@ $(document).ready(function() {
         verse: storage.verse,
         state: msg.state,
       });
-      $(window).on('keypress', spaceBar);
       storage.state = 'true';
       localStorage.setItem(user, JSON.stringify(storage));
     } else {
-      $(window).off('keypress', spaceBar);
       storage.state = 'false';
       localStorage.setItem(user, JSON.stringify(storage));
     }
