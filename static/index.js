@@ -83,8 +83,8 @@ function announcementsScale() {
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
     'position': 'relative',
-    'width': (100/scale) + 'vw',
-    'left': (100 - 100/scale)/2 + 'vw',
+    'width': (100/scale) * 0.8 + 'vw',
+    'left': (100 - 100/scale * 0.8)/2 + 'vw',
   });
 }
 
