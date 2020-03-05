@@ -72,34 +72,20 @@ function screenAdjust(element) {
 }
 
 function announcementsScale() {
+  const headerHeight = $('div.header').css('height').replace('px', '');
+  const footerHeight = $('footer').css('height').replace('px', '');
   const announcementsHeight = $('#announcements').css('height').replace('px','');
   const viewHeight = window.innerHeight;
   const announcementsWidth = $('#announcements').css('width').replace('px','');
   const viewWidth = window.innerWidth;
-  let scale = Math.min(viewHeight/announcementsHeight, viewWidth/announcementsWidth);
-  if (scale > 1) scale = 1; // do not scale bigger than 100%
-  $('#announcements').css({
+  let scale = Math.min((viewHeight - headerHeight - footerHeight)/announcementsHeight, viewWidth/announcementsWidth);
+  $('#items-wrapper').css({
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
+    'position': 'relative',
+    'width': (100/scale) + 'vw',
+    'left': (100 - 100/scale)/2 + 'vw',
   });
-  itemsWrapperScale(scale);
-}
-
-function itemsWrapperScale(scale) {
-  const limit = 1.5;
-  if (1/scale > limit) {
-    $('#items-wrapper').css({
-      'position': 'relative',
-      'width': (100/scale) + 'vw',
-      'left': (100 - 100/scale)/2 + 'vw',
-    });
-  } else {
-    $('#items-wrapper').css({
-      'position': 'relative',
-      'width': '100vw',
-      'left': '0',
-    });
-  }
 }
 
 function spaceBar(e){
