@@ -147,8 +147,8 @@ $(document).ready(function() {
 
   if (msg == null){
     var msg = {
-      "title": "English Title",
-      "ch_title": "Chinese Title",
+      "title": "",
+      "ch_title": "",
       "verse": '',
       "book": '',
       "overlay": '',
