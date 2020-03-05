@@ -317,7 +317,6 @@ $(document).ready(function() {
       const active = sessionStorage.getItem('user');
       socket.emit('add announce', {
         user: active,
-        title: $('#announcement_title').val(),
         english: $('#engAnn').val().replace(/ /g, '&nbsp;'), // &nbsp; to preserve spacing in HTML
         chinese: $('#chAnn').val().replace(/ /g, '&nbsp;'),
         department: $('#dd_dep option:selected').text(),

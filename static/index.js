@@ -320,7 +320,6 @@ $(document).ready(function() {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
       <div class="aligned centered content">\
-        <div class="ui centered header" style="font-size: 30px">' + obj.title + '</div>\
         <div class="description-wrapper">\
           <div class="description">\
             <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
