@@ -318,8 +318,8 @@ $(document).ready(function() {
       socket.emit('add announce', {
         user: active,
         title: $('#announcement_title').val(),
-        english: $('#engAnn').val(),
-        chinese: $('#chAnn').val(),
+        english: $('#engAnn').val().replace(/ /g, '&nbsp;'), // &nbsp; to preserve spacing in HTML
+        chinese: $('#chAnn').val().replace(/ /g, '&nbsp;'),
         department: $('#dd_dep option:selected').text(),
       });
     }
@@ -355,30 +355,4 @@ $(document).ready(function() {
     const active = sessionStorage.getItem('user');
     socket.emit('show announce', {user: active});
   });
-
-  $('form#announcements textarea').each(function(i, e) {
-    $(e).keyup(function() {
-      const inputText = $(e).val();
-      const lintedText = lintAnnouncement(inputText);
-      $(e).val(lintedText);
-    })
-  });
 });
-
-function lintAnnouncement(inputText) {
-  let foundSomethingToFix = false;
-  const bulletPointRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
-  // remove preceding spaces, "- ", "* ", "1. ", "1) "
-  // but accept things like "1.2 million" or "-1 Celsius" at start of sentence
-  let lintedText = inputText.split('\n');
-  for (let i = 0; i < lintedText.length; i++) {
-    if (!foundSomethingToFix && bulletPointRegex.test(lintedText[i])) {
-      foundSomethingToFix = true;
-    }
-    lintedText[i] = lintedText[i].replace(bulletPointRegex, '');
-  }
-  if (foundSomethingToFix) {
-    alert('Do not type in bullet points.\nJust use new lines (hit enter key) for each point.');
-  }
-  return lintedText.join('\n');
-}
