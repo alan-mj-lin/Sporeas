@@ -71,75 +71,51 @@ function screenAdjust(element) {
   }
 }
 
-function announcementsScale(element) {
-  let user = window.location.pathname;
-  user = user.substr(1);
-  var scale = 0.8;
-  const x = document.getElementById("main");
-  const msg = JSON.parse(localStorage.getItem(user));
-  if (msg != null) {
-    scale = msg.scale;
-  }
-  $("body").css({
-    "-webkit-transform": "scale(" + scale.toString()+")",
-    "-moz-transform": "scale(" + scale.toString()+")",
-    "transform": "scale(" +scale.toString()+")"
+function announcementsScale() {
+  const headerHeight = $('div.header').css('height').replace('px', '');
+  const footerHeight = $('footer').css('height').replace('px', '');
+  const announcementsHeight = $('#announcements').css('height').replace('px','');
+  const viewHeight = window.innerHeight;
+  const announcementsWidth = $('#announcements').css('width').replace('px','');
+  const viewWidth = window.innerWidth;
+  let scale = Math.min((viewHeight - headerHeight - footerHeight)/announcementsHeight, viewWidth/announcementsWidth);
+  $('#items-wrapper').css({
+    'transform-origin': '50% 0%',
+    'transform': 'scale(' + scale + ')',
+    'position': 'relative',
+    'width': (100/scale) * 0.8 + 'vw',
+    'left': (100 - 100/scale * 0.8)/2 + 'vw',
   });
-  while (transformedIsOverflown(element) != true) {
-    if (scale < 1) {
-      scale = scale + 0.01;
-    } else {
-      break;
-    }
-    $("body").css({
-      "-webkit-transform": "scale(" + scale.toString()+")",
-      "-moz-transform": "scale(" + scale.toString()+")",
-      "transform": "scale(" +scale.toString()+")"
-    });
-    if (msg != null){
-    msg.scale = scale;
-    localStorage.setItem(user, JSON.stringify(msg));
-    }
-  }
-  while (transformedIsOverflown(element)) {
-    scale = scale - 0.01;
-    $("body").css({
-      "-webkit-transform": "scale(" + scale.toString()+")",
-      "-moz-transform": "scale(" + scale.toString()+")",
-      "transform": "scale(" +scale.toString()+")"
-    });
-    if (msg != null){
-    msg.scale = scale;
-    localStorage.setItem(user, JSON.stringify(msg));
-    }
-  }
-
 }
 
 function spaceBar(e){
   let user = window.location.pathname;
   user = user.substr(1);
   const msg = JSON.parse(localStorage.getItem(user));
-  // console.log(msg);
   const eng_verses = msg.overlay;
   const ch_verses = msg.ch_overlay;
-  // console.log(eng_verses);
-  if ($('#modal').hasClass("visible") && e.which === 32) {
-    for (i = 0; i < eng_verses.length; i++) {
-      if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
-        $('#overlay').html(eng_verses[i+1]);
-        $('#ch_overlay').html(ch_verses[i+1]);
-        break;
-      } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
-        $('.ui.basic.modal').modal('toggle');
-        break;
+  if (msg.state == "true" && msg.state != null && msg.overlay.length != 0){
+    if ($('#modal').hasClass("visible") && e.which === 32) {
+      //console.log("SPACEBAR when shown");
+      for (i = 0; i < eng_verses.length; i++) {
+        if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
+          $('#overlay').html(eng_verses[i+1]);
+          console.log($('#overlay').html());
+          $('#ch_overlay').html(ch_verses[i+1]);
+          return;
+        } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
+          $('#modal').modal('hide');
+          return;
+        }
       }
+    } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
+      //console.log('SPACEBAR when not shown');
+      $('#modal').modal('show');
+      $('#overlay').html(eng_verses[0]);
+      console.log($('#overlay').html());
+      $('#ch_overlay').html(ch_verses[0]);
+      return;
     }
-    // console.log("SPACEBAR Pressed");
-  } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
-    $('.ui.basic.modal').modal('toggle');
-    $('#overlay').html(eng_verses[0]);
-    $('#ch_overlay').html(ch_verses[0]);
   }
 }
 
@@ -150,7 +126,7 @@ $(document).ready(function() {
   //document.getElementById('items').style.width = screenWidth + 'px !important';
   // console.log('the screen width is: ' +screenWidth);
   $('.ui.modal').modal();
-  $('.ui.basic.modal').modal({centered: false});
+  $('.ui.basic.modal').modal({centered: true});
   $('#grid').show();
   $('#break1').show();
   $('#break2').show();
@@ -175,8 +151,8 @@ $(document).ready(function() {
 
   if (msg == null){
     var msg = {
-      "title": "English Title",
-      "ch_title": "Chinese Title",
+      "title": "",
+      "ch_title": "",
       "verse": '',
       "book": '',
       "overlay": '',
@@ -201,15 +177,7 @@ $(document).ready(function() {
   $('#innerChTitle').html(msg.ch_title);
   $('#overlay').html(msg.overlay[0]);
   $('#ch_overlay').html(msg.ch_overlay[0]);
-  if (msg.state != null){
-    if(msg.state != 'true'){
-      $(window).off('keypress', spaceBar);
-    } else {
-      $(window).on('keypress', spaceBar);
-    }
-  } else {
-    $(window).off('keypress', spaceBar);
-  }
+  $(window).on('keypress', spaceBar);
   if (font) {
     document.getElementById('title').style.fontSize = font;
     document.getElementById('ch_title').style.fontSize = font;
@@ -234,11 +202,9 @@ $(document).ready(function() {
         verse: storage.verse,
         state: msg.state,
       });
-      $(window).on('keypress', spaceBar);
       storage.state = 'true';
       localStorage.setItem(user, JSON.stringify(storage));
     } else {
-      $(window).off('keypress', spaceBar);
       storage.state = 'false';
       localStorage.setItem(user, JSON.stringify(storage));
     }
@@ -344,15 +310,26 @@ $(document).ready(function() {
     localStorage.setItem(user, JSON.stringify(msgActive));
   });
 
+  socket.on('no passage', function() {
+    const msgActive = JSON.parse(localStorage.getItem(user));
+    msgActive.overlay = [];
+    msgActive.ch_overlay = [];
+    localStorage.setItem(user, JSON.stringify(msgActive));
+  });
+
   function addBlock(obj) {
     // console.log(obj.text);
     $('#' + element_count.toString()).append('\
-      <div class="middle aligned centered content" style="padding-left: 100px;">\
-        <div class="ui centered header" style="font-size: 20px">' + obj.title + '</div>\
-        <div class="description">\
-          <p style="font-size: 20px;">'+ obj.text+'</p>\
+      <div class="aligned centered content">\
+        <div class="description-wrapper">\
+          <div class="description">\
+            <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+          </div>\
+          <div class="description">\
+            <p style="font-size: 30px;"><span style="color: lightgrey;">|</span> '+ obj.chinese_text.replace(/\n/g, '<br/><span style="color: lightgrey;">|</span> ') +'</p>\
+          </div>\
         </div>\
-        <div class="extra">'
+        <div class="extra" style="clear: left;">'
           +dateString+
         '</div>\
       </div>');
@@ -367,19 +344,11 @@ $(document).ready(function() {
     // console.log(msg.image);
     let image = msg.image;
 
-    $('.table').before('<div class="item" id="'+ element_count.toString()+'" style="padding-left: 10vw;"></div>');
-    if (image == 'GA'){
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/GA.png" class="avatar"></div>');
-    } else if (image == 'RA') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RA.png" class="avatar"></div>');
-    } else if (image == 'FA') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/FA.png" class="avatar"></div>');
-    } else if (image == 'RE') {
-      $('#' + element_count.toString()).append('<div class="ui small image" style="overflow: hidden;"><img src="static/RE.png" class="avatar"></div>');
-    }
+    $('#items-wrapper').append('<div class="item" id="' + element_count.toString() + '"></div>');
+    $('#' + element_count.toString()).append('<div class="ui small circular image avatar" style="overflow: hidden;"><img src="static/' + image + '.png"></div>');
     addBlock(msg);
     element_count++;
-    announcementsScale(document.getElementById("items"));
+    announcementsScale();
     localStorage.setItem(user+'_ann', $('#announcements').html());
     $('#grid').hide();
     $('#break1').hide();
@@ -395,7 +364,7 @@ $(document).ready(function() {
     $('#dish_washing').html('Dish Washing: ' + msg.dish_washing);
     localStorage.setItem(user+'_ann', $('#announcements').html());
     if (document.getElementById("grid").style.display == 'none'){
-      //announcementsScale(document.getElementById("items"));
+      //announcementsScale();
     }
   });
 
@@ -405,16 +374,16 @@ $(document).ready(function() {
     element_count = 0;
     localStorage.setItem(user+'_ann', $('#announcements').html());
     if (document.getElementById("grid").style.display == 'none'){
-      announcementsScale(document.getElementById("items"));
+      announcementsScale();
     }
   });
 
   socket.on('delete announcements', function(){
     // console.log('deleting...')
-    $(".table").prev().remove(".item");
+    $("#items-wrapper .item").last().remove();
     localStorage.setItem(user+'_ann', $('#announcements').html());
     if (document.getElementById("grid").style.display == 'none'){
-      announcementsScale(document.getElementById("items"));
+      announcementsScale();
     }
   });
 
@@ -423,6 +392,6 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
-    announcementsScale(document.getElementById("items"));
+    announcementsScale();
   });
 });

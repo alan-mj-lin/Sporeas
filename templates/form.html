@@ -9,348 +9,355 @@
   <script type="text/javascript" src="{{ url_for('static', filename='form.js') }}"></script>
 </head>
 <body>
-  <br>
-  <br>
-  <br>
-  <div class="ui container invertable">
-    <h1 class="ui huge header invertable">
-  		<img src="static/tjc.jpg" class="ui image">
-  		Service Projection UI
-	  </h1>
-    <form class="ui form invertable" id="connect" target="_self" method="post">
-      <div class="inline field">
-        <label>Location</label>
-        <input type="text" id="user">
-        <button class="ui secondary button" type="submit">Connect</button>
-        <button class="ui button" id="project" type="button">Project</button>
-      </div>
-      <div class="ui error message">
-        <div class="header">Error</div>
-        <p id="connect_error">This room name is already taken.</p>
-      </div>
-      <div class="ui success message">
-        <div class="header">Connected</div>
-        <p id="con_msg"></p>
-      </div>
-    </form>
-    <div class="ui top attached tabular menu invertable" id="content">
-      <a class="item" data-tab="main" id="mainitem">Main</a>
-      <a class="item" data-tab="utility">Utility</a>
-      <a class="item" data-tab="announcements">Announcements</a>
-    </div>
-    <div class="ui bottom attached tab segment invertable" data-tab="main" id="maintab">
-      <h1 class="ui large header">
-    		Main Control Panel
-  	  </h1>
-      <br>
-      <form class="ui form invertable" id="update" target="_self" method="post">
-        <div class="field">
-          <label>English Title:</label>
-          <input type="text" name="title" id="title">
+  <div class="ui left vertical menu sidebar invertable" style="display: flex; width: 140px;" id="sidebar">
+    <a class="item highlight-service">Service <br/>聚會</a>
+    <a class="item highlight-hymn-singing">Hymn Singing <br/>唱詩</a>
+    <a class="item highlight-morning-prayer">Morning Prayer <br/>早禱會</a>
+    <a class="item highlight-holy-communion">Holy Communion <br/>聖餐禮</a>
+    <a class="item highlight-foot-washing">Foot Washing <br/>洗腳禮</a>
+    <a class="item highlight-announcements">Announcements <br/>報告</a>
+  </div>
+  <div class="pusher">
+    <br>
+    <br>
+    <br>
+    <div class="ui container invertable">
+      <h1 class="ui huge header invertable">
+        <img src="static/tjc.jpg" class="ui image">
+        Service Projection UI
+      </h1>
+      <form class="ui form invertable" id="connect" target="_self" method="post">
+        <div class="inline field">
+          <label>Location</label>
+          <input type="text" id="user">
+          <button class="ui secondary button" type="submit">Connect</button>
+          <button class="ui button" id="project" type="button">Project</button>
         </div>
-        <div class="field">
-          <label>Chinese Title:</label>
-          <input type="text" name="ch_title" id="ch_title">
-        </div>
-        <div class="field">
-          <label>Hymns:</label>
-          <input type="text" name="hymn" id="hymn">
-        </div>
-        <br>
-        <div class="inline fields">
-          <label>Verse:</label>
-          <select class="ui search dropdown" name="ddbible" id="ddbible">
-            <option selected="selected" value=""></option>
-            <option value="0"></option>
-            <option value="1">Genesis | 創世記</option>
-            <option value="2">Exodus | 出埃及記</option>
-            <option value="3">Leviticus |  利未記</option>
-            <option value="4">Numbers |  民數記</option>
-            <option value="5">Deuteronomy |  申命記</option>
-            <option value="6">Joshua |  約書亞記</option>
-            <option value="7">Judges |  士師記</option>
-            <option value="8">Ruth |  路得記</option>
-            <option value="9">1 Samuel |  撒母耳記上</option>
-            <option value="10">2 Samuel |  撒母耳記下</option>
-            <option value="11">1 Kings |  列王紀上</option>
-            <option value="12">2 Kings |  列王紀下</option>
-            <option value="13">1 Chronicles |  歷代志上</option>
-            <option value="14">2 Chronicles |  歷代志下</option>
-            <option value="15">Ezra |  以斯拉記</option>
-            <option value="16">Nehemiah |  尼希米記</option>
-            <option value="17">Esther |  以斯帖記</option>
-            <option value="18">Job |  約伯記</option>
-            <option value="19">Psalms |  詩篇</option>
-            <option value="20">Proverbs |  箴言</option>
-            <option value="21">Ecclesiastes |  傳道書</option>
-            <option value="22">Song of Solomon |  雅歌</option>
-            <option value="23">Isaiah |  以賽亞書</option>
-            <option value="24">Jeremiah |  耶利米書</option>
-            <option value="25">Lamentations |  耶利米哀歌</option>
-            <option value="26">Ezekiel |  以西結書</option>
-            <option value="27">Daniel |  但以理書</option>
-            <option value="28">Hosea |  何西阿書</option>
-            <option value="29">Joel |  約珥書</option>
-            <option value="30">Amos |  阿摩司書</option>
-            <option value="31">Obadiah |  俄巴底亞書</option>
-            <option value="32">Jonah |  約拿書</option>
-            <option value="33">Micah |  彌迦書</option>
-            <option value="34">Nahum |  那鴻書</option>
-            <option value="35">Habakkuk |  哈巴谷書</option>
-            <option value="36">Zephaniah |  西番雅書</option>
-            <option value="37">Haggai |  哈該書</option>
-            <option value="38">Zechariah |  撒迦利亞書</option>
-            <option value="39">Malachi |  瑪拉基書</option>
-            <option value="40">Matthew |  馬太福音</option>
-            <option value="41">Mark |  馬可福音</option>
-            <option value="42">Luke |  路加福音</option>
-            <option value="43">John |  約翰福音</option>
-            <option value="44">Acts |  使徒行傳</option>
-            <option value="45">Romans |  羅馬書</option>
-            <option value="46">1 Corinthians |  哥林多前書</option>
-            <option value="47">2 Corinthians |  哥林多後書</option>
-            <option value="48">Galatians |  加拉太書</option>
-            <option value="49">Ephesians |  以弗所書</option>
-            <option value="50">Philippians |  腓立比書 </option>
-            <option value="51">Colossians |  歌羅西書</option>
-            <option value="52">1 Thessalonians |  帖撒羅尼迦前書</option>
-            <option value="53">2 Thessalonians |  帖撒羅尼迦後書</option>
-            <option value="54">1 Timothy |  提摩太前書</option>
-            <option value="55">2 Timothy |  提摩太後書</option>
-            <option value="56">Titus |  提多書</option>
-            <option value="57">Philemon |  腓利門書 </option>
-            <option value="58">Hebrews |  希伯來書</option>
-            <option value="59">James |  雅各書</option>
-            <option value="60">1 Peter  | 彼得前書</option>
-            <option value="61">2 Peter |  彼得後書</option>
-            <option value="62">1 John |  約翰一書</option>
-            <option value="63">2 John |  約翰二書</option>
-            <option value="64">3 John |  約翰三書</option>
-            <option value="65">Jude |  猶大書</option>
-            <option value="66">Revelation |  啟示錄</option>
-          </select>
-          <div class="five wide field">
-            <div class="ui left labeled input">
-              <a class="ui right pointing label">
-                Passage
-              </a>
-              <input type="text" name="verse" id="verse">
-            </div>
-          </div>
-          <button class="ui button" type="button" id="verse_update">Update</button>
-        </div>
-        <button class="ui secondary button" type="submit">Submit</button>
-        <button class="ui button" type="reset" id="reset">Reset</button>
-        <button class="ui button" type="button" id="new_tab">New Window</button>
-        <button class="ui button help" type="button">Help</button>
         <div class="ui error message">
           <div class="header">Error</div>
-          <p id="error1">Inputs are invalid</p>
-          <p id="error2">Passage out of range</p>
+          <p id="connect_error">This room name is already taken.</p>
+        </div>
+        <div class="ui success message">
+          <div class="header">Connected</div>
+          <p id="con_msg"></p>
         </div>
       </form>
-      <br>
-      <font face="courier new">Sporeas v1.1.0</font>
-    </div>
-    <div class="ui bottom attached tab segment invertable" data-tab="utility">
-      <h1 class="ui large header">
-        Tools and Service Modes
-      </h1>
-      <br>
-      <div id="service_mode">
-        <div class="ui action input">
-          <input type="text" placeholder="Hymn Numbers..." id="hymn_input">
-          <button class="ui grey basic button" type="button" id="hymn_singing" data-tooltip="Set projection to show only hymns">Hymn Singing | 唱詩</button>
-        </div>
-        <br>
-        <br>
-        <div class="ui action input">
-          <input type="text" placeholder="Hymn Numbers..." id="m_hymn_input">
-          <button class="ui teal basic button" type="button" id="morning_prayer" data-tooltip="Set projection to show Morning Prayer">Morning Prayer | 早禱會</button>
-        </div>
-        <br>
-        <br>
-        <div class="ui left attached input">
-          <input type="text" placeholder="Hymn Numbers..." id="hf_hymn_input">
-          <button class="ui violet basic left attached button" type="button" id="holy_communion" data-tooltip="Set projection to show Holy Communion">Holy Communion | 聖餐禮</button>
-          <button class="ui blue basic right attached button" type="button" id="foot_washing" data-tooltip="Set projection to show Holy Communion">Footwashing | 洗腳禮</button>
-        </div>
-        <br>
-        <br>
-        <button class="ui blue icon button" type="button" id="scroll" data-tooltip="Mark the current hymn">
-          Hymn Scroll<i class="angle right icon"></i>
-        </button>
-        <div class="ui labeled button">
-          <div class="ui red button" id="toggle">Off
-          </div>
-          <a class="ui basic red label" id="toggle_label" data-tooltip="Toggle bible passage display on and off (recommended to toggle off if not in use)">
-            Verse Display
-          </a>
-        </div>
-        <button class="ui button" type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-        <button class="ui button help" type="button">Help</button>
-        <div class="ui negative hidden message" id="service_mode_error">
-          <i class="close icon"></i>
-          <div class="header">
-            Invalid Input Data
-          </div>
-          <p>Please type in a list of comma separated hymn numbers</p>
-        </div>
+      <div class="ui top attached tabular menu invertable" id="content">
+        <a class="item" data-tab="main" id="mainitem">Main</a>
+        <a class="item" data-tab="utility">Utility</a>
+        <a class="item" data-tab="announcements">Announcements</a>
       </div>
-      <br>
-      <font face="courier new">Sporeas v1.1.0</font>
-    </div>
-    <div class="ui bottom attached tab segment invertable" data-tab="announcements">
-      <div class="ui info message">
-        <div class="ui header">
-            How to use:
-        </div>
-        <p>Pick the department, type in the English and the Chinese text, and click 'Add Announcement'. 
-        Do this for each announcement item.</p>
-      </div>
-      <form class="ui form invertable" id="announcements" target="_self" method="post">
-        <div class="field">
-          <label>Announcement Title</label>
-          <input type="text" id="announcement_title">
-        </div>
-        <div class="two fields">
+      <div class="ui bottom attached tab segment invertable" data-tab="main" id="maintab">
+        <h1 class="ui large header">
+          Main Control Panel
+        </h1>
+        <br>
+        <form class="ui form invertable" id="update" target="_self" method="post">
           <div class="field">
-            <label>English</label>
-            <textarea rows="2" id="engAnn"></textarea>
-            <button class="engAnnSuggestion ui secondary button" style="display: none;" type="button">
-              Use suggestion<span class="engAnnSuggestion-line"></span>: 
-              <span class="engAnnSuggestion" data-full-suggestion=""></span>
-            </button>
+            <label>English Title:</label>
+            <input type="text" name="title" id="title">
           </div>
           <div class="field">
-            <label>Chinese</label>
-            <textarea rows="2" id="chAnn"></textarea>
-            <button class="chAnnSuggestion ui secondary button" style="display: none;" type="button">
-              Use suggestion<span class="chAnnSuggestion-line"></span>: 
-              <span class="chAnnSuggestion" data-full-suggestion=""></span>
-            </button>
+            <label>Chinese Title:</label>
+            <input type="text" name="ch_title" id="ch_title">
+          </div>
+          <div class="field">
+            <label>Hymns:</label>
+            <input type="text" name="hymn" id="hymn">
+          </div>
+          <br>
+          <div class="inline fields">
+            <label>Verse:</label>
+            <select class="ui search dropdown" name="ddbible" id="ddbible">
+              <option selected="selected" value=""></option>
+              <option value="0"></option>
+              <option value="1">Genesis | 創世記</option>
+              <option value="2">Exodus | 出埃及記</option>
+              <option value="3">Leviticus |  利未記</option>
+              <option value="4">Numbers |  民數記</option>
+              <option value="5">Deuteronomy |  申命記</option>
+              <option value="6">Joshua |  約書亞記</option>
+              <option value="7">Judges |  士師記</option>
+              <option value="8">Ruth |  路得記</option>
+              <option value="9">1 Samuel |  撒母耳記上</option>
+              <option value="10">2 Samuel |  撒母耳記下</option>
+              <option value="11">1 Kings |  列王紀上</option>
+              <option value="12">2 Kings |  列王紀下</option>
+              <option value="13">1 Chronicles |  歷代志上</option>
+              <option value="14">2 Chronicles |  歷代志下</option>
+              <option value="15">Ezra |  以斯拉記</option>
+              <option value="16">Nehemiah |  尼希米記</option>
+              <option value="17">Esther |  以斯帖記</option>
+              <option value="18">Job |  約伯記</option>
+              <option value="19">Psalms |  詩篇</option>
+              <option value="20">Proverbs |  箴言</option>
+              <option value="21">Ecclesiastes |  傳道書</option>
+              <option value="22">Song of Solomon |  雅歌</option>
+              <option value="23">Isaiah |  以賽亞書</option>
+              <option value="24">Jeremiah |  耶利米書</option>
+              <option value="25">Lamentations |  耶利米哀歌</option>
+              <option value="26">Ezekiel |  以西結書</option>
+              <option value="27">Daniel |  但以理書</option>
+              <option value="28">Hosea |  何西阿書</option>
+              <option value="29">Joel |  約珥書</option>
+              <option value="30">Amos |  阿摩司書</option>
+              <option value="31">Obadiah |  俄巴底亞書</option>
+              <option value="32">Jonah |  約拿書</option>
+              <option value="33">Micah |  彌迦書</option>
+              <option value="34">Nahum |  那鴻書</option>
+              <option value="35">Habakkuk |  哈巴谷書</option>
+              <option value="36">Zephaniah |  西番雅書</option>
+              <option value="37">Haggai |  哈該書</option>
+              <option value="38">Zechariah |  撒迦利亞書</option>
+              <option value="39">Malachi |  瑪拉基書</option>
+              <option value="40">Matthew |  馬太福音</option>
+              <option value="41">Mark |  馬可福音</option>
+              <option value="42">Luke |  路加福音</option>
+              <option value="43">John |  約翰福音</option>
+              <option value="44">Acts |  使徒行傳</option>
+              <option value="45">Romans |  羅馬書</option>
+              <option value="46">1 Corinthians |  哥林多前書</option>
+              <option value="47">2 Corinthians |  哥林多後書</option>
+              <option value="48">Galatians |  加拉太書</option>
+              <option value="49">Ephesians |  以弗所書</option>
+              <option value="50">Philippians |  腓立比書 </option>
+              <option value="51">Colossians |  歌羅西書</option>
+              <option value="52">1 Thessalonians |  帖撒羅尼迦前書</option>
+              <option value="53">2 Thessalonians |  帖撒羅尼迦後書</option>
+              <option value="54">1 Timothy |  提摩太前書</option>
+              <option value="55">2 Timothy |  提摩太後書</option>
+              <option value="56">Titus |  提多書</option>
+              <option value="57">Philemon |  腓利門書 </option>
+              <option value="58">Hebrews |  希伯來書</option>
+              <option value="59">James |  雅各書</option>
+              <option value="60">1 Peter  | 彼得前書</option>
+              <option value="61">2 Peter |  彼得後書</option>
+              <option value="62">1 John |  約翰一書</option>
+              <option value="63">2 John |  約翰二書</option>
+              <option value="64">3 John |  約翰三書</option>
+              <option value="65">Jude |  猶大書</option>
+              <option value="66">Revelation |  啟示錄</option>
+            </select>
+            <div class="five wide field">
+              <div class="ui left labeled input">
+                <a class="ui right pointing label">
+                  Passage
+                </a>
+                <input type="text" name="verse" id="verse">
+              </div>
+            </div>
+            <button class="ui button" type="button" id="verse_update">Update</button>
+          </div>
+          <button class="ui secondary button" type="submit">Submit</button>
+          <button class="ui button" type="reset" id="reset">Reset</button>
+          <button class="ui button" type="button" id="new_tab">New Window</button>
+          <button class="ui button help" type="button">Help</button>
+          <div class="ui error message">
+            <div class="header">Error</div>
+            <p id="error1">Inputs are invalid</p>
+            <p id="error2">Passage out of range</p>
+          </div>
+        </form>
+        <br>
+        <font face="courier new">Sporeas v1.1.0</font>
+      </div>
+      <div class="ui bottom attached tab segment invertable" data-tab="utility">
+        <h1 class="ui large header">
+          Tools and Service Modes
+        </h1>
+        <br>
+        <div id="service_mode">
+          <div class="ui action input">
+            <input type="text" placeholder="Hymn Numbers..." id="hymn_input">
+            <button class="ui grey basic button" type="button" id="hymn_singing" data-tooltip="Set projection to show only hymns">Hymn Singing | 唱詩</button>
+          </div>
+          <br>
+          <br>
+          <div class="ui action input">
+            <input type="text" placeholder="Hymn Numbers..." id="m_hymn_input">
+            <button class="ui teal basic button" type="button" id="morning_prayer" data-tooltip="Set projection to show Morning Prayer">Morning Prayer | 早禱會</button>
+          </div>
+          <br>
+          <br>
+          <div class="ui left attached input">
+            <input type="text" placeholder="Hymn Numbers..." id="hf_hymn_input">
+            <button class="ui violet basic left attached button" type="button" id="holy_communion" data-tooltip="Set projection to show Holy Communion">Holy Communion | 聖餐禮</button>
+            <button class="ui blue basic right attached button" type="button" id="foot_washing" data-tooltip="Set projection to show Holy Communion">Footwashing | 洗腳禮</button>
+          </div>
+          <br>
+          <br>
+          <button class="ui blue icon button" type="button" id="scroll" data-tooltip="Mark the current hymn">
+            Hymn Scroll<i class="angle right icon"></i>
+          </button>
+          <div class="ui labeled button">
+            <div class="ui red button" id="toggle">Off
+            </div>
+            <a class="ui basic red label" id="toggle_label" data-tooltip="Toggle bible passage display on and off (recommended to toggle off if not in use)">
+              Verse Display
+            </a>
+          </div>
+          <button class="ui button" type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+          <button class="ui button help" type="button">Help</button>
+          <div class="ui negative hidden message" id="service_mode_error">
+            <i class="close icon"></i>
+            <div class="header">
+              Invalid Input Data
+            </div>
+            <p>Please type in a list of comma separated hymn numbers</p>
           </div>
         </div>
-        <div class="three wide field">
-          <label>DEPARTMENT</label>
-          <select class="ui search dropdown" id="dd_dep">
-            <option value="1">GA | 總務</option>
-            <option value="2">RA | 教務</option>
-            <option value="3">FA | 財務</option>
-            <option value="4">RE | 宗教教育</option>
-          </select>
-        </div>
-        <div class="inline buttons">
-          <div class="ui primary button" id="add_announce">Add Announcement</div>
-          <div class="ui primary button" id="show_announce">Show Announcements</div>
-          <div class="ui primary button" id="delete_announce">Delete Announcement</div>
-          <div class="ui primary button" id="clear_announce">Clear Announcements</div>
-        </div>
         <br>
-        <br>
-        <div class="inline fields">
-          <label>Bible Reading</label>
-          <select class="ui search dropdown" id="dd_reading">
-            <option selected="selected" value=""></option>
-            <option value="0"></option>
-            <option value="1">Genesis | 創世記</option>
-            <option value="2">Exodus | 出埃及記</option>
-            <option value="3">Leviticus |  利未記</option>
-            <option value="4">Numbers |  民數記</option>
-            <option value="5">Deuteronomy |  申命記</option>
-            <option value="6">Joshua |  約書亞記</option>
-            <option value="7">Judges |  士師記</option>
-            <option value="8">Ruth |  路得記</option>
-            <option value="9">1 Samuel |  撒母耳記上</option>
-            <option value="10">2 Samuel |  撒母耳記下</option>
-            <option value="11">1 Kings |  列王紀上</option>
-            <option value="12">2 Kings |  列王紀下</option>
-            <option value="13">1 Chronicles |  歷代志上</option>
-            <option value="14">2 Chronicles |  歷代志下</option>
-            <option value="15">Ezra |  以斯拉記</option>
-            <option value="16">Nehemiah |  尼希米記</option>
-            <option value="17">Esther |  以斯帖記</option>
-            <option value="18">Job |  約伯記</option>
-            <option value="19">Psalms |  詩篇</option>
-            <option value="20">Proverbs |  箴言</option>
-            <option value="21">Ecclesiastes |  傳道書</option>
-            <option value="22">Song of Solomon |  雅歌</option>
-            <option value="23">Isaiah |  以賽亞書</option>
-            <option value="24">Jeremiah |  耶利米書</option>
-            <option value="25">Lamentations |  耶利米哀歌</option>
-            <option value="26">Ezekiel |  以西結書</option>
-            <option value="27">Daniel |  但以理書</option>
-            <option value="28">Hosea |  何西阿書</option>
-            <option value="29">Joel |  約珥書</option>
-            <option value="30">Amos |  阿摩司書</option>
-            <option value="31">Obadiah |  俄巴底亞書</option>
-            <option value="32">Jonah |  約拿書</option>
-            <option value="33">Micah |  彌迦書</option>
-            <option value="34">Nahum |  那鴻書</option>
-            <option value="35">Habakkuk |  哈巴谷書</option>
-            <option value="36">Zephaniah |  西番雅書</option>
-            <option value="37">Haggai |  哈該書</option>
-            <option value="38">Zechariah |  撒迦利亞書</option>
-            <option value="39">Malachi |  瑪拉基書</option>
-            <option value="40">Matthew |  馬太福音</option>
-            <option value="41">Mark |  馬可福音</option>
-            <option value="42">Luke |  路加福音</option>
-            <option value="43">John |  約翰福音</option>
-            <option value="44">Acts |  使徒行傳</option>
-            <option value="45">Romans |  羅馬書</option>
-            <option value="46">1 Corinthians |  哥林多前書</option>
-            <option value="47">2 Corinthians |  哥林多後書</option>
-            <option value="48">Galatians |  加拉太書</option>
-            <option value="49">Ephesians |  以弗所書</option>
-            <option value="50">Philippians |  腓立比書 </option>
-            <option value="51">Colossians |  歌羅西書</option>
-            <option value="52">1 Thessalonians |  帖撒羅尼迦前書</option>
-            <option value="53">2 Thessalonians |  帖撒羅尼迦後書</option>
-            <option value="54">1 Timothy |  提摩太前書</option>
-            <option value="55">2 Timothy |  提摩太後書</option>
-            <option value="56">Titus |  提多書</option>
-            <option value="57">Philemon |  腓利門書 </option>
-            <option value="58">Hebrews |  希伯來書</option>
-            <option value="59">James |  雅各書</option>
-            <option value="60">1 Peter  | 彼得前書</option>
-            <option value="61">2 Peter |  彼得後書</option>
-            <option value="62">1 John |  約翰一書</option>
-            <option value="63">2 John |  約翰二書</option>
-            <option value="64">3 John |  約翰三書</option>
-            <option value="65">Jude |  猶大書</option>
-            <option value="66">Revelation |  啟示錄</option>
-          </select>
-          <div class="five wide field">
-            <div class="ui left labeled input">
-              <a class="ui right pointing label">
-                Passage
-              </a>
-              <input type="text" id="bible_reading">
+        <font face="courier new">Sporeas v1.1.0</font>
+      </div>
+      <div class="ui bottom attached tab segment invertable" data-tab="announcements">
+        <div class="ui info message">
+          <div class="ui header">
+              How to use:
+          </div>
+          <p>Pick the department, type in the English and the Chinese text, and click 'Add Announcement'. 
+          Do this for each announcement item.</p>
+        </div>
+        <form class="ui form invertable" id="announcements" target="_self" method="post">
+          <div class="ui large header">Main Announcements</div>
+          <div class="two fields">
+            <div class="field">
+              <label>English</label>
+              <textarea rows="4" id="engAnn"></textarea>
+              <button class="engAnnSuggestion ui secondary button" style="display: none;" type="button">
+                Use suggestion<span class="engAnnSuggestion-line"></span>: 
+                <span class="engAnnSuggestion" data-full-suggestion=""></span>
+              </button>
+            </div>
+            <div class="field">
+              <label>Chinese</label>
+              <textarea rows="4" id="chAnn"></textarea>
+              <button class="chAnnSuggestion ui secondary button" style="display: none;" type="button">
+                Use suggestion<span class="chAnnSuggestion-line"></span>: 
+                <span class="chAnnSuggestion" data-full-suggestion=""></span>
+              </button>
             </div>
           </div>
-          <div class="field">
-            <label>Cleaning Group:</label>
-            <select class="ui search dropdown" id="cleaning_group">
-              <option value="1">A</option>
-              <option value="2">B</option>
-              <option value="3">C</option>
-              <option value="4">D</option>
+          <div class="three wide field">
+            <label>DEPARTMENT</label>
+            <select class="ui search dropdown" id="dd_dep">
+              <option value="1">GA | 總務</option>
+              <option value="2">RA | 教務</option>
+              <option value="3">FA | 財務</option>
+              <option value="4">RE | 宗教教育</option>
             </select>
           </div>
-        </div>
-        <div class="field">
-          <label>Dish Washing:</label>
-          <input type="text" id="dish_washing">
-        </div>
-        <button class="ui fluid button" type="button" id="ann_update" data-tooltip="Update the bottom header of the announcements">Update</button>
-        <div class="ui error message">
-          <div class="header">Error</div>
-          <p>Inputs are invalid</p>
-        </div>
-      </form>
+          <div class="ui buttons">
+            <div class="ui button" id="add_announce">Add</div>
+            <div class="ui button" id="show_announce">Show</div>
+            <div class="ui button" id="delete_announce">Delete</div>
+            <div class="ui button" id="clear_announce">Clear</div>
+          </div>
+          <br>
+          <div class="ui large header">Bible Reading and Cleaning Groups</div>
+          <div class="inline fields">
+            <label>Bible Reading</label>
+            <select class="ui search dropdown" id="dd_reading">
+              <option selected="selected" value=""></option>
+              <option value="0"></option>
+              <option value="1">Genesis | 創世記</option>
+              <option value="2">Exodus | 出埃及記</option>
+              <option value="3">Leviticus |  利未記</option>
+              <option value="4">Numbers |  民數記</option>
+              <option value="5">Deuteronomy |  申命記</option>
+              <option value="6">Joshua |  約書亞記</option>
+              <option value="7">Judges |  士師記</option>
+              <option value="8">Ruth |  路得記</option>
+              <option value="9">1 Samuel |  撒母耳記上</option>
+              <option value="10">2 Samuel |  撒母耳記下</option>
+              <option value="11">1 Kings |  列王紀上</option>
+              <option value="12">2 Kings |  列王紀下</option>
+              <option value="13">1 Chronicles |  歷代志上</option>
+              <option value="14">2 Chronicles |  歷代志下</option>
+              <option value="15">Ezra |  以斯拉記</option>
+              <option value="16">Nehemiah |  尼希米記</option>
+              <option value="17">Esther |  以斯帖記</option>
+              <option value="18">Job |  約伯記</option>
+              <option value="19">Psalms |  詩篇</option>
+              <option value="20">Proverbs |  箴言</option>
+              <option value="21">Ecclesiastes |  傳道書</option>
+              <option value="22">Song of Solomon |  雅歌</option>
+              <option value="23">Isaiah |  以賽亞書</option>
+              <option value="24">Jeremiah |  耶利米書</option>
+              <option value="25">Lamentations |  耶利米哀歌</option>
+              <option value="26">Ezekiel |  以西結書</option>
+              <option value="27">Daniel |  但以理書</option>
+              <option value="28">Hosea |  何西阿書</option>
+              <option value="29">Joel |  約珥書</option>
+              <option value="30">Amos |  阿摩司書</option>
+              <option value="31">Obadiah |  俄巴底亞書</option>
+              <option value="32">Jonah |  約拿書</option>
+              <option value="33">Micah |  彌迦書</option>
+              <option value="34">Nahum |  那鴻書</option>
+              <option value="35">Habakkuk |  哈巴谷書</option>
+              <option value="36">Zephaniah |  西番雅書</option>
+              <option value="37">Haggai |  哈該書</option>
+              <option value="38">Zechariah |  撒迦利亞書</option>
+              <option value="39">Malachi |  瑪拉基書</option>
+              <option value="40">Matthew |  馬太福音</option>
+              <option value="41">Mark |  馬可福音</option>
+              <option value="42">Luke |  路加福音</option>
+              <option value="43">John |  約翰福音</option>
+              <option value="44">Acts |  使徒行傳</option>
+              <option value="45">Romans |  羅馬書</option>
+              <option value="46">1 Corinthians |  哥林多前書</option>
+              <option value="47">2 Corinthians |  哥林多後書</option>
+              <option value="48">Galatians |  加拉太書</option>
+              <option value="49">Ephesians |  以弗所書</option>
+              <option value="50">Philippians |  腓立比書 </option>
+              <option value="51">Colossians |  歌羅西書</option>
+              <option value="52">1 Thessalonians |  帖撒羅尼迦前書</option>
+              <option value="53">2 Thessalonians |  帖撒羅尼迦後書</option>
+              <option value="54">1 Timothy |  提摩太前書</option>
+              <option value="55">2 Timothy |  提摩太後書</option>
+              <option value="56">Titus |  提多書</option>
+              <option value="57">Philemon |  腓利門書 </option>
+              <option value="58">Hebrews |  希伯來書</option>
+              <option value="59">James |  雅各書</option>
+              <option value="60">1 Peter  | 彼得前書</option>
+              <option value="61">2 Peter |  彼得後書</option>
+              <option value="62">1 John |  約翰一書</option>
+              <option value="63">2 John |  約翰二書</option>
+              <option value="64">3 John |  約翰三書</option>
+              <option value="65">Jude |  猶大書</option>
+              <option value="66">Revelation |  啟示錄</option>
+            </select>
+            <div class="five wide field">
+              <div class="ui left labeled input">
+                <a class="ui right pointing label">
+                  Passage
+                </a>
+                <input type="text" id="bible_reading">
+              </div>
+            </div>
+            <div class="field">
+              <label>Cleaning Group:</label>
+              <select class="ui search dropdown" id="cleaning_group">
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Dish Washing:</label>
+            <input type="text" id="dish_washing">
+          </div>
+          <button class="ui fluid button" type="button" id="ann_update" data-tooltip="Update the bottom header of the announcements">Update</button>
+          <div class="ui error message">
+            <div class="header">Error</div>
+            <p>Inputs are invalid</p>
+          </div>
+          <font face="courier new">Sporeas v1.1.0</font>
+        </form>
+      </div>
     </div>
   </div>
-
   <section id="welcome-overlay">
     <h1>What would you like to do?</h1>
     <p>Quick Links:</p>
@@ -363,15 +370,6 @@
     <br/>
     <button class="ui secondary button" id="stop-showing-welcome-overlay">(Stop Showing Me This Page) (停止向我顯示此頁面)</button>
   </section>
-
-  <div class="ui left vertical menu sidebar invertable" style="display: flex; width: 140px;" id="sidebar">
-    <a class="item highlight-service">Service <br/>聚會</a>
-    <a class="item highlight-hymn-singing">Hymn Singing <br/>唱詩</a>
-    <a class="item highlight-morning-prayer">Morning Prayer <br/>早禱會</a>
-    <a class="item highlight-holy-communion">Holy Communion <br/>聖餐禮</a>
-    <a class="item highlight-foot-washing">Foot Washing <br/>洗腳禮</a>
-    <a class="item highlight-announcements">Announcements <br/>報告</a>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='welcome-overlay/welcome-overlay.js') }}"></script>
