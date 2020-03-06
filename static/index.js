@@ -92,14 +92,11 @@ function spaceBar(e){
   let user = window.location.pathname;
   user = user.substr(1);
   const msg = JSON.parse(localStorage.getItem(user));
-  //console.log(msg);
   const eng_verses = msg.overlay;
   const ch_verses = msg.ch_overlay;
-  //console.log(eng_verses);
-  console.log(msg.state);
-  if (msg.state == "true" && msg.state != null){
+  if (msg.state == "true" && msg.state != null && msg.overlay.length != 0){
     if ($('#modal').hasClass("visible") && e.which === 32) {
-      console.log("SPACEBAR when shown");
+      //console.log("SPACEBAR when shown");
       for (i = 0; i < eng_verses.length; i++) {
         if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
           $('#overlay').html(eng_verses[i+1]);
@@ -111,9 +108,8 @@ function spaceBar(e){
           return;
         }
       }
-      // console.log("SPACEBAR Pressed");
     } else if (e.which === 32 && $('#verse').text().length > 6 && $('#grid').is(':visible') ){
-      console.log('SPACEBAR when not shown');
+      //console.log('SPACEBAR when not shown');
       $('#modal').modal('show');
       $('#overlay').html(eng_verses[0]);
       console.log($('#overlay').html());
@@ -311,6 +307,13 @@ $(document).ready(function() {
     $('#verse').html(msg.verse);
     msgActive.book = '';
     msgActive.verse = '';
+    localStorage.setItem(user, JSON.stringify(msgActive));
+  });
+
+  socket.on('no passage', function() {
+    const msgActive = JSON.parse(localStorage.getItem(user));
+    msgActive.overlay = [];
+    msgActive.ch_overlay = [];
     localStorage.setItem(user, JSON.stringify(msgActive));
   });
 
