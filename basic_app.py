@@ -502,7 +502,7 @@ def add(message):
     active = message['user']
     department = message['department']
     image = message['department'].split('|')[0].strip()
-    emit('update announcements', {
+    emit('add announcements', {
             "english_text": message['english'],
             "chinese_text": message['chinese'],
             "department": department,

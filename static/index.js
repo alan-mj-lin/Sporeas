@@ -353,7 +353,7 @@ $(document).ready(function() {
   }
 
 
-  socket.on('update announcements', function(msg){
+  socket.on('add announcements', function(msg){
     while ($('#' + element_count.toString()).length) {
       element_count++;
     }
