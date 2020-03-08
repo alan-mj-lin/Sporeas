@@ -46,7 +46,15 @@
         }
         .item .description-wrapper {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 50% 50%;
+        }
+        .item .description-wrapper-single {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .item .description-wrapper .description {
+          overflow-wrap: break-word;
+          max-width: 100%;
         }
         footer {
           position: fixed;
