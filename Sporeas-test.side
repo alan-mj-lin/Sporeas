@@ -1547,7 +1547,7 @@
         ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
         ["xpath=//div[2]/textarea", "xpath:position"]
       ],
-      "value": "領會人員講習會 3/15\\n教會出遊團契 5/16-18\\nMill Stream Retreat Center\\n聖工志工訓練營(7/12 – 7/17)\\n\\n\\n青年神訓班，開拓區宣道志工訓練 (7/20-8/2), Irvine\\n教會，6/28前 報名"
+      "value": "領會人員講習會 3/15\\n教會出遊團契 5/16-18\\nMill Stream Retreat Center\\n聖工志工訓練營(7/12 – 7/17)\\n青年神訓班，開拓區宣道志工訓練 (7/20-8/2), Irvine\\n教會，6/28前 報名"
     }, {
       "id": "d48cadf8-deb7-4e6f-a27a-a9ac954f390d",
       "comment": "",
@@ -1770,7 +1770,7 @@
         ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
         ["xpath=//textarea", "xpath:position"]
       ],
-      "value": "\\n"
+      "value": ""
     }, {
       "id": "d0814ed8-9a53-4628-9440-13c75f4ffb3c",
       "comment": "",

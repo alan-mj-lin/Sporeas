@@ -78,7 +78,9 @@ function announcementsScale() {
   const viewHeight = window.innerHeight;
   const announcementsWidth = $('#announcements').css('width').replace('px','');
   const viewWidth = window.innerWidth;
-  let scale = Math.min((viewHeight - headerHeight - footerHeight)/announcementsHeight, viewWidth/announcementsWidth);
+  const heightScale = (viewHeight - headerHeight - footerHeight)/announcementsHeight;
+  const widthScale = viewWidth/announcementsWidth;
+  let scale = Math.min(1, heightScale, widthScale);
   $('#items-wrapper').css({
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
@@ -319,24 +321,39 @@ $(document).ready(function() {
 
   function addBlock(obj) {
     // console.log(obj.text);
-    $('#' + element_count.toString()).append('\
-      <div class="aligned centered content">\
-        <div class="description-wrapper">\
-          <div class="description">\
-            <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+    if (obj.english_text && obj.chinese_text) {
+      $('#' + element_count.toString()).append('\
+        <div class="aligned centered content">\
+          <div class="description-wrapper">\
+            <div class="description">\
+              <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+            </div>\
+            <div class="description" style="border-left: 3px solid lightgrey; padding-left: 10px;">\
+              <p style="font-size: 30px;">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
+            </div>\
           </div>\
-          <div class="description">\
-            <p style="font-size: 30px;"><span style="color: lightgrey;">|</span> '+ obj.chinese_text.replace(/\n/g, '<br/><span style="color: lightgrey;">|</span> ') +'</p>\
+          <div class="extra" style="clear: left;">'
+            +dateString+
+          '</div>\
+        </div>');
+    } else if (obj.english_text || obj.chinese_text) {
+      const text = obj.english_text || obj.chinese_text;
+      $('#' + element_count.toString()).append('\
+        <div class="aligned centered content">\
+          <div class="description-wrapper-single">\
+            <div class="description">\
+              <p style="font-size: 30px;">'+ text.replace(/\n/g, '<br/>') +'</p>\
+            </div>\
           </div>\
-        </div>\
-        <div class="extra" style="clear: left;">'
-          +dateString+
-        '</div>\
-      </div>');
+          <div class="extra" style="clear: left;">'
+            +dateString+
+          '</div>\
+        </div>');
+    }
   }
 
 
-  socket.on('update announcements', function(msg){
+  socket.on('add announcements', function(msg){
     while ($('#' + element_count.toString()).length) {
       element_count++;
     }

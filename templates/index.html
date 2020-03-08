@@ -36,6 +36,7 @@
         }
         #items-wrapper .item {
           display: flex;
+          width: inherit; /* so width of single item fits screen */
         }
         #items-wrapper .item:first-child {
           border-top: 1px solid rgba(34,36,38,.15);
@@ -46,7 +47,15 @@
         }
         .item .description-wrapper {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 50% 50%;
+        }
+        .item .description-wrapper-single {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .item .description {
+          overflow-wrap: break-word;
+          max-width: 100%;
         }
         footer {
           position: fixed;
