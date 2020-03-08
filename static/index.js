@@ -78,7 +78,9 @@ function announcementsScale() {
   const viewHeight = window.innerHeight;
   const announcementsWidth = $('#announcements').css('width').replace('px','');
   const viewWidth = window.innerWidth;
-  let scale = Math.min((viewHeight - headerHeight - footerHeight)/announcementsHeight, viewWidth/announcementsWidth);
+  const heightScale = (viewHeight - headerHeight - footerHeight)/announcementsHeight;
+  const widthScale = viewWidth/announcementsWidth;
+  let scale = Math.min(1, heightScale, widthScale);
   $('#items-wrapper').css({
     'transform-origin': '50% 0%',
     'transform': 'scale(' + scale + ')',
