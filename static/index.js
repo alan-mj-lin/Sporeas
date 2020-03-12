@@ -357,10 +357,10 @@ $(document).ready(function() {
         <div class="aligned centered content">\
           <div class="description-wrapper">\
             <div class="description">\
-              <p style="font-size: 30px;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+              <p style="font-size: 30px;" contenteditable="true">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
             <div class="description" style="border-left: 3px solid lightgrey; padding-left: 10px;">\
-              <p style="font-size: 30px;">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
+              <p style="font-size: 30px;" contenteditable="true">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
@@ -373,7 +373,7 @@ $(document).ready(function() {
         <div class="aligned centered content">\
           <div class="description-wrapper-single">\
             <div class="description">\
-              <p style="font-size: 30px;">'+ text.replace(/\n/g, '<br/>') +'</p>\
+              <p style="font-size: 30px;" contenteditable="true">'+ text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
