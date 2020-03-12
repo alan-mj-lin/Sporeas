@@ -2,7 +2,7 @@
 <!--Sporeas 1.1.0-->
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"></link>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
@@ -228,10 +228,18 @@
             <div class="field">
               <label>English</label>
               <textarea rows="4" id="engAnn"></textarea>
+              <button class="engAnnSuggestion ui secondary button" style="display: none;" type="button">
+                Use suggestion<span class="engAnnSuggestion-line"></span>: 
+                <span class="engAnnSuggestion" data-full-suggestion=""></span>
+              </button>
             </div>
             <div class="field">
               <label>Chinese</label>
               <textarea rows="4" id="chAnn"></textarea>
+              <button class="chAnnSuggestion ui secondary button" style="display: none;" type="button">
+                Use suggestion<span class="chAnnSuggestion-line"></span>: 
+                <span class="chAnnSuggestion" data-full-suggestion=""></span>
+              </button>
             </div>
           </div>
           <div class="three wide field">
@@ -373,5 +381,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='welcome-overlay/welcome-overlay.css') }}"></link>
   <script type="text/javascript" src="{{ url_for('static', filename='dark-mode/dark-mode.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='dark-mode/dark-mode.css') }}" disabled="true"></link>
-</body>
+  <script type="text/javascript" src="{{ url_for('static', filename='translation-helper/translation-helper.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='translation-helper/translation-helper.css') }}"></link>
 </html>
