@@ -8,12 +8,23 @@
     "eslint": "^6.7.2",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-html": "^6.0.0",
+    "husky": "^4.2.3",
     "selenium-side-runner": "^3.16.0"
   },
   "scripts": {
+    "reminder": "echo; echo 'Reminders: \nDid you run tests or linters first? \n\n \\033[1;34mnpm run lint:py\\033[0m\n \\033[1;34mnpm run lint:js\\033[0m\n \\033[1;34mnpm run lint\\033[0m\n \\033[1;34mnpm run test-visually\\033[0m\n \\033[1;34mnpm run test\\033[0m\n\nIf you want to prevent \"bad\" commits, remove the # from the husky pre-commit hook.'; echo;",
+    "prevent-commit-if-fail-tests": "if (npm run lint && npm test); then (echo 'All tests passed.'); else (exit 1); fi;",
     "stop": "pkill -f basic_app.py",
     "test": "python3.7 basic_app.py & selenium-side-runner -c \"goog:chromeOptions.args=[--headless,--nogpu] browserName=chrome\" Sporeas-test.side; (pkill -f basic_app.py) || true;",
-    "test-visually": "python3.7 basic_app.py & selenium-side-runner Sporeas-test.side; (pkill -f basic_app.py) || true;"
+    "test-visually": "python3.7 basic_app.py & selenium-side-runner Sporeas-test.side; (pkill -f basic_app.py) || true;",
+    "lint": "npm run lint:js; npm run lint:py;",
+    "lint:js": "bash jsCodeFeedback.sh",
+    "lint:py": "bash pyCodeFeedback.sh"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run reminder; # npm run prevent-commit-if-fail-tests;"
+    }
   },
   "repository": {
     "type": "git",

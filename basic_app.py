@@ -419,10 +419,8 @@ def test_message(message):
         verse = ''
 
     if verse != '':
-        extra_verse = ''
         for i in verse:
             if i == ',':
-                extra_verse = verse.split(',')[1]
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
         print(passage)
@@ -437,22 +435,20 @@ def test_message(message):
     print(message)
 
     if state == 'true' and book != '':
-        if comma:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
-        else:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
+        overlay = []
+        get_overlay = get_esv_text(passage, comma)
+        print(overlay)
+
         try:
             ch_overlay = get_chinese_text(passage).splitlines()
             print(len(overlay))
-            if len(overlay) == 1:
-                overlay = split_by_verse_esv(overlay[0])
+            for i in range(len(get_overlay)):
+                overlay.extend(split_by_verse_esv(get_overlay[i]))
         except:
             out_of_range = True
 
-    if overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
-        out_of_range = True
+        if get_overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
+            out_of_range = True
 
     # Debug Info
     print(project_list)
@@ -501,27 +497,14 @@ def show(message):
     emit('show announcements', namespace='/', room=active)
 
 
-def announcement_process(en_string, ch_string):
-    en_text = en_string.splitlines()
-    ch_text = ch_string.splitlines()
-    result = ''
-    for i in range(len(en_text)):
-        #if en_text[i] != en_text[-1]:
-        result = result + en_text[i] + ' | ' + ch_text[i] + '<br>'
-    return result
-
-
 @socketio.on('add announce', namespace='/')
 def add(message):
     active = message['user']
-    title = message['title']
-    text = announcement_process(message['english'], message['chinese'])
-    print(text)
     department = message['department']
     image = message['department'].split('|')[0].strip()
-    emit('update announcements', {
-            "title": title,
-            "text": text,
+    emit('add announcements', {
+            "english_text": message['english'],
+            "chinese_text": message['chinese'],
             "department": department,
             "image": image
          }, namespace='/', room=active)

@@ -10,22 +10,57 @@
         .ui.grid {
             min-height: 100%;
         }
-      	body {
-      	    overflow-y: hidden;
-      	}
         html, body {
             height: 100%;
         }
-        body{
+        body {
+          overflow-y: hidden;
           -webkit-transform: scale(1);
              -moz-transform: scale(1);
                   transform: scale(1);
+          padding: 5px 2.5vw;
         }
-        .ui.container{
-          height: 100%;
+        .ui.container {
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        #items {
+          width: 100vw;
+        }
+        #items-wrapper {
+          display: grid;
+          grid-template-rows: repeat(4, auto);
+          grid-auto-flow: column;
+          width: 95vw;
+        }
+        #items-wrapper .item {
+          display: flex;
+          width: inherit; /* so width of single item fits screen */
+        }
+        #items-wrapper .item:first-child {
+          border-top: 1px solid rgba(34,36,38,.15);
+          padding-top: 14px !important;
+        }
+        #items-wrapper .item .content {
+          padding: 0 30px;
+        }
+        .item .description-wrapper {
+          display: grid;
+          grid-template-columns: 50% 50%;
+        }
+        .item .description-wrapper-single {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .item .description {
+          overflow-wrap: break-word;
+          max-width: 100%;
+        }
+        footer {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
         }
         .table {
           display: table;
@@ -38,10 +73,10 @@
     <br id="break2">
     <div class="ui middle aligned center aligned grid" id="grid">
         <div class="equal height row">
-            <h1 class="ui centered header" style="font-size: 100px;" id="title">Title</h1><br>
+            <h1 class="ui centered header" style="font-size: 100px;" id="title"></h1><br>
         </div>
         <div class="equal height row">
-            <h1 class="ui centered header" style="font-size: 100px;" id="ch_title">Chinese Title</h1><br>
+            <h1 class="ui centered header" style="font-size: 100px;" id="ch_title"></h1><br>
         </div>
         <div class="equal height row">
             <h1 class="ui centered header" style="font-size: 100px;" id="hymn">讚美詩 Hymn:</h1>
@@ -49,7 +84,7 @@
         <div class="equal height row">
             <h1 class="ui centered header" name="verse" id="verse" style="text-align: center; font-size: 100px;"></h1>
         </div>
-        <div class="ui top aligned basic modal" id="modal">
+        <div class="ui top aligned basic large modal" id="modal">
             <h1 class="ui small inverted header" style="text-align: center; font-size:20px;" id="innerTitle"></h1>
             <h1 class="ui small inverted header" style="text-align: center; font-size:20px;" id="innerChTitle"></h1>
             <div class="vertical scrolling content" style="overflow-y:scroll;">
@@ -68,68 +103,24 @@
         </div>
     </div>
     
-	<div class="ui container" id="announcements" style="width: 85vw;">
-        <div class="ui middle aligned divided items" style="width: 100vw;" id="items">
-          <div class="ui huge centered header" style="font-size: 30px">Announcements | 報告</div>
-          <div class="item">
-            <div class="ui small circular image">
-              <img src="static/GA.png">
-            </div>
-            <div class="middle aligned content">
-              <div class="ui header">Announcements from GA</div>
-              <div class="description">
-                <p>This is the english text</p>
-                <p>This is the chinese text</p>
+	  <div class="ui" id="announcements">
+        <div class="ui middle aligned divided items" id="items">
+          <div class="ui huge centered header" style="font-size: 40px">Announcements | 報告</div>
+          <div id="items-wrapper" class="ui divided items">
+          </div>
+          <footer>
+            <div class="table" id="#table">
+              <div class="ui horizontal centered divided list">
+                <a class="item">
+                  <div class="ui header" id="bible_reading" style="font-size: 40px">Bible Reading: Zech 1-7 </div>
+                </a>
+                <a class="item">
+                  <div class="ui header" id="cleaning_group" style="font-size: 40px">Cleaning Group: A</div>
+                </a>
               </div>
             </div>
-          </div>
-          <div class="item">
-            <div class="ui small circular image">
-              <img src="static/RA.png">
-            </div>
-            <div class="middle aligned content">
-              <div class="ui header">Announcements from RA</div>
-              <div class="description">
-                <p>This is the english text</p>
-                <p>This is the chinese text</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small circular image">
-              <img src="static/FA.png">
-            </div>
-            <div class="middle aligned content">
-              <div class="ui header">Announcements from FA</div>
-              <div class="description">
-                <p>This is the english text</p>
-                <p>This is the chinese text</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="ui small circular image">
-              <img src="static/RE.png">
-            </div>
-            <div class="middle aligned content">
-              <div class="ui header">Announcements from RE</div>
-              <div class="description">
-                <p>This is the english text</p>
-                <p>This is the chinese text</p>
-              </div>
-            </div>
-          </div>
-          <div class="table" id="#table">
-            <div class="ui horizontal centered divided list">
-              <a class="item">
-                <div class="ui header" id="bible_reading" style="font-size: 30px">Bible Reading: Zech 1-7 </div>
-              </a>
-              <a class="item">
-                <div class="ui header" id="cleaning_group" style="font-size: 30px">Cleaning Group: A</div>
-              </a>
-            </div>
-          </div>
-          <div class="ui centered header" id="dish_washing" style="margin: 0; font-size: 30px;">Dish Washing: Alan L, Alan L, Alan L, Alan L, Alan L </div>
+            <div class="ui centered header" id="dish_washing" style="margin: 0; font-size: 40px;">Dish Washing: Alan L, Alan L, Alan L, Alan L, Alan L </div>
+          </footer>
         </div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>

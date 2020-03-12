@@ -310,10 +310,6 @@ $(document).ready(function() {
       $('#announcements').addClass('ui form error');
       // console.log('invalid');
       return false;
-    } else if ($('#engAnn').val().split('\n').length !== $('#chAnn').val().split('\n').length || ($('#engAnn').val() === '' ^ $('#chAnn').val() === '')) {
-      $('#announcements').addClass('ui form error');
-      alert('The number of lines in English/Chinese do not match.');
-      // console.log('invalid');
     } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
       $('#announcements').addClass('ui form error');
       // console.log('invalid');
@@ -323,9 +319,8 @@ $(document).ready(function() {
       const active = sessionStorage.getItem('user');
       socket.emit('add announce', {
         user: active,
-        title: $('#announcement_title').val(),
-        english: $('#engAnn').val(),
-        chinese: $('#chAnn').val(),
+        english: $('#engAnn').val().replace(/ /g, '&nbsp;'), // &nbsp; to preserve spacing in HTML
+        chinese: $('#chAnn').val().replace(/ /g, '&nbsp;'),
         department: $('#dd_dep option:selected').text(),
       });
     }
@@ -378,21 +373,3 @@ $(document).ready(function() {
     })
   });
 });
-
-function lintAnnouncement(inputText) {
-  let foundSomethingToFix = false;
-  const bulletPointRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
-  // remove preceding spaces, "- ", "* ", "1. ", "1) "
-  // but accept things like "1.2 million" or "-1 Celsius" at start of sentence
-  let lintedText = inputText.split('\n');
-  for (let i = 0; i < lintedText.length; i++) {
-    if (!foundSomethingToFix && bulletPointRegex.test(lintedText[i])) {
-      foundSomethingToFix = true;
-    }
-    lintedText[i] = lintedText[i].replace(bulletPointRegex, '');
-  }
-  if (foundSomethingToFix) {
-    alert('Do not type in bullet points.\nJust use new lines (hit enter key) for each point.');
-  }
-  return lintedText.join('\n');
-}
