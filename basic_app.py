@@ -14,6 +14,7 @@ import eventlet
 import requests
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
+from collections import defaultdict
 
 eventlet.monkey_patch()
 
@@ -233,7 +234,7 @@ def get_user(message):
     """
     global username
     global user_list
-    global rooms  
+    global rooms
     global roomState
 
     duplicate = False
@@ -244,11 +245,13 @@ def get_user(message):
             duplicate = True
 
     if username != '':
-        join_room(username)
-        rooms[username] = []
-        rooms[username].append(request.sid)
-        roomState[username] = True
+        if not duplicate:
+            join_room(username)
+            rooms[username] = []
+            rooms[username].append(request.sid)
+            roomState[username] = True
         emit('auth event', {'auth': str(duplicate)})
+    print(rooms)
 
 
 @socketio.on('disconnect')
@@ -430,10 +433,8 @@ def test_message(message):
         verse = ''
 
     if verse != '':
-        extra_verse = ''
         for i in verse:
             if i == ',':
-                extra_verse = verse.split(',')[1]
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
         print(passage)
@@ -448,22 +449,20 @@ def test_message(message):
     print(message)
 
     if state == 'true' and book != '':
-        if comma:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
-        else:
-            overlay = get_esv_text(passage, comma)
-            print(overlay)
+        overlay = []
+        get_overlay = get_esv_text(passage, comma)
+        print(overlay)
+
         try:
             ch_overlay = get_chinese_text(passage).splitlines()
             print(len(overlay))
-            if len(overlay) == 1:
-                overlay = split_by_verse_esv(overlay[0])
+            for i in range(len(get_overlay)):
+                overlay.extend(split_by_verse_esv(get_overlay[i]))
         except:
             out_of_range = True
 
-    if overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
-        out_of_range = True
+        if get_overlay == 'ERROR: Passage not found' or ch_overlay == 'ERROR: Passage not found':
+            out_of_range = True
 
     # Debug Info
     print(project_list)
@@ -492,35 +491,51 @@ def test_message(message):
     out_of_range = False
 
 
-@socketio.on('announce', namespace='/')
-def announce(message):
+@socketio.on('clear announce', namespace='/')
+def clear(message):
     print(message)
     active = message['user']
-    eGA = message['GA'].splitlines()
-    eFA = message['FA'].splitlines()
-    eRA = message['RA'].splitlines()
-    eRE = message['RE'].splitlines()
-    cGA = message['ch_GA'].splitlines()
-    cFA = message['ch_FA'].splitlines()
-    cRA = message['ch_RA'].splitlines()
-    cRE = message['ch_RE'].splitlines()
-    print(eGA)
-    emit('update announcements', {
-         "GA": eGA,
-         "FA": eFA,
-         "RA": eRA,
-         "RE": eRE,
-         "ch_GA": cGA,
-         "ch_FA": cFA,
-         "ch_RA": cRA,
-         "ch_RE": cRE
-         }, namespace='/', room=active)
+    emit('clear announcements', namespace='/', room=active)
+
+
+@socketio.on('delete announce', namespace='/')
+def delete(message):
+    print(message)
+    active = message['user']
+    emit('delete announcements', namespace='/', room=active)
 
 
 @socketio.on('show announce', namespace='/')
 def show(message):
     active = message['user']
     emit('show announcements', namespace='/', room=active)
+
+
+@socketio.on('add announce', namespace='/')
+def add(message):
+    active = message['user']
+    department = message['department']
+    image = message['department'].split('|')[0].strip()
+    emit('add announcements', {
+            "english_text": message['english'],
+            "chinese_text": message['chinese'],
+            "department": department,
+            "image": image
+         }, namespace='/', room=active)
+
+
+@socketio.on('header update', namespace='/')
+def update(message):
+    active = message['user']
+    reading = message['bible_reading']
+    cleaning = message['cleaning']
+    dish_washing = message['dish_washing']
+    print(message)
+    emit('misc updates', {
+            "reading": reading,
+            "cleaning": cleaning,
+            "dish_washing": dish_washing
+         }, namespace='/', room=active)
 
 
 if __name__ == '__main__':

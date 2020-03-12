@@ -38,7 +38,7 @@ $('.highlight-camera').click(function() {
 });
 
 $('.highlight-announcements').click(function() {
-  highlightUIElement('announcements', 'GA');
+  highlightUIElement('announcements', 'engAnn', 'add_announce');
 });
 
 // hide welcome overlay in this session if user asks to:
@@ -55,6 +55,7 @@ if (active == null) {
     collapseSideBar();
   }, 0);
 }
+
 $('button#stop-showing-welcome-overlay').click(function() {
   hideOverlay();
   showWelcomeOverlay = false;

@@ -1,0 +1,27 @@
+/* aka batman mode */
+
+.pusher {
+  background-color: rgb(27, 28, 29) !important;
+  color: white;
+}
+
+.ui.top.attached.tabular.menu a.active {
+  background-color: #333;
+  margin-bottom: -1px;
+  z-index: 2;
+}
+
+.ui.bottom.attached.tab.segment {
+  background-color: #333;
+  border-color: #d4d4d5;
+  border-top: 1px solid #d4d4d5 !important;
+}
+
+.ui.basic.button {
+  background: #ccc !important;
+}
+
+section#welcome-overlay {
+  background: #333;
+  color: #eee;
+}
