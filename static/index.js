@@ -121,6 +121,75 @@ function spaceBar(e){
   }
 }
 
+function scrollHymn() {
+  let user = window.location.pathname;
+  user = user.substr(1);
+  const msg = JSON.parse(localStorage.getItem(user));
+  const scrollState = msg.hymn_scroll;
+  const hymnList = msg.hymn_list;
+  let temp = '';
+  let scrollStateVal = 0;
+  const check = hymnList.length -1;
+  // console.log(scrollState);
+  // console.log(typeof(scrollState));
+  // console.log(hymnList);
+  // console.log(hymnList.length);
+  // console.log(typeof(hymnList));
+  // console.log(parseInt(scrollState));
+  // console.log(scrollState.toString());
+  // console.log(check);
+  if (hymnList == null || scrollState == null) {
+    return;
+  }
+  $('#hymn').html('讚美詩 Hymn: ');
+  if (scrollState == 'null') {
+    // console.log('entered');
+    scrollStateVal = 0;
+    temp = '<u>' + hymnList[0] + '</u>';
+    // console.log(temp);
+    msg.hymn_scroll = '0';
+    localStorage.setItem(user, JSON.stringify(msg));
+    for (i=0; i < hymnList.length; i++) {
+      if (i == 0) {
+        $('#hymn').append(temp);
+      } else {
+        $('#hymn').append(', ' + hymnList[i]);
+      }
+    }
+    msg.hymn = $('#hymn').html();
+    localStorage.setItem(user, JSON.stringify(msg));
+    return;
+  } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
+    scrollStateVal = parseInt(scrollState);
+    scrollStateVal ++;
+    for (i=0; i < hymnList.length; i++) {
+      if (i == scrollStateVal) {
+        temp = '<u>' + hymnList[i] + '</u>';
+        // console.log(temp);
+        $('#hymn').append(', ' + temp);
+      } else if (i == 0 && i != scrollStateVal) {
+        $('#hymn').append(hymnList[0]);
+      } else {
+        $('#hymn').append(', ' + hymnList[i]);
+      }
+    }
+
+    // console.log(scrollStateVal.toString());
+    msg.hymn_scroll = scrollStateVal.toString();
+    msg.hymn = $('#hymn').html();
+    localStorage.setItem(user, JSON.stringify(msg));
+    return;
+  } else if (check == parseInt(scrollState) || check < parseInt(scrollState)) {
+    scrollStateVal = 0;
+    // console.log(temp);
+    msg.hymn_scroll = 'null';
+    $('#hymn').html('讚美詩 Hymn: ' + msg.hymn_list);
+    msg.hymn = $('#hymn').html();
+    localStorage.setItem(user, JSON.stringify(msg));
+    return;
+  }
+}
+
 $(document).ready(function() {
   // console.log(element_count);
   const screenWidth = document.body.offsetWidth;
@@ -213,6 +282,8 @@ $(document).ready(function() {
   });
 
   socket.on('refresh', function(msg) {
+    let prev_state = JSON.parse(localStorage.getItem(user))
+    let process = true;
     $('#title').html(msg.title);
     $('#ch_title').html(msg.ch_title);
     $('#hymn').html('讚美詩 Hymn: '+msg.hymn);
@@ -227,6 +298,28 @@ $(document).ready(function() {
       "-moz-transform": "scale(1)",
       "transform": "scale(1)"
     });
+    if (prev_state.hymn_list.length != msg.hymn_list.length){
+      process = false;
+    } else {
+      for (i=0; i < prev_state.length; i++){
+        prev_state.hymn_list[i] = prev_state.hymn_list[i].trim();
+        msg.hymn_list[i] = msg.hymn_list[i].trim()
+        if (prev_state.hymn_list[i] != msg.hymn_list[i]){
+          process = false;
+        }
+      }
+    }
+    if (process){
+      if (prev_state.hymn_scroll != null){
+        let scroll_num = parseInt(prev_state.hymn_scroll)
+        if (scroll_num > 0 ){
+          scroll_num -= 1;
+          msg.hymn_scroll = scroll_num.toString();
+        } else {
+          msg.hymn_scroll = "null";
+        }
+      }
+    }
     msg.scale = 1;
     // console.log(msg);
     localStorage.setItem(user, JSON.stringify(msg));
@@ -235,74 +328,12 @@ $(document).ready(function() {
     $('#grid').show();
     $('#break1').show();
     $('#break2').show();
-  });
-
-  socket.on('scroll', function() {
-    const msg = JSON.parse(localStorage.getItem(user));
-    const scrollState = msg.hymn_scroll;
-    const hymnList = msg.hymn_list;
-    let temp = '';
-    let scrollStateVal = 0;
-    const check = hymnList.length -1;
-    // console.log(scrollState);
-    // console.log(typeof(scrollState));
-    // console.log(hymnList);
-    // console.log(hymnList.length);
-    // console.log(typeof(hymnList));
-    // console.log(parseInt(scrollState));
-    // console.log(scrollState.toString());
-    // console.log(check);
-    if (hymnList == null || scrollState == null) {
-      return;
-    }
-    $('#hymn').html('讚美詩 Hymn: ');
-    if (scrollState == 'null') {
-      // console.log('entered');
-      scrollStateVal = 0;
-      temp = '<u>' + hymnList[0] + '</u>';
-      // console.log(temp);
-      msg.hymn_scroll = '0';
-      localStorage.setItem(user, JSON.stringify(msg));
-      for (i=0; i < hymnList.length; i++) {
-        if (i == 0) {
-          $('#hymn').append(temp);
-        } else {
-          $('#hymn').append(', ' + hymnList[i]);
-        }
-      }
-      msg.hymn = $('#hymn').html();
-      localStorage.setItem(user, JSON.stringify(msg));
-      return;
-    } else if (parseInt(scrollState) >= 0 && parseInt(scrollState) < check) {
-      scrollStateVal = parseInt(scrollState);
-      scrollStateVal ++;
-      for (i=0; i < hymnList.length; i++) {
-        if (i == scrollStateVal) {
-          temp = '<u>' + hymnList[i] + '</u>';
-          // console.log(temp);
-          $('#hymn').append(', ' + temp);
-        } else if (i == 0 && i != scrollStateVal) {
-          $('#hymn').append(hymnList[0]);
-        } else {
-          $('#hymn').append(', ' + hymnList[i]);
-        }
-      }
-
-      // console.log(scrollStateVal.toString());
-      msg.hymn_scroll = scrollStateVal.toString();
-      msg.hymn = $('#hymn').html();
-      localStorage.setItem(user, JSON.stringify(msg));
-      return;
-    } else if (check == parseInt(scrollState) || check < parseInt(scrollState)) {
-      scrollStateVal = 0;
-      // console.log(temp);
-      msg.hymn_scroll = 'null';
-      $('#hymn').html('讚美詩 Hymn: ' + msg.hymn_list);
-      msg.hymn = $('#hymn').html();
-      localStorage.setItem(user, JSON.stringify(msg));
-      return;
+    if (process){
+      scrollHymn();
     }
   });
+
+  socket.on('scroll', scrollHymn);
 
   socket.on('reset', function(msg) {
     const msgActive = JSON.parse(localStorage.getItem(user));
