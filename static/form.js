@@ -246,7 +246,11 @@ $(document).ready(function() {
       $('#update').addClass('ui form');
       let hymnStorage = msg.hymn;
       // console.log(typeof(hymnStorage));
-      hymnStorage = hymnStorage.split(':')[1].trim();
+      if (hymnStorage){
+        hymnStorage = hymnStorage.split(':')[1].trim();
+      } else {
+        hymnStorage = ''
+      }
       socket.emit('my broadcast event', {
         user: active,
         title: msg.title,

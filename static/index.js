@@ -298,19 +298,21 @@ $(document).ready(function() {
       "-moz-transform": "scale(1)",
       "transform": "scale(1)"
     });
-    if (prev_state.hymn_list.length != msg.hymn_list.length){
-      process = false;
-    } else {
-      for (i=0; i < prev_state.length; i++){
-        prev_state.hymn_list[i] = prev_state.hymn_list[i].trim();
-        msg.hymn_list[i] = msg.hymn_list[i].trim()
-        if (prev_state.hymn_list[i] != msg.hymn_list[i]){
-          process = false;
+    if (prev_state.hymn_list){
+      if (prev_state.hymn_list.length != msg.hymn_list.length){
+        process = false;
+      } else {
+        for (i=0; i < prev_state.length; i++){
+          prev_state.hymn_list[i] = prev_state.hymn_list[i].trim();
+          msg.hymn_list[i] = msg.hymn_list[i].trim()
+          if (prev_state.hymn_list[i] != msg.hymn_list[i]){
+            process = false;
+          }
         }
       }
     }
     if (process){
-      if (prev_state.hymn_scroll != null){
+      if (prev_state.hymn_scroll){
         let scroll_num = parseInt(prev_state.hymn_scroll)
         if (scroll_num > 0 ){
           scroll_num -= 1;
@@ -328,7 +330,7 @@ $(document).ready(function() {
     $('#grid').show();
     $('#break1').show();
     $('#break2').show();
-    if (process){
+    if (process && msg.hymn_scroll != "null"){
       scrollHymn();
     }
   });
