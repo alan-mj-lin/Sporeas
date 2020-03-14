@@ -332,7 +332,9 @@ $(document).ready(function() {
     $('#break2').show();
     if (process && msg.hymn_scroll != "null"){
       scrollHymn();
-    }
+    } else if (process && prev_state.hymn_scroll == "0"){
+	  scrollHymn();
+	}
   });
 
   socket.on('scroll', scrollHymn);
