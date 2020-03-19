@@ -17,6 +17,8 @@ $(document).ready(function(){
         localStorage.setItem(user+'_ann', $('#announcements').html());
         console.log(user);
         socket.emit('update announcement', {room: user});
+        $('.lock.icon:not(.open)').show();
+        $('.lock.open.icon').hide();
     });
 
     $('#edit').click(function(){
@@ -25,6 +27,10 @@ $(document).ready(function(){
             $('#announcements').html(get_announcement);
             $("p").attr('contenteditable','true');
         }
+        $('.lock.icon:not(.open)').toggle();
+        $('.lock.open.icon').toggle();
     });
 
+    $('.lock.icon:not(.open)').hide();
+    $('.lock.open.icon').show();
 });
