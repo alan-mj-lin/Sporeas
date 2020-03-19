@@ -21,7 +21,8 @@
   background: #ccc !important;
 }
 
-section#welcome-overlay {
+section#welcome-overlay,
+body {
   background: #333;
   color: #eee;
 }

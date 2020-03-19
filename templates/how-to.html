@@ -21,21 +21,30 @@
       padding: 0.1em;
       border-radius: 0.2em;
     }
+    #menu {
+      width: 90%;
+      margin: auto;
+      display: flex;
+    }
+    #menu a {
+      flex: 1;
+    }
   </style>
 </head>
 <body>
   <a id="top"></a>
 
-  <h1 class="ui huge header center aligned">How to Use this Web App</h1>
+  <h1 class="ui huge header center aligned invertable">How to Use this Web App</h1>
 
-  <div class="ui text container">
-    <div id="menu" class="ui menu">
-      <a href="#connect" class="item">Connect</a>
-      <a href="#morning-prayer" class="item">Morning Prayer</a>
-      <a href="#hymn-singing" class="item">Hymn Singing</a>
-      <a href="#service" class="item">Service</a>
-      <a href="#verse-display" class="item">Verse Display</a>
-      <a href="#announcements" class="item">Announcements</a>
+  <div class="invertable">
+    <div id="menu" class="invertable ui menu">
+      <a href="#connect" class="invertable item">Connect</a>
+      <a href="#morning-prayer" class="invertable item">Morning Prayer</a>
+      <a href="#hymn-singing" class="invertable item">Hymn Singing</a>
+      <a href="#service" class="invertable item">Service</a>
+      <a href="#verse-display" class="invertable item">Verse Display</a>
+      <a href="#announcements" class="invertable item">Announcements</a>
+      <a href="#dark-mode" class="invertable item">Dark Mode</a>
     </div>
   </div>
 
@@ -147,17 +156,42 @@
     <hr>
 
     <h2><a id="announcements" href="#">Announcements:</a></h2>
-    <img class="ui floated right medium bordered rounded image" src="static/instructions/announcements.png" alt="Verse Display On" title="Verse Display On">
-    <p>Off by default. "Verse Display" lets you show the actual words in the Bible verse(s) on the projection screen.</p>
+    <h3>Main Announcements</h3>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/announcements.png" alt="Image of Main Announcements Interface" title="Main Announcements Interface">
     <ol>
       <li>Go to the "Announcements" tab<img class="ui small rounded image" src="static/instructions/announcements-tab.png"></li>
       <li>Enter the English on the left side.</li>
       <li>Enter the Chinese on the right side.</li>
       <li>Select the Department.</li>
-      <li>Hit "Clear Announcement" to start from an empty list of announcements.</li>
-      <li>Hit "Add Announcement" to add what you entered into a list of announcements in memory (<em>NOTE: this may <strong>immediately</strong> display on the projection</em>).</li>
+      <li>Hit "Clear" to start from an empty list of announcements.</li>
+      <li>Hit "Add" to move what you entered into a list of announcements in memory (<em><strong>NOTE:</strong> this will <strong>immediately</strong> display announcements on the projection</em>).</li>
+      <li>If you make a mistake, you can hit "Delete". (Or: you can go to the projection and directly edit the text. Just click and type.)</li>
       <li>Go to the projection page to see it update live (example: <em>http://127.0.0.1:9000/toronto</em>). Otherwise go back to the "Main" tab and hit the <img src="static/instructions/new-window.png" alt="New Window" title="New Window" style="width:90px;" align="top"> button.</li>
+      <li>Make sure to also update the Bible Reading and Cleaning Groups section (see below).</li>
     </ol>
+    <h3>Bible Reading and Cleaning Groups</h3>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/announcements-2.png" alt="Image of Announcements Interface for Bible Reading and Cleaning Groups" title="Bible Reading and Cleaning Groups">
+    <ol>
+      <li>Next to "Verse:", enter a <strong>book</strong> (e.g.: Genesis).</li>
+      <li>Next to "Passage", enter the <strong>chapter/verse</strong> (e.g.: 1:1).</li>
+      <li>Next to "Cleaning Group:", enter the <strong>group letter</strong> (e.g.: A, B, C, D).</li>
+      <li>Next to "Dish Washing:", enter the <strong>names</strong> of people scheduled to wash dishes.</li>
+    </ol>
+    <br/>
+
+    <h4 class="ui header center aligned">
+      <a href="#top" class="item">Go to Top of Page</a>
+    </h4>
+    <hr>
+
+    <h2><a id="dark-mode" href="#">Dark mode:</a></h2>
+    <img class="ui floated right medium bordered rounded image" src="static/instructions/dark-mode.png" alt="Dark Mode" title="Dark Mode">
+    <p>Off by default. "Dark Mode" lets you save on electricity and eyestrain by making the admin interface darker.</p>
+    <ol>
+      <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
+      <li>To enable or disable Dark Mode, click on the <strong>Toggle Dark Mode</strong> button.</li>
+    </ol>
+    <p>The app will automatically remember your selection (unless you clear cache). <strong>Note:</strong> dark mode does <strong><em>NOT</em></strong> affect the projection.</p>
     <br/>
 
     <h4 class="ui header center aligned">
@@ -173,5 +207,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='smooth-scroll.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='dark-mode/dark-mode.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='dark-mode/dark-mode.css') }}" disabled="true"></link>
 </body>
 </html>
