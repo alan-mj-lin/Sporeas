@@ -360,11 +360,11 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('\
         <div class="aligned centered content">\
           <div class="description-wrapper">\
-            <div class="description">\
-              <p style="font-size: 30px;" contenteditable="true">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
-            <div class="description" style="border-left: 3px solid lightgrey; padding-left: 10px;">\
-              <p style="font-size: 30px;" contenteditable="true">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px; border-left: 3px solid lightgrey; padding-left: 10px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
@@ -376,8 +376,8 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('\
         <div class="aligned centered content">\
           <div class="description-wrapper-single">\
-            <div class="description">\
-              <p style="font-size: 30px;" contenteditable="true">'+ text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
@@ -444,6 +444,12 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+    announcementsScale();
+  });
+
+  socket.on('update ann', function(){
+    let announcements = localStorage.getItem(user+ '_ann');
+    $('#announcements').html(announcements);
     announcementsScale();
   });
 });

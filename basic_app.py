@@ -193,6 +193,13 @@ def how_to():
     return render_template("how-to.html")
 
 
+@app.route('/<user>_announcement', methods=['GET', 'POST'])
+def serve_announcement(user):
+    """
+    Flask route for announcement edits
+    """
+    return render_template("announcement.html")
+
 @socketio.on('connect')
 def connect_test():
     """
@@ -508,6 +515,13 @@ def add(message):
             "department": department,
             "image": image
          }, namespace='/', room=active)
+
+
+@socketio.on('update announcement', namespace='/')
+def edit(message):
+    active = message['room']
+    print(active)
+    emit('update ann', namespace='/', room=active)
 
 
 @socketio.on('header update', namespace='/')

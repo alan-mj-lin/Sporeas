@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--Sporeas 1.1.0-->
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='announcement.js') }}"></script>
+    <style type="text/css">
+        .ui.grid {
+            min-height: 100%;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+          overflow-y: hidden;
+          -webkit-transform: scale(1);
+             -moz-transform: scale(1);
+                  transform: scale(1);
+          padding: 5px 2.5vw;
+        }
+        .ui.container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #items {
+          width: 100vw;
+        }
+        #items-wrapper {
+          display: grid;
+          grid-template-rows: repeat(4, auto);
+          grid-auto-flow: column;
+          width: 95vw;
+        }
+        #items-wrapper .item {
+          display: flex;
+          width: inherit; /* so width of single item fits screen */
+        }
+        #items-wrapper .item:first-child {
+          border-top: 1px solid rgba(34,36,38,.15);
+          padding-top: 14px !important;
+        }
+        #items-wrapper .item .content {
+          padding: 0 30px;
+        }
+        .item .description-wrapper {
+          display: grid;
+          grid-template-columns: 50% 50%;
+        }
+        .item .description-wrapper-single {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+        .item .description {
+          overflow-wrap: break-word;
+          max-width: 100%;
+        }
+        footer {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+        }
+        .table {
+          display: table;
+          margin: 0 auto;
+        }
+    </style>
+</head>
+<body id="main">
+    <div class="ui button" id="update">Update</div>
+    <div class="ui button" id="edit">Edit</div>
+	  <div class="ui" id="announcements">
+        <div class="ui middle aligned divided items" id="items">
+          <div class="ui huge centered header" style="font-size: 40px">Announcements | 報告</div>
+          <div id="items-wrapper" class="ui divided items">
+          </div>
+          <footer>
+            <div class="table" id="#table">
+              <div class="ui horizontal centered divided list">
+                <a class="item">
+                  <div class="ui header" id="bible_reading" style="font-size: 40px">Bible Reading: Zech 1-7 </div>
+                </a>
+                <a class="item">
+                  <div class="ui header" id="cleaning_group" style="font-size: 40px">Cleaning Group: A</div>
+                </a>
+              </div>
+            </div>
+            <div class="ui centered header" id="dish_washing" style="margin: 0; font-size: 40px;">Dish Washing: Alan L, Alan L, Alan L, Alan L, Alan L </div>
+          </footer>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>

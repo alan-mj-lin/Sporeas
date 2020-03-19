@@ -358,4 +358,9 @@ $(document).ready(function() {
     const active = sessionStorage.getItem('user');
     socket.emit('show announce', {user: active});
   });
+
+  $('#edit_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user') + '_announcement', '_blank');
+  });
 });
