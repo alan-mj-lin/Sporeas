@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#announcements').html(announcement);
         $("p").attr('contenteditable','true');
     }
+    $('.ui.dimmer').dimmer({opacity: 0.3}).dimmer('show');
     $('.sidebar').sidebar('setting', 'transition', 'overlay');
     /*
     $('.lock.icon:not(.open)').hide();
@@ -47,4 +48,14 @@ $(document).ready(function() {
         $('.lock.open.icon').show();
         */
     });
+
+    $('.message .close')
+    .on('click', function() {
+        $(this)
+        .closest('.message')
+        .transition('fade')
+        ;
+        $('.ui.dimmer').dimmer({opacity: 0}).dimmer('hide');
+    })
+    ;
 });
