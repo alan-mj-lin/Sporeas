@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 //Sporeas 1.1.0
-
+ 
 var date = new Date();
 let month = parseInt(date.getMonth());
 month = month + 1;
@@ -10,6 +10,35 @@ function isOverflown(element) {
   // console.log(element.scrollHeight);
   // console.log($(window.top).height());
   return element.scrollHeight > $(window.top).height();
+}
+
+function passageScale() {
+  document.getElementById('overlay').style.fontSize = '50px';
+  document.getElementById('ch_overlay').style.fontSize = '55px';
+  let enFontSize = document.getElementById('overlay').style.fontSize;
+  let enFontSizeInt=stringProcessToInt(enFontSize);
+  let chFontSize = document.getElementById('ch_overlay').style.fontSize;
+  let chFontSizeInt = stringProcessToInt(chFontSize);
+  console.log($('#overlay').height());
+  console.log($('.vertical.scrolling.content').height());
+  /*
+  while ($('#overlay').height() < $('.vertical.scrolling.content').height()) {
+    enFontSizeInt++;
+    chFontSizeInt++;
+    enFontSize = enFontSizeInt.toString() + 'px';
+    chFontSize = chFontSizeInt.toString() + 'px';
+    document.getElementById('overlay').style.fontSize = enFontSize;
+    document.getElementById('ch_overlay').style.fontSize = chFontSize;
+    break;
+  }*/
+  while ($('#overlay').height() > $('.vertical.scrolling.content').height()+6) {
+    enFontSizeInt--;
+    chFontSizeInt--;
+    enFontSize = enFontSizeInt.toString() + 'px';
+    chFontSize = chFontSizeInt.toString() + 'px';
+    document.getElementById('overlay').style.fontSize = enFontSize;
+    document.getElementById('ch_overlay').style.fontSize = chFontSize;
+  }
 }
 
 function transformedIsOverflown(element) {
@@ -102,8 +131,9 @@ function spaceBar(e){
       for (i = 0; i < eng_verses.length; i++) {
         if ($('#overlay').html() == eng_verses[i] && i+1 < eng_verses.length){
           $('#overlay').html(eng_verses[i+1]);
-          console.log($('#overlay').html());
+          //console.log($('#overlay').html());
           $('#ch_overlay').html(ch_verses[i+1]);
+          passageScale();
           return;
         } else if ($('#overlay').html() == eng_verses[i] && i+1 == eng_verses.length){
           $('#modal').modal('hide');
@@ -114,8 +144,9 @@ function spaceBar(e){
       //console.log('SPACEBAR when not shown');
       $('#modal').modal('show');
       $('#overlay').html(eng_verses[0]);
-      console.log($('#overlay').html());
+      //console.log($('#overlay').html());
       $('#ch_overlay').html(ch_verses[0]);
+      passageScale();
       return;
     }
   }
@@ -360,11 +391,11 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('\
         <div class="aligned centered content">\
           <div class="description-wrapper">\
-            <div class="description">\
-              <p style="font-size: 30px;" contenteditable="true">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ obj.english_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
-            <div class="description" style="border-left: 3px solid lightgrey; padding-left: 10px;">\
-              <p style="font-size: 30px;" contenteditable="true">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px; border-left: 3px solid lightgrey; padding-left: 10px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ obj.chinese_text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
@@ -376,8 +407,8 @@ $(document).ready(function() {
       $('#' + element_count.toString()).append('\
         <div class="aligned centered content">\
           <div class="description-wrapper-single">\
-            <div class="description">\
-              <p style="font-size: 30px;" contenteditable="true">'+ text.replace(/\n/g, '<br/>') +'</p>\
+            <div class="description" style="font-size: 30px;">\
+              <p contenteditable="false" style="display: inline-block;">'+ text.replace(/\n/g, '<br/>') +'</p>\
             </div>\
           </div>\
           <div class="extra" style="clear: left;">'
@@ -444,6 +475,12 @@ $(document).ready(function() {
     $('#break1').hide();
     $('#break2').hide();
     $('#announcements').show();
+    announcementsScale();
+  });
+
+  socket.on('update ann', function(){
+    let announcements = localStorage.getItem(user+ '_ann');
+    $('#announcements').html(announcements);
     announcementsScale();
   });
 });
