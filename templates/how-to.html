@@ -70,7 +70,7 @@
     </h4>
     <hr>
 
-    <h2><a id="morning-prayer" href="#">During Morning Prayer:</a></h2>
+    <h2><a id="morning-prayer" href="#">During Morning Prayer:</a> <button class="ui blue button">Show Me</button></h2>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/morning-prayer-button.png">
     <ol>
       <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
@@ -93,7 +93,7 @@
     </h4>
     <hr>
 
-    <h2><a id="hymn-singing" href="#">During Hymn Singing:</a></h2>
+    <h2><a id="hymn-singing" href="#">During Hymn Singing:</a> <button class="ui blue button">Show Me</button></h2>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/hymn-singing-button.png">
     <ol>
       <li>Go to the "Utility" tab<img class="ui small rounded image" src="static/instructions/utility-tab.png"></li>
@@ -116,7 +116,7 @@
     </h4>
     <hr>
 
-    <h2><a id="service" href="#">During Service:</a></h2>
+    <h2><a id="service" href="#">During Service:</a> <button class="ui blue button">Show Me</button></h2>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/service-main.png">
     <ol>
       <li>Go to the "Main" tab<img class="ui small rounded image" src="static/instructions/main-tab.png"></li>
@@ -128,7 +128,7 @@
     </ol>
     <p>During service, you can enter a <strong>verse</strong>:</p>
     <ol>
-      <li>Next to "Verse:", enter a <strong>book</strong> (e.g.: Genesis).</li>
+      <li>Next to "Bible Reading:", enter a <strong>book</strong> (e.g.: Genesis).</li>
       <li>Next to "Passage", enter the <strong>chapter/verse</strong> (e.g.: 1:1).</li>
       <li>Hit the <img src="static/instructions/update.png" alt="Update" title="Update" style="width:65px;" align="top"> button to update the display.</li>
     </ol>
@@ -138,7 +138,7 @@
     </h4>
     <hr>
 
-    <h2><a id="verse-display" href="#">Verse Display:</a></h2>
+    <h2><a id="verse-display" href="#">Verse Display:</a> <button class="ui blue button">Show Me</button></h2>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/verse-display-on.png" alt="Verse Display On" title="Verse Display On">
     <p>Off by default. "Verse Display" lets you show the actual words in the Bible verse(s) on the projection screen.</p>
     <ol>
@@ -155,7 +155,7 @@
     </h4>
     <hr>
 
-    <h2><a id="announcements" href="#">Announcements:</a></h2>
+    <h2><a id="announcements" href="#">Announcements:</a> <button class="ui blue button">Show Me</button></h2>
     <h3>Main Announcements</h3>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/announcements.png" alt="Image of Main Announcements Interface" title="Main Announcements Interface">
     <ol>
@@ -185,7 +185,7 @@
     </h4>
     <hr>
 
-    <h2><a id="dark-mode" href="#">Dark mode:</a></h2>
+    <h2><a id="dark-mode" href="#">Dark mode:</a> <button class="ui blue button">Show Me</button></h2>
     <img class="ui floated right medium bordered rounded image" src="static/instructions/dark-mode.png" alt="Dark Mode" title="Dark Mode">
     <p>Off by default. "Dark Mode" lets you save on electricity and eyestrain by making the admin interface darker.</p>
     <ol>
@@ -210,5 +210,6 @@
   <script type="text/javascript" src="{{ url_for('static', filename='smooth-scroll.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='dark-mode/dark-mode.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='dark-mode/dark-mode.css') }}" disabled="true"></link>
+  <script type="text/javascript" src="{{ url_for('static', filename='instructions/how-to.js') }}"></script>
 </body>
 </html>
