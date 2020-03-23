@@ -68,7 +68,7 @@
         }
     </style>
 </head>
-<body>
+<body id="body">
   
   <div class="ui inverted labeled icon left inline vertical sidebar menu">
     <a class="item" id="edit">
@@ -78,6 +78,10 @@
     <a class="item" id="update">
       <i class="upload icon"></i>
       Update
+    </a>
+    <a class="item" id="help">
+      <i class="help icon"></i>
+      Help
     </a>
   </div>
   <!--<div class="ui button" id="update">Update</div>
@@ -111,7 +115,7 @@
   </div>
   <div class="ui fixed top sticky" style="width: 100%; padding-left: 20px; padding-right: 20px">
     <br>
-    <div class="ui warning message">
+    <div class="ui warning hidden message">
       <i class="close icon"></i>
       <div class="ui centered header">
         How to use: 
