@@ -1,0 +1,19 @@
+.shepherd-modal-overlay-container {
+  content: '';
+  display: block;
+  background-color: black;
+  opacity: 0.4;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+div.pusher .shepherd-target {
+  z-index: 5 !important;
+  position: relative !important;
+  background: yellow !important;
+  color: black !important;
+}
