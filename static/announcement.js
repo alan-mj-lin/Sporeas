@@ -11,8 +11,8 @@ $(document).ready(function() {
         $('#announcements').html(announcement);
         $("p").attr('contenteditable','true');
     }
-    $('.ui.dimmer').dimmer({opacity: 0.3}).dimmer('show');
-    $('.sidebar').sidebar('setting', 'transition', 'overlay');
+    //$('.ui.dimmer').dimmer({opacity: 0.3}).dimmer('show');
+    $('.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
     /*
     $('.lock.icon:not(.open)').hide();
     $('.lock.open.icon').show();
@@ -23,6 +23,15 @@ $(document).ready(function() {
             $('.ui.sidebar').sidebar('toggle');
         }
     }
+
+    $('#body').mousemove(function(e){
+        let x = e.pageX;
+        //console.log(x);
+        if (x == 0){
+            $('.ui.sidebar').sidebar('show');
+        }
+    });
+
     $('#update').click(function() {
         $("p").attr('contenteditable', 'false');
         sessionStorage.setItem('contenteditable', false);
@@ -47,6 +56,12 @@ $(document).ready(function() {
         $('.lock.icon:not(.open)').hide();
         $('.lock.open.icon').show();
         */
+    });
+
+    $('#help').click(function (){
+        $('.ui.dimmer').dimmer({opacity: 0.3}).dimmer('show');
+        $('.message').removeClass('hidden');
+
     });
 
     $('.message .close')
