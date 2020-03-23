@@ -1,6 +1,6 @@
 //Sporeas 1.1.0
 function en_sanitize (text) {
-  const enReg = /^[a-zA-Z0-9-,:'" ]*$/;
+  const enReg = /^[a-zA-Z0-9-,:'"() ]*$/;
   let invalid = false;
   if (enReg.test(text) == false){
     invalid = false;
@@ -9,7 +9,7 @@ function en_sanitize (text) {
 }
 
 function ch_sanitize (text) {
-  const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+  const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
   let invalid = false;
   if (chReg.test(text)==false) {
     invalid = false;
@@ -21,6 +21,7 @@ $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
   $('#project').attr('disabled', true);
+  $('#sidebar').hide();
   $('.menu .item').tab();
   const socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -31,13 +32,17 @@ $(document).ready(function() {
 
   if (sessionStorage) {
     const active = sessionStorage.getItem('user');
-    console.log(sessionStorage.getItem('api'));
+    // console.log(sessionStorage.getItem('api'));
+    // console.log(active);
     if (sessionStorage.getItem('connected') == 'True') {
       $('#content').show();
+      $('#sidebar').show();
       $('#connect').hide();
       $('#mainitem').addClass('active');
       $('#maintab').addClass('active');
-      
+      socket.emit('user active', {
+        user: active,
+      });
       socket.emit('get state', {user: active});
     }
     if (sessionStorage.getItem('api')== 'false') {
@@ -48,7 +53,7 @@ $(document).ready(function() {
       $('#toggle').html('Off');
     } else if (sessionStorage.getItem('api') == null) {
       sessionStorage.setItem('api', 'false');
-      console.log(sessionStorage.getItem('api'));
+      // console.log(sessionStorage.getItem('api'));
     } else {
       $('#toggle_label').removeClass('ui basic red label');
       $('#toggle').removeClass('ui red button');
@@ -83,6 +88,7 @@ $(document).ready(function() {
       $('#con_msg').html('Connected to room: /'+ $('#user').val());
     } else {
       $('#connect').addClass('ui form error');
+      sessionStorage.removeItem('user');
     }
   });
 
@@ -133,7 +139,7 @@ $(document).ready(function() {
 
   $('#hymn_singing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -148,7 +154,7 @@ $(document).ready(function() {
 
   $('#morning_prayer').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#service_mode_error').removeClass('hidden');
     } else {
       $('#service_mode_error').addClass('hidden');
@@ -163,7 +169,7 @@ $(document).ready(function() {
 
   $('#holy_communion').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -178,7 +184,7 @@ $(document).ready(function() {
 
   $('#foot_washing').click(function() {
     const active = sessionStorage.getItem('user');
-    if (/^[a-zA-Z0-9-,: ]*$/.test($('#m_hymn_input').val()) == false) {
+    if (/^[a-zA-Z0-9-,:() ]*$/.test($('#m_hymn_input').val()) == false) {
       $('#serivce_mode_error').removeClass('hidden');
     } else {
       $('#serivce_mode_error').addClass('hidden');
@@ -239,8 +245,12 @@ $(document).ready(function() {
       $('#update').removeClass('ui form error');
       $('#update').addClass('ui form');
       let hymnStorage = msg.hymn;
-      console.log(typeof(hymnStorage));
-      hymnStorage = hymnStorage.split(':')[1].trim();
+      // console.log(typeof(hymnStorage));
+      if (hymnStorage){
+        hymnStorage = hymnStorage.split(':')[1].trim();
+      } else {
+        hymnStorage = ''
+      }
       socket.emit('my broadcast event', {
         user: active,
         title: msg.title,
@@ -265,10 +275,10 @@ $(document).ready(function() {
 
   $('form#update').submit(function() {
     const apiState = sessionStorage.getItem('api');
-    const invalidTitle = /^[a-zA-Z0-9-,:'" ]*$/.test($('#title').val()) == false;
-    const chReg = /^[a-zA-Z0-9-,:'" \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
+    const invalidTitle = /^[a-zA-Z0-9-,:'"() ]*$/.test($('#title').val()) == false;
+    const chReg = /^[a-zA-Z0-9-,:'"() \u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF\u300C\u300D]*$/;
     const invalidChTitle = chReg.test($('#ch_title').val()) == false;
-    const invalidHymn = /^[a-zA-Z0-9-,:' ]*$/.test($('#hymn').val()) == false;
+    const invalidHymn = /^[a-zA-Z0-9-,:'() ]*$/.test($('#hymn').val()) == false;
     const invalidVerse = /^[a-zA-Z0-9-,: ]*$/.test($('#verse').val()) == false;
     if (invalidTitle || invalidChTitle || invalidHymn || invalidVerse) {
       $('#error2').hide();
@@ -293,30 +303,55 @@ $(document).ready(function() {
     }
   });
 
-  $('#announce').click(function() {
-    if (en_sanitize($('#GA').val()) || en_sanitize($('#FA').val()) || en_sanitize($('#RA').val()) || en_sanitize($('#RE').val())) {
+  $('#add_announce').click(function() {
+    if (en_sanitize($('#engAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
       return false;
-    } else if (ch_sanitize($('#ch_GA').val()) || ch_sanitize($('#ch_FA').val()) || ch_sanitize($('#ch_RA').val()) || ch_sanitize($('#ch_RE').val())) {
+    } else if (ch_sanitize($('#chAnn').val())) {
       $('#announcements').addClass('ui form error');
-      console.log('invalid');
+      // console.log('invalid');
+      return false;
+    } else if (en_sanitize($('#announcement_title').val()) || ch_sanitize($('#announcement_title').val())){
+      $('#announcements').addClass('ui form error');
+      // console.log('invalid');
       return false;
     } else {
-      $('#update').removeClass('error');
+      $('#announcements').removeClass('error');
       const active = sessionStorage.getItem('user');
-      socket.emit('announce', {
+      socket.emit('add announce', {
         user: active,
-        GA: $('#GA').val(),
-        FA: $('#FA').val(),
-        RA: $('#RA').val(),
-        RE: $('#RE').val(),
-        ch_GA: $('#ch_GA').val(),
-        ch_FA: $('#ch_FA').val(),
-        ch_RA: $('#ch_RA').val(),
-        ch_RE: $('#ch_RE').val()
+        english: $('#engAnn').val().replace(/ /g, '&nbsp;'), // &nbsp; to preserve spacing in HTML
+        chinese: $('#chAnn').val().replace(/ /g, '&nbsp;'),
+        department: $('#dd_dep option:selected').text(),
       });
     }
+  });
+
+  $('#ann_update').click(function(){
+    if (en_sanitize($('#bible_reading').val()) || en_sanitize($('#dish_washing').val())) {
+      $('#announcements').addClass('ui form error');
+      // console.log('invalid');
+      return false;
+    } else {
+      const active = sessionStorage.getItem('user');
+      socket.emit('header update', {
+        user: active,
+        bible_reading: $('#dd_reading option:selected').text() + ' ' + $('#bible_reading').val(),
+        cleaning: $('#cleaning_group option:selected').text(),
+        dish_washing: $('#dish_washing').val(),
+      });
+    }
+  });
+
+  $('#clear_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    socket.emit('clear announce', {user: active});
+  });
+
+  $('#delete_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    socket.emit('delete announce', {user: active});
   });
 
   $('#show_announce').click(function() {
@@ -324,28 +359,8 @@ $(document).ready(function() {
     socket.emit('show announce', {user: active});
   });
 
-  $('form#announcements textarea').each(function(i, e) {
-    $(e).keyup(function() {
-      const inputText = $(e).val();
-      const lintedText = lintAnnouncement(inputText);
-      $(e).val(lintedText);
-    })
+  $('#edit_announce').click(function() {
+    const active = sessionStorage.getItem('user');
+    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user') + '_announcement', '_blank');
   });
 });
-
-function lintAnnouncement(inputText) {
-  let foundSomethingToFix = false;
-  const announcementRegex = /(^ +|^[-*]\D|^[0-9]+(\.|\)) )/i;
-  // remove preceding spaces, "- ", "* ", "1. ", "1) ", but accept "1.2 million" and "-1 Celsius"
-  let lintedText = inputText.split('\n');
-  for (let i = 0; i < lintedText.length; i++) {
-    if (!foundSomethingToFix && announcementRegex.test(lintedText[i])) {
-      foundSomethingToFix = true;
-    }
-    lintedText[i] = lintedText[i].replace(announcementRegex, '');
-  }
-  if (foundSomethingToFix) {
-    alert('Do not type in bullet points.\nJust use new lines (hit enter key) for each point.');
-  }
-  return lintedText.join('\n');
-}

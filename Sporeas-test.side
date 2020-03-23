@@ -74,6 +74,13 @@
       "targets": [],
       "value": "(Just in case.)"
     }, {
+      "id": "9235fd0f-21cf-459c-8d30-be395f0bf89b",
+      "comment": "",
+      "command": "run",
+      "target": "Close welcome splash",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "5b3b24d9-8e9d-4361-83e0-22f5a8f2853b",
       "comment": "",
       "command": "click",
@@ -679,6 +686,13 @@
         ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "ab819b10-9273-45c8-9e1a-c1355f0d5b03",
+      "comment": "",
+      "command": "run",
+      "target": "Close welcome splash",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "c2d75f82-c081-4dd0-9ca5-79ee97635e10",
@@ -933,7 +947,7 @@
     }, {
       "id": "7ee59df5-2dfd-4a68-b0e5-1c7546276291",
       "comment": "",
-      "command": "//run",
+      "command": "run",
       "target": "Initialization",
       "targets": [],
       "value": ""
@@ -1340,66 +1354,6 @@
     "id": "5cf4efc8-422f-42a6-9f15-13d042fc1024",
     "name": "Close welcome splash",
     "commands": [{
-      "id": "ee6b27b7-3934-4ab9-bc6f-224d9e416638",
-      "comment": "",
-      "command": "open",
-      "target": "http://127.0.0.1:9000/admin",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "eeb07ac0-5a3c-433f-98b4-e7584d5e8553",
-      "comment": "",
-      "command": "click",
-      "target": "id=user",
-      "targets": [
-        ["id=user", "id"],
-        ["css=#user", "css:finder"],
-        ["xpath=//input[@id='user']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "5ae69a96-7ea6-465d-af89-7e63e7483f3e",
-      "comment": "",
-      "command": "type",
-      "target": "id=user",
-      "targets": [
-        ["id=user", "id"],
-        ["css=#user", "css:finder"],
-        ["xpath=//input[@id='user']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
-        ["xpath=//input", "xpath:position"]
-      ],
-      "value": "test-location"
-    }, {
-      "id": "088bf2d7-e66b-472e-8042-e963cdd4c98d",
-      "comment": "",
-      "command": "click",
-      "target": "css=form#connect button[type=\"submit\"]",
-      "targets": [
-        ["css=.secondary:nth-child(3)", "css:finder"],
-        ["xpath=//button[@type='submit']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "ca9b7ad5-8371-4668-9918-d2b57f617637",
-      "comment": "",
-      "command": "click",
-      "target": "id=project",
-      "targets": [
-        ["id=project", "id"],
-        ["css=#project", "css:finder"],
-        ["xpath=//button[@id='project']", "xpath:attributes"],
-        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
       "id": "96df8c19-9d08-403b-8adf-87eee14fbbe1",
       "comment": "",
       "command": "click",
@@ -1413,6 +1367,1010 @@
         ["xpath=//button[contains(.,'(Stop Showing Me This Page)')]", "xpath:innerText"]
       ],
       "value": ""
+    }]
+  }, {
+    "id": "0027cab9-a40d-4f90-8630-3dabea6d9baa",
+    "name": "Announcements Filler Example",
+    "commands": [{
+      "id": "f423a5c5-96f5-4e88-9503-a9e336ab5ccc",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e8eb7d77-81f2-4306-a345-3727563f48ba",
+      "comment": "",
+      "command": "click",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "174048bc-d519-48aa-8295-f991d822fe85",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "test"
+    }, {
+      "id": "9e0e712d-74c5-40de-87d7-07edb861aed3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.secondary:nth-child(3)",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a8c765d0-7cba-4ea6-8938-ac4c096aaa56",
+      "comment": "",
+      "command": "click",
+      "target": "id=project",
+      "targets": [
+        ["id=project", "id"],
+        ["css=#project", "css:finder"],
+        ["xpath=//button[@id='project']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c62b3e09-7141-41e7-99d9-da9cf2764fdd",
+      "comment": "",
+      "command": "click",
+      "target": "id=stop-showing-welcome-overlay",
+      "targets": [
+        ["id=stop-showing-welcome-overlay", "id"],
+        ["css=#stop-showing-welcome-overlay", "css:finder"],
+        ["xpath=//button[@id='stop-showing-welcome-overlay']", "xpath:attributes"],
+        ["xpath=//section[@id='welcome-overlay']/button[7]", "xpath:idRelative"],
+        ["xpath=//button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'(Stop Showing Me This Page) (停止向我顯示此頁面)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b80ebe83-7464-4a24-9d45-1b33c34fa062",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win9212",
+      "windowTimeout": 2000
+    }, {
+      "id": "7f44b638-9965-4be6-a6c4-fcc53efd1076",
+      "comment": "",
+      "command": "storeWindowHandle",
+      "target": "root",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68291f0c-6814-4ae1-b0ba-6aae8446e243",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win9212}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cae26d60-57bf-487c-bc38-caf2a37013d2",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6706506c-9be4-436a-9597-a376c2baa099",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Announcements",
+      "targets": [
+        ["linkText=Announcements", "linkText"],
+        ["css=#content > .item:nth-child(3)", "css:finder"],
+        ["xpath=(//a[contains(text(),'Announcements')])[2]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[3]", "xpath:idRelative"],
+        ["xpath=//div/div/a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "41cc871a-08c0-41cc-94fb-849340966814",
+      "comment": "",
+      "command": "click",
+      "target": "id=clear_announce",
+      "targets": [
+        ["id=clear_announce", "id"],
+        ["css=#clear_announce", "css:finder"],
+        ["xpath=//div[@id='clear_announce']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[4]/div[4]", "xpath:idRelative"],
+        ["xpath=//div[4]/div[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f70162eb-a33e-4577-9815-12896d2930fb",
+      "comment": "",
+      "command": "click",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "56be2a08-0c8c-43c7-9f2c-b8903594ffad",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Service Leaders’ Seminar 3/15 10:00 AM – 3:30 PM\\nChurch Retreat 5/16-18\\nMill Stream Retreat Center\\nMinistry Volunteer Program (July 12th - 17th)\\nLocation: Baldwin Park Church\\nRegistration Deadline: March 31st\\nNYTS, PMVP (July 20th - Aug 2nd) at Irvine Church (Register by June 28th)"
+    }, {
+      "id": "c083c92c-4dd2-4e20-b82b-29a6f6a458d0",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "領會人員講習會 3/15\\n教會出遊團契 5/16-18\\nMill Stream Retreat Center\\n聖工志工訓練營(7/12 – 7/17)\\n青年神訓班，開拓區宣道志工訓練 (7/20-8/2), Irvine\\n教會，6/28前 報名"
+    }, {
+      "id": "d48cadf8-deb7-4e6f-a27a-a9ac954f390d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.three > .ui > .dropdown",
+      "targets": [
+        ["css=.three > .ui > .dropdown", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/i", "xpath:idRelative"],
+        ["xpath=//div[3]/div/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "794bbabd-f9c5-4a22-b1bf-4bc0b8b93b76",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition > .item:nth-child(2)",
+      "targets": [
+        ["css=.transition > .item:nth-child(2)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d0f0f6d-f097-4cdb-b783-bca38260641f",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=RA | 教務"
+    }, {
+      "id": "32849fa3-5462-4601-95c7-0c9b664c748f",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=RA | 教務"
+    }, {
+      "id": "238e4e89-d8ab-45ee-b0a4-258642f8f44a",
+      "comment": "",
+      "command": "click",
+      "target": "id=add_announce",
+      "targets": [
+        ["id=add_announce", "id"],
+        ["css=#add_announce", "css:finder"],
+        ["xpath=//div[@id='add_announce']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[4]/form/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7661c30c-78aa-41cc-ac11-b633707ed31a",
+      "comment": "",
+      "command": "click",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "64aba821-4315-4f9e-a5ff-2a6ed786165e",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "RE Quarterly Prayer 2/29\\nK/E1 field trip 3/1 10:30am meet at Science Center"
+    }, {
+      "id": "b5eac3d1-2465-4aa6-9290-9889095c73c4",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "宗教教育禱告會 2/29\\nK/E1 出遊 3/1 早上10:30科博館集合"
+    }, {
+      "id": "d3a45cc6-734a-43e3-86b5-a8af4c3b65f3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.three > .ui > .dropdown",
+      "targets": [
+        ["css=.three > .ui > .dropdown", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/i", "xpath:idRelative"],
+        ["xpath=//div[3]/div/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb394bb1-760b-4cd5-b9e5-40efcded812b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.active > .search",
+      "targets": [
+        ["css=.active > .search", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9e31d57-50c0-477b-9cfa-00c5ee86348d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition > .item:nth-child(3)",
+      "targets": [
+        ["css=.transition > .item:nth-child(3)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/div[2]/div[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c35c658e-83b5-44a5-a822-62f0a6930208",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=FA | 財務"
+    }, {
+      "id": "362aa73b-5b50-474b-8f47-e69ba10a0214",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=FA | 財務"
+    }, {
+      "id": "7c1bd20e-5923-4a63-ab08-f1ad81ddb669",
+      "comment": "",
+      "command": "click",
+      "target": "css=.three > .ui > .search",
+      "targets": [
+        ["css=.three > .ui > .search", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca532303-58fc-42c0-bd51-42daac22bf27",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition > .item:nth-child(4)",
+      "targets": [
+        ["css=.transition > .item:nth-child(4)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/div[2]/div[4]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "750de0dd-c558-433e-bb5c-b33253473bb3",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=RE | 宗教教育"
+    }, {
+      "id": "b7455d35-62e1-4533-a880-dac7d6a7d564",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=RE | 宗教教育"
+    }, {
+      "id": "1a8b7575-8ae0-4f8e-9f13-8c25438dcce3",
+      "comment": "",
+      "command": "click",
+      "target": "id=add_announce",
+      "targets": [
+        ["id=add_announce", "id"],
+        ["css=#add_announce", "css:finder"],
+        ["xpath=//div[@id='add_announce']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[4]/form/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "aad5d7aa-439d-4071-891a-bf675fb6e8c1",
+      "comment": "",
+      "command": "click",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "273b5a10-55b0-4a22-9926-13794bcd4ecd",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Toronto Youtube Channel: https://www.youtube.com/c/TrueJesusChurchToronto"
+    }, {
+      "id": "261eee99-b99a-4b00-a0cd-ce2dfbfde58f",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0814ed8-9a53-4628-9440-13c75f4ffb3c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.upward > .dropdown",
+      "targets": [
+        ["css=.upward > .dropdown", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/i", "xpath:idRelative"],
+        ["xpath=//div[3]/div/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df1989b5-8f5d-4061-ad84-dcdb458cdb7b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.active > .search",
+      "targets": [
+        ["css=.active > .search", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e1db721-3bab-49e5-9425-f74f50bc5b73",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition > .item:nth-child(1)",
+      "targets": [
+        ["css=.transition > .item:nth-child(1)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f6f381b-b7a1-46f5-955e-cfd09cfb09e9",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=GA | 總務"
+    }, {
+      "id": "75fc1771-ca2e-4c20-a2ca-e72263409904",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=GA | 總務"
+    }, {
+      "id": "e7a6ce83-f94c-492a-b463-4659f253173f",
+      "comment": "",
+      "command": "click",
+      "target": "id=add_announce",
+      "targets": [
+        ["id=add_announce", "id"],
+        ["css=#add_announce", "css:finder"],
+        ["xpath=//div[@id='add_announce']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[4]/form/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44d5dd07-5769-4e70-9b2a-053659aed314",
+      "comment": "",
+      "command": "click",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "91454f09-bd33-4d7f-9b8f-66e7ae10dc55",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Church building project 2020 fundraising goal: $1.5M"
+    }, {
+      "id": "ad8284cf-865f-45ef-8ec5-81e1a09d36ad",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "建堂基金2020年募款目標: $150萬"
+    }, {
+      "id": "0638f020-0a81-4cd4-952d-cf09e9731452",
+      "comment": "",
+      "command": "click",
+      "target": "css=.upward > .dropdown",
+      "targets": [
+        ["css=.upward > .dropdown", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/i", "xpath:idRelative"],
+        ["xpath=//div[3]/div/i", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df45c286-79ee-4955-bf7c-d1c2e22d0fe3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.active > .search",
+      "targets": [
+        ["css=.active > .search", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bdb56f4-2938-4d20-8821-a44df12d06d7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.transition > .item:nth-child(3)",
+      "targets": [
+        ["css=.transition > .item:nth-child(3)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[3]/div/div[2]/div[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fc1d2a2-d0ae-4bf2-b5ca-da8a3f6c9b67",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=FA | 財務"
+    }, {
+      "id": "a8b18b2a-780c-4644-8382-9b0144e51473",
+      "comment": "",
+      "command": "select",
+      "target": "id=dd_dep",
+      "targets": [],
+      "value": "label=FA | 財務"
+    }, {
+      "id": "2725ae3e-ad76-4711-bf10-1f575b2d0be9",
+      "comment": "",
+      "command": "click",
+      "target": "id=add_announce",
+      "targets": [
+        ["id=add_announce", "id"],
+        ["css=#add_announce", "css:finder"],
+        ["xpath=//div[@id='add_announce']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[4]/div", "xpath:idRelative"],
+        ["xpath=//div[4]/form/div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "80a02154-15d5-4950-aa72-5ef875318f85",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win9212}",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "f58b5f7b-8010-4f66-9723-b5e865ce7143",
+    "name": "Announcements Translations",
+    "commands": [{
+      "id": "5a088f49-bbcc-42a0-8a1b-06f920a4b6a6",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "23682382-af2e-4566-963b-fac62665d44a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1200x642",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9ef41019-0120-4426-a6d9-18803d5179e0",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "test-translations"
+    }, {
+      "id": "26dba76b-9a17-4a8d-8388-6fd5fd921787",
+      "comment": "",
+      "command": "click",
+      "target": "css=.inline > .secondary",
+      "targets": [
+        ["css=.inline > .secondary", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c19fca6-a816-4bb7-9238-93a8a2437fbf",
+      "comment": "",
+      "command": "click",
+      "target": "id=project",
+      "targets": [
+        ["id=project", "id"],
+        ["css=#project", "css:finder"],
+        ["xpath=//button[@id='project']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Project')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e1a3b11-1b5c-4700-8858-36660f81c49d",
+      "comment": "",
+      "command": "click",
+      "target": "id=stop-showing-welcome-overlay",
+      "targets": [
+        ["id=stop-showing-welcome-overlay", "id"],
+        ["css=#stop-showing-welcome-overlay", "css:finder"],
+        ["xpath=//button[@id='stop-showing-welcome-overlay']", "xpath:attributes"],
+        ["xpath=//section[@id='welcome-overlay']/button[7]", "xpath:idRelative"],
+        ["xpath=//button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'(Stop Showing Me This Page) (停止向我顯示此頁面)')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "19c4d7a1-4c10-4923-981d-a835c5bcda84",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Announcements",
+      "targets": [
+        ["linkText=Announcements", "linkText"],
+        ["css=#content > .item:nth-child(3)", "css:finder"],
+        ["xpath=(//a[contains(text(),'Announcements')])[2]", "xpath:link"],
+        ["xpath=//div[@id='content']/a[3]", "xpath:idRelative"],
+        ["xpath=//div/div/a[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "185e3eaf-6b52-4f24-a5ad-2d7c054359a6",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Note: to avoid getting blocked by the Google Translate API, there are 2-second delays, and occasional 15-second delays."
+    }, {
+      "id": "9ffee00d-8b1c-4591-a478-426900bcb3b9",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f074b7e5-ffb3-4e43-b6bf-dfcf44bc81a2",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Hi"
+    }, {
+      "id": "07d5b68e-e9fd-459e-8c6e-538dacb005ff",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//textarea[@id=\"chAnn\" and contains(text(), \"你好\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "e9c6b9db-8173-4bbd-9b97-ef4244a63739",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Hi\\ntest"
+    }, {
+      "id": "1108b4b7-d41b-478a-b0df-e3334aebdc4a",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//textarea[@id=\"chAnn\" and contains(text(), \"你好\\n測試\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "7b38ed90-0daa-4feb-86ed-ead63a65f036",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "你\\n測試"
+    }, {
+      "id": "402d1bc8-729e-4bb7-87d9-3bbfd41149d7",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"engAnnSuggestion\" and contains(text(), \"you\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "890be7c2-0333-4543-9209-68d16d43dda1",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a9abbeb2-0985-468a-b470-ee1649d87c6c",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.engAnnSuggestion",
+      "targets": [
+        ["css=.engAnnSuggestion:nth-child(2)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[2]/div/button/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'you')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb67ca73-4006-440c-a74d-2d693ca3dccf",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=engAnn",
+      "targets": [],
+      "value": "you\\ntest"
+    }, {
+      "id": "c8f4e4f7-b28f-4c64-8d4d-a9868499f7f4",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "你\\n你"
+    }, {
+      "id": "cb5c2420-5bc4-49d6-99c3-0179f197b071",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"engAnnSuggestion\" and contains(text(), \"you\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "8ade929e-81d4-440d-a4d1-203c89c03bc1",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a9510edd-8147-47b5-8fa6-f1cb740a3dc3",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.engAnnSuggestion",
+      "targets": [
+        ["css=.engAnnSuggestion:nth-child(2)", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[2]/div/button/span[2]", "xpath:idRelative"],
+        ["xpath=//span[2]", "xpath:position"],
+        ["xpath=//span[contains(.,'you')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bdc4da00-7fb7-42f0-883b-3b65bab0f7de",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=engAnn",
+      "targets": [],
+      "value": "you\\nyou"
+    }, {
+      "id": "d54d4330-c280-4268-b526-7199d003f33f",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "你!\\n你"
+    }, {
+      "id": "c69972e3-b56e-4591-a050-778920da4650",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"engAnnSuggestion\" and contains(text(), \"you!\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "30ef305e-6e50-4ed3-917c-f2067f2af13d",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ce6c9f4-94f7-49db-84c2-bc4c2cb4555b",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.engAnnSuggestion",
+      "targets": [
+        ["css=.engAnnSuggestion-line", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[2]/div/button/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,' on line 1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c934481d-6565-40a5-ad16-f9e4a25ded39",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=engAnn",
+      "targets": [],
+      "value": "you!\\nyou"
+    }, {
+      "id": "55247725-f6dd-4d3f-bafe-5b774ad8ed82",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "你!!!\\n???"
+    }, {
+      "id": "1e11527f-f23b-4b8d-ae31-ce9ad45965d7",
+      "comment": "",
+      "command": "type",
+      "target": "id=chAnn",
+      "targets": [
+        ["id=chAnn", "id"],
+        ["css=#chAnn", "css:finder"],
+        ["xpath=//textarea[@id='chAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/textarea", "xpath:idRelative"],
+        ["xpath=//div[2]/textarea", "xpath:position"]
+      ],
+      "value": "你!\\n???"
+    }, {
+      "id": "8897c940-1baf-44ff-85c9-804468200349",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"engAnnSuggestion\" and contains(text(), \"???\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "29d59373-e77f-422f-9ac0-8d7c4117b629",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a54c35e6-77a4-4f5f-8c05-c8ecfe3cd7b5",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.engAnnSuggestion",
+      "targets": [
+        ["css=.engAnnSuggestion-line", "css:finder"],
+        ["xpath=//form[@id='announcements']/div[2]/div/button/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,' on line 2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3da77874-27b2-4810-8fef-2444d26dfefb",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=engAnn",
+      "targets": [],
+      "value": "you!\\n???"
+    }, {
+      "id": "23995ed9-e7c4-4969-9f07-260baa46b4d9",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "we\\n???"
+    }, {
+      "id": "a1bb2c72-dd61-4e1d-96d8-c0fde4ec69a2",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"chAnnSuggestion\" and contains(text(), \"我們\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "f8035e65-7c53-4671-98af-a0aec1d3eb61",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb693c90-60c5-4ba9-a644-2d024f3a28e0",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.chAnnSuggestion",
+      "targets": [
+        ["css=.chAnnSuggestion:nth-child(3)", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de5ca6ba-2b7f-478d-9983-06bb6c00f052",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=chAnn",
+      "targets": [],
+      "value": "我們\\n???"
+    }, {
+      "id": "89c4a816-f297-4ab7-a3bd-0b7e7ef4966d",
+      "comment": "",
+      "command": "type",
+      "target": "id=engAnn",
+      "targets": [
+        ["id=engAnn", "id"],
+        ["css=#engAnn", "css:finder"],
+        ["xpath=//textarea[@id='engAnn']", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "us\\nthem"
+    }, {
+      "id": "850f9a05-511c-4b52-a09a-2c6fd6624e6a",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//span[@class=\"chAnnSuggestion\" and contains(text(), \"他們\")]",
+      "targets": [],
+      "value": "15010"
+    }, {
+      "id": "dccf512f-2bbc-49b6-8dfd-a1d8e6391440",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3080105b-899b-40cb-bedb-7d3098266a21",
+      "comment": "",
+      "command": "click",
+      "target": "css=button.chAnnSuggestion",
+      "targets": [
+        ["css=.chAnnSuggestion:nth-child(3)", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//form[@id='announcements']/div[2]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b194b9c-efab-4f22-936a-575200edf41c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=chAnn",
+      "targets": [],
+      "value": "我們\\n他們"
     }]
   }],
   "suites": [{
