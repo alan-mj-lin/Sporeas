@@ -20,7 +20,7 @@
     "lint": "npm run lint:js; npm run lint:py;",
     "lint:js": "bash jsCodeFeedback.sh",
     "lint:py": "bash pyCodeFeedback.sh",
-    "surge": "surge easy-setup/instructions-site https://sporeas.surge.sh; open https://sporeas.surge.sh;"
+    "surge": "surge easy-setup-instructions-site https://sporeas.surge.sh; open https://sporeas.surge.sh;"
   },
   "husky": {
     "hooks": {
