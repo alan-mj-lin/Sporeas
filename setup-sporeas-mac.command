@@ -1,13 +1,16 @@
 #!/bin/bash
 
+function downloadPythonInstaller() {
+  # download Python 3.7 for Mac:
+  curl -o setup-python-mac.pkg https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
+}
+
 function installPythonIfMissing() {
   if ! [ -x "$(command -v python)" ]; then
     echo 'Python is not set up or installed. Attempting install now.'
-    # # download Python 3.7 for Mac:
-    # curl -o install-python.exe https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
-    # # open Python graphical installer:
-    # ./install-python.exe
-    sudo ./setup-python-mac.pkg
+    downloadPythonInstaller
+    # open Python graphical installer:
+    sudo installer -pkg ./setup-python-mac.pkg -target /
   fi
 }
 
@@ -20,13 +23,12 @@ function installDependencies() {
 }
 
 function startAppRightAway() {
-  # open -a Terminal
   open http://127.0.0.1:9000/admin
-  python3 basic_app.py
+  python basic_app.py
 }
 
 function installDepsAndStartRightAway() {
-  # installDependencies
+  installDependencies
   sleep 3s
   startAppRightAway
 }
@@ -34,7 +36,9 @@ function installDepsAndStartRightAway() {
 # ---------------------
 
 open https://sporeas.surge.sh
-
+cd ~/Desktop
+installPythonIfMissing
+cd ~/Desktop/Sporeas
 installDepsAndStartRightAway
 
 # ---------------------

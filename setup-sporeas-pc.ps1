@@ -1,12 +1,18 @@
+# to run this file, right click on it inside File Explorer, and choose "Run with PowerShell"
+ 
+function downloadPythonInstaller {
+  # download Python 3.7 for Windows:
+  Invoke-WebRequest https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe -OutFile ./setup-python-pc.exe
+}
+
 function installPythonIfMissing {
-  # # download Python 3.7 for Windows:
-  # Invoke-WebRequest https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe -OutFile ./install-python.exe
-  $p = &{python -V} 2>&1
+  $p = & { python -V } 2>&1
   if ($p -is [System.Management.Automation.ErrorRecord]) { # got error: not installed
-    # ./install-python.exe # open Python graphical installer
+    downloadPythonInstaller
     ./setup-python-pc.exe # open Python graphical installer
-  } elseif ($PythonVersion -ne 2.7.7) {
-    # ./install-python.exe # open Python graphical installer
+  }
+  elseif ($PythonVersion -ne 2.7.7) {
+    downloadPythonInstaller
     ./setup-python-pc.exe # open Python graphical installer
   }
 }
@@ -20,9 +26,7 @@ function installDependencies {
 }
 
 function startAppRightAway {
-  # start-process powershell
-  # Invoke-Item C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-  open http://127.0.0.1:9000/admin
+  start http://127.0.0.1:9000/admin
   python basic_app.py
 }
 
@@ -34,9 +38,10 @@ function installDepsAndStartRightAway {
 
 # ---------------------
 
-# start https://sporeas.surge.sh
-open https://sporeas.surge.sh
-
+start https://sporeas.surge.sh
+cd ~/Desktop
+installPythonIfMissing
+cd ~/Desktop/Sporeas
 installDepsAndStartRightAway
 
 # ---------------------
