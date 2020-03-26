@@ -10,7 +10,7 @@ function installPythonIfMissing() {
     echo 'Python is not set up or installed. Attempting install now.'
     downloadPythonInstaller
     # open Python graphical installer:
-    sudo installer -pkg ./setup-python-mac.pkg -target /
+    open setup-python-mac.pkg
   fi
 }
 
