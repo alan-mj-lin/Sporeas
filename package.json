@@ -19,7 +19,8 @@
     "test-visually": "python3.7 basic_app.py & selenium-side-runner Sporeas-test.side; (pkill -f basic_app.py) || true;",
     "lint": "npm run lint:js; npm run lint:py;",
     "lint:js": "bash jsCodeFeedback.sh",
-    "lint:py": "bash pyCodeFeedback.sh"
+    "lint:py": "bash pyCodeFeedback.sh",
+    "surge": "surge easy-setup/instructions-site https://sporeas.surge.sh; open https://sporeas.surge.sh;"
   },
   "husky": {
     "hooks": {

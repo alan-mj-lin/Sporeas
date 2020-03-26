@@ -1,0 +1,55 @@
+body {
+  font-family: avenir, arial, sans-serif;
+  background-color: #333;
+  color: snow;
+}
+
+header {
+  background-color: white;
+  color: black;
+  width: 100vw;
+  padding: 0.2rem 0 0.5rem;
+  margin: -10px -10px 0;
+}
+
+h1 {
+  padding-left: 1rem;
+}
+
+img#logo {
+  height: 2em;
+  line-height: 5em;
+  margin-bottom: -1.5rem;
+  padding-left: 2rem;
+}
+
+main {
+  padding: 1rem 2rem;
+  max-width: 500px;
+}
+
+ol > li {
+  margin-bottom: 1rem;
+}
+
+code {
+  color: lime;
+}
+
+a {
+  background: black;
+  color: lightblue;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+}
+
+a:hover {
+  background: black;
+  color: white;
+  box-shadow: 2px 2px 2px 0 black;
+}
+
+a:active {
+  background: blue;
+  color: white;
+}
