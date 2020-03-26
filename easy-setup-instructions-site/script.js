@@ -22,8 +22,8 @@ function adjustTextToOS() {
   var pythonDownloadLink = "https://www.python.org/downloads/release/python-377/" + (os === 'Mac' ? '#macos-users' : '#windows-users');
   document.getElementById('python-download-link').href = pythonDownloadLink;
   var pythonInstaller = (os === 'Mac' ? 'setup-python-mac.pkg' : 'setup-python-pc.exe');
-  document.getElementById('python-installer').innerHTML = ': ' + '<code>' + pythonInstaller + '</code>';
-  var pythonYoutubeLink = ' If in doubt, ask for help or search on <a href="https://www.youtube.com/results?search_query=install+python+3.7+' + (os === 'Mac' ? 'on+mac' : 'on+windows') + '" target="_blank">YouTube</a>.';
+  document.getElementById('python-installer').innerHTML = ' <code>' + pythonInstaller + '</code>';
+  var pythonYoutubeLink = ' If in doubt, ask for help, or search on <a href="https://www.youtube.com/results?search_query=install+python+3.7+' + (os === 'Mac' ? 'on+mac' : 'on+windows') + '" target="_blank">YouTube</a>.';
   document.getElementById('python-youtube-link').innerHTML = pythonYoutubeLink;
   var depsInstaller = (os === 'Mac' ? 'setup-sporeas-mac.command' : 'setup-sporeas-pc.ps1');
   var depsInstallerMessage = '<code>' + depsInstaller + '</code>';
