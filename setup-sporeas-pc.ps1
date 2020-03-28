@@ -5,19 +5,26 @@ function downloadPythonInstaller {
   Invoke-WebRequest https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe -OutFile ./setup-python-pc.exe
 }
 
+function openPythonGraphicalInstaller {
+  ./setup-python-pc.exe
+}
+
 function installPythonIfMissing {
   $p = & { python -V } 2>&1
-  if ($p -is [System.Management.Automation.ErrorRecord]) { # got error: not installed
+  if ($p -is [System.Management.Automation.ErrorRecord]) {
+    Write-Host 'Python is not set up or installed. Attempting install now.'
     downloadPythonInstaller
-    ./setup-python-pc.exe # open Python graphical installer
+    openPythonGraphicalInstaller
   }
-  elseif ($PythonVersion -ne 2.7.7) {
+  elseif ($PythonVersion -ne 3.7.7) {
+    Write-Host 'Python 3.7.7 is not set up or installed. Attempting install now.'
     downloadPythonInstaller
-    ./setup-python-pc.exe # open Python graphical installer
+    openPythonGraphicalInstaller
   }
 }
 
 function installDependencies {
+  # pip is included with Python 3.4+
   pip install eventlet
   pip install flask
   pip install flask_socketio

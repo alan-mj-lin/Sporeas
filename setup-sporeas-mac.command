@@ -5,16 +5,20 @@ function downloadPythonInstaller() {
   curl -o setup-python-mac.pkg https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
 }
 
+function openPythonGraphicalInstaller() {
+  open setup-python-mac.pkg
+}
+
 function installPythonIfMissing() {
   if ! [ -x "$(command -v python)" ]; then
     echo 'Python is not set up or installed. Attempting install now.'
     downloadPythonInstaller
-    # open Python graphical installer:
-    open setup-python-mac.pkg
+    openPythonGraphicalInstaller
   fi
 }
 
 function installDependencies() {
+  # pip is included with Python 3.4+
   pip install eventlet
   pip install flask
   pip install flask_socketio
