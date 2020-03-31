@@ -10,39 +10,39 @@ function openPythonGraphicalInstaller() {
 }
 
 function installPythonIfMissing() {
-  if ! [ -x "$(command -v python)" ]; then
-    echo 'Python is not set up or installed. Attempting install now.'
-    downloadPythonInstaller
-    openPythonGraphicalInstaller
+  echo 'Python is not set up or installed. Attempting install now.'
+  downloadPythonInstaller
+  openPythonGraphicalInstaller
+}
+
+function installMoreDependencies() {
+  echo 'Installing more dependencies.'
+  # pip3 is included with Python 3
+  pip3 install eventlet
+  pip3 install flask
+  pip3 install flask_socketio
+  pip3 install requests
+  pip3 install pyOpenSSL==19.1.0
+}
+
+function installAllDependeciesOnce() {
+  if ! [ -x "$(command -v python3.7)" ]; then
+    installPythonIfMissing
+    installMoreDependencies
   fi
 }
 
-function installDependencies() {
-  # pip is included with Python 3.4+
-  pip install eventlet
-  pip install flask
-  pip install flask_socketio
-  pip install requests
-  pip install pyOpenSSL==19.1.0
-}
-
-function startAppRightAway() {
-  open http://127.0.0.1:9000/admin
-  python basic_app.py
-}
-
-function installDepsAndStartRightAway() {
-  installDependencies
-  sleep 3s
-  startAppRightAway
+function runApp() {
+  python3.7 basic_app.py & sleep 3s; open http://127.0.0.1:9000/admin &
 }
 
 # ---------------------
 
 open https://sporeas.surge.sh
 cd ~/Desktop
-installPythonIfMissing
+installAllDependeciesOnce
 cd ~/Desktop/Sporeas
-installDepsAndStartRightAway
+runApp
+read -p 'Hit any key to close'
 
 # ---------------------

@@ -10,45 +10,49 @@ function openPythonGraphicalInstaller {
 }
 
 function installPythonIfMissing {
-  $p = & { python -V } 2>&1
+  Write-Host 'Python 3.7.7 is not set up or installed. Attempting install now.'
+  downloadPythonInstaller
+  openPythonGraphicalInstaller
+}
+
+function installMoreDependencies {
+  Write-Host 'Installing more dependencies.'
+  # pip3 is included with Python 3
+  pip3 install eventlet
+  pip3 install flask
+  pip3 install flask_socketio
+  pip3 install requests
+  pip3 install pyOpenSSL==19.1.0
+}
+
+function installAllDependeciesOnce {
+  $p = & { python3.7 -V } 2>&1
   if ($p -is [System.Management.Automation.ErrorRecord]) {
-    Write-Host 'Python is not set up or installed. Attempting install now.'
-    downloadPythonInstaller
-    openPythonGraphicalInstaller
+    installPythonIfMissing
+    installMoreDependencies
   }
   elseif ($PythonVersion -ne 3.7.7) {
-    Write-Host 'Python 3.7.7 is not set up or installed. Attempting install now.'
-    downloadPythonInstaller
-    openPythonGraphicalInstaller
+    installPythonIfMissing
+    installMoreDependencies
   }
 }
 
-function installDependencies {
-  # pip is included with Python 3.4+
-  pip install eventlet
-  pip install flask
-  pip install flask_socketio
-  pip install requests
-  pip install pyOpenSSL==19.1.0
-}
-
-function startAppRightAway {
+function runApp {
+  # TODO: figure out how to run a delayed background task in PowerShell
+  # and then run python3.7 first, and open page after 3s second delay
   start http://127.0.0.1:9000/admin
-  python basic_app.py
-}
-
-function installDepsAndStartRightAway {
-  installDependencies
   Start-Sleep -s 3
-  startAppRightAway
+  python3.7 basic_app.py
 }
 
 # ---------------------
 
 start https://sporeas.surge.sh
 cd ~/Desktop
-installPythonIfMissing
+installAllDependeciesOnce
 cd ~/Desktop/Sporeas
-installDepsAndStartRightAway
+runApp
+Write-Host -NoNewLine 'Hit any key to close';
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 # ---------------------
