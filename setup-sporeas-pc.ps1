@@ -38,16 +38,14 @@ function installAllDependeciesOnce {
 }
 
 function runApp {
-  # TODO: figure out how to run a delayed background task in PowerShell
-  # and then run python3.7 first, and open page after 3s second delay
-  start http://127.0.0.1:9000/admin
+  Start-Process -NoNewWindow python3.7 basic_app.py
   Start-Sleep -s 3
-  python3.7 basic_app.py
+  start http://127.0.0.1:9000/admin # if simulating: open http://127.0.0.1:9000/admin
 }
 
 # ---------------------
 
-start https://sporeas.surge.sh
+start https://sporeas.surge.sh # if simulating: open https://sporeas.surge.sh
 cd ~/Desktop
 installAllDependeciesOnce
 cd ~/Desktop/Sporeas
