@@ -30,4 +30,10 @@ function adjustTextToOS() {
   var postAction = (os === 'Mac' ? '' : ' and choosing "Run with PowerShell".')
   var depsInstallerMessage = action + '<code>' + depsInstaller + '</code>' + postAction;
   document.getElementById('deps-installer').innerHTML = depsInstallerMessage;
+  var howToCloseSporeas = (os === 'Mac' ? "If you want to stop Sporeas (it\'s running in the background), double-click on <code>stop-sporeas-mac.command</code>" : "" );
+  if (howToCloseSporeas) {
+    document.getElementById('close-sporeas').innerHTML = howToCloseSporeas;
+  } else {
+    document.getElementById('close-sporeas').remove();
+  }
 }

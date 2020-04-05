@@ -43,7 +43,10 @@ function goToScriptFolder() {
 }
 
 function runApp() {
-  python3.7 basic_app.py & sleep 3s; open http://127.0.0.1:9000/admin &
+  # signal no hangup with: nohup
+  # prevent nohup output file with: >/dev/null 2>&1
+  # run in background with: & at the end
+  nohup bash -c 'python3.7 basic_app.py & (sleep 3s; open http://127.0.0.1:9000/admin)' >/dev/null 2>&1 &
 }
 
 # ---------------------
@@ -52,6 +55,5 @@ open https://sporeas.surge.sh
 installAllDependeciesOnce # only if not already installed
 goToScriptFolder # for some reason you need to tell the script to go to its own folder
 runApp
-read -p 'Hit any key to close'
 
 # ---------------------
