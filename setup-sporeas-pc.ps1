@@ -47,6 +47,11 @@ function runApp {
   Start-Process -NoNewWindow python3.7 basic_app.py
   Start-Sleep -s 3
   start http://127.0.0.1:9000/admin # if simulating: open http://127.0.0.1:9000/admin
+
+  # TODO: run .vbs file instead:
+  # $startup = "C:\Windows\System32\Cscript.exe C:\deleteit\echo.vbs"
+  # # $startup = "$($MyInvocation.MyCommand.Path)/startup.vbs"
+  # Invoke-Expression $startup
 }
 
 # ---------------------

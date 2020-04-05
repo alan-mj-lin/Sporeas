@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# to run this file, double click on it
+
 function downloadPythonInstaller() {
   # download Python 3.7 for Mac:
   curl -o setup-python-mac.pkg https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
