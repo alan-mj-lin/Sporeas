@@ -29,11 +29,12 @@ function installMoreDependencies() {
 }
 
 function installAllDependeciesOnce() {
-  # only if Python 3.7 is not already installed
+  # install Python only if Python 3.7 is not already installed
   if ! [ -x "$(command -v python3.7)" ]; then
     installPython
-    installMoreDependencies
   fi
+  # pip automatically checks if deps are already installed
+  installMoreDependencies
 }
 
 function goToScriptFolder() {
