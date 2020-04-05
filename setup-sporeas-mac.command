@@ -20,6 +20,7 @@ function installPython() {
 function installMoreDependencies() {
   echo 'Installing more dependencies.'
   # pip3 is included with Python 3
+  py -m pip install --upgrade pip
   pip3 install eventlet
   pip3 install flask
   pip3 install flask_socketio
