@@ -26,6 +26,7 @@ function installMoreDependencies() {
 }
 
 function installAllDependeciesOnce() {
+  # only if Python 3.7 is not already installed
   if ! [ -x "$(command -v python3.7)" ]; then
     installPython
     installMoreDependencies
@@ -45,7 +46,7 @@ function runApp() {
 # ---------------------
 
 open https://sporeas.surge.sh
-installAllDependeciesOnce
+installAllDependeciesOnce # only if not already installed
 goToScriptFolder # for some reason you need to tell the script to go to its own folder
 runApp
 read -p 'Hit any key to close'

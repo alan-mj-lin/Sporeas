@@ -26,6 +26,7 @@ function installMoreDependencies {
 }
 
 function installAllDependeciesOnce {
+  # only if Python 3.7 is not already installed
   $p = & { python3.7 -V } 2>&1
   if ($p -is [System.Management.Automation.ErrorRecord]) {
     installPython
@@ -51,7 +52,7 @@ function runApp {
 # ---------------------
 
 start https://sporeas.surge.sh # if simulating: open https://sporeas.surge.sh
-installAllDependeciesOnce
+installAllDependeciesOnce # only if not already installed
 goToScriptFolder # for some reason you need to tell the script to go to its own folder
 runApp
 Write-Host -NoNewLine 'Hit any key to close';
