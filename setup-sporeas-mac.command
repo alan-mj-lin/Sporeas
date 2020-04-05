@@ -9,7 +9,7 @@ function openPythonGraphicalInstaller() {
   open setup-python-mac.pkg
 }
 
-function installPythonIfMissing() {
+function installPython() {
   echo 'Python is not set up or installed. Attempting install now.'
   downloadPythonInstaller
   openPythonGraphicalInstaller
@@ -27,9 +27,15 @@ function installMoreDependencies() {
 
 function installAllDependeciesOnce() {
   if ! [ -x "$(command -v python3.7)" ]; then
-    installPythonIfMissing
+    installPython
     installMoreDependencies
   fi
+}
+
+function goToScriptFolder() {
+  MY_PATH="`dirname \"$0\"`"
+  echo "Going to: $MY_PATH"
+  cd $MY_PATH
 }
 
 function runApp() {
@@ -39,9 +45,8 @@ function runApp() {
 # ---------------------
 
 open https://sporeas.surge.sh
-cd ~/Desktop
 installAllDependeciesOnce
-cd ~/Desktop/Sporeas
+goToScriptFolder # for some reason you need to tell the script to go to its own folder
 runApp
 read -p 'Hit any key to close'
 

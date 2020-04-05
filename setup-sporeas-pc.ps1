@@ -9,7 +9,7 @@ function openPythonGraphicalInstaller {
   ./setup-python-pc.exe
 }
 
-function installPythonIfMissing {
+function installPython {
   Write-Host 'Python 3.7.7 is not set up or installed. Attempting install now.'
   downloadPythonInstaller
   openPythonGraphicalInstaller
@@ -28,13 +28,18 @@ function installMoreDependencies {
 function installAllDependeciesOnce {
   $p = & { python3.7 -V } 2>&1
   if ($p -is [System.Management.Automation.ErrorRecord]) {
-    installPythonIfMissing
+    installPython
     installMoreDependencies
   }
   elseif ($PythonVersion -ne 3.7.7) {
-    installPythonIfMissing
+    installPython
     installMoreDependencies
   }
+}
+
+function goToScriptFolder {
+  cd $MyInvocation.MyCommand.Path
+  # cd $PSScriptRoot
 }
 
 function runApp {
@@ -46,9 +51,8 @@ function runApp {
 # ---------------------
 
 start https://sporeas.surge.sh # if simulating: open https://sporeas.surge.sh
-cd ~/Desktop
 installAllDependeciesOnce
-cd ~/Desktop/Sporeas
+goToScriptFolder # for some reason you need to tell the script to go to its own folder
 runApp
 Write-Host -NoNewLine 'Hit any key to close';
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
