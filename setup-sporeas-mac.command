@@ -7,6 +7,10 @@ function downloadPythonInstaller() {
   curl -o setup-python-mac.pkg https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
 }
 
+function deletePythonInstaller() {
+  rm setup-python-mac.pkg
+}
+
 function openPythonGraphicalInstaller() {
   open setup-python-mac.pkg
 }
@@ -32,6 +36,8 @@ function installAllDependeciesOnce() {
   # install Python only if Python 3.7 is not already installed
   if ! [ -x "$(command -v python3.7)" ]; then
     installPython
+  else
+    deletePythonInstaller
   fi
   # pip automatically checks if deps are already installed
   installMoreDependencies
