@@ -19,21 +19,28 @@ function adjustTextToOS() {
   }
   var osMessage = "Looks like you're using a " + os + " computer.";
   document.getElementById('os-id').innerHTML = osMessage;
+  
   var pythonDownloadLink = "https://www.python.org/downloads/release/python-377/" + (os === 'Mac' ? '#macos-users' : '#windows-users');
   document.getElementById('python-download-link').href = pythonDownloadLink;
+  
   var pythonInstaller = (os === 'Mac' ? 'setup-python-mac.pkg' : 'setup-python-pc.exe');
   document.getElementById('python-installer').innerHTML = ' <code>' + pythonInstaller + '</code>';
+  
   var pythonYoutubeLink = ' If in doubt, ask for help, or search on <a href="https://www.youtube.com/results?search_query=install+python+3.7+' + (os === 'Mac' ? 'on+mac' : 'on+windows') + '" target="_blank">YouTube</a>.';
   document.getElementById('python-youtube-link').innerHTML = pythonYoutubeLink;
+  
   var depsInstaller = (os === 'Mac' ? 'setup-sporeas-mac.command' : 'setup-sporeas-pc.ps1');
   var action = (os === 'Mac' ? 'by double-clicking on ' : 'by <strong><em>right</em></strong>-clicking on ');
-  var postAction = (os === 'Mac' ? '' : ' and choosing "Run with PowerShell".')
+  var postAction = (os === 'Mac' ? '' : ' and choosing "Run with PowerShell".');
   var depsInstallerMessage = action + '<code>' + depsInstaller + '</code>' + postAction;
   document.getElementById('deps-installer').innerHTML = depsInstallerMessage;
-  var howToCloseSporeas = (os === 'Mac' ? "If you want to stop Sporeas (it\'s running in the background), double-click on <code>stop-sporeas-mac.command</code>" : "" );
-  if (howToCloseSporeas) {
-    document.getElementById('close-sporeas').innerHTML = howToCloseSporeas;
-  } else {
-    document.getElementById('close-sporeas').remove();
-  }
+  
+  var stopSporeasAction = (os === 'Mac' ? 'double-click': '<strong><em>right</em></strong>-click');
+  document.getElementById('stop-sporeas-action').innerHTML = stopSporeasAction;
+  
+  var stopSporeasFile = (os === 'Mac' ? ' stop-sporeas-mac.command' : ' stop-sporeas-pc.ps1');
+  document.getElementById('stop-sporeas-file').innerHTML = stopSporeasFile;
+  
+  var stopSporeasPostAction = (os === 'Mac' ? '' : ' and choose "Run with PowerShell".');
+  document.getElementById('stop-sporeas-post-action').innerHTML = stopSporeasPostAction;
 }
