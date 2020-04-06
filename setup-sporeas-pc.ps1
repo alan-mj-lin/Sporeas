@@ -13,15 +13,15 @@ function openPythonGraphicalInstaller {
   $PyPath = ";" + $env:UserProfile + "\AppData\Local\Programs\Python\Python37\"
   $PyScriptPath =";" + $env:UserProfile + "\AppData\Local\Programs\Python\Python37\Scripts\"
 
-  if($env:Path -like "*$PyPath*"){
-	  Write-Host "Python path already exists"
+  if ($env:Path -like "*$PyPath*") {
+    Write-Host "Python path already exists"
   } else {
     Write-Host "Python path does not exist, adding path.."
     [Environment]::SetEnvironmentVariable("Path",$env:Path + $PyPath,"User")
   }
   
-  if($env:Path -like "*$PyScriptPath*"){
-	  Write-Host "Python scripts path already exists"
+  if ($env:Path -like "*$PyScriptPath*") {
+    Write-Host "Python scripts path already exists"
   } else {
     Write-Host "Python scripts path does not exist, adding path.."
     [Environment]::SetEnvironmentVariable("Path",$env:Path + $PyScriptPath,"User")
@@ -54,15 +54,15 @@ function installAllDependeciesOnce {
   $Path = $env:UserProfile + "\AppData\Local\Programs\Python\Python37"
   $exp = Test-Path $Path
   if (-Not $exp) {
-	  Write-Host "Python37 does not exist"
-	  installPython
+    Write-Host "Python37 does not exist"
+    installPython
   }
   elseif ($p -is [System.Management.Automation.ErrorRecord]) {
-	  Write-Host "Error during python version query"
+    Write-Host "Error during python version query"
     installPython
   }
   elseif ($p -ne "Python 3.7.7") {
-	  Write-Host "Python version is not 3.7.7"
+    Write-Host "Python version is not 3.7.7"
     installPython
   }
   # pip automatically checks if deps are already installed
