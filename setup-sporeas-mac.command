@@ -4,7 +4,7 @@
 
 function downloadPythonInstaller() {
   # download Python 3.7 for Mac:
-  curl https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
+  curl -o python-3.7.7-macosx10.9.pkg https://www.python.org/ftp/python/3.7.7/python-3.7.7-macosx10.9.pkg
 }
 
 function deletePythonInstaller() {
