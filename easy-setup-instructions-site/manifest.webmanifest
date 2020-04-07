@@ -1,0 +1,18 @@
+{
+  "short_name": "sporeas-easy-setup",
+  "name": "sporeas-easy-setup",
+  "description": "Sporeas Easy Setup Instructions",
+  "icons": [
+    {
+      "src": "tjc.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "rgb(51,51,51)",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "rgb(51,51,51)",
+  "prefer_related_applications": false
+}
