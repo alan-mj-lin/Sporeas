@@ -3,12 +3,12 @@
 function downloadPythonInstaller {
   # download Python 3.7 for Windows:
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-  Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe -OutFile ./setup-python-pc.exe
+  Invoke-WebRequest -Uri https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe
 }
 
 function openPythonGraphicalInstaller {
-  Start-Process setup-python-pc.exe -NoNewWindow -Wait
-  Remove-Item setup-python-pc.exe
+  Start-Process python-3.7.7-amd64.exe -NoNewWindow -Wait
+  Remove-Item python-3.7.7-amd64.exe
 
   $PyPath = ";" + $env:UserProfile + "\AppData\Local\Programs\Python\Python37\"
   $PyScriptPath =";" + $env:UserProfile + "\AppData\Local\Programs\Python\Python37\Scripts\"
