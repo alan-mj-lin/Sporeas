@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="rgb(51,51,51)"/>
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Sporeas Setup</title>
+  <link rel="shortcut icon" href="tjc.png">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.register('service-worker.js', {scope: ''});
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1><img id="logo" src="tjc.png" alt="TJC Logo"> Sporeas - Easy Setup Instructions</h1>
+  </header>
+  <main>
+    <h2 id="os-id"></h2>
+    <ol>
+      <li>If it's your first time here, the file<span id="python-installer"></span> should already be automatically downloading to the Sporeas folder. After a few minutes, the Python installer should then automatically start. If it doesn't, you might need to <a id="download-python-installer-link" href="#" target="_blank">download it manually (click here)</a>.</li>
+      <li>When the Python installer is downloaded and running, simply follow the instructions.<span id="python-youtube-link" role="text"></span></li>
+      <li>When the Python installer's done, run the rest of the setup <span id="deps-installer" role="text"></span></li>
+      <li><a href="http://127.0.0.1:9000/admin" target="_blank">http://127.0.0.1:9000/admin</a> will automatically open. Wait about 5 seconds and refresh the page.</li>
+      <li>If you want to stop Sporeas (it's running in the background), then <span id="stop-sporeas-action"></span> on the "stop" file<code id="stop-sporeas-file"></code><span id="stop-sporeas-post-action"></span></li>
+    </ol>
+  </main>
+  <footer></footer>
+  <script src="script.js"></script>
+</body>
+</html>

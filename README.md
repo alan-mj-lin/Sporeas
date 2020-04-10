@@ -39,6 +39,12 @@ been given the name "sporeas" which is greek for "sower".
 2. Click on the extension's icon and "Open an existing project": select the [Sporeas-test.side](https://github.com/alan-mj-lin/Sporeas/blob/Sporeas-1.1.0/Sporeas-test.side) file.
 3. You can now edit/run the test. It should look something like [this](https://www.dropbox.com/s/4vi8o41twjafhsu/Selenium_IDE_Chrome_Extension_Demo.mov).
 
+## To update the easy setup instructions at <https://sporeas.surge.sh>
+
+```bash
+npm run surge
+```
+
 ## Windows setup to run the webapp on startup:
 1. Create a batch script to run basic_app.py (this file should be located wherever basic_app.py is)
 2. Create a vbs script to run the batch script in minimal mode (so that a cmd shell doesn't show up everytime you boot)
