@@ -266,11 +266,11 @@ $(document).ready(function() {
   });
 
   $('#new_tab').click(function() {
-    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user'), '_blank');
+    window.open('http://3.20.236.34/' + sessionStorage.getItem('user'), '_blank');
   });
 
   $('button.help').click(function() {
-    window.open('http://127.0.0.1:9000/how-to', '_blank');
+    window.open('http://3.20.236.34/how-to', '_blank');
   });
 
   $('form#update').submit(function() {
@@ -361,6 +361,6 @@ $(document).ready(function() {
 
   $('#edit_announce').click(function() {
     const active = sessionStorage.getItem('user');
-    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user') + '_announcement', '_blank');
+    window.open('http://3.20.236.34/' + sessionStorage.getItem('user') + '_announcement', '_blank');
   });
 });
