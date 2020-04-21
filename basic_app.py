@@ -34,8 +34,8 @@ socketio = SocketIO(app,
                         'http://tjc-av.herokuapp.com',
                         'https://192.168.0.120',
                         'http://192.168.0.120',
-                        'http://3.20.236.34'
-                        'https://3.20.236.34/'
+                        'http://3.20.236.34',
+                        'https://3.20.236.34'
                     ])
 title = "Title"
 ch_title = "Chinese Title"
