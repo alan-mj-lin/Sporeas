@@ -23,7 +23,7 @@ $(document).ready(function() {
   $('#project').attr('disabled', true);
   $('#sidebar').hide();
   $('.menu .item').tab();
-  const socket = io.connect('http://' + document.domain + ':' + location.port);
+  const socket = io.connect('https://' + document.domain + ':' + location.port);
 
   $('#title').prop('disabled', false);
   $('#ch_title').prop('disabled', false);
@@ -266,11 +266,11 @@ $(document).ready(function() {
   });
 
   $('#new_tab').click(function() {
-    window.open('http://3.20.236.34/' + sessionStorage.getItem('user'), '_blank');
+    window.open('https://tjcav.ceed.se/' + sessionStorage.getItem('user'), '_blank');
   });
 
   $('button.help').click(function() {
-    window.open('http://3.20.236.34/how-to', '_blank');
+    window.open('https://tjcav.ceed.se/how-to', '_blank');
   });
 
   $('form#update').submit(function() {
@@ -361,6 +361,6 @@ $(document).ready(function() {
 
   $('#edit_announce').click(function() {
     const active = sessionStorage.getItem('user');
-    window.open('http://3.20.236.34/' + sessionStorage.getItem('user') + '_announcement', '_blank');
+    window.open('https://tjcav.ceed.se/' + sessionStorage.getItem('user') + '_announcement', '_blank');
   });
 });
