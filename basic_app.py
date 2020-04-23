@@ -180,10 +180,6 @@ def before_request():
         code = 301
         return redirect(url, code=code)
 
-    if request.url.endswith('se'):
-        url = request.url + '/admin'
-        code = 301
-        return redirect(url, code=code)
 
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
