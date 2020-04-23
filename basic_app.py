@@ -14,7 +14,7 @@ import collections
 import eventlet
 eventlet.monkey_patch(socket=False)
 import requests
-from flask import Flask, render_template, request, redirect
+from flask import Flask, url_for, render_template, request, redirect
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from collections import defaultdict
 
@@ -175,17 +175,14 @@ def get_esv_text(passage, comma):
 
 @app.before_request
 def before_request():
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        return redirect(url, code=code)
+    if not request.is_secure:
+        print(request.is_secure)
+        return redirect(url_for('admin', _scheme='https'))
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def root_redirect():
-    url = 'https://tjcav.ceed.se/admin'
-    code = 301
-    return redirect(url, code=code)
+    return redirect(url_for('admin'))
 
 
 @app.route('/<user>', methods=['GET', 'POST'])
@@ -196,7 +193,7 @@ def index(user):
     return render_template("index.html")
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route('/admin', methods=['GET', 'POST', 'HEAD'])
 def admin():
     """
     Flask route for admin directory
