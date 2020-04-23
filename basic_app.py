@@ -7,11 +7,12 @@ This is the main file to run.
 # pylint: disable=invalid-name
 
 # Need to monkey patch eventlet to prevent hang
+#import gevent.monkey; gevent.monkey.patch_all()
 import json
 import re
 import collections
 import eventlet
-eventlet.monkey_patch()
+eventlet.monkey_patch(socket=False)
 import requests
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
@@ -546,7 +547,7 @@ if __name__ == '__main__':
     socketio.run(
         app, 
         host='0.0.0.0', 
-        port=80, 
+        port=443, 
         debug=True,
         certfile='/etc/letsencrypt/live/tjcav.ceed.se/fullchain.pem', 
         keyfile='/etc/letsencrypt/live/tjcav.ceed.se/privkey.pem'
