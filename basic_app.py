@@ -186,7 +186,7 @@ def root_redirect():
     if request.url[-1] == '/':
         url = request.url + 'admin'
     else:
-        url = reuqest.url + '/admin'
+        url = request.url + '/admin'
     code = 301
     return redirect(url, code=code)
 
