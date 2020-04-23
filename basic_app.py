@@ -183,10 +183,7 @@ def before_request():
 
 @app.route('/', methods=['GET', 'POST'])
 def root_redirect():
-    if request.url[-1] == '/':
-        url = request.url + 'admin'
-    else:
-        url = request.url + '/admin'
+    url = request.url + 'admin'
     code = 301
     return redirect(url, code=code)
 
