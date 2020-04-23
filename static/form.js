@@ -86,6 +86,7 @@ $(document).ready(function() {
       $('#connect').removeClass('ui form error');
       $('#connect').addClass('ui form success');
       $('#con_msg').html('Connected to room: /'+ $('#user').val());
+      $('#connect_btn').attr('disabled', true);
     } else {
       $('#connect').addClass('ui form error');
       //sessionStorage.removeItem('user');
