@@ -183,7 +183,7 @@ def before_request():
 
 @app.route('/', methods=['GET', 'POST'])
 def root_redirect():
-    url = request.url + 'admin'
+    url = 'https://tjcav.ceed.se/admin'
     code = 301
     return redirect(url, code=code)
 
