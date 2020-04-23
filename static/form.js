@@ -88,7 +88,7 @@ $(document).ready(function() {
       $('#con_msg').html('Connected to room: /'+ $('#user').val());
     } else {
       $('#connect').addClass('ui form error');
-      sessionStorage.removeItem('user');
+      //sessionStorage.removeItem('user');
     }
   });
 
