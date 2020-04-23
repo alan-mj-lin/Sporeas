@@ -14,7 +14,7 @@ import collections
 import eventlet
 eventlet.monkey_patch(socket=False)
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from collections import defaultdict
 
@@ -173,6 +173,17 @@ def get_esv_text(passage, comma):
 
     return passages if passages else 'Error: Passage not found'
 
+@app.before_request
+def before_request():
+    if request.url.startswith('https://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
+
+    if request.url.endswith('se'):
+        url = request.url + '/admin'
+        code = 301
+        return redirect(url, code=code)
 
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
