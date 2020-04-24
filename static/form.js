@@ -1,4 +1,5 @@
 //Sporeas 1.1.0
+const SERVER_URL ='https://service.tjcav.com/'
 function en_sanitize (text) {
   const enReg = /^[a-zA-Z0-9-,:'"() ]*$/;
   let invalid = false;
@@ -267,11 +268,11 @@ $(document).ready(function() {
   });
 
   $('#new_tab').click(function() {
-    window.open('https://tjcav.ceed.se/' + sessionStorage.getItem('user'), '_blank');
+    window.open(SERVER_URL + sessionStorage.getItem('user'), '_blank');
   });
 
   $('button.help').click(function() {
-    window.open('https://tjcav.ceed.se/how-to', '_blank');
+    window.open(SERVER_URL + 'how-to', '_blank');
   });
 
   $('form#update').submit(function() {
@@ -362,6 +363,6 @@ $(document).ready(function() {
 
   $('#edit_announce').click(function() {
     const active = sessionStorage.getItem('user');
-    window.open('https://tjcav.ceed.se/' + sessionStorage.getItem('user') + '_announcement', '_blank');
+    window.open(SERVER_URL + sessionStorage.getItem('user') + '_announcement', '_blank');
   });
 });
