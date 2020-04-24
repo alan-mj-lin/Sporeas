@@ -22,6 +22,7 @@ from collections import defaultdict
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
+SERVER_URL = 'https://service.tjcav.com'
 app = Flask(__name__)
 socketio = SocketIO(app,
                     manage_session=False,
@@ -38,7 +39,8 @@ socketio = SocketIO(app,
                         'http://3.20.236.34',
                         'https://3.20.236.34',
                         'http://tjcav.ceed.se',
-                        'https://tjcav.ceed.se'
+                        'https://tjcav.ceed.se',
+                        SERVER_URL
                     ])
 title = "Title"
 ch_title = "Chinese Title"
@@ -175,9 +177,9 @@ def get_esv_text(passage, comma):
 
 @app.before_request
 def before_request():
-    if not request.is_secure:
-        print(request.is_secure)
-        return redirect(url_for('admin', _scheme='https'))
+    url = 'https://service.tjcav.com/admin'
+    if '3.20.236.34' in request.url:
+        return redirect(url, code=301)
 
 
 @app.route('/')
@@ -560,6 +562,6 @@ if __name__ == '__main__':
         host='0.0.0.0', 
         port=443, 
         debug=True,
-        certfile='/etc/letsencrypt/live/tjcav.ceed.se/fullchain.pem', 
-        keyfile='/etc/letsencrypt/live/tjcav.ceed.se/privkey.pem'
+        certfile='/etc/letsencrypt/live/service.tjcav.com/fullchain.pem', 
+        keyfile='/etc/letsencrypt/live/service.tjcav.com/privkey.pem'
     )

@@ -13,13 +13,15 @@ socketio = SocketIO(
 @app.before_request
 def before_request():
     url = request.url.replace('http://', 'https://', 1)
+    if '3.20.236.34' in url:
+        url = request.url.replace('3.20.236.34', 'service.tjcav.com', 1)
     code = 301
     return redirect(url, code=code)
 
 
 @app.route('/', methods=['GET', 'POST', 'HEAD'])
 def root_redirect():
-    url = 'https://tjcav.ceed.se/admin'
+    url = 'https://service.tjcav.com/admin'
     code = 301
     return redirect(url, code=code)
 
