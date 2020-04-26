@@ -5,7 +5,10 @@ let slidesInfo = {};
 setup();
 
 function setup() {
-  slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
+  const sessionStorageInfo = sessionStorage.getItem("slidesInfo");
+  if (sessionStorageInfo) {
+    slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
+  }
   const englishTitle = slidesInfo.englishTitle || "Type here";
   const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
   const hymns = slidesInfo.hymns || "";
@@ -15,7 +18,28 @@ function setup() {
   if (!slidesInfo.slides) {
     slidesInfo.slides = [{}, {}]; // make index 0 and 1 empty for convenience
   }
+  reinstateSlidesInfo();
   setupHoverEffects();
+}
+
+function reinstateSlidesInfo() {
+  for (let i = 2; i < slidesInfo.slides.length; i++) {
+    const singleSlideInfo = slidesInfo.slides[i];
+    slideNumber = i;
+    addSlide(slideNumber);
+    $("#header-" + slideNumber).text(singleSlideInfo.header);
+    $("#text-" + slideNumber).text(singleSlideInfo.content);
+    $("#image-" + slideNumber).attr("src", singleSlideInfo.image);
+    if (singleSlideInfo.image) {
+      $("#image-button-add-" + slideNumber).css("display", "none");
+      $("#image-button-remove-" + slideNumber).css("display", "block");
+    } else {
+      $("#image-button-add-" + slideNumber).css("display", "block");
+      $("#image-button-remove-" + slideNumber).css("display", "none");
+    }
+  }
+  slideNumber = 1;
+  goToSlide(slideNumber);
 }
 
 function updateSessionStorage() {
@@ -47,7 +71,7 @@ function previous() {
     // cancel:
     return;
   }
-  goToSlide(slideNumber, previousSlideNumber);
+  goToSlide(slideNumber);
 }
 
 function next() {
@@ -59,7 +83,7 @@ function next() {
     // cancel:
     return;
   }
-  goToSlide(slideNumber, previousSlideNumber);
+  goToSlide(slideNumber);
 }
 
 function jumpToSlideNumberTyped() {
