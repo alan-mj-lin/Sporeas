@@ -114,7 +114,7 @@ function addSlide(slideNumber, previousSlideNumber) {
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
     <h2 id="header-${numberOfSlides}" contenteditable>Type here</h2>
-    <pre id="text-${numberOfSlides}" onchange="editText(${numberOfSlides})" contenteditable>Type here</pre>
+    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides})" contenteditable>Type here</pre>
     <img id="image-${numberOfSlides}" src="">
     <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
@@ -125,13 +125,11 @@ function addSlide(slideNumber, previousSlideNumber) {
 }
 
 function editText(slideNumber) {
-  // '#text-' + slideNumber
-  // '#image-' + slideNumber
+  hideImage(slideNumber);
+  $("#image-button-add-" + slideNumber).css("display", "none");
 }
 
 function addImage(slideNumber) {
-  // '#text-' + slideNumber
-  // '#image-' + slideNumber
   $("#image-input-" + slideNumber).click();
 }
 
