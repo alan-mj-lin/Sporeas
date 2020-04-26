@@ -32,40 +32,26 @@ function setupHoverEffects() {
 }
 
 function previous() {
+  const previousSlideNumber = slideNumber;
   slideNumber--;
   if (slideNumber < 1) {
     slideNumber = 1;
-    const temp = $("#previous").text();
-    $("#previous").text("At first slide");
-    $("#previous").effect(
-      "shake",
-      { distance: 5, times: 1 },
-      1000,
-      function () {
-        $("#previous").text(temp);
-      }
-    );
     // cancel:
     return;
   }
-  goToSlide(slideNumber);
+  goToSlide(slideNumber, previousSlideNumber);
 }
 
 function next() {
+  const previousSlideNumber = slideNumber;
   slideNumber++;
-  const previousSlideNumber = slideNumber - 1;
-  addSlide(slideNumber, previousSlideNumber);
+  addSlide(slideNumber);
   if (slideNumber > numberOfSlides) {
     slideNumber = numberOfSlides;
-    const temp = $("#next").text();
-    $("#next").text("Last slide (this slide hasn't been edited)");
-    $("#next").effect("shake", { distance: 5, times: 1 }, 1000, function () {
-      $("#next").text(temp);
-    });
     // cancel:
     return;
   }
-  goToSlide(slideNumber);
+  goToSlide(slideNumber, previousSlideNumber);
 }
 
 function jumpToSlideNumberTyped() {
@@ -89,13 +75,43 @@ function goToSlide(slideNumber) {
     slideNumber = 1;
     return;
   }
+
+  if (slideNumber === numberOfSlides) {
+    $("#next").text("＋ Add slide");
+  } else {
+    $("#next").text("▶ Next slide");
+  }
+
+  enableControlButtons(slideNumber);
+
   $("#slides > div:not(#slide-" + slideNumber + ")").css("top", "100vh");
   $("#slide-" + slideNumber).css("top", "7.5%");
   $("#slide-number").text(slideNumber);
 }
 
-function addSlide(slideNumber, previousSlideNumber) {
-  if (slideNumber <= numberOfSlides) return; // cancel
+function enableControlButtons(slideNumber) {
+  // previous:
+  const previous = $("#previous");
+  if (slideNumber === 1) {
+    previous.attr("disabled", true);
+  } else {
+    previous.attr("disabled", false);
+  }
+
+  // next:
+  const next = $("#next");
+  if (slideNumber === 1 || isSlideEdited(slideNumber)) {
+    next.css("display", "block");
+  } else if (slideNumber < numberOfSlides) {
+    // if not edited but between other slides that might be:
+    next.css("display", "block");
+  } else {
+    // > 1 and not edited:
+    next.css("display", "none");
+  }
+}
+
+function isSlideEdited(previousSlideNumber) {
   const previousSlide = $("#slide-" + previousSlideNumber);
   const headerChanged =
     previousSlide.find("#header-" + previousSlideNumber).text() !== "Type here";
@@ -109,7 +125,11 @@ function addSlide(slideNumber, previousSlideNumber) {
   console.log(headerChanged);
   console.log(textChanged);
   console.log(imageAdded);
-  if (!headerChanged && !textChanged && !imageAdded) return; //cancel
+  return headerChanged || textChanged || imageAdded;
+}
+
+function addSlide(slideNumber) {
+  if (slideNumber <= numberOfSlides) return; // cancel
   numberOfSlides++;
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
@@ -122,15 +142,30 @@ function addSlide(slideNumber, previousSlideNumber) {
   </div>
   `);
   setupHoverEffects();
+  $("#next").css("display", "none");
 }
 
 function editText(slideNumber) {
-  hideImage(slideNumber);
-  $("#image-button-add-" + slideNumber).css("display", "none");
+  if (isSlideEdited(slideNumber) || slideNumber < numberOfSlides) {
+    $("#next").css("display", "block");
+  } else {
+    $("#next").css("display", "none");
+  }
+
+  if (isSlideEdited(slideNumber)) {
+    $("#image-button-add-" + slideNumber).css("display", "none");
+  } else {
+    $("#image-button-add-" + slideNumber).css("display", "block");
+  }
 }
 
 function addImage(slideNumber) {
   $("#image-input-" + slideNumber).click();
+  if (isSlideEdited(slideNumber) || slideNumber < numberOfSlides) {
+    $("#next").css("display", "block");
+  } else {
+    $("#next").css("display", "none");
+  }
 }
 
 function readImage(slideNumber, input) {
@@ -141,12 +176,18 @@ function readImage(slideNumber, input) {
     };
     reader.readAsDataURL(input.files[0]);
     showImage(slideNumber);
+    $("#next").css("display", "block");
   }
 }
 
 function removeImage(slideNumber) {
   $("#image-" + slideNumber).attr("src", "");
   hideImage(slideNumber);
+  if (isSlideEdited(slideNumber)) {
+    $("#next").css("display", "block");
+  } else {
+    $("#next").css("display", "none");
+  }
 }
 
 function showImage(slideNumber) {
