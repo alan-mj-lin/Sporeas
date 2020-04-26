@@ -1,0 +1,70 @@
+:root {
+  --background: #222;
+  --color: snow;
+  --padding: 2.5%;
+}
+
+body {
+  padding: var(--padding);
+  background: var(--background);
+  color: var(--color);
+  font-family: avenir, calibri, arial, tahoma, helvetica, monospace;
+  overflow: hidden;
+}
+
+#slide-controls {
+  position: relative;
+  top: calc(-2 * var(--padding));
+  left: -2.5%;
+  display: flex;
+}
+
+.editable {
+  background: black;
+  color: lime;
+}
+
+#snackbar {
+  position: absolute;
+  top: 110vh;
+  width: 15ch;
+  margin: auto;
+  text-align: center;
+  color: lime;
+}
+
+#snackbar.show {
+  position: static !important;
+  display: inline-block;
+  top: 0vh !important;
+}
+
+button:hover {
+  color: rgb(61, 207, 255) !important;
+}
+
+#slides > div {
+  /* slide: */
+  position: absolute;
+  height: calc(100vh - 4 * var(--padding));
+  width: calc(100vw - 2 * var(--padding));
+  top: calc(3 * var(--padding));
+  transition: 0.25s;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+#slide-number {
+  color: #777;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
+}
+
+pre {
+  font-family: avenir, calibri, arial, tahoma, helvetica, monospace;
+}
+
+img {
+  object-fit: cover;
+  height: calc(100vh - 8 * var(--padding));
+  display: none;
+}

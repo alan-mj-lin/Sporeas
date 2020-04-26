@@ -193,6 +193,14 @@ def how_to():
     return render_template("how-to.html")
 
 
+@app.route('/slides', methods=['GET', 'POST'])
+def slides():
+    """
+    Flask route for slides directory
+    """
+    return render_template("slides.html")
+
+
 @app.route('/<user>_announcement', methods=['GET', 'POST'])
 def serve_announcement(user):
     """
