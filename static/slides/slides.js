@@ -27,8 +27,8 @@ function reinstateSlidesInfo() {
     const singleSlideInfo = slidesInfo.slides[i];
     slideNumber = i;
     addSlide(slideNumber);
-    $("#header-" + slideNumber).text(singleSlideInfo.header);
-    $("#text-" + slideNumber).text(singleSlideInfo.content);
+    $("#header-" + slideNumber).text(singleSlideInfo.header || "Type here");
+    $("#text-" + slideNumber).text(singleSlideInfo.content || "Type here");
     $("#image-" + slideNumber).attr("src", singleSlideInfo.image);
     if (singleSlideInfo.image) {
       $("#image-button-add-" + slideNumber).css("display", "none");
