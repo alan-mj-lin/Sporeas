@@ -34,8 +34,18 @@ function setSlidesInfo(slidesInfo) {
 
 function reinstateSlidesInfo() {
   const slidesInfo = getSlidesInfo();
+  slideNumber = 1;
   for (let i = 2; i < slidesInfo.slides.length; i++) {
     const singleSlideInfo = slidesInfo.slides[i];
+    if (
+      (singleSlideInfo.header === "" ||
+        singleSlideInfo.header === "Type here") &&
+      (singleSlideInfo.content === "" ||
+        singleSlideInfo.content === "Type here") &&
+      singleSlideInfo.image === ""
+    ) {
+      continue; // skip empty slides
+    }
     slideNumber = i;
     addSlide(slideNumber);
     $("#header-" + slideNumber).text(singleSlideInfo.header || "Type here");
@@ -96,19 +106,27 @@ function deleteSlide() {
   if (!confirmed) return; //cancel
   const slidesInfo = getSlidesInfo();
   if (slideNumber < 2) return; // cancel (can't delete 1st slide)
-  // shift other slides:
-  for (let i = slideNumber; i < numberOfSlides; i++) {
-    slidesInfo.slides[i].header = slidesInfo.slides[i + 1].header;
-    slidesInfo.slides[i].content = slidesInfo.slides[i + 1].content;
-    slidesInfo.slides[i].image = slidesInfo.slides[i + 1].image;
+  // shift other slides in data:
+  for (let i = slideNumber; i + 1 <= numberOfSlides; i++) {
+    slidesInfo.slides[i].header = String(slidesInfo.slides[i + 1].header);
+    slidesInfo.slides[i].content = String(slidesInfo.slides[i + 1].content);
+    slidesInfo.slides[i].image = String(slidesInfo.slides[i + 1].image);
   }
+  // shift other slides in HTML:
+  for (let i = slideNumber; i < numberOfSlides; i++) {
+    $("#header-" + i).text(slidesInfo.slides[i].header || "Type here");
+    $("#text-" + i).text(slidesInfo.slides[i].content || "Type here");
+    $("#image-" + i).attr("src", slidesInfo.slides[i].image || "");
+  }
+  $("#slide-" + numberOfSlides).remove();
+  // update data afterwards:
   slidesInfo.slides = slidesInfo.slides.slice(0, numberOfSlides);
   setSlidesInfo(slidesInfo);
-  // update counters:
   slideNumber--;
   numberOfSlides--;
   // refresh page:
-  location.reload();
+  goToSlide(slideNumber);
+  // location.reload(); // WARNING: for now, don't reload because it messes up localStorage and images
 }
 
 function jumpToSlideNumberTyped() {
