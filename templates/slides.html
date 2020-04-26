@@ -52,9 +52,18 @@
 
     <div id="slides">
       <div id="slide-1">
-        <h2 id="english-title"></h2>
-        <h2 id="chinese-title"></h2>
-        <h3 id="hymns"></h3>
+        <h2
+          id="english-title"
+          onkeyup="slidesInfo.englishTitle=this.innerText;updateSessionStorage();"
+        ></h2>
+        <h2
+          id="chinese-title"
+          onkeyup="slidesInfo.chineseTitle=this.innerText;updateSessionStorage();"
+        ></h2>
+        <h3
+          id="hymns"
+          onkeyup="slidesInfo.hymns=this.innerText;updateSessionStorage();"
+        ></h3>
       </div>
     </div>
 

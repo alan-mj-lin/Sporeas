@@ -1,17 +1,29 @@
 let slideNumber = 1;
 let numberOfSlides = 1;
+let slidesInfo = {};
 
 setup();
 
 function setup() {
-  const slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
-  const englishTitle = slidesInfo.englishTitle || "Type here";
-  const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
-  const hymns = slidesInfo.hymns || "";
+  const temp = JSON.parse(sessionStorage.getItem("slidesInfo"));
+  const englishTitle = temp.englishTitle || "Type here";
+  const chineseTitle = temp.chineseTitle || "在此輸入";
+  const hymns = temp.hymns || "";
   $("#english-title").text("Title: " + englishTitle);
   $("#chinese-title").text("主題: " + chineseTitle);
   $("#hymns").text("讚美詩 Hymn: " + hymns);
+  slidesInfo = {
+    englishTitle: englishTitle,
+    chineseTitle: chineseTitle,
+    hymns: hymns,
+    slides: [{}, {}], // make index 0 and 1 empty for convenience
+  };
+  updateSessionStorage();
   setupHoverEffects();
+}
+
+function updateSessionStorage() {
+  sessionStorage.setItem("slidesInfo", JSON.stringify(slidesInfo));
 }
 
 function setupHoverEffects() {
@@ -122,19 +134,17 @@ function isSlideEdited(previousSlideNumber) {
     .attr("src");
   const imageAdded =
     typeof previousImgSrc === "undefined" || previousImgSrc !== "";
-  console.log(headerChanged);
-  console.log(textChanged);
-  console.log(imageAdded);
   return headerChanged || textChanged || imageAdded;
 }
 
 function addSlide(slideNumber) {
   if (slideNumber <= numberOfSlides) return; // cancel
   numberOfSlides++;
+  slidesInfo.slides.push({ header: "", content: "", image: "" });
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
-    <h2 id="header-${numberOfSlides}" contenteditable>Type here</h2>
-    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides})" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
+    <h2 id="header-${numberOfSlides}" onkeyup="slidesInfo.slides[${numberOfSlides}].header=this.innerText;updateSessionStorage();" contenteditable>Type here</h2>
+    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides});slidesInfo.slides[${numberOfSlides}].content=this.innerText;updateSessionStorage();" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
     <img id="image-${numberOfSlides}" src="">
     <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
@@ -179,7 +189,10 @@ function readImage(slideNumber, input) {
     reader.onload = function (e) {
       $("#image-" + slideNumber).attr("src", e.target.result);
     };
-    reader.readAsDataURL(input.files[0]);
+    const image = input.files[0];
+    reader.readAsDataURL(image);
+    slidesInfo.slides[slideNumber].image = image;
+    updateSessionStorage();
     showImage(slideNumber);
     $("#next").css("display", "block");
   }
