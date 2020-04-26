@@ -64,7 +64,7 @@ function jumpToSlideNumberTyped() {
   } else if (slideNumberTarget < 1) {
     slideNumberTarget = 1;
   }
-  slideNumberElement.text(slideNumberTarget);
+  slideNumber = slideNumberTarget;
 }
 
 function goToSlide(slideNumber) {
