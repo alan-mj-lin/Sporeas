@@ -6,7 +6,7 @@ setup();
 function setup() {
   const slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
   const englishTitle = slidesInfo.englishTitle || "Type here";
-  const chineseTitle = slidesInfo.chineseTitle || "Type here";
+  const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
   const hymns = slidesInfo.hymns || "";
   $("#english-title").text("Title: " + englishTitle);
   $("#chinese-title").text("主題: " + chineseTitle);
