@@ -115,8 +115,8 @@ function isSlideEdited(previousSlideNumber) {
   const previousSlide = $("#slide-" + previousSlideNumber);
   const headerChanged =
     previousSlide.find("#header-" + previousSlideNumber).text() !== "Type here";
-  const textChanged =
-    previousSlide.find("#text-" + previousSlideNumber).text() !== "Type here";
+  const content = previousSlide.find("#text-" + previousSlideNumber).text();
+  const textChanged = content !== "Type here" && content !== "";
   const previousImgSrc = previousSlide
     .find("#image-" + previousSlideNumber)
     .attr("src");
