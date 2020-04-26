@@ -136,7 +136,7 @@ function isSlideEdited(previousSlideNumber) {
 function addSlide(slideNumber) {
   if (slideNumber <= numberOfSlides) return; // cancel
   numberOfSlides++;
-  slidesInfo.slides.push({ header: "", content: "", image: "" });
+  slidesInfo.slides[slideNumber] = { header: "", content: "", image: "" };
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
     <h2 id="header-${numberOfSlides}" onkeyup="slidesInfo.slides[${numberOfSlides}].header=this.innerText;updateSessionStorage();" contenteditable>Type here</h2>
