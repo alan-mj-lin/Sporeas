@@ -16,7 +16,7 @@ function setup() {
 
 function setupHoverEffects() {
   const snackbar = $("#snackbar");
-  $("h1, h2, h3, p")
+  $("h1, h2, h3, pre")
     .attr("contenteditable", true)
     .attr("title", "Click to edit")
     .off("mouseover")
@@ -37,9 +37,14 @@ function previous() {
     slideNumber = 1;
     const temp = $("#previous").text();
     $("#previous").text("At first slide");
-    $("#previous").effect("shake", { distance: 5, times: 1 }, 600, function () {
-      $("#previous").text(temp);
-    });
+    $("#previous").effect(
+      "shake",
+      { distance: 5, times: 1 },
+      1000,
+      function () {
+        $("#previous").text(temp);
+      }
+    );
     // cancel:
     return;
   }
@@ -53,8 +58,8 @@ function next() {
   if (slideNumber > numberOfSlides) {
     slideNumber = numberOfSlides;
     const temp = $("#next").text();
-    $("#next").text("Last slide");
-    $("#next").effect("shake", { distance: 5, times: 1 }, 600, function () {
+    $("#next").text("Last slide (this slide hasn't been edited)");
+    $("#next").effect("shake", { distance: 5, times: 1 }, 1000, function () {
       $("#next").text(temp);
     });
     // cancel:
@@ -111,7 +116,7 @@ function addSlide(slideNumber, previousSlideNumber) {
     <h2 id="header-${numberOfSlides}" contenteditable>Type here</h2>
     <pre id="text-${numberOfSlides}" onchange="editText(${numberOfSlides})" contenteditable>Type here</pre>
     <img id="image-${numberOfSlides}" src="">
-    <button id="image-button-add-${numberOfSlides}" class="ui secondary button" onclick="addImage(${numberOfSlides})">Or choose an image</button>
+    <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
     <input id="image-input-${numberOfSlides}" onchange="readImage(${numberOfSlides}, this)" type="file" accept="image/*" style="visibility: hidden;"/>
   </div>

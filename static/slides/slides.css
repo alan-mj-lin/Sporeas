@@ -25,22 +25,34 @@ body {
 }
 
 #snackbar {
-  position: absolute;
-  top: 110vh;
-  width: 15ch;
+  position: fixed;
+  top: var(--padding);
+  width: 100%;
   margin: auto;
   text-align: center;
   color: lime;
+  visibility: hidden;
 }
 
 #snackbar.show {
-  position: static !important;
-  display: inline-block;
-  top: 0vh !important;
+  visibility: visible;
 }
 
 button:hover {
   color: rgb(61, 207, 255) !important;
+}
+
+h2,
+#english-title,
+#chinese-title {
+  font-size: 5rem;
+  text-align: center;
+}
+
+#hymns {
+  font-size: 3.5rem;
+  text-align: center;
+  margin-top: 5rem;
 }
 
 #slides > div {
@@ -61,10 +73,13 @@ button:hover {
 
 pre {
   font-family: avenir, calibri, arial, tahoma, helvetica, monospace;
+  font-size: 4rem;
+  line-height: 4.5rem;
 }
 
 img {
   object-fit: cover;
   height: calc(100vh - 8 * var(--padding));
+  margin: auto;
   display: none;
 }
