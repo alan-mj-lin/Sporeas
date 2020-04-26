@@ -5,20 +5,16 @@ let slidesInfo = {};
 setup();
 
 function setup() {
-  const temp = JSON.parse(sessionStorage.getItem("slidesInfo"));
-  const englishTitle = temp.englishTitle || "Type here";
-  const chineseTitle = temp.chineseTitle || "在此輸入";
-  const hymns = temp.hymns || "";
-  $("#english-title").text("Title: " + englishTitle);
-  $("#chinese-title").text("主題: " + chineseTitle);
-  $("#hymns").text("讚美詩 Hymn: " + hymns);
-  slidesInfo = {
-    englishTitle: englishTitle,
-    chineseTitle: chineseTitle,
-    hymns: hymns,
-    slides: [{}, {}], // make index 0 and 1 empty for convenience
-  };
-  updateSessionStorage();
+  slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
+  const englishTitle = slidesInfo.englishTitle || "Type here";
+  const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
+  const hymns = slidesInfo.hymns || "";
+  $("#english-title").text("Title: " + englishTitle.replace(/^Title: /, ""));
+  $("#chinese-title").text("主題: " + chineseTitle.replace(/^主題: /, ""));
+  $("#hymns").text("讚美詩 Hymn: " + hymns.replace(/^讚美詩 Hymn: /, ""));
+  if (!slidesInfo.slides) {
+    slidesInfo.slides = [{}, {}]; // make index 0 and 1 empty for convenience
+  }
   setupHoverEffects();
 }
 
@@ -185,10 +181,16 @@ function addImage(slideNumber) {
 
 function readImage(slideNumber, input) {
   if (input.files && input.files[0]) {
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function (e) {
       $("#image-" + slideNumber).attr("src", e.target.result);
     };
+    $("#image-input-" + slideNumber)
+      .off("change")
+      .on("change", (e) => {
+        const f = e.target.files[0];
+        reader.readAsDataURL(f);
+      });
     const image = input.files[0];
     reader.readAsDataURL(image);
     slidesInfo.slides[slideNumber].image = image;
@@ -223,14 +225,3 @@ function hideImage(slideNumber) {
   $("#header-" + slideNumber).css("display", "block");
   $("#text-" + slideNumber).css("display", "block");
 }
-
-const reader = new FileReader();
-const fileInput = document.getElementById("file");
-const img = document.getElementById("img");
-reader.onload = (e) => {
-  img.src = e.target.result;
-};
-fileInput.addEventListener("change", (e) => {
-  const f = e.target.files[0];
-  reader.readAsDataURL(f);
-});
