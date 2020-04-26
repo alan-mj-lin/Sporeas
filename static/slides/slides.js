@@ -134,7 +134,7 @@ function addSlide(slideNumber) {
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
     <h2 id="header-${numberOfSlides}" contenteditable>Type here</h2>
-    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides})" contenteditable>Type here</pre>
+    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides})" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
     <img id="image-${numberOfSlides}" src="">
     <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
@@ -143,6 +143,11 @@ function addSlide(slideNumber) {
   `);
   setupHoverEffects();
   $("#next").css("display", "none");
+}
+
+function checkEmpty(slideNumber) {
+  const contentElement = $("#text-" + slideNumber);
+  if (contentElement.text() === "") contentElement.text("Type here");
 }
 
 function editText(slideNumber) {
