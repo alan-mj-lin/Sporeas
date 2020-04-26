@@ -1,28 +1,39 @@
 let slideNumber = 1;
 let numberOfSlides = 1;
-let slidesInfo = {};
 
 setup();
 
 function setup() {
-  const sessionStorageInfo = sessionStorage.getItem("slidesInfo");
-  if (sessionStorageInfo) {
-    slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo"));
-  }
+  const slidesInfo = getSlidesInfo();
   const englishTitle = slidesInfo.englishTitle || "Type here";
   const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
   const hymns = slidesInfo.hymns || "";
   $("#english-title").text("Title: " + englishTitle.replace(/^Title: /, ""));
   $("#chinese-title").text("主題: " + chineseTitle.replace(/^主題: /, ""));
   $("#hymns").text("讚美詩 Hymn: " + hymns.replace(/^讚美詩 Hymn: /, ""));
-  if (!slidesInfo.slides) {
-    slidesInfo.slides = [{}, {}]; // make index 0 and 1 empty for convenience
-  }
   reinstateSlidesInfo();
   setupHoverEffects();
 }
 
+function getSlidesInfo() {
+  const slidesInfo = JSON.parse(sessionStorage.getItem("slidesInfo")) || {
+    englishTitle: "",
+    chineseTitle: "",
+    hymns: "",
+    slides: [{}, {}],
+  };
+  if (!slidesInfo.slides) {
+    slidesInfo.slides = [{}, {}]; // make index 0 and 1 empty for convenience
+  }
+  return slidesInfo;
+}
+
+function setSlidesInfo(slidesInfo) {
+  sessionStorage.setItem("slidesInfo", JSON.stringify(slidesInfo));
+}
+
 function reinstateSlidesInfo() {
+  const slidesInfo = getSlidesInfo();
   for (let i = 2; i < slidesInfo.slides.length; i++) {
     const singleSlideInfo = slidesInfo.slides[i];
     slideNumber = i;
@@ -40,10 +51,6 @@ function reinstateSlidesInfo() {
   }
   slideNumber = 1;
   goToSlide(slideNumber);
-}
-
-function updateSessionStorage() {
-  sessionStorage.setItem("slidesInfo", JSON.stringify(slidesInfo));
 }
 
 function setupHoverEffects() {
@@ -64,7 +71,6 @@ function setupHoverEffects() {
 }
 
 function previous() {
-  const previousSlideNumber = slideNumber;
   slideNumber--;
   if (slideNumber < 1) {
     slideNumber = 1;
@@ -75,7 +81,6 @@ function previous() {
 }
 
 function next() {
-  const previousSlideNumber = slideNumber;
   slideNumber++;
   addSlide(slideNumber);
   if (slideNumber > numberOfSlides) {
@@ -84,6 +89,26 @@ function next() {
     return;
   }
   goToSlide(slideNumber);
+}
+
+function deleteSlide() {
+  const confirmed = confirm("Are you sure you want to delete this slide?");
+  if (!confirmed) return; //cancel
+  const slidesInfo = getSlidesInfo();
+  if (slideNumber < 2) return; // cancel (can't delete 1st slide)
+  // shift other slides:
+  for (let i = slideNumber; i < numberOfSlides; i++) {
+    slidesInfo.slides[i].header = slidesInfo.slides[i + 1].header;
+    slidesInfo.slides[i].content = slidesInfo.slides[i + 1].content;
+    slidesInfo.slides[i].image = slidesInfo.slides[i + 1].image;
+  }
+  slidesInfo.slides = slidesInfo.slides.slice(0, numberOfSlides);
+  setSlidesInfo(slidesInfo);
+  // update counters:
+  slideNumber--;
+  numberOfSlides--;
+  // refresh page:
+  location.reload();
 }
 
 function jumpToSlideNumberTyped() {
@@ -141,6 +166,14 @@ function enableControlButtons(slideNumber) {
     // > 1 and not edited:
     next.css("display", "none");
   }
+
+  // delete:
+  const deleteButton = $("#delete");
+  if (slideNumber === 1) {
+    deleteButton.css("display", "none");
+  } else {
+    deleteButton.css("display", "block");
+  }
 }
 
 function isSlideEdited(previousSlideNumber) {
@@ -160,11 +193,13 @@ function isSlideEdited(previousSlideNumber) {
 function addSlide(slideNumber) {
   if (slideNumber <= numberOfSlides) return; // cancel
   numberOfSlides++;
+  const slidesInfo = getSlidesInfo();
   slidesInfo.slides[slideNumber] = { header: "", content: "", image: "" };
+  setSlidesInfo(slidesInfo);
   $("#slides").append(`
   <div id="slide-${numberOfSlides}">
-    <h2 id="header-${numberOfSlides}" onkeyup="slidesInfo.slides[${numberOfSlides}].header=this.innerText;updateSessionStorage();" contenteditable>Type here</h2>
-    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides});slidesInfo.slides[${numberOfSlides}].content=this.innerText;updateSessionStorage();" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
+    <h2 id="header-${numberOfSlides}" onkeyup="editHeader(${numberOfSlides}, this.innerText)" contenteditable>Type here</h2>
+    <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides}, this.innerText)" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
     <img id="image-${numberOfSlides}" src="">
     <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
@@ -175,12 +210,18 @@ function addSlide(slideNumber) {
   $("#next").css("display", "none");
 }
 
+function editHeader(slideNumber, headerText) {
+  const slidesInfo = getSlidesInfo();
+  slidesInfo.slides[slideNumber].header = headerText;
+  setSlidesInfo(slidesInfo);
+}
+
 function checkEmpty(slideNumber) {
   const contentElement = $("#text-" + slideNumber);
   if (contentElement.text() === "") contentElement.text("Type here");
 }
 
-function editText(slideNumber) {
+function editText(slideNumber, content) {
   if (isSlideEdited(slideNumber) || slideNumber < numberOfSlides) {
     $("#next").css("display", "block");
   } else {
@@ -192,6 +233,10 @@ function editText(slideNumber) {
   } else {
     $("#image-button-add-" + slideNumber).css("display", "block");
   }
+
+  const slidesInfo = getSlidesInfo();
+  slidesInfo.slides[slideNumber].content = content;
+  setSlidesInfo(slidesInfo);
 }
 
 function addImage(slideNumber) {
@@ -217,8 +262,9 @@ function readImage(slideNumber, input) {
       });
     const image = input.files[0];
     reader.readAsDataURL(image);
+    const slidesInfo = getSlidesInfo();
     slidesInfo.slides[slideNumber].image = image;
-    updateSessionStorage();
+    setSlidesInfo(slidesInfo);
     showImage(slideNumber);
     $("#next").css("display", "block");
   }

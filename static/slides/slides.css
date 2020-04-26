@@ -83,3 +83,10 @@ img {
   margin: auto;
   display: none;
 }
+
+#delete {
+  position: fixed;
+  bottom: calc(0.5 * var(--padding));
+  left: 0;
+  font-size: 7px;
+}
