@@ -152,7 +152,15 @@ function goToSlide(slideNumber) {
   }
 
   if (slideNumber === numberOfSlides) {
-    $("#next").text("＋ Add slide");
+    $("#next").text("＋ Add slide").effect(
+      "shake",
+      {
+        times: 2,
+        direction: "right",
+        distance: 5,
+      },
+      500
+    );
   } else {
     $("#next").text("▶ Next slide");
   }
