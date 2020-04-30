@@ -151,7 +151,7 @@ function goToSlide(slideNumber) {
     return;
   }
 
-  if (slideNumber === numberOfSlides) {
+  if (slideNumber === numberOfSlides && isSlideEdited(slideNumber)) {
     $("#next").text("＋ Add slide").effect(
       "shake",
       {
@@ -226,10 +226,10 @@ function addSlide(slideNumber) {
   <div id="slide-${numberOfSlides}">
     <h2 id="header-${numberOfSlides}" onkeyup="editHeader(${numberOfSlides}, this.innerText)" contenteditable>Type here</h2>
     <pre id="text-${numberOfSlides}" onkeyup="editText(${numberOfSlides}, this.innerText)" onblur="checkEmpty(${numberOfSlides})" contenteditable>Type here</pre>
-    <img id="image-${numberOfSlides}" src="">
+    <img id="image-${numberOfSlides}" src="" alt="">
     <button id="image-button-add-${numberOfSlides}" class="ui secondary button add-image" onclick="addImage(${numberOfSlides})">Or choose an image</button>
     <button id="image-button-remove-${numberOfSlides}" class="ui secondary button" onclick="removeImage(${numberOfSlides})" style="display: none;">Remove image</button>
-    <input id="image-input-${numberOfSlides}" onchange="readImage(${numberOfSlides}, this)" type="file" accept="image/*" style="visibility: hidden;"/>
+    <input id="image-input-${numberOfSlides}" onchange="readImage(${numberOfSlides}, this)" type="file" accept="image/*" style="visibility: hidden;" aria-label="image selection"/>
   </div>
   `);
   setupHoverEffects();
@@ -252,6 +252,12 @@ function editText(slideNumber, content) {
     $("#next").css("display", "block");
   } else {
     $("#next").css("display", "none");
+  }
+
+  if (slideNumber === numberOfSlides) {
+    $("#next").text("＋ Add slide");
+  } else {
+    $("#next").text("▶ Next slide");
   }
 
   if (isSlideEdited(slideNumber)) {
