@@ -5,12 +5,20 @@ setup();
 
 function setup() {
   const slidesInfo = getSlidesInfo();
-  const englishTitle = slidesInfo.englishTitle || "Type here";
-  const chineseTitle = slidesInfo.chineseTitle || "在此輸入";
-  const hymns = slidesInfo.hymns || "";
-  $("#english-title").text("Title: " + englishTitle.replace(/^Title: /, ""));
-  $("#chinese-title").text("主題: " + chineseTitle.replace(/^主題: /, ""));
-  $("#hymns").text("讚美詩 Hymn: " + hymns.replace(/^讚美詩 Hymn: /, ""));
+  const englishTitle = slidesInfo.englishTitle.trim();
+  const chineseTitle = slidesInfo.chineseTitle.trim();
+  const hymns = slidesInfo.hymns.trim();
+  $("#english-title").text(
+    englishTitle ? englishTitle.replace(/^Title: /, "") : "Title: Type here"
+  );
+  $("#chinese-title").text(
+    chineseTitle ? chineseTitle.replace(/^主題: /, "") : "主題: 在此輸入"
+  );
+  $("#hymns").text(
+    hymns
+      ? "讚美詩 Hymn: " + hymns.replace(/^讚美詩 Hymn: /, "")
+      : "讚美詩 Hymn: "
+  );
   reinstateSlidesInfo();
   setupHoverEffects();
 }
@@ -48,8 +56,12 @@ function reinstateSlidesInfo() {
     }
     slideNumber = i;
     addSlide(slideNumber);
-    $("#header-" + slideNumber).text(singleSlideInfo.header || "Type here");
-    $("#text-" + slideNumber).text(singleSlideInfo.content || "Type here");
+    $("#header-" + slideNumber).text(
+      singleSlideInfo.header.trim() || "Type here"
+    );
+    $("#text-" + slideNumber).text(
+      singleSlideInfo.content.trim() || "Type here"
+    );
     $("#image-" + slideNumber).attr("src", singleSlideInfo.image);
     if (singleSlideInfo.image) {
       $("#image-button-add-" + slideNumber).css("display", "none");
