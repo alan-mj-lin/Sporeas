@@ -17,6 +17,10 @@ function ch_sanitize (text) {
   return invalid;
 }
 
+function removeSpecialCharacters(text) {
+  return text.replace(/[.,\/#!\?$%\^&\*;:{}=\-_`'"~()><\[\]]/g, '');
+}
+
 $(document).ready(function() {
   $('.ui.dropdown').dropdown({fullTextSearch: true});
   $('#content').hide();
@@ -267,6 +271,19 @@ $(document).ready(function() {
 
   $('#new_tab').click(function() {
     window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user'), '_blank');
+  });
+
+  $('button#go-to-slides').click(function() {
+    const englishTitle = removeSpecialCharacters($('#title').val());
+    const chineseTitle = removeSpecialCharacters($('#ch_title').val());
+    const hymns = removeSpecialCharacters($('#hymn').val());
+    const slidesInfo = {
+      englishTitle,
+      chineseTitle,
+      hymns
+    };
+    sessionStorage.setItem('slidesInfo', JSON.stringify(slidesInfo));
+    window.open('/slides', '_blank');
   });
 
   $('button.help').click(function() {
