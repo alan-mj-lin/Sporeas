@@ -2372,6 +2372,132 @@
       "targets": [],
       "value": "我們\\n他們"
     }]
+  }, {
+    "id": "b6bbafed-f808-49b8-a524-3a0eaacc8558",
+    "name": "test space in room name",
+    "commands": [{
+      "id": "d4a43f1e-fdc9-482c-b920-d5a77e145cde",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/admin",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea5c8ba3-c382-44ab-9ddd-19376f48ee46",
+      "comment": "",
+      "command": "click",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5388e7c2-acfc-4d28-90a4-e3a0fb16e6af",
+      "comment": "",
+      "command": "type",
+      "target": "id=user",
+      "targets": [
+        ["id=user", "id"],
+        ["css=#user", "css:finder"],
+        ["xpath=//input[@id='user']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "East Bay"
+    }, {
+      "id": "4e760d78-4e7a-4ec0-a653-13d147045152",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Connect')]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f9b4575-54c7-4e76-865a-ceab7adc5aea",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//button[contains(text(), 'Project')]",
+      "targets": [
+        ["css=.secondary:nth-child(3)", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//form[@id='connect']/div/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Connect')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "05d0e1e4-8257-4fd4-a225-e83fea9c4827",
+      "comment": "",
+      "command": "click",
+      "target": "id=new_tab",
+      "targets": [
+        ["id=new_tab", "id"],
+        ["css=#new_tab", "css:finder"],
+        ["xpath=//button[@id='new_tab']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'New Window')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a6a299e5-0bdc-4c8d-ae0f-d77175f2ee07",
+      "comment": "",
+      "command": "run",
+      "target": "Close welcome splash",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58143902-6278-4e86-8c3d-85075d666d6c",
+      "comment": "",
+      "command": "click",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ebc464e-59ac-4b63-81fa-8427ef5630ef",
+      "comment": "",
+      "command": "type",
+      "target": "id=title",
+      "targets": [
+        ["id=title", "id"],
+        ["name=title", "name"],
+        ["css=#title", "css:finder"],
+        ["xpath=//input[@id='title']", "xpath:attributes"],
+        ["xpath=//form[@id='update']/div/input", "xpath:idRelative"],
+        ["xpath=//form[2]/div/input", "xpath:position"]
+      ],
+      "value": "English Title 123"
+    }, {
+      "id": "0cddd9a8-8544-4d5f-946b-8f4c6c415334",
+      "comment": "",
+      "command": "open",
+      "target": "http://127.0.0.1:9000/East Bay",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "40150935-6969-4cda-9376-76627382b71b",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=//h1[@id='title' and contains(text(), 'English Title 123')]",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "2cdc6c0d-29cf-4ac7-a6b3-1158ab66a59e",

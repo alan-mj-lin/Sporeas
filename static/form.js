@@ -68,16 +68,17 @@ $(document).ready(function() {
   }
 
   $('form#connect').submit(function() {
-    if (/^[a-zA-Z0-9- ]*$/.test($('#user').val()) == false) {
-      $('#connect_error').html('Input can only have alphabets and numbers');
+    const userVal = $('#user').val();
+    if (/^[a-zA-Z0-9- ]*$/.test(userVal) == false) {
+      $('#connect_error').html('Input can only have letters and numbers');
       $('#connect').addClass('ui form error');
       return false;
-    } else if ($.trim($('#user').val()) != '') {
-      const user = $('#user').val();
+    } else if ($.trim(userVal) != '') {
+      const user = $.trim(userVal).replace(/ /g, '%20');
       socket.emit('user active', {
-        user: $('#user').val(),
+        user: user,
       });
-      socket.emit('get state', {user: $('#user').val()});
+      socket.emit('get state', {user: user});
       sessionStorage.setItem('user', user);
       return false;
     }
