@@ -173,7 +173,7 @@ def prevent_script_injection(text):
     """
     Function to prevent script tags from getting injected.
     """
-    return text.replace('<', '&lt;').replace('>', '&gt;')
+    return text.replace('<', '&lt;').replace('>', '&gt;').replace('&', '%26')
 
 
 @app.route('/<user>', methods=['GET', 'POST'])
