@@ -169,6 +169,13 @@ def get_esv_text(passage, comma):
     return passages if passages else 'Error: Passage not found'
 
 
+def prevent_script_injection(text):
+    """
+    Function to prevent script tags from getting injected.
+    """
+    return text.replace('&nbsp;', ' ').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
     """
@@ -227,7 +234,7 @@ def get_session(message):
     global rooms  # Route Broadcast Feature
 
     duplicate = False
-    user = message['user'].strip('/')
+    user = prevent_script_injection(message['user'].strip('/'))
     for key, value in project_list.items():
         if user == key:
             duplicate = True
@@ -251,7 +258,7 @@ def get_user(message):
     global roomState
 
     duplicate = False
-    username = message['user'].replace(' ', '_')
+    username = prevent_script_injection(message['user'].replace(' ', '_'))
 
     for key, value in rooms.items():
         if username == key:
@@ -297,7 +304,7 @@ def reset(message):
     """
     Function to send a reset event - clears the set verse.
     """
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     emit('reset', {"verse": ''}, namespace='/', room=active)
 
 
@@ -306,7 +313,7 @@ def get_state(message):
     """
     Function to get the state at startup from control panel
     """
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     for i in active:
         if i == '/':
             active = active.split('/')[1]
@@ -319,8 +326,8 @@ def api_toggle_handler(message):
     Function to handle api toggle.
     """
     global rooms
-    active = message['user']
-    state = message['state']
+    active = prevent_script_injection(message['user'])
+    state = prevent_script_injection(message['state'])
     print(rooms)
     roomState[active] = state
     emit('state check', {"state": state}, namespace='/', room=active)
@@ -341,10 +348,10 @@ def custom_message(message):
     global overlay
     global ch_overlay
 
-    type = message['type']
-    active = message['user']
+    type = prevent_script_injection(message['type'])
+    active = prevent_script_injection(message['user'])
 
-    hymn = message['hymn']
+    hymn = prevent_script_injection(message['hymn'])
     filtered = hymn_filter(hymn).split(",")
     if type == 'hymn':
         title = ''
@@ -397,7 +404,7 @@ def hymn_scroll(message):
     """
     Function to notify hymn scroll event
     """
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     emit('scroll', namespace='/', room=active)
 
 
@@ -419,29 +426,31 @@ def test_message(message):
     out_of_range = False
     comma = False
 
-    title = message['title']
-    ch_title = message['ch_title']
-    hymn = message['hymn']
+    title = prevent_script_injection(message['title'])
+    ch_title = prevent_script_injection(message['ch_title'])
+    hymn = prevent_script_injection(message['hymn'])
     hymn = hymn_filter(hymn)
     print(hymn)
     hymnList = hymn.split(",")
 
     try:
-        book = message['book']
-        verse = message['verse']
+        book = prevent_script_injection(message['book'])
+        verse = prevent_script_injection(message['verse'])
     except KeyError:
         book = ''
         verse = ''
 
+    passage = ''
     if verse != '':
         for i in verse:
             if i == ',':
                 comma = True
         passage = message['book'].split('|')[0] + message['verse']
+        passage = prevent_script_injection(passage)
         print(passage)
 
-    active = message['user']
-    state = message['state']
+    active = prevent_script_injection(message['user'])
+    state = prevent_script_injection(message['state'])
 
     # Debug Info
     print(state)
@@ -495,31 +504,33 @@ def test_message(message):
 @socketio.on('clear announce', namespace='/')
 def clear(message):
     print(message)
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     emit('clear announcements', namespace='/', room=active)
 
 
 @socketio.on('delete announce', namespace='/')
 def delete(message):
     print(message)
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     emit('delete announcements', namespace='/', room=active)
 
 
 @socketio.on('show announce', namespace='/')
 def show(message):
-    active = message['user']
+    active = prevent_script_injection(message['user'])
     emit('show announcements', namespace='/', room=active)
 
 
 @socketio.on('add announce', namespace='/')
 def add(message):
-    active = message['user']
-    department = message['department']
+    english = prevent_script_injection(message['english'])
+    chinese = prevent_script_injection(message['chinese'])
+    active = prevent_script_injection(message['user'])
+    department =prevent_script_injection(message['department'])
     image = message['department'].split('|')[0].strip()
     emit('add announcements', {
-            "english_text": message['english'],
-            "chinese_text": message['chinese'],
+            "english_text": english,
+            "chinese_text": chinese,
             "department": department,
             "image": image
          }, namespace='/', room=active)
@@ -527,17 +538,17 @@ def add(message):
 
 @socketio.on('update announcement', namespace='/')
 def edit(message):
-    active = message['room']
+    active = prevent_script_injection(message['room'])
     print(active)
     emit('update ann', namespace='/', room=active)
 
 
 @socketio.on('header update', namespace='/')
 def update(message):
-    active = message['user']
-    reading = message['bible_reading']
-    cleaning = message['cleaning']
-    dish_washing = message['dish_washing']
+    active = prevent_script_injection(message['user'])
+    reading = prevent_script_injection(message['bible_reading'])
+    cleaning = prevent_script_injection(message['cleaning'])
+    dish_washing = prevent_script_injection(message['dish_washing'])
     print(message)
     emit('misc updates', {
             "reading": reading,
