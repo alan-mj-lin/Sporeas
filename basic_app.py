@@ -11,12 +11,12 @@ import json
 import re
 import collections
 import eventlet
+eventlet.monkey_patch()
 import requests
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from collections import defaultdict
 
-eventlet.monkey_patch()
 
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
