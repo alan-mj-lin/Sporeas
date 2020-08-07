@@ -78,7 +78,7 @@ def split_by_verse_esv(passage):
         verse_list[i] = verse_list[i].replace("]", "").strip()
 
     try:
-        verse_list.remove('')
+        verse_list.pop(0)
     except ValueError:
         pass
 
@@ -140,6 +140,9 @@ def get_esv_text(passage, comma):
     print(parsed_dict)
     print(ascii(passage))
     print('The ASCII is: ' + ascii(query))
+    if query.split(' ')[0] == 'Psalm':
+        passage = passage[0:5] + passage[6::]
+        print(passage)
     if query != passage and not comma:
         print("NOT EQUAL")
         return 'ERROR: Passage not found'
