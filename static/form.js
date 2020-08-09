@@ -1,4 +1,5 @@
 //Sporeas 1.1.0
+const SERVER_URL ='https://service.tjcav.com/'
 function en_sanitize (text) {
   const enReg = /^[a-zA-Z0-9-,:'"() ]*$/;
   let invalid = false;
@@ -23,7 +24,7 @@ $(document).ready(function() {
   $('#project').attr('disabled', true);
   $('#sidebar').hide();
   $('.menu .item').tab();
-  const socket = io.connect('http://' + document.domain + ':' + location.port);
+  const socket = io.connect('https://' + document.domain + ':' + location.port);
 
   $('#title').prop('disabled', false);
   $('#ch_title').prop('disabled', false);
@@ -86,9 +87,10 @@ $(document).ready(function() {
       $('#connect').removeClass('ui form error');
       $('#connect').addClass('ui form success');
       $('#con_msg').html('Connected to room: /'+ $('#user').val());
+      $('#connect_btn').attr('disabled', true);
     } else {
       $('#connect').addClass('ui form error');
-      sessionStorage.removeItem('user');
+      //sessionStorage.removeItem('user');
     }
   });
 
@@ -266,11 +268,11 @@ $(document).ready(function() {
   });
 
   $('#new_tab').click(function() {
-    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user'), '_blank');
+    window.open(SERVER_URL + sessionStorage.getItem('user'), '_blank');
   });
 
   $('button.help').click(function() {
-    window.open('http://127.0.0.1:9000/how-to', '_blank');
+    window.open(SERVER_URL + 'how-to', '_blank');
   });
 
   $('form#update').submit(function() {
@@ -361,6 +363,6 @@ $(document).ready(function() {
 
   $('#edit_announce').click(function() {
     const active = sessionStorage.getItem('user');
-    window.open('http://127.0.0.1:9000/' + sessionStorage.getItem('user') + '_announcement', '_blank');
+    window.open(SERVER_URL + sessionStorage.getItem('user') + '_announcement', '_blank');
   });
 });

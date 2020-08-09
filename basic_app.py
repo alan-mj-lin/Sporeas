@@ -7,20 +7,22 @@ This is the main file to run.
 # pylint: disable=invalid-name
 
 # Need to monkey patch eventlet to prevent hang
+#import gevent.monkey; gevent.monkey.patch_all()
 import json
 import re
 import collections
 import eventlet
+eventlet.monkey_patch(socket=False)
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, url_for, render_template, request, redirect
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from collections import defaultdict
 
-eventlet.monkey_patch()
 
 API_KEY = '5e293004cbb7d9cb44f9266cdfed76e9401bd8a0'
 API_URL = 'https://api.esv.org/v3/passage/text/'
 CH_API_URL = 'http://getbible.net/json?'
+SERVER_URL = 'https://service.tjcav.com'
 app = Flask(__name__)
 socketio = SocketIO(app,
                     manage_session=False,
@@ -33,7 +35,12 @@ socketio = SocketIO(app,
                         'https://tjc-av.herokuapp.com',
                         'http://tjc-av.herokuapp.com',
                         'https://192.168.0.120',
-                        'http://192.168.0.120'
+                        'http://192.168.0.120',
+                        'http://3.20.236.34',
+                        'https://3.20.236.34',
+                        'http://tjcav.ceed.se',
+                        'https://tjcav.ceed.se',
+                        SERVER_URL
                     ])
 title = "Title"
 ch_title = "Chinese Title"
@@ -168,6 +175,17 @@ def get_esv_text(passage, comma):
 
     return passages if passages else 'Error: Passage not found'
 
+@app.before_request
+def before_request():
+    url = 'https://service.tjcav.com/admin'
+    if '3.20.236.34' in request.url:
+        return redirect(url, code=301)
+
+
+@app.route('/')
+def root_redirect():
+    return redirect(url_for('admin'))
+
 
 @app.route('/<user>', methods=['GET', 'POST'])
 def index(user):
@@ -177,7 +195,7 @@ def index(user):
     return render_template("index.html")
 
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route('/admin', methods=['GET', 'POST', 'HEAD'])
 def admin():
     """
     Flask route for admin directory
@@ -539,4 +557,11 @@ def update(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='127.0.0.1', port=9000, debug=True)
+    socketio.run(
+        app, 
+        host='0.0.0.0', 
+        port=443, 
+        debug=True,
+        certfile='/etc/letsencrypt/live/service.tjcav.com/fullchain.pem', 
+        keyfile='/etc/letsencrypt/live/service.tjcav.com/privkey.pem'
+    )
